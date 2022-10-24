@@ -1,0 +1,921 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vue plan recrutement  form -->
+    <record model="ir.ui.view" id="view_id_plan_r_form">
+	<field name="name">view.hr.plan.recrutement.form</field>
+	<field name="model">hr_plan_recrutement</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<form string="Plan de recrutement">
+             <header>
+                    <button string="Valider" name="action_valider" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['draft'])]}" groups='Gestion_Recrutements.Gestion_Recrutements_manager_Gestionnaire'/>
+
+                    <button string="Confirmer" name="action_confirmer" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['V'])]}" groups='Gestion_Recrutements.Gestion_Recrutements_manager_Gestionnaire'/>
+
+                    <button string="Approuver" name="action_appr" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['C'])]}" groups='Gestion_Recrutements.Gestion_Recrutements_manager_Gestionnaire'/>
+
+                    <button string="Annuler" name="action_ann" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['C'])]}" groups='Gestion_Recrutements.Gestion_Recrutements_manager_Gestionnaire'/>
+
+                    <button string="En cours d'exécution" name="action_en_cours_exe" type="object" class="oe_highlight"
+	                attrs="{'invisible' : [('state', 'not in', ['Ap']),('state', 'in', ['Ann','draft','V','E','ET','C'])]}" groups='Gestion_Recrutements.Gestion_Recrutements_manager_Gestionnaire'/>
+
+	                <button string="Exécution Terminée" name="action_exe_term" type="object" class="oe_highlight"
+	                attrs="{'invisible' : [('state', 'not in', ['E']),('state', 'in', ['Ann','draft','V','Ap','ET','C'])]}" groups='Gestion_Recrutements.Gestion_Recrutements_manager_Gestionnaire'/>
+
+
+
+                    <field name="state" widget = "statusbar"/>
+            </header>
+	        <sheet>
+			        <notebook>
+						        <page string = 'Recrutement Autorisé'>
+							        	<div class="oe_button_box" name="button_box">
+											<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+												<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+											</button>
+										</div>
+										<label for="x_exercice_id" class="oe_edit_only"/>
+						                <h1>
+						                    <field name="x_exercice_id" force_save = '1'/>
+						                </h1>
+										<group col = '2'>
+											<group><field name="name" force_save = '1'/></group>
+											<group><field name="date_plan"  force_save = '1'/></group>
+
+										</group>
+										<group>
+										      <field name = 'x_line_ids'/>
+										</group>
+										<group><field name = 'fichier_joint'/></group>
+								</page>
+								<page string= 'Actes Autorisation Recrutement'>
+								     <field name = 'code'/>
+								     <field name = 'p1'/>
+								     <field name = 'p2'/>
+								     <field name = 'espace'/>
+								     <field name = 'visa'/>
+								</page>
+					</notebook>
+			</sheet>
+
+		</form>
+	</field>
+</record>
+    <!-- Vue plan recrutement tree -->
+    <record model="ir.ui.view" id="view_id_plan_r_tree">
+        <field name="name">view.hr.plan.recrutement.tree</field>
+        <field name="model">hr_plan_recrutement</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree decoration-success ="state == 'ET'" decoration-warning ="state == 'C'" decoration-danger ="state == 'An'" decoration-info ="state == 'Ap'" string="Plan de Formations">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="current_user"/>
+                <field name="date_plan"/>
+                <field name="company_id"/>
+                <field name="x_exercice_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vue plan recrutement line tree -->
+    <record model="ir.ui.view" id="view_id_plan_recrut_line_tree">
+        <field name="name">view.hr.plan.recrutement.Line</field>
+        <field name="model">hr_plan_recrutement_line</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Plan Recrutement Line" editable="bottom">
+                    <field name="direction_id"/>
+                    <field name="x_service_id" domain = "[('x_direction_id','=',direction_id)]"/>
+                    <field name="x_emploi_id"/>
+                    <field name="x_diplome" force_save = '1'/>
+                    <field name="x_nb_poste" force_save = '1'/>
+                    <field name="x_experience" force_save = '1'/>
+                    <field name="x_competence" force_save = '1'/>
+                    <field name="etat"/>
+                    <field name="company_id" force_save = '1'/>
+                    <field name="x_exercice_id" force_save = '1' />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action  plan recrutement -->
+    <record model="ir.actions.act_window" id="act_list_plan_r">
+		<field name="name">Liste des plans de recrutement</field>
+		<field name="res_model">hr_plan_recrutement</field>
+		<field name="view_mode">tree,form</field>
+
+</record>
+
+    <!-- vue competence tree-->
+	<record model="ir.ui.view" id="view_id_comptes_tree">
+		<field name="name">view.competences.form</field>
+		<field name="model">hr_previsioncompetences</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree decoration-success ="state == 'F'" decoration-warning ="state == 'Ap'" decoration-danger ="state == 'An'" string="Liste des competences">
+                    <field name="name"/>
+                    <field name="x_direction_id"/>
+                    <field name="x_service_id"/>
+                    <field name="current_user"/>
+					<field name="date_enreg"/>
+                    <field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+    <!-- vue competence form-->
+	<record model="ir.ui.view" id="view_id_comptes">
+		<field name="name">view.comptences.form</field>
+		<field name="model">hr_previsioncompetences</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des competences">
+			<header>
+
+                    <button string="Confirmer" name="action_eng_confirmer" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['draft'])]}" groups='Gestion_Recrutements.Gestion_Recrutements_manager_Agent'/>
+                    <button string="Approuver" name="action_eng_approuver" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['C'])]}" groups='Gestion_Recrutements.Gestion_Recrutements_chef_service'/>
+                    <button string="Annuler" name="action_eng_annuler" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['C'])]}" groups='Gestion_Recrutements.Gestion_Recrutements_chef_service'/>
+
+
+                    <field name="state" widget = "statusbar"/>
+            </header>
+				<sheet>
+					<group col = '2'>
+					    <group>
+					    	<field name="name" style="width:50%" force_save = '1'/>
+					    	<field name="x_direction_id" style="width:100%"/>
+					    	<field name="x_service_id" domain = "[('x_direction_id','=',x_direction_id)]" options="{'no_create':True}" style="width:100%"/>
+					    </group>
+						<group>
+						    	<field name="date_enreg" style="width:40%" force_save = '1'/>
+						</group>
+					</group>
+					<group>
+					    	<field name="x_observation" style="width:100%"/>
+					</group>
+					<group><field name="x_lines_ids"/></group>
+			    </sheet>
+			</form>
+		</field>
+	</record>
+
+    <!-- Vue competence LINE -->
+    <record model="ir.ui.view" id="view_id_lines_comp">
+	<field name="name">view.comptences.Line</field>
+	<field name="model">hr_previsioncompetences_line</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Liste des competences" editable="bottom">
+		    <field name="prevision_id" invisible = '1'/>
+		    <field name="x_emploi_id"/>
+		    <field name="x_diplome_id"/>
+			<field name="nbre_employe"/>
+			<field name="x_experience"/>
+			<field name="competences"/>
+
+		</tree>
+	</field>
+</record>
+
+	<!-- Action  competence-->
+	<record model="ir.actions.act_window" id="act_list_competence">
+			<field name="name">Liste des emplois et compétences</field>
+			<field name="res_model">hr_previsioncompetences</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+    <!-- Vue centralisation besoin annuel GPEC  form -->
+    <record model="ir.ui.view" id="view_id_cgpec_besoin_form">
+	<field name="name">view.central.besoinannuel.gpec.form</field>
+	<field name="model">hr_central_gpec</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<form string="Centralisation Besoins Annuels GPEC">
+             <header>
+                    <button string="Centraliser" name="centraliser" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['draft'])]}" groups='Gestion_Recrutements.Gestion_Recrutements_manager_Gestionnaire'/>
+                    <field name="state" widget = "statusbar"/>
+            </header>
+	        <sheet>
+	        	<div class="oe_button_box" name="button_box">
+					<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+						<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+					</button>
+				</div>
+				<label for="name" class="oe_edit_only"/>
+                <h1>
+                    <field name="name" force_save = '1'/>
+                </h1>
+				<group col = '2'>
+					<group><field name="service_traiteur" force_save = '1'/></group>
+					<group><field name="x_exercice_id" options="{'no_create':True}" force_save = '1'/></group>
+
+				</group>
+				<group>
+				      <field name = 'x_line_ids'/>
+				</group>
+
+			</sheet>
+
+		</form>
+	</field>
+</record>
+
+    <!-- Vue centralisation besoin annuels gpec tree -->
+    <record model="ir.ui.view" id="view_id_cgpec_besoin_tree">
+	<field name="name">view.central.besoinannuel..gpec.tree</field>
+	<field name="model">hr_central_gpec</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Centralisation Besoins Annuels GPEC">
+		    <field name="sequence" widget="handle"/>
+			<field name="name"/>
+			<field name="x_exercice_id"/>
+			<field name="current_user"/>
+			<field name="date_centralisation"/>
+			<field name="service_traiteur"/>
+			<field name="company_id"/>
+			<field name="state"/>
+		</tree>
+	</field>
+</record>
+
+    <!-- Vue centralisation besoins annuels gpec line tree -->
+    <record model="ir.ui.view" id="view_id_cgpec_besoin_line_tree">
+        <field name="name">view.central.line.gpec.Line</field>
+        <field name="model">hr_central_gpec_line</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Centralisation Besoins Annuels GPEC Line" editable="bottom">
+                    <field name="x_besoin_central_id" invisible = '1'/>
+                    <field name="direction_id" invisible = '1'/>
+                    <field name="direction"/>
+                    <field name="x_service_id" invisible = '1'/>
+                    <field name="x_service"/>
+                    <field name="x_emploi_id" invisible = '1'/>
+                    <field name="x_emploi"/>
+                    <field name="x_diplome_id" invisible = '1'/>
+                    <field name="x_diplome"/>
+                    <field name="x_nb_poste"/>
+                    <field name="x_experience"/>
+                    <field name="x_competence"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action centralisation besoin gpec annuel -->
+    <record model="ir.actions.act_window" id="act_list_central_ann">
+            <field name="name">Liste de centralisation des besoins annuels de gpec</field>
+            <field name="res_model">hr_central_gpec</field>
+            <field name="view_mode">tree,form</field>
+
+    </record>
+
+	<!-- Vue consultaiton plan recrutement  form -->
+	<record model="ir.ui.view" id="view_id_c_plan_r_form">
+		<field name="name">view.hr.consultation.plan.recrutement.form</field>
+		<field name="model">hr_consultation_plan_recrutement</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Consultation Plan de recrutement">
+				 <header>
+						<button string="Valider" name="remplissage" type="object" class="oe_highlight"/>
+
+				</header>
+				<sheet>
+						<notebook>
+									<page string = 'Recrutement Autorisé'>
+											<div class="oe_button_box" name="button_box">
+												<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+													<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+												</button>
+											</div>
+											<label for="x_exercice_id" class="oe_edit_only"/>
+											<h1>
+												<field name="x_exercice_id"/>
+											</h1>
+											<group col = '2'>
+												<group><field name="name" force_save = '1' invisible = "1"/></group>
+												<group><field name="date_consult_plan"  force_save = '1'/></group>
+
+											</group>
+											<group>
+												  <field name = 'x_line_ids'/>
+											</group>
+									</page>
+						</notebook>
+				</sheet>
+
+			</form>
+		</field>
+	</record>
+
+	<!-- Vue consultation plan recrutement tree -->
+	<record model="ir.ui.view" id="view_id_con_plan_r_tree">
+		<field name="name">view.hr.consultation.plan.recrutement.tree</field>
+		<field name="model">hr_consultation_plan_recrutement</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Consultation Plan de Formations">
+				<field name="sequence" widget="handle"/>
+				<!--<field name="name" />-->
+				<field name="current_user"/>
+				<field name="date_consult_plan"/>
+				<field name="company_id"/>
+				<field name="x_exercice_id"/>
+				<field name="active"/>
+			</tree>
+		</field>
+	</record>
+
+
+
+	<!-- Vue consultation plan recrutement line tree -->
+	<record model="ir.ui.view" id="view_id_con_plan_recrut_line_tree">
+		<field name="name">view.hr.co,sultation.plan.recrutement.Line</field>
+		<field name="model">hr_consultation_plan_recrutement_line</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Consultation Plan Recrutement Line" editable="bottom">
+					<field name="direction" force_save = '1'/>
+					<field name="x_service" force_save = '1'/>
+					<field name="x_emploi" force_save = '1'/>
+					<field name="x_diplome" force_save = '1'/>
+					<field name="x_nb_poste" force_save = '1'/>
+					<field name="x_experience" force_save = '1'/>
+					<field name="x_competence" force_save = '1'/>
+					<field name="x_etat" force_save = '1'/>
+					<field name="company_id" force_save = '1'/>
+					<field name="x_exercice_id" force_save = '1' />
+			</tree>
+		</field>
+	</record>
+
+
+	<!-- Action consultation plan recrutement -->
+	<record model="ir.actions.act_window" id="act_list_cons_plan_r">
+		<field name="name">Liste Consultation Plans de recrutement</field>
+		<field name="res_model">hr_consultation_plan_recrutement</field>
+		<field name="view_mode">tree,form</field>
+</record>
+
+
+	<!-- vue saisie avis de recrutement form -->
+	<record id="infos_avis_form" model="ir.ui.view">
+			<field name="name">hr.avis.form</field>
+			<field name="model">hr_avis_recrutement</field>
+			<field name="arch" type="xml">
+				<form string="Infos Avis">
+				<header>
+						<button string="Valider" name="action_valider" type="object" class="oe_highlight"
+						attrs="{'invisible' : [('state', 'not in', ['draft'])]}" groups='Gestion_Recrutements.Gestion_Recrutements_chef_service'/>
+
+						<button string="Confirmer" name="action_confirmer" type="object" class="oe_highlight"
+						attrs="{'invisible' : [('state', 'not in', ['V'])]}" groups='Gestion_Recrutements.Gestion_Recrutements_chef_service'/>
+
+						<button string="Approuver" name="action_appr" type="object" class="oe_highlight"
+						attrs="{'invisible' : [('state', 'not in', ['C'])]}" groups='Gestion_Recrutements.Gestion_Recrutements_manager_Gestionnaire'/>
+
+						<button string="Annuler" name="action_ann" type="object" class="oe_highlight"
+						attrs="{'invisible' : [('state', 'not in', ['C'])]}" groups='Gestion_Recrutements.Gestion_Recrutements_manager_Gestionnaire'/>
+
+
+						<field name="state" widget = "statusbar"/>
+				</header>
+				<sheet>
+
+					<div class="oe_button_box" name="button_box">
+									<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+										<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+									</button>
+					 </div>
+					<label for="x_ordonnateur_id"/>
+					<h1>
+						<field name="x_ordonnateur_id"/>
+					</h1>
+					<field name="x_libelle_avis" placeholder="Saisissez le libellé de l'avis de recrutement ici"/>
+
+					<group col = '3'>
+									<group><field name="name" class="oe_inline"/></group>
+									<group>
+										   <field name="x_profil_id" class="oe_inline"/>
+									</group>
+									<group>
+										   <field name="x_diplome_id" class="oe_inline"/>
+									</group>
+					</group>
+					<group col = '2'>
+						<group><field name="x_context"/></group>
+						<group><field name="x_condition"/></group>
+					</group>
+					<group><field name="x_mission"/></group>
+					<group>
+						<group col = '2'>
+								 <group><field name="x_date_debut"/></group>
+								 <group><field name="x_date_limite"/></group>
+						</group>
+					</group>
+				</sheet>
+				</form>
+			</field>
+	</record>
+
+	<!-- Vue saisie avis  tree -->
+	<record model="ir.ui.view" id="view_id_avis_tree">
+		<field name="name">view.avis.tree</field>
+		<field name="model">hr_avis_recrutement</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Infos Avis" decoration-info ="state == 'V'" decoration-success ="state == 'A'" decoration-warning ="state == 'C'" decoration-danger ="state == 'An'">
+				<field name="sequence" widget="handle"/>
+				<field name="name"/>
+				<field name="x_ordonnateur_id"/>
+				<field name="x_date_debut"/>
+				<field name="x_date_limite"/>
+				<field name="current_user"/>
+				<field name="date_enreg"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+	<!-- Action  saisie avis recrutement -->
+	<record model="ir.actions.act_window" id="act_avis_list">
+		<field name="name">Liste Avis Recrutement</field>
+		<field name="res_model">hr_avis_recrutement</field>
+		<field name="view_mode">tree,form</field>
+</record>
+
+	<!--vue form sasie candidats-->
+	<record id="infos_candidat_forms" model="ir.ui.view">
+			<field name="name">hr.candidat.form</field>
+			<field name="model">hr_candidat</field>
+			<field name="arch" type="xml">
+				<form string="Infos Candidats">
+				<header>
+						<button string="Valider" name="action_valider" type="object" class="oe_highlight"
+						attrs="{'invisible' : [('state', 'not in', ['draft'])]}"/>
+
+						<button string="Confirmer" name="action_confirmer" type="object" class="oe_highlight"
+						attrs="{'invisible' : [('state', 'not in', ['V'])]}"/>
+
+						<button string="Approuver" name="action_appr" type="object" class="oe_highlight"
+						attrs="{'invisible' : [('state', 'not in', ['C'])]}" />
+
+						<button string="Annuler" name="action_ann" type="object" class="oe_highlight"
+						attrs="{'invisible' : [('state', 'not in', ['C'])]}" />
+
+
+						<field name="state" widget = "statusbar"/>
+				</header>
+				<sheet>
+				<notebook>
+						<page string = 'Informations Candidats'>
+							<div class="oe_button_box" name="button_box">
+											<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+												<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+											</button>
+							 </div>
+							<label for="x_exercice_id" class="oe_edit_only" force_save = '1'/>
+							<h1>
+								<field name="x_exercice_id" class="oe_edit_only" force_save = '1'/>
+							</h1>
+							<group col = '2'>
+									<group><field name="name" class="oe_edit_only" force_save = '1'/></group>
+									<group><field name="date_enreg" class="oe_inline" force_save = '1'/></group>
+							</group>
+							<field name="x_line_ids"/>
+					   </page>
+
+				</notebook>
+				</sheet>
+				</form>
+			</field>
+	</record>
+
+	<!-- Vue sasie candidat tree -->
+	<record model="ir.ui.view" id="view_id_candidat_tree">
+		<field name="name">view.candidat.tree</field>
+		<field name="model">hr_candidat</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Infos Candidat" decoration-success ="state == 'A'" decoration-warning ="state == 'An'">
+				<field name="sequence" widget="handle"/>
+				<field name="name"/>
+				<field name="x_exercice_id"/>
+				<field name="current_user"/>
+				<field name="company_id"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<!-- Vue candidat line tree -->
+	<record model="ir.ui.view" id="view_id_candidat_line_tree">
+		<field name="name">view.candidat.line.tree</field>
+		<field name="model">hr_candidat_line</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Candidats Line" editable="bottom">
+				<field name="x_emploi_id"/>
+				<field name="x_civilite" />
+				<field name="x_nom"/>
+				<field name="x_prenom"/>
+				<field name="x_nom_jeune_fille"/>
+				<field name="x_date_naiss"/>
+				<field name="x_lieu_naiss"/>
+				<field name="type"/>
+				<field name="x_cnib"/>
+				<field name="date_delivrance"/>
+				<field name="lieu_delivrance"/>
+				<field name="x_nationalite_id"/>
+				<field name="x_tel"/>
+				<field name="x_email"/>
+				<field name="x_rue"/>
+				<field name="x_secteur"/>
+				<field name="x_ville"/>
+				<field name="x_boite_p"/>
+				<field name="x_diplome_id"/>
+				<field name="x_num_dossier"/>
+				<field name="x_experience"/>
+				<field name="x_langue"/>
+				<field name="x_exercice_id" force_save = '1'/>
+				<field name="company_id" force_save = '1'/>
+
+			</tree>
+		</field>
+	</record>
+
+	<!-- Vue correcteur line tree -->
+	<record model="ir.ui.view" id="view_id_correcteur_line_tree">
+		<field name="name">view.correcteur.line.tree</field>
+		<field name="model">hr_correcteur_line</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Correcteur Line" editable="bottom">
+				<field name="x_emploi_id"/>
+				<field name="x_civilite" />
+				<field name="x_nom"/>
+				<field name="x_prenom"/>
+				<field name="x_nom_jeune_fille"/>
+				<field name="x_date_naiss"/>
+				<field name="x_lieu_naiss"/>
+				<field name="x_nationalite_id"/>
+				<field name="x_tel"/>
+				<field name="x_email"/>
+				<field name="x_rue"/>
+				<field name="x_secteur"/>
+				<field name="x_ville"/>
+				<field name="x_boite_p"/>
+				<field name="x_exercice_id" force_save = '1'/>
+				<field name="company_id" force_save = '1'/>
+
+			</tree>
+		</field>
+	</record>
+
+	<!-- Vue note line tree -->
+	<record model="ir.ui.view" id="view_id_note_line_tree">
+		<field name="name">view.note.line.tree</field>
+		<field name="model">hr_note_line</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Note Line" editable="bottom">
+				<field name="x_emploi_id"/>
+				<field name="x_correcteur_id" />
+				<field name="x_candidat_id"/>
+				<field name="x_note"/>
+				<field name="x_exercice_id" force_save = '1'/>
+				<field name="company_id" force_save = '1'/>
+
+			</tree>
+		</field>
+	</record>
+
+	<!-- Action  infos candidats -->
+	<record model="ir.actions.act_window" id="act_candidat_list">
+			<field name="name">Liste Candidats</field>
+			<field name="res_model">hr_candidat</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!--vue form sasie cv et lettre candidats-->
+	<record id="infos_candidat_form" model="ir.ui.view">
+	        <field name="name">hr.cv.candidat.form</field>
+	        <field name="model">hr_cv_candidat</field>
+	        <field name="arch" type="xml">
+	            <form string="Infos Cv Candidats">
+	            <sheet>
+		        		<div class="oe_button_box" name="button_box">
+								<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+									<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+								</button>
+					     </div>
+		                <label for="x_exercice_id" class="oe_edit_only" force_save = '1'/>
+		                <h1>
+		                    <field name="x_exercice_id" class="oe_edit_only" force_save = '1'/>
+		                </h1>
+		                <group col = '3'>
+		                	<group><field name="name" class="oe_edit_only" invisible = '1'/></group>
+		                	<group><field name="x_candidat_id" class="oe_inline"/></group>
+		                	<group><field name="x_emploi_id" class="oe_inline"/></group>
+		                </group>
+		                <group><field name="date_enreg" class="oe_inline" force_save = '1'/></group>
+
+	               		<field name="x_line_ids"/>
+	            </sheet>
+	            </form>
+	        </field>
+	</record>
+
+	<!-- Vue sasie cv candidat tree -->
+	<record model="ir.ui.view" id="view_id_cv_candidat_tree">
+		<field name="name">view.cv.candidat.tree</field>
+		<field name="model">hr_cv_candidat</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Infos Cv Candidat">
+			    <field name="sequence" widget="handle"/>
+				<field name="name"/>
+				<field name="x_emploi_id"/>
+				<field name="x_exercice_id"/>
+				<field name="current_user"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<!-- Vue cv candidat line tree -->
+	<record model="ir.ui.view" id="view_id_cv_candidat_line_tree">
+		<field name="name">view.cv.candidat.line.tree</field>
+		<field name="model">hr_cv_candidat_line</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="CV Candidats Line" editable="bottom">
+			    <field name="obj"/>
+			    <field name="fichier_joint" />
+				<field name="x_exercice_id" force_save = '1'/>
+				<field name="company_id" force_save = '1'/>
+
+			</tree>
+		</field>
+	</record>
+
+	<!-- Action  cv candidats -->
+	<record model="ir.actions.act_window" id="act_cv_candidat_list">
+			<field name="name">Liste Cv et Lettre Candidats</field>
+			<field name="res_model">hr_cv_candidat</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Vue sasie resultats candidat tree -->
+	<record model="ir.ui.view" id="view_id_resultat_candidat_tree">
+		<field name="name">view.resultat.candidat.tree</field>
+		<field name="model">hr_resultats</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree decoration-info ="state == 'C'" decoration-it ="state == 'Ap'"  decoration-success ="state == 'S'" decoration-danger ="state == 'An'" string="Infos Resultat Candidat">
+			    <field name="sequence" widget="handle"/>
+				<field name="name"/>
+				<field name="x_emploi_id"/>
+				<field name="x_diplome"/>
+				<field name="x_struct_benef"/>
+				<field name="x_direction"/>
+				<field name="x_service"/>
+				<!-- <field name="x_lieu"/>-->
+				<field name="x_exercice_id"/>
+				<field name="current_user"/>
+				<field name="company_id"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<!-- Vue resultats candidat line tree -->
+	<record model="ir.ui.view" id="view_id_result_candidat_line_tree">
+		<field name="name">view.resultat.candidat.line.tree</field>
+		<field name="model">hr_resultats_line</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Resultats Candidats Line" editable="bottom">
+			    <field name="x_nom" force_save = '1'/>
+			    <field name="x_date_naiss" force_save = '1'/>
+			    <field name="type"/>
+				<field name="x_cnib"/>
+				<field name="date_delivrance"/>
+				<!-- <field name="lieu_delivrance"/>-->
+			    <field name="x_tel" force_save = '1' />
+			    <field name="x_observations"/>
+			    <field name="x_resultat" />
+			    <field name="rang"/>
+			    <field name="x_contrat_signe" />
+			    <field name="fichier_joint" />
+				<field name="x_exercice_id" force_save = '1'/>
+				<field name="company_id" force_save = '1'/>
+
+			</tree>
+		</field>
+	</record>
+
+	<!-- Action  resultat candidats -->
+	<record model="ir.actions.act_window" id="act_result_candidat_list">
+			<field name="name">Liste des directions bénéficiaires</field>
+			<field name="res_model">hr_resultats</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- vue secteur tree-->
+	<record model="ir.ui.view" id="view_id_secteur">
+		<field name="name">view.secteur.tree</field>
+		<field name="model">hr_secteur</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des secteurs">
+				<field name="sequence" widget="handle"/>
+				<field name="code"/>
+				<field name="name"/>
+				<field name="lib_long"/>
+			</tree>
+		</field>
+	</record>
+
+	<!-- vue secteur form-->
+	<record model="ir.ui.view" id="view_id_form_domaine">
+		<field name="name">view.secteur.form</field>
+		<field name="model">hr_secteur</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des secteurs">
+			<sheet>
+					<div class="oe_button_box" name="button_box">
+						<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+							<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+						</button>
+					</div>
+					<group>
+							<field name="code" style="width:20%"/>
+							<field name="name" style="width:60%"/>
+							<field name="lib_long" style="width:80%"/>
+					</group>
+			</sheet>
+			</form>
+		</field>
+	</record>
+
+	<!-- Action  secteur-->
+	<record model="ir.actions.act_window" id="act_list_secteur">
+			<field name="name">Liste des secteurs</field>
+			<field name="res_model">hr_secteur</field>
+			<field name="view_mode">tree,form</field>
+
+	</record>
+
+	<!-- vue ville tree-->
+	<record model="ir.ui.view" id="view_id_ville">
+		<field name="name">view.ville.tree</field>
+		<field name="model">hr_ville</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des villes">
+				<field name="sequence" widget="handle"/>
+				<field name="code"/>
+				<field name="name"/>
+				<field name="lib_long"/>
+			</tree>
+		</field>
+	</record>
+
+	<!-- vue ville form-->
+	<record model="ir.ui.view" id="view_id_form_ville">
+		<field name="name">view.ville.form</field>
+		<field name="model">hr_ville</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des villes">
+			<sheet>
+					<div class="oe_button_box" name="button_box">
+						<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+							<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+						</button>
+					</div>
+					<group>
+							<field name="code" style="width:20%"/>
+							<field name="name" style="width:60%"/>
+							<field name="lib_long" style="width:80%"/>
+					</group>
+			</sheet>
+			</form>
+		</field>
+	</record>
+
+	<!-- Action  ville-->
+	<record model="ir.actions.act_window" id="act_list_ville">
+			<field name="name">Liste des villes</field>
+			<field name="res_model">hr_ville</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- vue langue tree-->
+	<record model="ir.ui.view" id="view_id_lang_tree">
+		<field name="name">view.langue.tree</field>
+		<field name="model">hr_langue</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des langues">
+				<field name="sequence" widget="handle"/>
+				<field name="code"/>
+				<field name="name"/>
+				<field name="lib_long"/>
+			</tree>
+		</field>
+	</record>
+
+	<!-- vue langue form-->
+	<record model="ir.ui.view" id="view_id_form_lang">
+		<field name="name">view.langue.form</field>
+		<field name="model">hr_langue</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des langues">
+			<sheet>
+					<div class="oe_button_box" name="button_box">
+						<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+							<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+						</button>
+					</div>
+					<group>
+							<field name="code" style="width:20%"/>
+							<field name="name" style="width:60%"/>
+							<field name="lib_long" style="width:80%"/>
+					</group>
+			</sheet>
+			</form>
+		</field>
+	</record>
+
+	<!-- Action  langue-->
+	<record model="ir.actions.act_window" id="act_list_langue">
+			<field name="name">Liste des langues</field>
+			<field name="res_model">hr_langue</field>
+			<field name="view_mode">tree,form</field>
+
+	</record>
+
+	<!--vue form param visa-->
+	<record id="infos_param_form" model="ir.ui.view">
+	        <field name="name">hr.param.visa.form</field>
+	        <field name="model">hr_param_visa</field>
+	        <field name="arch" type="xml">
+	            <form string="Parametrage Visa">
+	            <sheet>
+		        		<div class="oe_button_box" name="button_box">
+								<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+									<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+								</button>
+					     </div>
+		                <notebook>
+		                		<page string = 'Infos Visa'>
+		                			<group><field name="date_enreg" invisible = '0' class="oe_inline" force_save = '1'/></group>
+		               				<group>
+									    <field name="name"/>
+		                			</group>
+									<group><field name="company_id" invisible = '1'/></group>
+									<group><field name="current_user" invisible = '1'/></group>
+		                		</page>
+		                </notebook>
+	            </sheet>
+	            </form>
+	        </field>
+	</record>
+
+	<!-- Vue parametrage visa tree -->
+	<record model="ir.ui.view" id="view_id_param_visa_tree">
+		<field name="name">view.param.visa.tree</field>
+		<field name="model">hr_param_visa</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Parametrage Visa">
+				<field name="x_exercice_id"/>
+				<field name="current_user"/>
+				<field name="company_id"/>
+				<field name="date_enreg"/>
+			</tree>
+		</field>
+	</record>
+
+	<!-- Action param visa -->
+	<record model="ir.actions.act_window" id="act_list_param_visa">
+			<field name="name">Parametrage Visa</field>
+			<field name="res_model">hr_param_visa</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+</odoo>

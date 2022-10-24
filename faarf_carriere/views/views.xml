@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- vue type formation tree-->
+	<record model="ir.ui.view" id="view_id_type_f">
+		<field name="name">view.type.tree</field>
+		<field name="model">hr_type_formation</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des types de formations">
+				<field name="sequence" widget="handle"/>
+				<field name="name"/>
+				<field name="lib_long"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="view_id_form_type_f">
+		<field name="name">view.type.form</field>
+		<field name="model">hr_type_formation</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des types de formations">
+			<sheet>
+					<div class="oe_button_box" name="button_box">
+						<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+							<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+						</button>
+					</div>
+					<group>
+							<field name="name" style="width:60%"/>
+							<field name="lib_long" style="width:80%"/>
+					</group>
+			</sheet>
+
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_list_type_f">
+			<field name="name">Liste des types de formation</field>
+			<field name="res_model">hr_type_formation</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- vue type session tree-->
+	<record model="ir.ui.view" id="view_id_type_ses">
+		<field name="name">view.type.tree</field>
+		<field name="model">hr_type_session</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des types de session">
+				<field name="sequence" widget="handle"/>
+				<field name="name"/>
+				<field name="lib_long"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="view_id_form_type_ss">
+		<field name="name">view.type.form</field>
+		<field name="model">hr_type_session</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des types de sessions">
+			<sheet>
+					<div class="oe_button_box" name="button_box">
+						<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+							<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+						</button>
+					</div>
+					<group>
+							<field name="name" style="width:60%"/>
+							<field name="lib_long" style="width:80%"/>
+					</group>
+			</sheet>
+
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_list_type_ses">
+			<field name="name">Liste des types de sessions</field>
+			<field name="res_model">hr_type_session</field>
+			<field name="view_mode">tree,form</field>
+
+	</record>
+
+	<!-- vue thème form-->
+	<record model="ir.ui.view" id="view_id_form_theme">
+		<field name="name">view.theme.form</field>
+		<field name="model">hr_theme</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des thèmes de formation">
+			<sheet>
+					<div class="oe_button_box" name="button_box">
+						<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+							<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+						</button>
+					</div>
+					<group>
+							<field name="x_domaine_id" style="width:60%"/>
+							<field name="name" style="width:60%"/>
+							<field name="lib_long" style="width:80%"/>
+					</group>
+			</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_list_theme">
+			<field name="name">Liste des thèmes de formation</field>
+			<field name="res_model">hr_theme</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- vue mode paiement tree-->
+	<record model="ir.ui.view" id="view_id_mode_p_tree">
+		<field name="name">view.mode.tree</field>
+		<field name="model">hr_modepaiement</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des modes de paiement">
+				<field name="sequence" widget="handle"/>
+				<field name="name"/>
+				<field name="lib_long"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="view_id_form_mode">
+		<field name="name">view.mode.form</field>
+		<field name="model">hr_modepaiement</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des modes de paiement">
+			<sheet>
+					<div class="oe_button_box" name="button_box">
+						<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+							<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+						</button>
+					</div>
+					<group>
+							<field name="name" style="width:60%"/>
+							<field name="lib_long" style="width:80%"/>
+					</group>
+			</sheet>
+
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_list_mode">
+			<field name="name">Liste des modes de paiement</field>
+			<field name="res_model">hr_modepaiement</field>
+			<field name="view_mode">tree,form</field>
+
+	</record>
+
+
+	<!-- vue etabl tree-->
+	<record model="ir.ui.view" id="view_id_etblssmt">
+		<field name="name">view.etbl.tree</field>
+		<field name="model">hr_etablsmt</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des etablissements">
+				<field name="sequence" widget="handle"/>
+				<field name="name"/>
+				<field name="lib_long"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="view_id_form_etbl">
+		<field name="name">view.etbl.form</field>
+		<field name="model">hr_etablsmt</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des etablissements">
+			<sheet>
+					<div class="oe_button_box" name="button_box">
+						<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+							<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+						</button>
+					</div>
+					<group>
+							<field name="name" style="width:60%"/>
+							<field name="lib_long" style="width:80%"/>
+					</group>
+			</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_list_etabl">
+			<field name="name">Liste des etablissements</field>
+			<field name="res_model">hr_etablsmt</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+
+    <!-- vue critere evaluation -->
+	<record model="ir.ui.view" id="view_id_evaluation_critere_tree">
+		<field name="name">view.criter.evaluation.tree</field>
+		<field name="model">hr_critere_evaluation</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des critères des evaluations">
+				<field name="name"/>
+				<field name="sequence"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="view_id_evaluation_criteres_form">
+		<field name="name">view.criter.evaluation.form</field>
+		<field name="model">hr_critere_evaluation</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des critères des evaluations">
+				<sheet>
+						<div class="oe_button_box" name="button_box">
+							<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+								<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+							</button>
+						</div>
+						<group>
+							<group>
+								<field name="name"/>
+								<field name="sequence"/>
+							</group>
+						</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_list_critere_evaluation">
+			<field name="name">Liste des Critères des Evaluations</field>
+			<field name="res_model">hr_critere_evaluation</field>
+			<field name="view_mode">tree,form,search</field>
+	</record>
+
+	<!-- vue sous critere -->
+	<record model="ir.ui.view" id="view_id_evaluation_sous_critere_tree">
+		<field name="name">view.hr_sous_critere_evaluation.tree</field>
+		<field name="model">hr_sous_critere_evaluation</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Sous critères">
+				<field name="x_critere_evaluation_id"/>
+				<field name="name"/>
+				<field name="x_categorie_employe_id"/>
+				<field name="sequence"/>
+				<field name="born_sup"/>
+				<field name="born_inf"/>
+				<field name="crit_seq" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="view_id_evaluation_sous_critere_form">
+		<field name="name">view.hr_sous_critere_evaluation.form</field>
+		<field name="model">hr_sous_critere_evaluation</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Sous critères">
+				<sheet>
+					<group>
+						<group>
+							<field name="x_critere_evaluation_id" />
+							<field name="x_categorie_employe_id" />
+							<field name="name"/>
+						</group>
+						<group>
+							<field name="sequence" />
+							<field name="born_sup"/>
+							<field name="born_inf"/>
+							<field name="crit_seq" invisible="1"/>
+						</group>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_id_evaluation_steres_search_view" model="ir.ui.view">
+		<field name="name">hr_critere_evaluation.search</field>
+		<field name="model">hr_sous_critere_evaluation</field>
+		<field name="arch" type="xml">
+			<search string="DMR">
+				<filter name="group_categorie_id" string="Categorie"
+						icon="terp-partner"
+						context="{'group_by':'x_categorie_employe_id'}"/>
+			</search>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_list_sous_critere">
+			<field name="name">Liste des Sous-Critères Evaluations</field>
+			<field name="res_model">hr_sous_critere_evaluation</field>
+			<field name="view_mode">tree,form,search</field>
+			<field name="context">{'search_default_group_categorie_id': 1}</field>
+	</record>
+
+	<!-- vue titre evaluation-->
+	<record model="ir.ui.view" id="view_id_titre_eval">
+		<field name="name">view.titre.evaluation.tree</field>
+		<field name="model">hr_titreevaluation</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des titres evaluations">
+				<field name="sequence" widget="handle"/>
+				<field name="name"/>
+				<field name="lib_long"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="view_id_form_nature">
+		<field name="name">view.titre.evaluation.form</field>
+		<field name="model">hr_titreevaluation</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des titres d'evaluations">
+			<sheet>
+					<div class="oe_button_box" name="button_box">
+						<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+							<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+						</button>
+					</div>
+					<group>
+							<field name="name" style="width:60%"/>
+							<field name="lib_long" style="width:80%"/>
+					</group>
+			</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_list_titre_eva">
+			<field name="name">Liste des titres evaluations</field>
+			<field name="res_model">hr_titreevaluation</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+</odoo>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--Vue synthese a risque-->
+    <record id="view_credit_credit_port_risque_tree" model="ir.ui.view">
+            <field name="name">credit_credit_port_risque.tree</field>
+            <field name="model">credit_credit_port_risque</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="date"/>
+                </tree>
+            </field>
+    </record>
+
+    <record id="view_credit_credit_port_risque_form" model="ir.ui.view">
+        <field name="name">view.credit_credit_port_risque.form</field>
+        <field name="model">credit_credit_port_risque</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+                    <button class="oe_highlight" name="set_afficher" type="object"
+                            style="background-color: #28a745; border-color: #28a745;"
+                            icon="fa-cogs" string="Rechercher"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="bailleur_ids" widget="many2many_tags"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True}"/>
+                            <field name="duree"/>
+                            <field name="gestionnaire_ids" widget="many2many_tags"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True}"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+					        <field name="zone_ids" widget="many2many_tags" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+							<field name="x_region_ids" widget="many2many_tags" domain="[('zone_id.id', 'in', zone_ids)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+							<field name="x_province_ids" widget="many2many_tags" domain="[('ref_region_id.id', 'in', x_region_ids)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+							<field name="x_departement_ids" widget="many2many_tags" domain="[('ref_province_id.id', 'in', x_province_ids)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+							<field name="x_village_ids" widget="many2many_tags" domain="[('commune_id.id', 'in', x_departement_ids)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+					    </group>
+                    </group>
+                    <group>
+                    </group>
+                    <notebook>
+                        <page string="Portefeuille à risque">
+                            <field name="line_ids" force_save="1" readonly="1">
+                                <tree>
+                                    <field name="ordre"/>
+                                    <field name="name"/>
+                                    <field name="cliente_id"/>
+                                    <field name="telephone"/>
+                                    <field name="jours_retard"/>
+                                    <field name="gestionnaire_id"/>
+                                    <field name="montant_total"/>
+                                    <field name="montant_rembourse"/>
+                                    <field name="montant_du"/>
+                                    <field name="montant_prin_encours"/>
+                                    <field name="montant_int_encours"/>
+                                    <field name="montant_fa_encours"/>
+<!--                                    <field name="montant_p_arriere"/>-->
+<!--                                    <field name="montant_prin_non_du"/>-->
+                                    <field name="montant_risque_90"/>
+                                    <field name="montant_risque_180"/>
+                                    <field name="montant_risque_270"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_credit_credit_port_risque" model="ir.actions.act_window">
+        <field name="name">Portefeuille à risque</field>
+        <field name="res_model">credit_credit_port_risque</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

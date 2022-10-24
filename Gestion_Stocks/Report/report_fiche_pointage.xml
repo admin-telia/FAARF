@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <report 
+            id="report_fiche_p"
+            string="Edition Pointage Inventaire"
+            model="stock_ficheinventaire" 
+            report_type="qweb-html"
+            file="Gestion_Stocks.report_fiche_p" 
+            name="Gestion_Stocks.report_fiche_p"
+            groups = "base.group_user"
+            menu = "True"/>
+
+<template id="report_fiche_p">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.external_layout">
+            <h2>Fiche Pointage Inventaire</h2>
+                        <div class="row mt32 mb32">
+                        	<div class="col-3">
+	                            <strong>Magasin:</strong>
+	                            <p t-field="o.x_magasin_id"/>
+                            </div>
+                           <div class="col-3">
+	                            <strong>Date</strong>
+	                            <p t-esc="o.date_fiche_invs"/>
+                           </div>
+                        
+                        </div>
+                <table class = 'table table-sm'>
+			        		<thead style="background-color:#D2D2FF">
+			                      <tr style = "border: 2px SOLID #434146" >
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146"><strong><i>Articles</i></strong></th>
+   			                          <th style="padding: 4px 8px;  line-height: 1.42857143;"><strong><i>Quantitté Théorique</i></strong></th>
+   			                          <th style="padding: 4px 8px;  line-height: 1.42857143;"><strong><i>Quantitté physique</i></strong></th>
+   			                          <th style="padding: 4px 8px;  line-height: 1.42857143;"><strong><i>Ecart</i></strong></th>
+   			                          <th style="padding: 4px 8px;  line-height: 1.42857143;"><strong><i>Observations</i></strong></th>
+			                          
+			                      </tr>
+			                </thead>  
+			                <tbody>
+			                     <tr t-foreach="o.x_line_p_ids" t-as="line" style = "border: 2px SOLID #434146">
+			                      
+			                        <td style = "border: 2px SOLID #434146"><span t-field="line.x_article_id"/></td> 
+			                        <td style = "border: 2px SOLID #434146"><span t-field="line.qte_the"/></td>
+			                        <td style = "border: 2px SOLID #434146"><span t-field="line.qte_phys"/></td>
+			                        <td style = "border: 2px SOLID #434146"><span t-field="line.ecart_qte"/></td>
+			                        <td style = "border: 2px SOLID #434146"><span t-field="line.observations"/></td>                    
+			                                            
+			                    </tr>
+			  
+			               
+			                </tbody>
+			        	
+			    </table> 
+			    
+
+            </t>
+         </t>
+    </t>
+</template>
+</odoo>

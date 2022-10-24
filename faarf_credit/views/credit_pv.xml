@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_credit_credit_pv_tree" model="ir.ui.view">
+            <field name="name">credit_credit_pv.tree</field>
+            <field name="model">credit_credit_pv</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client"
+                      decoration-bf="state == 'A' "
+                      decoration-success="state == 'A'" >
+                    <field name="name"/>
+                    <field name="credit_count"/>
+                    <field name="credit_accorde"/>
+                    <field name="credit_ajourne"/>
+                    <field name="credit_refuse"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+    <record id="credit_credit_pv_form" model="ir.ui.view">
+        <field name="name">view.credit_credit_pv.form</field>
+        <field name="model">credit_credit_pv</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+                    <button class="oe_highlight" name="set_validate"
+                            type="object" icon="fa-check" string="Valider"
+                            states="B"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group col="3">
+                        <group>
+                            <field name="name" readonly="1" force_save="1"/>
+                        </group>
+                    </group>
+                    <group col="3">
+                        <group>
+                            <field name="credit_count"/>
+                            <field name="credit_accorde"/>
+                            <field name="credit_ajourne"/>
+                            <field name="credit_refuse"/>
+                        </group>
+                        <group>
+                            <field name="credit_count_montant"/>
+                            <field name="credit_accorde_montant"/>
+                            <field name="credit_ajourne_montant"/>
+                            <field name="credit_refuse_montant"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Membres">
+                            <field name="membre_ids" nolabel="1" attrs="{'readonly':[('state','=','A')]}">
+                                <tree editable="bottom">
+                                    <field name="user_id"/>
+                                    <field name="signature" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Dossiers">
+                            <field name="credit_line_ids" nolabel="1" readonly="1">
+                                <tree>
+                                    <field name="credit_id"/>
+                                    <field name="date"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+<!--                        <page string="Crédits">-->
+<!--                            <field name="credit_ids" nolabel="1" readonly="1"/>-->
+<!--                        </page>-->
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_credit_credit_pv" model="ir.actions.act_window">
+        <field name="name">Comité de crédit</field>
+        <field name="res_model">credit_credit_pv</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.rule" id="hr_emploi_restric_company_rule">
+		<field name="name">hr_emploi_restric_company_rule</field>
+		<field name="model_id" ref="model_hr_emploi"/>
+		<field name="global" eval="True"/>
+		<field name="domain_force">
+			[('company_id', 'in', company_ids)]
+		</field>
+	</record>
+    <record model="ir.rule" id="hr_fonctionss_res_comp_rule">
+		<field name="name">hr_fonctionss_restric_company_rule</field>
+		<field name="model_id" ref="model_hr_fonctionss"/>
+		<field name="global" eval="True"/>
+		<field name="domain_force">
+			[('company_id', 'in', company_ids)]
+		</field>
+	</record>
+    <record model="ir.rule" id="hr_service_res_comp_rule">
+		<field name="name">hr_service_restric_company_rule</field>
+		<field name="model_id" ref="model_hr_service"/>
+		<field name="global" eval="True"/>
+		<field name="domain_force">
+			[('company_id', 'in', company_ids)]
+		</field>
+	</record>
+    <record model="ir.rule" id="hr_section_res_comp_rule">
+		<field name="name">hr_section_restric_company_rule</field>
+		<field name="model_id" ref="model_hr_section"/>
+		<field name="global" eval="True"/>
+		<field name="domain_force">
+			[('company_id', 'in', company_ids)]
+		</field>
+	</record>
+    <record model="ir.rule" id="hr_unite_res_comp_rule">
+		<field name="name">hr_unite_restric_company_rule</field>
+		<field name="model_id" ref="model_hr_unite"/>
+		<field name="global" eval="True"/>
+		<field name="domain_force">
+			[('company_id', 'in', company_ids)]
+		</field>
+	</record>
+    <record model="ir.rule" id="hr_contract_type_res_comp_rule">
+		<field name="name">hr_contract_type_restric_company_rule</field>
+		<field name="model_id" ref="model_hr_contract_type"/>
+		<field name="global" eval="True"/>
+		<field name="domain_force">
+			[('company_id', 'in', company_ids)]
+		</field>
+	</record>
+    <record model="ir.rule" id="hr_nature_type_res_comp_rule">
+		<field name="name">hr_nature_type_restric_company_rule</field>
+		<field name="model_id" ref="model_hr_nature"/>
+		<field name="global" eval="True"/>
+		<field name="domain_force">
+			[('company_id', 'in', company_ids)]
+		</field>
+	</record>
+    <record model="ir.rule" id="hr_motif_type_res_comp_rule">
+		<field name="name">hr_motif_type_restric_company_rule</field>
+		<field name="model_id" ref="model_hr_motif"/>
+		<field name="global" eval="True"/>
+		<field name="domain_force">
+			[('company_id', 'in', company_ids)]
+		</field>
+	</record>
+    <record model="ir.rule" id="hr_nbreannee_type_res_comp_rule">
+		<field name="name">hr_nbreannee_type_restric_company_rule</field>
+		<field name="model_id" ref="model_hr_nbreannee"/>
+		<field name="global" eval="True"/>
+		<field name="domain_force">
+			[('company_id', 'in', company_ids)]
+		</field>
+	</record>
+    <record model="ir.rule" id="hr_grisal_ctrl_res_comp_rule">
+		<field name="name">hr_grillesalariale_cotl_restric_company_rule</field>
+		<field name="model_id" ref="model_hr_grillesalariale_contractuel"/>
+		<field name="global" eval="True"/>
+		<field name="domain_force">
+			[('company_id', 'in', company_ids)]
+		</field>
+	</record>
+    <record model="ir.rule" id="hr_nbreannee_type_res_comp_rule">
+		<field name="name">hr_nbreannee_type_restric_company_rule</field>
+		<field name="model_id" ref="model_hr_nbreannee"/>
+		<field name="global" eval="True"/>
+		<field name="domain_force">
+			[('company_id', 'in', company_ids)]
+		</field>
+	</record>
+</odoo>

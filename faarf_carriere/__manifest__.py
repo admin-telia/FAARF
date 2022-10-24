@@ -1,0 +1,22 @@
+{
+    "name": "Gestion des carrieres",
+    "version": "1.0",
+    "author": "TELIA INFORMATIQUE",
+    "depends":["payroll"],
+    "data":[
+        'security/security.xml',
+        'security/restricted_company_rule.xml',
+        "security/ir.model.access.csv",
+        "views/views.xml",
+        "views/evaluation.xml",
+        "views/formation.xml",
+        "views/recrutement.xml",
+        "report/evaluation_report.xml",
+        "views/menus.xml",
+        "data/data.xml",
+    ],
+    "category": "EPE",
+    "Summary": "Gestion des carrieres",
+    "installable": True,
+    "auto_install": False,
+}

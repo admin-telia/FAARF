@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="main_menu" name ="Carrières et Compétences"
+              sequence="12"
+              web_icon="faarf_carriere,static/description/icon.png"/>
+
+        <menuitem id="main_menu_conf" name ="Données de base" sequence="60" parent="main_menu"/>
+            <menuitem id="main_donn_forma" name ="Formation" sequence="60" parent="main_menu_conf"/>
+                <menuitem id="main_menu_type_form" name ="Saisie/MàJ-Type de formation" sequence="61" parent="main_donn_forma" action="act_list_type_f"/>
+                <menuitem id="main_menu_typ_ses" name ="Saisie/MàJ-Type de session" sequence="63" parent="main_donn_forma" action="act_list_type_ses"/>
+                <menuitem id="main_menu_theme" name ="Saisie/MàJ-Thème" sequence="65" parent="main_donn_forma" action="act_list_theme"/>
+                <menuitem id="main_menu_mode" name ="Saisie/MàJ-Mode de Paiement" sequence="69" parent="main_donn_forma" action="act_list_mode"/>
+                <menuitem id="main_menu_et" name ="Saisie/MàJ-Etablissement" sequence="70" parent="main_donn_forma" action="act_list_etabl"/>
+            <menuitem id="main_donn_recrut" name ="Recrutement" sequence="70" parent="main_menu_conf" />
+                <menuitem id="main_menu_sect" name ="Saisie/MàJ-Secteur" sequence="51" parent="main_donn_recrut" action="act_list_secteur"/>
+                <menuitem id="main_menu_ville" name ="Saisie/MàJ-Ville" sequence="52" parent="main_donn_recrut" action="act_list_ville"/>
+                <menuitem id="main_menu_langue" name ="Saisie/MàJ-Langues" sequence="53" parent="main_donn_recrut" action="act_list_langue"/>
+                <menuitem id="main_menu_visa" name ="Saisie/MàJ-Visa" sequence="54" parent="main_donn_recrut" action="act_list_param_visa"/>
+            <menuitem id="menu_evalu" parent="main_menu_conf" name="Evaluation" sequence = "150"/>
+                <menuitem id="menu_crit" parent="menu_evalu" name="Saisie/Màj-Critère" action="act_list_critere_evaluation" sequence = "151"/>
+                <menuitem id="menu_s_crit" parent="menu_evalu" name="Saisie/Màj-Sous-Critère" action="act_list_sous_critere" sequence = "152"/>
+                <menuitem id="menu_titre" parent="menu_evalu" name="Saisie/Màj-Titre evaluation" action="act_list_titre_eva" sequence = "153"/>
+
+        <menuitem id="main_menu_eva" name ="Evaluation" sequence="50" parent="main_menu"/>
+            <menuitem id="main_menu_iche" name ="Fiche d'attente" sequence="45" parent="main_menu_eva" action="act_list_fiche_attente"/>
+            <menuitem id="main_menu_eval" name ="Evaluation" sequence="46" parent="main_menu_eva" action="act_list_evaluation"/>
+<!--                <menuitem id="main_menu_avancable" name ="Saisie/Maj-Avancement Personnel" sequence="48" parent="main_menu_eva" action="act_list_personnel_avancable"/>-->
+
+        <menuitem id="main_menu_recrutement" parent="main_menu" name ="Recrutement" sequence="45" />
+            <menuitem name="TPE" parent="main_menu_recrutement" id="menu_hr_competence"  sequence="10" />
+                <menuitem name="Plan Recrutement" parent="menu_hr_competence" id="menu_plan" action="act_list_plan_r" sequence="11" />
+                <menuitem name="Besoins Annuels" parent="menu_hr_competence" id="menu_besoin" action="act_list_competence" sequence="12" />
+                <menuitem name="Centralisation Besoins Annuels" parent="menu_hr_competence" id="menu_central_besoin" action="act_list_central_ann" sequence="13" />
+                <menuitem name="Consultation Plan Recrutement" parent="menu_hr_competence" id="menu_consult_plan" action="act_list_cons_plan_r" sequence="14"/>
+            <menuitem id="menu_recrutement" name ="Recrutement" sequence="20" parent="main_menu_recrutement"/>
+                <menuitem id="main_menu_avis" name ="Saisie/MàJ-Avis Recrutement" sequence="21" parent="menu_recrutement" action="act_avis_list" />
+                <menuitem id="main_menu_candidat" name ="Saisie/MàJ-Candidats" sequence="22" parent="menu_recrutement" action="act_candidat_list" />
+                <menuitem id="main_menu_cv" name ="Saisie/MàJ-CV et Lettre" sequence="23" parent="menu_recrutement" action="act_cv_candidat_list" />
+                <menuitem id="main_menu_resultat" name ="Saisie/MàJ-Resultat" sequence="24" parent="menu_recrutement" action="act_result_candidat_list" />
+<!--                <menuitem id="main_menu_simul" name ="Saisie/MàJ-Simulation Salaire" sequence="25" parent="menu_recrutement" action="act_list_simul_sal" />-->
+<!--                <menuitem id="main_menu_cconsult_ontrat" name ="Consultation Contrat" sequence="26" parent="menu_recrutement" action="act_list_cons_plan_rseultat" />-->
+
+    <menuitem id="menu_formation" name ="Formation" sequence="40" parent="main_menu"/>
+            <menuitem id="menu_formation_besion" name ="Besion Formation" sequence="5" parent="menu_formation"/>
+                <menuitem id="main_menu_express" name ="Expression Des Besoins Annuels" sequence="6" parent="menu_formation_besion" action="act_list_besoin"/>
+                <menuitem id="main_menu_fusions" name ="Centralisation Des Besoins Annuels" sequence="7" parent="menu_formation_besion" action="act_list_besoin_ann"/>
+            <menuitem id="menu_plan_formation" name ="Plan de formation" sequence="30" parent="menu_formation"/>
+                <menuitem id="main_menu_plan_formation_trienal" name ="Plan Formation Trienal" sequence="30" parent="menu_plan_formation" action="act_list_plan_f_trienal" />
+                <menuitem id="main_menu_plan_formation" name ="Plan Formation Annuel" sequence="302" parent="menu_plan_formation" action="act_list_plan_f" />
+                <menuitem id="main_menu_suivi_formation" name ="Suivi- Formation" sequence="303" parent="menu_plan_formation" action="act_suivi_list_plan_f" />
+                <menuitem id="main_menu_suivi_financier" name ="Suivi- Financier" sequence="304" parent="menu_plan_formation" action="act_suivi_financier_list" />
+                <menuitem id="main_menu_cons_formation" name ="Consultation Formation" sequence="305" parent="menu_plan_formation" action="act_consult_list_plan_f"/>
+            <menuitem id="main_menu_participant" name ="Participants" sequence="50" parent="menu_formation"/>
+                <menuitem id="main_menu_saisi_part" name ="Saisie/MàJ-Services Demandeurs" sequence="51" parent="main_menu_participant" action="act_participant_list"/>
+                <menuitem id="main_menu_retenus" name ="Saisie/MàJ-Participants Retenus par service" sequence="53" parent="main_menu_participant" action="act_participant_retenu_list"/>
+                <menuitem id="main_menu_fusion" name ="Saisie/MàJ-Centralisation Participants" sequence="54" parent="main_menu_participant" action="act_list_central_annee" />
+                <menuitem id="main_menu_consult" name ="Consultation Participants" sequence="55" parent="main_menu_participant" action="act_emp_consu_list_f" />
+            <menuitem id="main_menu_app" name ="Appréciation" sequence="58" parent="menu_formation" action="act_participant_list" />
+                <menuitem id="main_menu_app_ind" name ="Saisie/MàJ-Appréciation Individuelle" sequence="59" parent="main_menu_app" action="act_appre_list_f" />
+                <menuitem id="main_menu_app_central" name ="Saisie/MàJ-Centralisation Appréciation" sequence="60" parent="main_menu_app" action="act_cent_appre_list_f"/>
+</odoo>

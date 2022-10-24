@@ -1,0 +1,1485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+<record model="ir.ui.view" id="view_id_stock_membre_tree">
+		<field name="name">view.stock_membre.tree</field>
+		<field name="model">stock_membre</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des groupes d'articles">
+				<field name="name"/>
+				<field name="service"/>
+				<field name="matricule"/>
+				<field name="mail_tel"/>
+				<field name="active"/>
+			</tree>
+		</field>
+	</record>
+
+
+	<record model="ir.ui.view" id="view_stock_membre_form">
+		<field name="name">view.stock_membre.form</field>
+		<field name="model">stock_membre</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des groupes d'articles">
+			<sheet>
+			<div class="oe_button_box" name="button_box">
+				<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+					<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+				</button>
+			</div>
+				<group>
+					<field name="company_id" style="width:40%" invisible='1'/>
+                    <field name="name" style="width:60%"/>
+					<field name="matricule" style="width:60%"/>
+					<field name="service" style="width:60%"/>
+					<field name="mail_tel" style="width:60%"/>
+				</group>
+			</sheet>
+			</form>
+		</field>
+	</record>
+
+
+
+	<!--
+	<record model="ir.ui.view" id="view_id_groupe_article_tree">
+		<field name="name">view.groupe.article.tree</field>
+		<field name="model">stock_groupearticle</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des groupes d'articles">
+				<field name="sequence" widget="handle"/>
+				<field name="code_groupe"/>
+				<field name="libcourt"/>
+				<field name="name"/>
+			</tree>
+		</field>
+	</record>-->
+
+
+	<record model="ir.ui.view" id="view_stock_param_service_form">
+		<field name="name">view.stock_param_service.form</field>
+		<field name="model">stock_param_service</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des groupes d'articles">
+			<sheet>
+				<group>
+					<field name="company_id" style="width:40%" invisible='1'/>
+                    <field name="name" style="width:60%"/>
+					<field name="state"/>
+				</group>
+			</sheet>
+			</form>
+		</field>
+	</record>
+
+	
+	
+	<record model="ir.ui.view" id="view_stock_param_service_tree">
+		<field name="name">view.stock_param_service.tree</field>
+		<field name="model">stock_param_service</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des groupes d'articles">
+				<field name="name"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	
+							
+
+	<!--
+	<record model="ir.ui.view" id="view_id_groupe_article_form">
+		<field name="name">view.groupe.article.form</field>
+		<field name="model">stock_groupearticle</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des groupes d'articles">
+			<sheet>
+				<group>
+					<field name="code_groupe" style="width:20%"/>
+					<field name="libcourt" style="width:40%" />
+                    <field name="name" style="width:60%"/>
+				</group>
+			</sheet>
+			</form>
+		</field>
+	</record>
+
+
+	<record model="ir.ui.view" id="view_id_famille_article_tree">
+		<field name="name">view.famille.article.tree</field>
+		<field name="model">stock_famillearticle</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des familles d'articles">
+				<field name="sequence" widget="handle"/>
+				<field name="x_groupearticle_id"/>
+				<field name="code_famille"/>
+				<field name="libcourt"/>
+				<field name="name"/>
+			</tree>
+		</field>
+	</record>
+
+	
+
+	<record model="ir.ui.view" id="view_id_famille_article_form">
+		<field name="name">view.famille.article.form</field>
+		<field name="model">stock_famillearticle</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des familles d'articles">
+			<sheet>
+				<group>
+					 <field name="x_groupearticle_id" style="width:60%"/>
+					<field name="code_famille" style="width:20%"/>
+					<field name="libcourt" style="width:40%" />
+                    <field name="name" style="width:60%"/>
+				</group>
+			</sheet>
+			</form>
+		</field>
+	</record>-->
+	
+	
+	
+	<record model="ir.ui.view" id="view_id_sous_f_article_tree">
+		<field name="name">view.sous.famille.article.tree</field>
+		<field name="model">stock_sousfamille_article</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des sous-familles d'articles">
+				<field name="sequence" widget="handle"/>
+				<field name="code_sous_f_article"/>
+				<field name="libcourt"/>
+				<field name="name"/>
+			</tree>
+		</field>
+	</record>
+
+	
+							
+
+	<record model="ir.ui.view" id="view_id_sous_f_article_form">
+		<field name="name">view.sous.famille.article.form</field>
+		<field name="model">stock_sousfamille_article</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des sous-familles d'articles">
+			<sheet>
+				<group>
+					<field name="code_sous_f_article" style="width:20%"/>
+					<field name="x_famillearticle_id" style="width:20%"/>
+					<field name="libcourt" style="width:40%" />
+                    <field name="name" style="width:60%"/>
+				</group>
+			</sheet>
+			</form>
+		</field>
+	</record>
+	
+	
+	
+	<record model="ir.ui.view" id="view_id_mvt_stock_tree">
+		<field name="name">view.mvt.stock.tree</field>
+		<field name="model">stock_mouvementstock</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des mouvements de stock">
+				<field name="sequence" widget="handle"/>
+				<field name="code_mvt"/>
+				<field name="libcourt"/>
+				<field name="name"/>
+				<field name="x_type"/>
+			</tree>
+		</field>
+	</record>
+
+	
+							
+
+
+	<record model="ir.ui.view" id="view_id_mvt_stock_form">
+		<field name="name">view.mvt.stock.form</field>
+		<field name="model">stock_mouvementstock</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des mouvements de stock">
+			<sheet>
+				<group>
+					<field name="code_mvt" style="width:20%"/>
+					<field name="libcourt" style="width:40%" />
+                    <field name="name" style="width:60%"/>
+                    <field name="x_type" style="width:20%"/>
+				</group>
+			</sheet>
+			</form>
+		</field>
+	</record>
+	
+	
+	
+
+	<record model="ir.ui.view" id="view_id_unite_stock_tree">
+		<field name="name">view.unite.stock.tree</field>
+		<field name="model">stock_unitestockage</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des unités de stockage">
+				<field name="sequence" widget="handle"/>
+				<field name="code_unite"/>
+				<field name="libcourt"/>
+				<field name="name"/>
+			</tree>
+		</field>
+	</record>
+
+	
+							
+
+	<record model="ir.ui.view" id="view_id_unite_stock_form">
+		<field name="name">view.unite.stock.form</field>
+		<field name="model">stock_unitestockage</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des unités de stockage">
+			<sheet>
+				<group>
+					<field name="code_unite" style="width:20%"/>
+					<field name="libcourt" style="width:40%" />
+                    <field name="name" style="width:60%"/>
+				</group>
+			</sheet>
+			</form>
+		</field>
+	</record>
+	
+	
+
+	<record model="ir.ui.view" id="view_id_mag_stock_tree">
+		<field name="name">view.mag.stock.tree</field>
+		<field name="model">stock_magasinstockage</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des magasins de stockage">
+				<field name="sequence" widget="handle"/>
+				<field name="code_mag"/>
+				<field name="libcourt"/>
+				<field name="name"/>
+				<field name="responsable"/>
+			</tree>
+		</field>
+	</record>
+
+	
+
+	<record model="ir.ui.view" id="view_id_mag_stock_form">
+		<field name="name">view.mag.stock.form</field>
+		<field name="model">stock_magasinstockage</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des magasins de stockage">
+			<sheet>
+				<group>
+					<field name="code_mag" style="width:20%"/>
+					<field name="libcourt" style="width:40%" />
+                    <field name="name" style="width:60%"/>
+                    <field name="responsable" style="width:60%"/>
+				</group>
+			</sheet>
+			</form>
+		</field>
+	</record>
+	
+	
+
+	<record model="ir.ui.view" id="view_id_qual_tree">
+		<field name="name">view.qual.tree</field>
+		<field name="model">stock_qualifications</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des qualifications">
+				<field name="sequence" widget="handle"/>
+				<field name="code_qualification"/>
+				<field name="libcourt"/>
+				<field name="lib_long"/>
+			</tree>
+		</field>
+	</record>
+
+	
+							
+
+	<record model="ir.ui.view" id="view_id_qual_stock_form">
+		<field name="name">view.qual.form</field>
+		<field name="model">stock_qualifications</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des qualifications">
+			<sheet>
+				<group>
+					<field name="code_qualification" style="width:20%"/>
+					<field name="libcourt" style="width:40%" />
+                    <field name="lib_long" style="width:60%"/>
+				</group>
+			</sheet>
+			</form>
+		</field>
+	</record>
+	
+	
+	
+
+	<record model="ir.ui.view" id="view_id_article_tree">
+		<field name="name">view.article.tree</field>
+		<field name="model">stock_article</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des articles">
+				<field name="code_article"/>
+				<field name="name"/>
+				<field name="x_famillearticle_id"/>
+				<field name="unite_stock_id"/>
+				<field name="qte_article_en_stock" string="Qté en stock"/>
+				<field name="seuil_article"/>
+			</tree>
+		</field>
+	</record>
+							
+
+	<record model="ir.ui.view" id="view_id_article_stock_form">
+		<field name="name">view.article.form</field>
+		<field name="model">stock_article</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des articles">
+			<sheet>
+				<group col ="2">
+					<group>
+						<field name="code_article" style="width:40%"/>
+						<field name="libcourt" style="width:60%" />
+	                    <field name="name" style="width:100%"/>
+	                    <field name="seuil_article" style="width:20%"/>
+					</group>
+					<group>
+						<field name="x_groupearticle_id" style="width:100%"/>
+						<field name="x_famillearticle_id" style="width:100%" domain = "[('x_groupearticle_id','=',x_groupearticle_id)]" options="{'no_create':True}"/>
+	                    <field name="unite_stock_id" style="width:60%"/>
+					</group>
+					
+				</group>
+			</sheet>
+			</form>
+		</field>
+	</record>
+	
+	
+
+	<record model="ir.actions.act_window" id="act_list_article">
+			<field name="name">Liste des Articles</field>
+			<field name="res_model">stock_article</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+	
+
+
+<record model="ir.ui.view" id="view_id_livraison_form">
+	<field name="name">view.livraisonfourniture.form</field>
+	<field name="model">stock_livraisonfourniture</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<form string="Livraison Stock">
+		<header>
+                <button string="Valider l'entrée en stock" name="miseajourstock" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('state', 'not in', ['draft'])]}" />
+                <field name="state" widget = "statusbar"/> 
+        </header>
+	    <sheet>		
+				<group col = '3'>
+					<group><field name="numordre" force_save = '1'/></group>
+					<group><field name="name"/></group>
+					<group><field name="date_livraison"/></group>
+					<group><field name="fournisseur_id"  options="{'no_create':True}"/></group>
+					<group><field name="numcmde"/></group>
+					<group><field name="magasin_id"  options="{'no_create':True}"/></group>
+			    </group>
+				<group><field name="date_op" invisible='1'/></group>
+			<group><field name="objet_livraison"/></group>
+			<group><field name = 'x_line_ids'/></group>
+			
+		</sheet>	
+		</form>
+	</field>
+</record>
+
+
+<record model="ir.ui.view" id="view_id_livraison_tree">
+	<field name="name">view.livraisonfourniture.tree</field>
+	<field name="model">stock_livraisonfourniture</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree decoration-success ="state == 'V'" decoration-info ="state == 'draft'" string="Livraison Stock">
+		    <field name="sequence" widget="handle"/>
+			<field name="numcmde"/>
+			<field name="numordre"/>
+			<field name="name"/>
+			<field name="date_livraison"/>
+			<field name="fournisseur_id"/>
+			<field name="magasin_id"/>
+			<field name="state"/>
+			
+			
+		</tree>
+	</field>
+</record>
+
+
+
+<record model="ir.ui.view" id="view_id_livraison_line_tree">
+	<field name="name">view.livraisonfourniture.Line</field>
+	<field name="model">stock_livraisonfourniture_line</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Livraison Stock Line" editable="bottom">
+		    <field name="x_article_id"/>
+			<field name="qte_livre"/>
+			<field name="qte_actuelle" force_save = '1'/>
+			<field name="prix_unitaire_article"/>
+			<field name="montant_total_article" force_save='1'/>
+		</tree>
+		</field>
+		
+</record>
+
+
+
+
+<record model="ir.ui.view" id="view_id_besoin_form">
+	<field name="name">view.stock.besoinannuel.form</field>
+	<field name="model">stock_besoinannuel</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<form string="Besoins Annuels Articles">
+            <header>
+                    <button string="Valider" name="action_valider" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['draft'])]}" />
+                    <button string="Receptionner" name="action_eng_recep" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['V'])]}" groups='Gestion_Stocks.Gestion_Stocks_manager_Gestionnaire' />
+                    <field name="state" widget = "statusbar"/> 
+            </header>
+	        <sheet>
+				<group>
+                    <field name="beneficiaire" options="{'no_create':True}" force_save='1'/>
+				</group>
+				<group col = '3'>
+					<group><field name="name" invisible = '1'/></group>
+					<group><field name="date_besoin" invisible = '1'/></group>
+					<group><field name="x_exercice_id" invisible = '1'/></group>
+					<group><field name="service_demandeur" style="width:100%" invisible = '1'/></group>
+				</group>
+				<group><field name="objet_besoin"/></group>
+				      <field name = 'x_line_ids'/>
+
+			</sheet>
+			
+		</form>
+	</field>
+</record>
+
+
+<record model="ir.ui.view" id="view_id_besoin_tree">
+	<field name="name">view.stock.besoinannuel.tree</field>
+	<field name="model">stock_besoinannuel</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Besoins Annuels Articles" decoration-success ="state == 'R'" decoration-info ="state == 'V'">
+		    <field name="sequence" widget="handle"/>
+			<field name="name"/>
+			<field name="x_exercice_id"/>
+			<field name="beneficiaire"/>
+			<field name="service_demandeur"/>
+			<field name="state"/>
+		</tree>
+	</field>
+</record>
+
+
+
+
+<record model="ir.ui.view" id="view_id_besoin_line_tree">
+	<field name="name">view.stock.besoinannuel.Line</field>
+	<field name="model">stock_besoinannuel_line</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Besoins Annuels Articles Line" editable="bottom">
+		    <field name="x_article_id"/>
+			<field name="unite_id" force_save='1'/>
+			<field name="qtes" />
+			<field name="montant"/>
+			<field name="mnt_total" force_save='1'/>			
+			<field name="qte_demandee" groups='Gestion_Stocks.Gestion_Stocks_manager_Gestionnaire'/>
+			<field name="qte_read" force_save='1'/>
+		</tree>
+	</field>
+</record>
+
+
+
+<record model="ir.ui.view" id="view_id_c_besoin_form">
+	<field name="name">view.central.besoinannuel.form</field>
+	<field name="model">central_besoinannuel</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<form string="Centralisation Besoins Annuels Articles">
+             <header>
+                    <button string="Centraliser" name="centraliser" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['draft'])]}" />
+                    <field name="state" widget = "statusbar"/> 
+            </header>
+	        <sheet>
+				<label for="name" class="oe_edit_only"/>
+                <h1>
+                    <field name="name" force_save = '1'/>
+                </h1>
+				<group col = '2'>
+					<group><field name="service_traiteur" force_save = '1'/></group>
+					<group><field name="x_exercice_id" options="{'no_create':True}" force_save = '1'/></group>
+					
+				</group>
+				<group>
+				      <field name = 'x_line_ids' force_save='1'/>
+				</group>
+				
+			</sheet>
+			
+		</form>
+	</field>
+</record>
+
+
+<record model="ir.ui.view" id="view_id_c_besoin_tree">
+	<field name="name">view.central.besoinannuel.tree</field>
+	<field name="model">central_besoinannuel</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Centralisation Besoins Annuels Articles"  decoration-success ="state == 'F'">
+		    <field name="sequence" widget="handle"/>
+			<field name="name"/>
+			<field name="x_exercice_id"/>
+			<field name="current_user"/>
+			<field name="date_centralisation"/>
+			<field name="service_traiteur"/>
+			<field name="company_id"/>
+			<field name="state"/>
+		</tree>
+	</field>
+</record>
+
+
+
+<record model="ir.ui.view" id="view_id_c_besoin_line_tree">
+	<field name="name">view.central.line.stock.besoinannuel.Line</field>
+	<field name="model">central_besoinannuel_line</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Centralisation Besoins Annuels Articles Line" editable="bottom">
+		    <field name="article" readonly="1"/>			
+			<field name="qte_demandee"/>
+			<field name="qte"/>
+		</tree>
+	</field>
+</record>
+
+
+
+
+
+<record id="stock_inv_form" model="ir.ui.view">
+        <field name="name">stock.inventaires.form</field>
+        <field name="model">stock_inventaires</field>
+        <field name="arch" type="xml">
+            <form string="Inventaire">
+            <sheet>
+                <label for="name" class="oe_edit_only"/>
+                <h1>
+                    <field name="name"/>
+                </h1>
+                <group col="3">
+                    <label for="x_date_debut" string="Période"/>
+                     <div>
+                           <field name="x_date_debut" class="oe_inline"/> - <field name="x_date_fin" class="oe_inline"/>
+                     </div>
+                     <button name="valider" type="object" string="Valider" class="oe_highlight"/>
+                </group>
+                <group>
+                    <label for="x_magasin_id" string="Magasin"/>
+                     <div>
+                           <field name="x_magasin_id" class="oe_inline"/>
+                     </div>
+                </group>
+                <separator string="Articles et Quantité"/>
+                <field name="x_line_ids"/>
+            </sheet>
+            </form>
+        </field>
+</record>
+    
+
+
+<record model="ir.ui.view" id="view_id_inve_tree">
+	<field name="name">view.stock.inventaires.tree</field>
+	<field name="model">stock_inventaires</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Inventaire Articles">
+		    <field name="sequence" widget="handle"/>
+			<field name="name"/>
+			<field name="current_user"/>
+			<field name="date_inv"/>
+		</tree>
+	</field>
+</record>
+
+
+
+<record model="ir.ui.view" id="view_id_inv_line_tree">
+	<field name="name">view.stock.inventaires.Line</field>
+	<field name="model">stock_inventaires_line</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Inventaire Articles Line" editable="bottom">
+		    <field name="x_article"/>
+			<field name="x_qte"/>
+		</tree>
+	</field>
+</record>  
+    
+
+	
+<record model="ir.ui.view" id="view_id_ddsse_form">
+	<field name="name">view.stock_besoinapprov.form</field>
+	<field name="model">stock_besoinapprov</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<form string="Demande Approvisionnement">
+            <header>
+                    <button string="Valider" name="action_valider" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['draft'])]}" groups='Gestion_Stocks.Gestion_Stocks_chef_service'/>
+                     <button string="Rejeter" name="action_rejet" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['draft'])]}" groups='Gestion_Stocks.Gestion_Stocks_chef_service'/>
+                    
+                    <button string="Envoyer" name="action_envoie" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['V'])]}" groups='Gestion_Stocks.Gestion_Stocks_chef_service'/>
+                    
+					<button string="Receptionner" name="action_recep" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['E'])]}" groups='Gestion_Stocks.Gestion_Stocks_manager_Gestionnaire' />
+                    
+					<button string="Vérifier la disponibilité" name="action_verifier" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['R'])]}" groups='Gestion_Stocks.Gestion_Stocks_manager_Gestionnaire'/>
+                    
+                    <button string="Traiter" name="action_traiter" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['D'])]}" groups='Gestion_Stocks.Gestion_Stocks_manager_Gestionnaire' />
+					
+					<button string="Rejeter" name="action_rejeter" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['D'])]}" groups='Gestion_Stocks.Gestion_Stocks_chef_service'/>
+                    
+                    <button string="Envoyer bon de sortie" name="action_boncommande" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['T'])]}" />
+                                   
+                    <field name="state" widget = "statusbar"/>
+            </header>
+	        <sheet>
+	        	<div class="oe_button_box" name="button_box">
+					<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+						<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+					</button>
+				</div>
+				<group col = '3'>
+					<group><field name="name" force_save = '1'/></group>
+					<group><field name="date_demande_approv"/></group>
+					<group><field name="dotation" style="width:100%" /></group>
+					<group><field name="service_benef" style="width:100%" force_save = '1'/></group>
+					<group><field name="responsable" style="width:100%" force_save = '1'/></group>
+					<group><field name="beneficiaire" invisible = '1'/></group>
+					<group><field name="current_user" invisible = '1'/></group>
+					<group><field name="company_id" invisible = '1'/></group>
+					
+				</group>
+				<group><field name="objet_approv"/></group>
+				<group>
+				      <field name = 'x_line_ids'/>
+				</group>
+			</sheet>
+			
+		</form>
+	</field>
+</record>
+
+<record model="ir.ui.view" id="view_id_ddesssds_tree">
+	<field name="name">view.stock_besoinapprov.tree</field>
+	<field name="model">stock_besoinapprov</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree decoration-success ="state == 'En'" decoration-warning ="state == 'E'" decoration-danger ="state == 'A'" decoration-info ="state == 'Re'" decoration-muted ="state == 'S'"  string="Demande Approvisionnement">
+		    <field name="sequence" widget="handle"/>
+			<field name="name"/>
+			<field name="date_demande_approv"/>
+			<field name="dotation"/>
+			<field name="beneficiaire"/>
+			<field name="service_benef"/>
+			<field name="responsable"/>
+			<field name="state"/>
+			
+		</tree>
+	</field>
+</record>
+
+
+
+<record model="ir.ui.view" id="view_id_ddesdfd_line_tree">
+	<field name="name">view.stock.besoinapprov_line.Line</field>
+	<field name="model">stock_besoinapprov_line</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Demande Approvisionnement Line" editable="bottom">
+		    <field name="x_article_id"/>
+		    <field name="x_unite_id" force_save='1'/>
+			<field name="qte_demandee"/>
+			<field name="qte_actuelle" force_save='1' groups='Gestion_Stocks.Gestion_Stocks_manager_Gestionnaire'/>
+			<field name="qte_octroye" groups='Gestion_Stocks.Gestion_Stocks_manager_Gestionnaire'/>
+			<field name="observation_dde"/>
+		</tree>
+	</field>
+</record>
+
+
+
+
+<record model="ir.ui.view" id="view_id_prep_fic_form">
+	<field name="name">view.stock_inventairepreps.form</field>
+	<field name="model">stock_inventairepreps</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<form string="Fiche de Préparation D'inventaire">
+		<header>
+                    <button string="Valider" name="action_valider" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['draft'])]}" groups='Gestion_Stocks.Gestion_Stocks_chef_service'/>
+                    <button string="Approuver" name="action_ap" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['V'])]}" groups='Gestion_Stocks.Gestion_Stocks_chef_service'/>
+                   
+                    <field name="state" widget = "statusbar"/>
+            </header>
+	        <sheet>
+	        	<div class="oe_button_box" name="button_box">
+					<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+						<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+					</button>
+				</div>
+                <label for="x_periode" class="oe_edit_only"/>
+                <h1>
+                    <field name="x_periode" style="width:50%"/>
+                </h1>
+                <group col="6">
+                    <label for="name"/>
+                     <div>
+                           <field name="name" class="oe_edit_only"/>
+                     </div>
+                     
+                     <label for="date_inv"/>
+                     <div>
+                     	<field name="date_inv" class="oe_edit_only"/>
+                     </div>
+                     
+                     <label for="x_magasin_id"/>
+                     <div>
+                     	<field name="x_magasin_id" class="oe_edit_only" options="{'no_create':True}"/>
+                     </div>
+                </group>
+                <group>
+                    <label for="objet_inv" class="oe_edit_only"/>
+                     <div>
+                           <field name="objet_inv"/>
+                     </div>
+                </group>
+                <separator string="Equipe D'inventaire"/>
+                <field name="x_line_ids" force_save="1"/>
+            </sheet>
+			
+		</form>
+	</field>
+</record>
+
+<record model="ir.ui.view" id="view_id_pre_fich_tree">
+	<field name="name">view.stock_inventairepreps.tree</field>
+	<field name="model">stock_inventairepreps</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Fiche de Préparation D'inventaire">
+		    <field name="sequence" widget="handle"/>
+			<field name="name"/>
+			<field name="x_periode"/>
+			<field name="date_inv"/>
+			<field name="objet_inv"/>
+			<field name="current_user"/>
+			<field name="state"/>
+			
+		</tree>
+	</field>
+</record>
+
+
+
+<record model="ir.ui.view" id="view_id_prep_fich_lines_tree">
+	<field name="name">view.stock.inventairepreps.Line</field>
+	<field name="model">stock_inventairepreps_line</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Fiche de Préparation D'inventaire Line" editable="bottom">
+		    <field name="x_employe_id"/>
+		    <field name="x_service_id"/>
+			<field name="x_qualification"/>
+		</tree>
+	</field>
+</record>
+
+
+
+
+<record model="ir.ui.view" id="view_id_controle_fic_form">
+	<field name="name">view.stock_ficheinventaire.form</field>
+	<field name="model">stock_ficheinventaire</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<form string="Fiche Contrôle inventaire">
+		    <header>
+		            <button string="Chercher articles à inventorier" name="action_valider" type="object" class="oe_highlight"/>
+		            <button string="Valider Confrontation Inventaire" name="action_confront" type="object" class="oe_highlight"/>
+		            <button string="Mettre à Niveau" name="action_niveau" type="object" class="oe_highlight"/>
+		    		
+		    </header>
+	        <sheet>
+	        <div class="oe_button_box" name="button_box">
+								<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+									<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+								</button>
+					   </div>
+					   <label for="x_magasin_id" class="oe_edit_only"/>
+		                <h1>
+		                    <field name="x_magasin_id" options="{'no_create':True}"/> 
+		                </h1>
+	                   <group>
+		                  <group>
+			                     <label for="date_fiche_invs" />
+			                      <div>
+			                           <field name="date_fiche_invs" class="oe_edit_only" invisible = '0'/>
+			                      </div>
+		                  </group>
+	                   </group>
+	                   <group><field name="company_id" invisible = "1" class="oe_edit_only"/></group>
+	        <notebook>
+				       <page string = "Contrôle de l'inventaire">
+			                <group><field name="company_id" invisible = "1" class="oe_edit_only"/></group>
+			                
+			                <separator string="Informations sur le stock théorique"/>
+			                     <field name="x_line_ids"/>
+			            </page>
+			            <page string = "Pointage/Validation de l'inventaire">
+			                <separator string="Confrontation avec la quantité physique"/>
+			                <field name="x_line_p_ids"/>
+			            </page>
+            </notebook>    
+            </sheet>
+			
+		</form>
+	</field>
+</record>
+
+<record model="ir.ui.view" id="view_id_ctrl_fich_tree">
+	<field name="name">view.stock_ficheinventaire.tree</field>
+	<field name="model">stock_ficheinventaire</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Fiche Contrôle inventaire">
+		    <field name="sequence" widget="handle"/>
+			<field name="x_magasin_id"/>
+			<field name="date_fiche_invs"/>
+			<field name="current_user"/>
+			<field name="active"/>
+		</tree>
+	</field>
+</record>
+
+
+
+<record model="ir.ui.view" id="view_id_controle_fich_line_tree">
+	<field name="name">view.stock.stock_ficheinventaire_line.Line</field>
+	<field name="model">stock_ficheinventaire_line</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Fiche Contrôle inventaire Line" editable="bottom">
+		    <field name="x_article_id"/>
+		    <field name="qte_the" force_save = '1'/>
+		</tree>
+	</field>
+</record>
+
+
+<record model="ir.ui.view" id="view_id_confront_fich_line_tree">
+	<field name="name">view.stock.stock_pointageinventaire_line.Line</field>
+	<field name="model">stock_pointageinventaire_line</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Confrontation inventaire Line" editable="bottom">
+		    <field name="x_article_id"/>
+		    <field name="qte_the" force_save = '1'/>
+			<field name="qte_phys"/>
+			<field name="ecart_qte" force_save = '1'/>
+			<field name="observations"/>
+		</tree>
+	</field>
+</record>
+
+
+
+
+
+
+
+<record model="ir.ui.view" id="view_id_com_form">
+	<field name="name">view.stock_commission.form</field>
+	<field name="model">stock_commission</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<form string="Commission">
+		    <header>
+		    		<button string="Valider Destruction" name="action_valider" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['draft'])]}" groups='Gestion_Stocks.Gestion_Stocks_manager_Gestionnaire' />
+                    <field name="state" widget = "statusbar"/>
+            </header>
+	        <sheet>
+
+	        <notebook>
+				      <page string = "Identification de la Commission">
+					      <label for="obje_com" class="oe_edit_only"/>
+			                <h1>
+			                    <field name="obje_com"/>
+			                </h1>
+			                <group col="2">
+			                    <group><label for="name" string="Code commission" force_save = '1'/>
+				                     <div>
+				                           <field name="name" class="oe_inline"/>
+				                     </div>
+			                	</group>
+			                	<group>
+			                    <label for="date_mise_place" string="Date mise en place"/>
+			                     <div>
+			                           <field name="date_mise_place" class="oe_inline"/>
+			                     </div>
+			                    </group>
+			                </group>
+			                <group><field name="company_id" invisible = "1" class="oe_edit_only"/></group>
+			 
+				                <separator string="Membres de la commission"/>
+			                     	      <field name="x_line_ids"/>
+						           </page>
+			           <page string = "Vérif/Validation Articles à Détruire">
+			                <separator string="Ajout des Articles à Détruire"/>
+			                <field name="x_line_p_ids"/>
+			           </page>
+            </notebook>    
+            </sheet>
+			
+		</form>
+	</field>
+</record>
+
+<record model="ir.ui.view" id="view_id_com_tree">
+	<field name="name">view.stock_commission.tree</field>
+	<field name="model">stock_commission</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Commission">
+		    <field name="sequence" widget="handle"/>
+			<field name="name"/>
+			<field name="date_mise_place"/>
+			<field name="obje_com"/>
+			<field name="current_user"/>
+			<field name="state"/>
+		</tree>
+	</field>
+</record>
+
+
+
+<record model="ir.ui.view" id="view_id_comm_line_tree">
+	<field name="name">view.stock_commission_line.Line</field>
+	<field name="model">stock_commission_line</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Commission Line" editable="bottom">
+		    <field name="nomprenom"/>
+		    <field name="matricule"/>
+   		    <field name="tel"/>
+   		    <field name="qualif"/>
+   		    <field name="service"/>
+		</tree>
+	</field>
+</record>
+
+
+
+<record model="ir.ui.view" id="view_id_comm_art_line_tree">
+	<field name="name">view.stock_destruction_line.Line</field>
+	<field name="model">stock_destruction_line</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Articles Line" editable="bottom">
+		    <field name="x_article_id"/>
+		    <field name="qte_disponible" force_save = '1'/>
+		    <field name="qte_des"/>
+   		    <field name="observations"/>
+		</tree>
+	</field>
+</record>
+
+
+
+
+
+<record model="ir.ui.view" id="view_id_seuil_form">
+	<field name="name">view.stock_seuil.form</field>
+	<field name="model">stock_seuil</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<form string="Seuil">
+			<header>
+		   	        <button string="Rechercher" name="action_rech" type="object" class="oe_highlight"/>
+            </header>
+	        <sheet>
+                <label for="x_recherche" class="oe_edit_only"/>
+                <h1>
+                    <field name="x_recherche"/>
+                </h1>
+                <group col="8">
+                    <label for="x_groupe_id"/>
+                     <div>
+                           <field name="x_groupe_id" class="oe_edit_only" attrs="{'invisible': [('x_recherche', 'in', ['1','3','4','5'])]}" options="{'no_create':True}"/>
+                     </div>
+                     
+                     <label for="x_famille_id"/>
+                     <div>
+                     	<field name="x_famille_id" class="oe_edit_only" attrs="{'invisible': [('x_recherche', 'in', ['1','2','4','5'])]}" options="{'no_create':True}"/>
+                     </div>
+                                     
+                     <label for="x_magasin_id"/>
+                     <div>
+                     	<field name="x_magasin_id" class="oe_edit_only" attrs="{'invisible': [('x_recherche', 'in', ['1','2','3','4'])]}" options="{'no_create':True}"/>
+                     </div>
+                </group>
+                
+                <separator string="Liste Des Articles"/>
+                <field name="x_line_ids" readonly='1'/>
+            </sheet>
+			
+		</form>
+	</field>
+</record>
+
+<record model="ir.ui.view" id="view_id_seuil_tree">
+	<field name="name">view.stock_seuil.tree</field>
+	<field name="model">stock_seuil</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Fiche de Préparation D'inventaire">
+		    <field name="sequence" widget="handle"/>
+			<field name="x_recherche"/>
+			<field name="current_user"/>
+			<field name="active"/>
+			
+		</tree>
+	</field>
+</record>
+
+
+
+<record model="ir.ui.view" id="view_id_prep_fich_line_tree">
+	<field name="name">view.stock.stock_seuil_line.Line</field>
+	<field name="model">stock_seuil_line</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Seuil Line" decoration-danger ="state == '1'">
+		    <field name="code"/>
+		    <field name="designation"/>
+			<field name="seuil"/>
+			<field name="qte"/>
+			<field name="state" invisible='1'/>
+			<field name="company_id" invisible='1'/>
+		</tree>
+	</field>
+</record>
+
+
+
+
+
+
+<record model="ir.ui.view" id="view_id_stock_fiche_form">
+	<field name="name">view.stock_fiche.form</field>
+	<field name="model">stock_fiche</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<form string="Fiche Stock" create="true" edit="false">
+			<header>
+		   	        <button string="Rechercher" name="action_rech" type="object" class="oe_highlight"/>
+            </header>
+	        <sheet>
+                <label for="x_recherche" class="oe_edit_only"/>
+                <h1>
+                    <field name="x_recherche" style="width:50%"/>
+                </h1>
+                <group col="8">
+                    <label for="x_groupe_id"/>
+                     <div>
+                           <field name="x_groupe_id" class="oe_edit_only" attrs="{'invisible': [('x_recherche', 'in', ['1','2','4','5','6'])]}"/>
+                     </div>
+                     
+                     <label for="x_article_id"/>
+                     <div>
+                     	<field name="x_article_id" class="oe_edit_only" attrs="{'invisible': [('x_recherche', 'in', ['1','3','4','5','6'])]}"/>
+                     </div>
+                     
+                     <label for="x_famille_id"/>
+                     <div>
+                     	<field name="x_famille_id" class="oe_edit_only" attrs="{'invisible': [('x_recherche', 'in', ['1','2','3','5','6'])]}"/>
+                     </div>                    
+                     
+                     <label for="x_magasin_id"/>
+                     <div>
+                     	<field name="x_magasin_id" class="oe_edit_only" attrs="{'invisible': [('x_recherche', 'in', ['1','2','3','4','5'])]}"/>
+                     </div>
+                </group>
+                <group col = '2'>
+                		<group><field name="x_date_debut"/></group>
+                		<group><field name="x_date_fin"/></group>
+                </group>
+                
+                <separator string="Liste Des Articles"/>
+                <field name="x_line_ids"/>
+            </sheet>
+			
+		</form>
+	</field>
+</record>
+
+<record model="ir.ui.view" id="view_id_stock_fiche_tree">
+	<field name="name">view.stock_fiche.tree</field>
+	<field name="model">stock_fiche</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Fiche de Stock" create="true" edit="false">
+		    <field name="sequence" widget="handle"/>
+			<field name="x_recherche"/>
+			<field name="x_date_debut"/>
+            <field name="x_date_fin"/>
+			<field name="current_user"/>
+			<field name="active"/>
+			
+		</tree>
+	</field>
+</record>
+
+
+
+
+<record model="ir.ui.view" id="view_id_stock_cloture_form">
+	<field name="name">view.stock_cloture.form</field>
+	<field name="model">stock_cloture</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<form string="Fiche Stock">
+			<header>
+		   	        <button string="Cloturer le bon" name="cloture" type="object" class="oe_highlight"
+					attrs="{'invisible' : [('state', 'in', ['S'])]}" />
+					<field name="state" widget = "statusbar"/>
+            </header>
+	        <sheet>           
+                <group col="4">
+					<field name="name"  style="width:50%" options="{'no_create':True}"/>
+					<field name="dte" style="width:50%"/>						
+                </group>
+				<field name="company_id" invisible='1'/>
+				
+				<field name="cloture_ids" force_save='1'>
+					<tree>
+						<field name="x_article_id"/>
+						<field name="x_unite_id" force_save='1'/>
+						<field name="qte_demandee" invisible='1'/>
+						<field name="qte_actuelle" invisible='1'/>
+						<field name="qte_octroye"/>
+						<field name="observation_dde" invisible='1'/>
+					</tree>
+				</field>
+            </sheet>
+			
+		</form>
+	</field>
+</record>
+
+<record model="ir.ui.view" id="view_id_stock_cloture_tree">
+	<field name="name">view.stock_cloture.tree</field>
+	<field name="model">stock_cloture</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Fiche de Stock" decoration-info ="state == 'T'" decoration-success ="state == 'S'" >
+		    <field name="name" />
+			<field name="dte" />
+			<field name="state" />
+		</tree>
+	</field>
+</record>
+
+
+
+<record model="ir.ui.view" id="view_id_stock_fich_line_tree">
+	<field name="name">view.stock.fiche.Line</field>
+	<field name="model">stock_fiche_line</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Stock Fiche Line" editable="bottom">
+		    <field name="date_traitement"/>
+		    <field name="code"/>
+		    <field name="designation"/>
+			<field name="seuil"/>
+			<field name="etat"/>
+			<field name="qte_en_stock"/>
+		    <field name="qte_dispo"/>
+		    <field name="qte_traite"/>
+			<field name="de_service"/>
+			<field name="vers_service"/>
+			<field name="fournisseur"/>
+			<field name="observation"/>
+		</tree>
+	</field>
+</record>
+
+
+
+<record model="ir.ui.view" id="view_id_stock_fiche_entree_form">
+	<field name="name">view.stock_fiche_entree.form</field>
+	<field name="model">stock_fiche_entree</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<form string="Fiche Stock">
+			<header>
+		   	        <button string="Valider" name="valider" type="object" class="oe_highlight"
+					attrs="{'invisible' : [('state', 'in', ['V'])]}" />
+					<field name="state" widget = "statusbar"/>
+            </header>
+	        <sheet>           
+                <group col="4">
+					<field name="name"  style="width:25%"/>
+					<field name="x_date" style="width:50%"/>						
+                </group>
+				<field name="company_id" invisible='1'/>
+				
+				<field name="fiche_ids" string="Stock Fiche initiale">
+					<tree editable="bottom">					
+						<field name="name"/>
+						<field name="unite_stock_id" options="{'no_create':True}" force_save='1'/>
+						<field name="qte_article_en_stock"/>
+						<field name="company_id" invisible='1'/>
+					</tree>
+				</field>
+            </sheet>
+			
+		</form>
+	</field>
+</record>
+
+<record model="ir.ui.view" id="view_id_stock_fiche_entree_tree">
+	<field name="name">view.stock_fiche_entree.tree</field>
+	<field name="model">stock_fiche_entree</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Fiche de Stock" decoration-info ="state == 'draft'" decoration-success ="state == 'V'" >
+		    <field name="name"/>
+			<field name="x_date"/>
+			<field name="state"/>
+		</tree>
+	</field>
+</record>
+
+	
+	
+
+	
+	<record model="ir.actions.act_window" id="act_list_type_article">
+			<field name="name">Liste des sous-familles d'articles</field>
+			<field name="res_model">stock_sousfamille_article</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="act_list_mvt_stock">
+			<field name="name">Liste des mouvements de stock</field>
+			<field name="res_model">stock_mouvementstock</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="act_list_unite_stock">
+			<field name="name">Liste des unités de stockage/Livraison</field>
+			<field name="res_model">stock_unitestockage</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="act_list_centrali">
+			<field name="name">Liste des besoins centralisés</field>
+			<field name="res_model">central_besoinannuel</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+	
+	
+	<record model="ir.actions.act_window" id="act_list_qual">
+			<field name="name">Liste des qualifications</field>
+			<field name="res_model">stock_qualifications</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+	
+	
+	<record model="ir.actions.act_window" id="act_list_besoin_annuel">
+			<field name="name">Liste Des Besoins Annuels</field>
+			<field name="res_model">stock_besoinannuel</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+	
+	<!--
+	<record model="ir.actions.act_window" id="act_list_inve">
+			<field name="name">Liste Des Inventaires</field>
+			<field name="res_model">stock_inventaires</field>
+			<field name="view_mode">tree,form</field>
+	</record>-->
+	
+	
+	<record model="ir.actions.act_window" id="act_list_entree_fourn">
+			<field name="name">Liste Des Entrées en Stock</field>
+			<field name="res_model">stock_livraisonfourniture</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+	
+	
+	<record model="ir.actions.act_window" id="act_list_dde_fourn">
+			<field name="name">Liste Des Demandes de Fournitures</field>
+			<field name="res_model">stock_besoinapprov</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+	
+	
+	<record model="ir.actions.act_window" id="act_list_magasin">
+			<field name="name">Liste Des Magasins</field>
+			<field name="res_model">stock_magasinstockage</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+	
+	
+	<record model="ir.actions.act_window" id="act_list_prep_fich">
+			<field name="name">Liste Des Préparations Des Fiches D'Inventaire</field>
+			<field name="res_model">stock_inventairepreps</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="act_list_controle_fich">
+			<field name="name">Liste Des Contrôles Des Fiches D'Inventaire</field>
+			<field name="res_model">stock_ficheinventaire</field>
+			<field name="view_mode">form</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="act_list_com">
+			<field name="name">Liste Des Commissions</field>
+			<field name="res_model">stock_commission</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+	
+	
+	<record model="ir.actions.act_window" id="act_list_seuil">
+			<field name="name">Liste Des Consultations Seuil Stock</field>
+			<field name="res_model">stock_seuil</field>
+			<field name="view_mode">form</field>
+	</record>
+	
+	
+	<record model="ir.actions.act_window" id="act_list_stock_fiche">
+			<field name="name">Liste Des Fiches De Stock</field>
+			<field name="res_model">stock_fiche</field>
+			<field name="view_mode">form</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="act_list_serv">
+			<field name="name">Service receveur</field>
+			<field name="res_model">stock_param_service</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="act_list_clot">
+			<field name="name">Liste des bons de sorties clôturés</field>
+			<field name="res_model">stock_cloture</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="act_list_membre">
+			<field name="name">Liste des membres de commissions</field>
+			<field name="res_model">stock_membre</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+	
+	<record model="ir.actions.act_window" id="act_list_fiche_entree">
+			<field name="name">Fiche d'inventaire initiale</field>
+			<field name="res_model">stock_fiche_entree</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+	
+
+	<menuitem id="main_menu" name ="Gestion Stock" sequence="7"
+	web_icon="Gestion_Stocks,static/description/icon.png"/>
+	
+	<menuitem id="main_menu_entree" name ="Gestion Des Entrées" sequence="2" parent="main_menu"/>
+	<menuitem id="main_menu_livraison" name ="Saisie/Màj des entrées en stock" sequence="4" parent="main_menu_entree" action="act_list_entree_fourn"/>
+	<menuitem id="main_menu_besoin" name ="Expression des besoins annuels" sequence="6" parent="main_menu_entree" action="act_list_besoin_annuel"/>
+	<menuitem id="main_menu_besoin_c" name ="Agrégaion des besoins annuels" sequence="7" parent="main_menu_entree" action="act_list_centrali" groups='Gestion_Stocks.Gestion_Stocks_manager_Gestionnaire'/>
+	
+		
+	<menuitem id="main_menu_demande" name ="Gestion Des Sorties" sequence="30" parent="main_menu" action="act_list_centrali"/>
+	
+	<menuitem id="main_menu_demande" name ="Gestion Des Demandes" sequence="40" parent="main_menu"/>
+		<menuitem id="main_menu_dmde" name ="Demande d'approvisionnement" sequence="41" parent="main_menu_demande" action="act_list_dde_fourn"/>
+	<menuitem id="main_menu_clot" name ="Clôture d'un bon de sortie" sequence="42" parent="main_menu_demande" action="act_list_clot"/>
+
+	
+	<menuitem id="main_menu_controle" name ="Contrôle De Stock" sequence="60" parent="main_menu" groups='Gestion_Stocks.Gestion_Stocks_manager_Gestionnaire'/>
+	<menuitem id="main_menu_prep_inve" name ="Préparation Fiche Inventaire" sequence="61" parent="main_menu_controle" action="act_list_prep_fich"/>
+	<menuitem id="main_menu_ctrl_inve" name ="Contrôle Fiche/Pointage Inventaire" sequence="62" parent="main_menu_controle" action="act_list_controle_fich"/>
+	<menuitem id="main_menu_com" name ="Admission À Non Valeur" sequence="63" parent="main_menu_controle" action="act_list_com"/>
+	<menuitem id="main_menu_seuil" name ="Vérification Stock de Securité" sequence="64" parent="main_menu_controle" action="act_list_seuil"/>
+	<menuitem id="main_menu_fiche_stock" name ="Fiche de Stock" sequence="65" parent="main_menu_controle" action="act_list_stock_fiche"/>
+	<menuitem id="main_menu_fiche_entre_stock" name ="Fiche d'initiale de Stock" sequence="66" parent="main_menu_controle" action="act_list_fiche_entree"/>
+
+	
+    <menuitem id="main_menu_conf" name ="Données de base" sequence="70" parent="main_menu" groups='Gestion_Stocks.Gestion_Stocks_manager_Gestionnaire'/>
+	<!--<menuitem id="main_menu_groupe_article" name ="Saisie/Màj-Groupe d'articles" sequence="71" parent="main_menu_conf" action="act_list_groupe_article"/>
+	<menuitem id="main_menu_famille_article" name ="Saisie/Màj-Famille d'articles" sequence="72" parent="main_menu_conf" action="act_list_famille_article"/>-->
+	
+	<menuitem id="main_menu_unite_stock" name ="Saisie/Màj-Unité de stockage" sequence="75" parent="main_menu_conf" action="act_list_unite_stock"/>
+	<menuitem id="main_menu_mag_stock" name ="Saisie/Màj-Magasin de stock" sequence="76" parent="main_menu_conf" action="act_list_magasin"/>
+	<menuitem id="main_menu_qualification" name ="Saisie/Màj-Qualification" sequence="77" parent="main_menu_conf" action="act_list_qual"/>
+	<menuitem id="main_menu_article" name ="Saisie/Màj-Article" sequence="78" parent="main_menu_conf" action="act_list_article"/>
+	<menuitem id="main_menu_serv" name ="Saisie/Màj-Membre commission" sequence="79" parent="main_menu_conf" action="act_list_membre"/>
+	
+
+	
+</odoo>
+
+

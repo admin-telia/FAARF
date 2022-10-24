@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Calendrier remboursement -->
+	<template id="credit_calendrier_remboursement">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.basic_layout">
+					<style>
+						.table th, .table td {
+							padding: 0.1rem;
+						}
+						div{
+							font-family: garamond;
+							font-size: 11px;
+						}
+						.montant{
+							text-align: right
+						}
+						.border-top{
+							border-top: 1px #dee2e6 black;
+						}
+					</style>
+					<div style="text-align: center; border: 1px black">
+						<h3>Calendrier du Remboursement de Crédit</h3>
+					</div>
+					<br/><br/>
+					<table class="table table-sm">
+						<tr>
+							<th colspan="3" class="border-top">Nom du client: <span t-field="o.cliente_id.name"/></th>
+						</tr>
+						<tr>
+							<th colspan="3" class="border-top">Adresse- Telephone</th>
+						</tr>
+						<tr>
+							<th colspan="3" class="border-top">But de crédit</th>
+						</tr>
+						<tr>
+							<th class="border-top">N° de crédit: </th>
+							<th class="border-top"></th>
+							<th class="border-top">Date de la demande: <span t-field="o.date_demande"/></th>
+						</tr>
+						<tr>
+							<th class="border-top">Montant du crédit: <span t-field="o.montant_accorde"/></th>
+							<th class="border-top">Période du crédit: <span t-field="o.duree_pret"/> <span t-field="o.periodicite"/></th>
+							<th class="border-top">Date du décaissement: <span t-field="o.date_demande"/></th>
+						</tr>
+						<tr>
+							<th colspan="2" class="border-top"></th>
+							<th class="border-top">Taux d'intérêt effectif: <span t-field="o.taux_int_annuel"/></th>
+						</tr>
+						<tr>
+							<th colspan="2" class="border-top">Fonds de crédit: <span t-field="o.bailleur_id.name"/></th>
+							<th class="border-top"></th>
+						</tr>
+						<tr>
+							<th class="border-top">Produit du crédit: <span t-field="o.produit_credit.name"/></th>
+							<th class="border-top">devise: FCFA</th>
+							<th class="border-top">Agent de crédit: <span t-field="o.gestionnaire_id.name"/></th>
+						</tr>
+						<tr>
+							<th colspan="3" class="border-top"></th>
+
+						</tr>
+					</table>
+					<br/><br/>
+					<table class="table table-sm table-striped table-bordered">
+						<tr>
+							<th>N° tranche</th>
+							<th>Date</th>
+							<th>Principal dû</th>
+							<th>Intérêt dû</th>
+							<th>FA dû</th>
+							<th>Total</th>
+							<th>Date paiement</th>
+							<th>Signature</th>
+						</tr>
+						<t t-set="principal" t-value="0"/>
+						<t t-set="interet" t-value="0"/>
+						<t t-set="fa" t-value="0"/>
+						<t t-set="total" t-value="0"/>
+						<tr t-foreach="o.credit_lignes_ids" t-as="l">
+							<td><span t-field="l.numero"/></td>
+							<td><span t-field="l.date"/></td>
+							<td class="montant"><span t-field="l.montant"/></td>
+							<td class="montant"><span t-field="l.interet"/></td>
+							<td class="montant"><span t-field="l.garantie"/></td>
+							<td class="montant"><span t-field="l.total"/></td>
+							<td>......./......./...............</td>
+							<td></td>
+							<t t-set="principal" t-value="principal + l.montant"/>
+							<t t-set="interet" t-value="interet + l.interet"/>
+							<t t-set="fa" t-value="fa + l.garantie"/>
+							<t t-set="total" t-value="fa + l.total"/>
+						</tr>
+						<tr>
+							<th colspan="2">Total</th>
+							<th class="montant"><span t-esc="principal"/></th>
+							<th class="montant"><span t-esc="interet"/></th>
+							<th class="montant"><span t-esc="fa"/></th>
+							<th class="montant"><span t-esc="total"/></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</table>
+					<table class="table">
+						<tr>
+							<td style="text-align: right; font-size:11px;border: none">Imprimé le:</td>
+						</tr>
+						<tr>
+							<td style="text-align: right; font-size:11px;border: none">Imprimé par:</td>
+						</tr>
+					</table>
+				</t>
+			 </t>
+		</t>
+	</template>
+	<report
+		id="report_credit_calendrier_remboursement"
+		string="Calendrier de remboursement de crédit"
+		model="credit_credit"
+		report_type="qweb-html"
+		file="faarf_credit.credit_calendrier_remboursement"
+		name="faarf_credit.credit_calendrier_remboursement"
+		groups = "base.group_user"
+		menu = "True"/>
+
+	<!-- Fiche deblocage -->
+	<template id="credit_fiche_deblocage">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.basic_layout">
+					<style>
+						.table th, .table td {
+							padding: 0.1rem;
+						}
+						div{
+							font-family: garamond;
+							font-size: 11px;
+						}
+						.montant{
+							text-align: right
+						}
+						.border-top{
+							border-top: 1px #dee2e6 black;
+						}
+					</style>
+					<div style="text-align: center; border: 1px black">
+						<h3>FICHE DE DEBLOCAGE N°: </h3>
+					</div>
+					<br/><br/>
+					<table class="table table-sm">
+						<tr>
+							<th colspan="3" class="border-top">Nom du client: <span t-field="o.cliente_id.name"/></th>
+						</tr>
+						<tr>
+							<th colspan="3" class="border-top">-</th>
+						</tr>
+						<tr>
+							<th class="border-top"></th>
+							<th class="border-top"></th>
+							<th class="border-top">Date de la demande: <span t-field="o.date_demande"/></th>
+						</tr>
+						<tr>
+							<th class="border-top">Montant du crédit: <span t-field="o.montant_accorde"/></th>
+							<th class="border-top">Période du crédit: <span t-field="o.duree_pret"/> <span t-field="o.periodicite"/></th>
+							<th class="border-top">Date du décaissement: <span t-field="o.date_demande"/></th>
+						</tr>
+						<tr>
+							<th colspan="2" class="border-top"></th>
+							<th class="border-top">Taux d'intérêt effectif: <span t-field="o.taux_int_annuel"/></th>
+						</tr>
+						<tr>
+							<th colspan="2" class="border-top">Fonds de crédit: <span t-field="o.bailleur_id.name"/></th>
+							<th class="border-top"></th>
+						</tr>
+						<tr>
+							<th class="border-top">Produit du crédit: <span t-field="o.produit_credit.name"/></th>
+							<th class="border-top">devise: FCFA</th>
+							<th class="border-top">Agent de crédit: <span t-field="o.gestionnaire_id.name"/></th>
+						</tr>
+						<tr>
+							<th colspan="3" class="border-top"></th>
+
+						</tr>
+					</table>
+					<br/><br/>
+					<table class="table table-sm table-striped table-bordered">
+						<tr>
+							<th>N° tranche</th>
+							<th>Date</th>
+							<th>Principal dû</th>
+							<th>Intérêt dû</th>
+							<th>FA dû</th>
+							<th>Total</th>
+							<th>Date paiement</th>
+							<th>Signature</th>
+						</tr>
+						<t t-set="principal" t-value="0"/>
+						<t t-set="interet" t-value="0"/>
+						<t t-set="fa" t-value="0"/>
+						<t t-set="total" t-value="0"/>
+						<tr t-foreach="o.credit_lignes_ids" t-as="l">
+							<td><span t-field="l.numero"/></td>
+							<td><span t-field="l.date"/></td>
+							<td class="montant"><span t-field="l.montant"/></td>
+							<td class="montant"><span t-field="l.interet"/></td>
+							<td class="montant"><span t-field="l.garantie"/></td>
+							<td class="montant"><span t-field="l.total"/></td>
+							<td>......./......./...............</td>
+							<td></td>
+							<t t-set="principal" t-value="principal + l.montant"/>
+							<t t-set="interet" t-value="interet + l.interet"/>
+							<t t-set="fa" t-value="fa + l.garantie"/>
+							<t t-set="total" t-value="fa + l.total"/>
+						</tr>
+						<tr>
+							<th colspan="2">Total</th>
+							<th class="montant"><span t-esc="principal"/></th>
+							<th class="montant"><span t-esc="interet"/></th>
+							<th class="montant"><span t-esc="fa"/></th>
+							<th class="montant"><span t-esc="total"/></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</table>
+					<table class="table">
+						<tr>
+							<td style="text-align: right; font-size:11px;border: none">Imprimé le:</td>
+						</tr>
+						<tr>
+							<td style="text-align: right; font-size:11px;border: none">Imprimé par:</td>
+						</tr>
+					</table>
+				</t>
+			 </t>
+		</t>
+	</template>
+	<report
+		id="report_credit_fiche_deblocage"
+		string="Fiche de deblocage"
+		model="credit_credit"
+		report_type="qweb-html"
+		file="faarf_credit.credit_fiche_deblocage"
+		name="faarf_credit.credit_fiche_deblocage"
+		groups = "base.group_user"
+		menu = "True"/>
+
+	<!-- Recipisse paperformat="paperformat_credit_recepisse"-->
+	<record id="paperformat_credit_recepisse"
+            model="report.paperformat">
+        <field name="name">European A4</field>
+        <field name="default" eval="True"/>
+        <field name="format">A5</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">43</field>
+        <field name="dpi">90</field>
+    </record>
+	<template id="credit_recipisse">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.basic_layout">
+					<style>
+						.table th, .table td {
+							border: none;
+						}
+					</style>
+					<div class="watermark"
+						style="position: absolute; opacity:0.1; font-size:3em; width:100%;
+								text-align:center; z-index:1000; margin-top:210px">
+						<img src="/faarf_credit/static/img/faarf_logo.png"
+							style="width: 18%;"/>
+					</div>
+					<div>
+						<table class="table">
+							<tr>
+								<td style="text-align:left">
+									<p style="font-size:11px; font-weight:bold">
+										MINISTERE DU GENRE, <br/>
+										DE LA FAMILLE ET DE L'ACTION <br/>
+										HUMANITAIRE <br/>
+										-------------------- <br/>
+										SECRETARIAT GENERAL <br/>
+										-------------------- <br/>
+										FONDS D'APPUI AUX ACTIVITES <br/>
+										REMUNERATRIVES DES FEMMES <br/>
+										(FAARF) <br/>
+									</p>
+								</td>
+								<td style="text-align:center">
+									<img src="/faarf_credit/static/img/faarf_logo.png"/>
+								</td>
+								<td style="text-align:center">
+									<p>
+										Burkina Faso <br/>
+										Unité - Progès - Justice
+									</p>
+								</td>
+							</tr>
+						</table>
+<!--						<div style="text-align: center">-->
+<!--							<img src="/faarf_credit/static/description/faarf_logo.png"-->
+<!--								 class="faarf_logo"-->
+<!--								 alt="Channel"/>-->
+<!--						</div>-->
+						<h3 style="text-align: center">Récépissé depôt</h3>
+						<table class="table">
+							<tr>
+								<td style="line-height:1.5px; font-size:12px">
+									<b>N°: </b><span t-field="o.num_demande"/>
+								</td>
+								<td style="line-height:1.5px; font-size:12px; text-align:left">
+									<b>ZONE:</b> <span t-field="o.zone_id"/>
+								</td>
+							</tr>
+							<tr>
+								<td style="line-height:1.5px; font-size:12px">
+									<b>DATE: </b><span t-field="o.date_demande"/>
+								</td>
+								<td style="line-height:1.5px; font-size:12px; text-align:left">
+									<b>REGION: </b><span t-field="o.region_id"/>
+								</td>
+							</tr>
+							<tr>
+								<td style="line-height:1.5px; font-size:12px">
+									<b>NOM: </b><span t-field="o.cliente_id.name"/>
+								</td>
+								<td style="line-height:1.5px; font-size:12px; text-align:left">
+									<b>PROVINCE:</b> <span t-field="o.province_id"/>
+								</td>
+							</tr>
+							<tr>
+								<td style="line-height:1.5px; font-size:12px">
+									<b>CONTACT: </b><span t-field="o.cliente_id.telephone"/>
+								</td>
+								<td style="line-height:1.5px; font-size:12px; text-align:left">
+									<b>COMMUNE:</b> <span t-field="o.departement_id"/>
+								</td>
+							</tr>
+							<tr>
+								<td style="line-height:1.5px; font-size:12px">
+									<b>TYPE: </b><span t-field="o.type_client"/>
+								</td>
+								<td style="line-height:1.5px; font-size:12px; text-align:left">
+									<b>SECTEUR/VILLAGE:</b> <span t-field="o.village_id"/>
+								</td>
+							</tr>
+						</table>
+<!--						<h6>LOCALISATION:</h6>-->
+<!--						<table class="table">-->
+<!--							<tr>-->
+<!--								<td><b>ZONE:</b> <span t-field="o.zone_id"/></td>-->
+<!--								<td><b>COMMUNE/DEPARTEMENT:</b> <span t-field="o.departement_id"/></td>-->
+<!--							</tr>-->
+<!--							<tr>-->
+<!--								<td><b>REGION: </b><span t-field="o.region_id"/></td>-->
+<!--								<td><b>SECTEUR/VILLAGE:</b> <span t-field="o.village_id"/></td>-->
+<!--							</tr>-->
+<!--							<tr>-->
+<!--								<td><b>PROVINCE:</b> <span t-field="o.province_id"/></td>-->
+<!--								<td></td>-->
+<!--							</tr>-->
+<!--						</table>-->
+						<table class="table">
+							<tr>
+								<td style="line-height:1.5px; font-size:12px">
+									<b>GESTIONNAIRE: </b><span t-field="o.gestionnaire_id"/>
+								</td>
+							</tr>
+							<tr>
+								<td style="line-height:1.5px; font-size:12px">
+									<b>SERVICE CLIENTELE:</b> 70 14 52 63
+								</td>
+							</tr>
+						</table>
+					</div>
+				</t>
+			 </t>
+		</t>
+	</template>
+	<report
+		id="report_credit_recipisse"
+		string="Récépissé depôt"
+		model="credit_credit"
+		report_type="qweb-html"
+		file="faarf_credit.credit_recipisse"
+		name="faarf_credit.credit_recipisse"
+		paperformat="paperformat_credit_recepisse"
+		groups = "base.group_user"
+		menu = "True"/>
+
+	<!-- Fiche devaluation -->
+	<template id="credit_fiche_evaluation">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.basic_layout">
+					<style>
+						.table th, .table td {
+							border-top: 1px #dee2e6;
+							padding: 0.1rem;
+						}
+						div{
+							font-family: garamond;
+						}
+						.faarf_logo{
+							width: 100px;
+							height: 100px;
+						}
+					</style>
+					<div style="text-align: center">
+						<img src="/faarf_credit/static/description/faarf_logo.png"
+							 class="faarf_logo"
+							 alt="Channel"/>
+					</div>
+					<div style="text-align: center; border: 1px black">
+						<h2>FICHE D'EVALUATION DE PRET</h2>
+					</div>
+					<div>
+						<table class="table">
+							<tr>
+								<td><b>Préparé par: </b><span t-field="o.charge_clientele_id"/></td>
+							</tr>
+							<tr>
+								<td><b>Code Gestionnaire de crédit:</b> <span t-field="o.gestionnaire_id"/></td>
+							</tr>
+							<tr>
+								<td><b>Date préparation:</b> <span t-field="o.date_demande"/></td>
+							</tr>
+							<tr>
+								<td><b>Numéro du client:</b> <span t-field="o.cliente_id"/></td>
+							</tr>
+							<tr>
+								<td><b>Numéro de la demande:</b> <span t-field="o.num_demande"/></td>
+							</tr>
+							<tr>
+								<td><b>Nouveau client:</b> <input type="checkbox"/></td>
+							</tr>
+							<tr>
+								<td><b>Nombre de crédit soldé:</b> <span t-field="o.credit_solde"/></td>
+							</tr>
+							<tr>
+								<td><b>Type de client:</b> <span t-field="o.cliente_id"/></td>
+							</tr>
+						</table>
+
+						<h6 style="text-align: center; text-decoration: underline">
+							Information sur l'emprunteur
+						</h6>
+						<table class="table">
+							<tr>
+								<td colspan="3">
+									<b>Identité de l'emprunteur: </b><span t-field="o.cliente_id"/>
+								</td>
+							</tr>
+							<tr>
+								<td><b>Situation matrimoniale: </b>................</td>
+								<td><b>Niveau d'étude: </b> ................</td>
+								<td><b>Nombre d'enfants: </b>.................</td>
+							</tr>
+							<tr>
+								<td colspan="3">
+									<b>Date et N de l'agrément: ................</b>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<b>Commune: </b>................
+								</td>
+								<td colspan="2">
+									<b>Secteur/Village: </b>................
+								</td>
+							</tr>
+						</table>
+
+						<h6 style="text-align: center; text-decoration: underline">
+							Pour les Groupement/Association ou Groupe solidaire
+						</h6>
+						<table class="table table-bordered">
+							<tr>
+								<td colspan="2">
+									<b>Noms et Prénoms et fonctions</b>
+								</td>
+							</tr>
+							<tr>
+								<td><b>1.</b></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><b>2.</b></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><b>3.</b></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><b>4.</b></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><b>5.</b></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><b>6.</b></td>
+								<td></td>
+							</tr>
+						</table>
+
+						<h6 style="text-align: center; text-decoration: underline">
+							Information sur l'emprunt
+						</h6>
+						<p><b>a) Précédent emprunt</b></p>
+						<p>Expériences en matière de crédit</p>
+						<table class="table table-bordered">
+							<tr>
+								<th rowspan="2">N</th>
+								<th rowspan="2">Numéros des précédents prêts</th>
+								<th rowspan="2">Montant des précédents prêts</th>
+								<th colspan="3">Dénouement</th>
+							</tr>
+							<tr>
+								<th>Avance</th>
+								<th>Respect délais</th>
+								<th>Retard et cause</th>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</table>
+						<p><b>Difficutés rencontrées pendant l'exercice des activités:..................................................</b></p>
+
+						<p><b>Emprunt actuel:</b></p>
+						<p><b>Objet de l'emprunt</b></p>
+						<p><b>Domaine d'activité:</b></p>
+
+						<p><b>Description des activités::</b></p>
+						<table class="table table-bordered">
+							<tr>
+								<th>N</th>
+								<th>Nature de l'activité</th>
+								<th>Nombre de sollicitantes</th>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</table>
+
+						<table class="table">
+							<tr>
+								<td>Montant demandé</td>
+								<td></td>
+								<td>Période déblocage souhaité</td>
+								<td></td>
+							</tr>
+						</table>
+
+						<table class="table table-bordered">
+							<tr>
+								<th>Type de prêt</th>
+								<th>Modalités demandées</th>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+							</tr>
+						</table>
+						<p>Signature de l'emprunteur_________________________________</p>
+
+						<table class="table table-bordered">
+							<tr>
+								<th colspan="2">Avis du gestionnaire de crédit</th>
+							</tr>
+							<tr>
+								<td><br/><br/><br/><br/><br/><br/>
+									Signature
+								</td>
+								<td><br/><br/><br/><br/><br/><br/>
+									Date
+								</td>
+							</tr>
+						</table>
+					</div>
+				</t>
+			 </t>
+		</t>
+	</template>
+	<report
+		id="report_credit_fiche_evaluation"
+		string="Fiche d'évaluation de prêt"
+		model="credit_credit"
+		report_type="qweb-html"
+		file="faarf_credit.credit_fiche_evaluation"
+		name="faarf_credit.credit_fiche_evaluation"
+		groups = "base.group_user"
+		menu = "True"/>
+</odoo>

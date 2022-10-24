@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <report 
+            id="auto_abss"
+            string="Autorisation Absence"
+            model="hr_demandeautoabsence"
+            report_type="qweb-pdf"
+            file="Gestion_Conges.auto_abss" 
+            name="Gestion_Conges.auto_absence_view"
+            groups = "base.group_user"
+            menu = "True"/>
+
+<template id="auto_absence_view">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.external_layout">
+            <t t-if="o.state in ('A') " >
+		            <h1><p style="text-align:center; widht:100%"><span t-field="o.x_titre"/></p></h1>
+					<p style="widht:100%"><strong><span t-field="o.p1"/> <span t-field="o.responsale.name"/> <span t-field="o.x_fonction.name"/> <span t-field="o.p2"/> <span t-field="o.current_user"/> <span t-field="o.p3"/> <span t-field="o.x_service"/> <span t-field="o.p4"/> <span t-field="o.x_date_debut"/> <span t-field="o.p5"/> <span t-field="o.x_date_fin"/> </strong></p>  
+		            <p style="widht:100%"><strong><span t-field="o.p6"/></strong></p><br></br>
+		            <p></p>
+		            <p></p>
+					<p style="text-align:right; widht:100%"><strong>Fait à <span t-field="o.company_id.ref_localite_id.name"/> , le <span t-field="o.date_attest"/></strong></p><br/><br/>
+					<p style="text-align:center; widht:100%"><strong>Signature :</strong></p> 
+             </t>
+             </t>
+         </t>
+    </t>
+</template>
+</odoo>

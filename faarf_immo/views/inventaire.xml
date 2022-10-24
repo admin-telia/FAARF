@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!--Vue form Liste fiche stock-->
+    <record id="view_faarf_inventaire_entree_form" model="ir.ui.view">
+        <field name="name">faarf.inventaire.entree.form</field>
+        <field name="model">faarf.inventaire.entree</field>
+        <field name="arch" type="xml">
+            <form string="Liste des inventaires des biens en stock">
+                <header>
+                    <button class="oe_highlight" name="invent_entree" type="object" icon="fa-check" string="Afficher"/>
+                </header>
+            <sheet>
+                    <group string="Inventaire des biens en stock">
+                    </group>
+                    <group>
+                        <field name="type_invent" style="width:50%"/>
+                    </group>
+                    <group>
+                        <label for="date_debut" string="Période"/>
+                            <div>
+                                <field name="date_debut" style="width:50%" class="oe_inline"/> AU <field name="date_fin" style="width:25%"/>
+                            </div>
+                        <label for="emplacement" string="Emplacement"/>
+                            <div>
+                                <field name="emplacement" style="width:50%" class="oe_inline"/> - <field name="magasin_id" style="width:50%" attrs="{'invisible':[('emplacement','in',['1'])]}"/>
+                            </div>
+                    </group>
+
+                <group invisible="1">
+                    <field name="magasinier"/>
+                    <field name="compta_matiere"/>
+                    <field name="ordre_matiere"/>
+                </group>
+                    <field name="entree_line_ids">
+                        <tree editable="bottom">
+                            <field name="sous_code" force_save="1"/>
+                            <field name="matiere_id"/>
+                            <field name="quant"/>
+                            <field name="quant_phys"/>
+                            <field name="ecart"/>
+                            <field name="val_unit"/>
+                            <field name="montant"/>
+                            <field name="observation"/>
+                        </tree>
+                    </field>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--action de création livre journal-->
+    <record id="action_faarf_inv_bien_stock" model="ir.actions.act_window">
+        <field name="name">Inventaire des biens en stock</field>
+        <field name="res_model">faarf.inventaire.entree</field>
+        <field name="view_mode">form</field>
+    </record>
+
+
+    <!--Vue form Liste fiche stock-->
+    <record id="view_faarf_inventaire_service_form" model="ir.ui.view">
+        <field name="name">faarf.inventaire.service.form</field>
+        <field name="model">faarf.inventaire.service</field>
+        <field name="arch" type="xml">
+            <form string="Liste des inventaires des biens en service">
+                <header>
+                    <button class="oe_highlight" name="invent_entree" type="object" icon="fa-check" string="Afficher"/>
+                </header>
+            <sheet>
+                    <group string="Inventaire des biens en service">
+                    </group>
+
+                    <group>
+                        <field name="type_invent" style="width:50%"/>
+                    </group>
+                    <group>
+                        <label for="date_debut" string="Période"/>
+                            <div>
+                                <field name="date_debut" style="width:50%" class="oe_inline"/> AU <field name="date_fin" style="width:25%"/>
+                            </div>
+                        <label for="emplacement" string="Emplacement"/>
+                            <div>
+                                <field name="emplacement" style="width:50%" class="oe_inline"/> - <field name="direction_id" style="width:50%" attrs="{'invisible':[('emplacement','in',['1'])]}"/>
+                            </div>
+                    </group>
+
+                <group invisible="1">
+                    <field name="magasinier"/>
+                    <field name="compta_matiere"/>
+                    <field name="ordre_matiere"/>
+                </group>
+                    <field name="entree_line_ids">
+                        <tree editable="bottom">
+                            <field name="sous_code" force_save="1"/>
+                            <field name="matiere_id"/>
+                            <field name="quant"/>
+                            <field name="quant_phys"/>
+                            <field name="val_unit"/>
+                            <field name="montant"/>
+                            <field name="observation"/>
+                        </tree>
+                    </field>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--action de création livre journal-->
+    <record id="action_faarf_inv_bien_service" model="ir.actions.act_window">
+        <field name="name">Inventaire des biens en service</field>
+        <field name="res_model">faarf.inventaire.service</field>
+        <field name="view_mode">form</field>
+    </record>
+
+
+    <!--Vue form Liste fiche stock-->
+    <record id="view_faarf_inventaire_declasse_form" model="ir.ui.view">
+        <field name="name">faarf.inventaire.declasse.form</field>
+        <field name="model">faarf.inventaire.declasse</field>
+        <field name="arch" type="xml">
+            <form string="Liste des inventaires des biens en déclassés">
+                <header>
+                    <button class="oe_highlight" name="invent_entree" type="object" icon="fa-check" string="Afficher"/>
+                </header>
+            <sheet>
+                    <group string="Inventaire des biens sorties">
+                    </group>
+
+                    <group>
+                        <field name="type_invent" style="width:50%"/>
+                    </group>
+                    <group>
+                        <label for="date_debut" string="Période"/>
+                            <div>
+                                <field name="date_debut" style="width:50%" class="oe_inline"/> AU <field name="date_fin" style="width:25%"/>
+                            </div>
+                        <!--<label for="emplacement" string="Emplacement"/>
+                            <div>
+                                <field name="emplacement" style="width:50%" class="oe_inline"/> - <field name="direction_id" style="width:50%" attrs="{'invisible':[('emplacement','in',['1'])]}"/>
+                            </div>-->
+                    </group>
+
+                <group invisible="1">
+                    <field name="magasinier"/>
+                    <field name="compta_matiere"/>
+                    <field name="ordre_matiere"/>
+                </group>
+                    <field name="entree_line_ids">
+                        <tree editable="bottom">
+                            <field name="sous_code" force_save="1"/>
+                            <field name="matiere_id"/>
+                            <field name="quant"/>
+                            <field name="quant_phys"/>
+                            <field name="val_unit"/>
+                            <field name="montant"/>
+                            <field name="observation"/>
+                        </tree>
+                    </field>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--action de création livre journal-->
+    <record id="action_faarf_inv_bien_declasse" model="ir.actions.act_window">
+        <field name="name">Inventaire des biens en déclassés</field>
+        <field name="res_model">faarf.inventaire.declasse</field>
+        <field name="view_mode">form</field>
+    </record>
+
+
+    <!--Vue form Liste fiche stock-->
+    <record id="view_faarf_fiche_inventaire_matiere_form" model="ir.ui.view">
+        <field name="name">faarf.fiche.inventaire.matiere.form</field>
+        <field name="model">faarf.fiche.inventaire.matiere</field>
+        <field name="arch" type="xml">
+            <form string="Liste des inventaires annuel des matieres">
+                <header>
+                    <button class="oe_highlight" name="invent_entree" type="object" icon="fa-check" string="Afficher"/>
+                </header>
+            <sheet>
+                    <group string="Fiche d'inventaire annuel des matières">
+                    </group>
+
+                    <group>
+                        <field name="type_invent" style="width:50%"/>
+                    </group>
+                    <group>
+                        <label for="date_debut" string="Période"/>
+                            <div>
+                                <field name="date_debut" style="width:50%" class="oe_inline"/> AU <field name="date_fin" style="width:25%"/>
+                            </div>
+                    </group>
+
+                <group invisible="1">
+                    <field name="magasinier"/>
+                    <field name="compta_matiere"/>
+                    <field name="ordre_matiere"/>
+                </group>
+                    <field name="entree_line_ids">
+                        <tree editable="bottom">
+                            <field name="sous_code" force_save="1"/>
+                            <field name="matiere_id"/>
+                            <field name="affecte_non"/>
+                            <field name="en_service"/>
+                            <field name="en_sortie"/>
+                            <field name="total"/>
+                            <field name="en_plus"/>
+                            <field name="en_moins"/>
+                            <field name="val_unit"/>
+                            <field name="val_en_plus"/>
+                            <field name="val_en_moins"/>
+                        </tree>
+                    </field>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--action de création livre journal-->
+    <record id="action_faarf_inv_ann" model="ir.actions.act_window">
+        <field name="name">Fiche inventaire annuel des matières</field>
+        <field name="res_model">faarf.fiche.inventaire.matiere</field>
+        <field name="view_mode">form</field>
+    </record>
+
+
+
+
+    <menuitem id="menu_gest_inv" name="Inventaires" parent="menu_immo" sequence="5"/>
+        <!--<menuitem id="menu_fiche_init" name="Fiche d'inventaire initiale" parent="menu_gest_inv" action="action_faarf_codification" sequence="1"/> de@5&-8LH%Pk9-->
+        <menuitem id="menu_fiche_inv_stock" name="Inventaire des biens en stock" parent="menu_gest_inv" action="action_faarf_inv_bien_stock" sequence="3"/>
+        <menuitem id="menu_fiche_inv_serv" name="Inventaire des biens en services" parent="menu_gest_inv" action="action_faarf_inv_bien_service" sequence="4"/>
+        <menuitem id="menu_fiche_inv_decl" name="Inventaire des biens sortis" parent="menu_gest_inv" action="action_faarf_inv_bien_declasse" sequence="5"/>
+        <menuitem id="menu_fiche_inv_ann" name="Fiche d'inventaire annuel des matières" parent="menu_gest_inv" action="action_faarf_inv_ann" sequence="6"/>
+
+
+</odoo>

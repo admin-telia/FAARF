@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Vue tree des clients  individuels-->
+    <!--                        <button name="%(faarf_credit.action_view_credit_clients_google_map)d"-->
+<!--                            type="action"-->
+<!--                            class="oe_stat_button"-->
+<!--                            icon="fa-map-marker" string="Géolocalisation"/>-->
+<!--    <record id="view_credit_clients_google_map" model="ir.ui.view">-->
+<!--        <field name="name">view.credit_clients.google_map</field>-->
+<!--        <field name="model">credit_clients</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <google_map class="o_res_partner_map" string="Google Map" lat="latitude" lng="longitude" colors="blue:name=='person';green:name=='company';" sidebar_title="name" sidebar_subtitle="name">-->
+<!--                <field name="id"/>-->
+<!--                <field name="latitude"/>-->
+<!--                <field name="longitude"/>-->
+<!--                <templates>-->
+<!--                    <t t-name="kanban-box">-->
+<!--                        <div class="o_kanban_record_has_image_fill o_res_partner_kanban">-->
+<!--                            <div class="oe_kanban_details">-->
+<!--                                <strong class="o_kanban_record_title oe_partner_heading"><field name="name"/></strong>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </t>-->
+<!--                </templates>-->
+<!--            </google_map>-->
+<!--        </field>-->
+<!--    </record>-->
+<!--    <record id="action_view_credit_clients_google_map" model="ir.actions.act_window">-->
+<!--        <field name="name">Google Map</field>-->
+<!--        <field name="res_model">credit_clients</field>-->
+<!--        <field name="view_mode">google_map</field>-->
+<!--        <field name="view_id" ref="faarf_credit.view_credit_clients_google_map"/>-->
+<!--        <field name="domain">[('id', '=', active_id)]</field>-->
+<!--    </record>-->
+    <record id="view_credit_client_tree" model="ir.ui.view">
+            <field name="name">credit_clients.tree</field>
+            <field name="model">credit_clients</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client"
+                      decoration-bf="state == 'A' " >
+                    <field name="numero_client"/>
+                    <field name="name"/>
+                    <field name="type_client"/>
+                    <field name="telephone"/>
+<!--                    <field name="region_id"/>-->
+<!--                    <field name="province_id"/>-->
+                    <field name="departement_id"/>
+                    <field name="village_id"/>
+                    <field name="gestionnaire_id"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="credit_clients_membre_form" model="ir.ui.view">
+        <field name="name">credit_clients.tree</field>
+        <field name="model">credit_clients</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="faarf_credit.credit_clients_form"/>
+        <field name="arch" type="xml">
+            <xpath expr='//field[@name="type_client"]' position='attributes'>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="credit_clients_form" model="ir.ui.view">
+        <field name="name">view.credit_clients.form</field>
+        <field name="model">credit_clients</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+<!--                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">-->
+<!--                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>-->
+<!--                        </button>-->
+                        <button class="oe_stat_button" type="object" name="get_vehicles"
+                            icon="fa-money" >
+<!--                                <field string="Vehicle" name="vehicle_count" widget="statinfo"/>-->
+                            <div class="o_stat_info">
+                                <field name="credits_count" class="o_stat_value"/>
+                                <span class="o_stat_text"> Crédit </span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <field name="photo" widget="image" class="oe_left oe_avatar"/>
+                    <div class="oe_title w-auto">
+                        <h3>
+                            <field name="type_client"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True, 'horizontal': true}"
+                                   placeholder="Type de client"
+                                   attrs="{'readonly':[('state','=','A')]}"/>
+                            <field name="type_client_code" invisible="1"/>
+                        </h3>
+                        <h1>
+                            <table style="width:75%;">
+                                <tr>
+                                    <td style="padding-right:10px; width:100%;">
+                                        <field name="name" placeholder="Nom"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="numero_client"/>
+                            <field name="date_ad" readonly="1" force_save="1"/>
+                            <field name="gestionnaire_id" readonly="1" force_save="1"/>
+                            <field name="state" invisible="1"/>
+<!--                            <field name="date_appro" readonly="1" force_save="1"/>-->
+                        </group>
+                        <group></group>
+                    </group>
+                    <notebook>
+                        <page string="Identification">
+                            <group>
+                                <group attrs="{'invisible':[('type_client_code','!=','IND')]}">
+                                    <field name="type_piece"
+                                           options="{'no_quick_create':True,'no_create_edit':True,'no_open':True, 'horizontal': true}"
+                                           attrs="{'required':[('type_client_code','==','IND')], 'readonly':[('state','=','A')]}"/>
+                                    <field name="nip"
+                                           attrs="{'required':[('type_client_code','==','IND')], 'readonly':[('state','=','A')]}"/>
+                                    <field name="copie_cnib"
+                                           attrs="{'required':[('type_client_code','==','IND')], 'readonly':[('state','=','A')]}"/>
+                                    <field name="num_piece"
+                                           attrs="{'required':[('type_client_code','==','IND')], 'readonly':[('state','=','A')]}"/>
+                                    <field name="dte_piece"
+                                          attrs="{'required':[('type_client_code','==','IND')], 'readonly':[('state','=','A')]}"/>
+                                    <field name="dte_piece_exp"
+                                          attrs="{'required':[('type_client_code','==','IND')], 'readonly':[('state','=','A')]}"/>
+                                </group>
+                                <group attrs="{'invisible':[('type_client_code','!=','ASS')]}">
+                                    <field name="copie_agrement"
+                                           attrs="{'required':[('type_client_code','==','ASS')], 'readonly':[('state','=','A')]}"/>
+                                    <field name="num_agrement"
+                                           attrs="{'required':[('type_client_code','==','ASS')], 'readonly':[('state','=','A')]}"/>
+                                    <field name="dte_agrement"
+                                           attrs="{'required':[('type_client_code','==','ASS')], 'readonly':[('state','=','A')]}"/>
+                                </group>
+                                <group>
+                                    <field name="pvh" required="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Signature">
+                            <field name="signature" widget="signature"/>
+                        </page>
+                        <page string="Adresse">
+                            <group>
+                                <group>
+                                    <field name="current_user_x_zone_ids" invisible="1"/>
+                                    <field name="zone_id" domain="[('id', 'in', current_user_x_zone_ids )]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                    <field name="region_id" domain="[('zone_id.id', '=', zone_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                    <field name="province_id" domain="[('ref_region_id.id', '=', region_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                    <field name="departement_id" domain="[('ref_province_id.id', '=', province_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                    <field name="village_id" domain="[('commune_id.id', '=', departement_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                </group>
+                                <group>
+                                    <field name="telephone"/>
+                                    <field name="telephone_est_pro"/>
+                                    <field name="proprietaire" attrs="{'invisible':[('telephone_est_pro','==', True)]}"/>
+                                    <field name="mail"/>
+                                    <field name="personne_a_contacte" required="1"/>
+                                    <field name="telephone_pers_a_contacte" required="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Géolocalisation" name="geo_location">
+                            <!-- something to do here -->
+                            <group colspan="2" col="2">
+                                <separator string="Géolocalisation" colspan="2"/>
+                                <button
+                                    string="Géolocaliser"
+                                    name="geo_localize"
+                                    colspan="2"
+                                    icon="fa-check"
+                                    type="object"/>
+                                <div>
+                                    <span class="oe_inline"> ( Date  </span>
+                                    <field name="date_localization" nolabel="1" class="oe_inline"/>
+                                    <span> : Lat : </span>
+                                    <field name="latitude" nolabel="1" class="oe_inline"/>
+                                    <span> ;  Long:  </span>
+                                    <field name="longitude" nolabel="1" class="oe_inline"/>
+                                    <span>) </span>
+                                    <field name="lat"/>
+                                </div>
+                            </group>
+                        </page>
+                        <page string="Données personnelles" attrs="{'invisible':[('type_client_code','!=','IND')]}">
+                            <group>
+                                <group>
+                                    <field name="date_naiss"/>
+                                    <field name="lieu_naiss"/>
+                                    <field name="etat_civil"/>
+                                    <field name="langues_parles"/>
+                                </group>
+                                <group>
+                                    <field name="profession"/>
+                                    <field name="domaine_activite_id"/>
+                                    <field name="nombre_enfants"/>
+                                    <field name="personnes_charge"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Responsable" attrs="{'invisible':[('type_client_code','==','IND')]}">
+                            <group>
+                                <group>
+                                    <field name="x_presidente_id"  domain="[('id', 'in', membres_ids )]" options="{'no_create':True, 'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                    <field name="x_secretaire_id" domain="[('id', 'in', membres_ids )]" options="{'no_create':True, 'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                    <field name="x_tresoriere_id" domain="[('id', 'in', membres_ids )]" options="{'no_create':True, 'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Membres"
+                              attrs="{'invisible':[('type_client_code','==','IND')]}">
+                            <field name="membres_ids"
+                                   domain="[('type_client_code', '=', 'IND')]"
+                                context="{'form_view_ref':'faarf_credit.credit_clients_membre_form',
+                                            'default_zone_id': zone_id, 'default_region_id': region_id,
+                                            'default_province_id': province_id, 'default_departement_id': departement_id,
+                                            'default_village_id': village_id}"/>
+                        </page>
+                        <page string="Autres informations">
+                            <field name="autre_info"/>
+                        </page>
+                    </notebook>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_credit_clients_search" model="ir.ui.view">
+            <field name="name">credit_clients</field>
+            <field name="model">credit_clients</field>
+            <field name="arch" type="xml">
+                <search string="Search modules">
+                    <field name="numero_client"/>
+                    <field name="name"/>
+                    <field name="nip"/>
+                    <field name="num_piece"/>
+                    <field name="num_agrement"/>
+                    <searchpanel>
+                        <field select="multi" expand="true" name="type_client" string="Type de clientes" enable_counters="1"/>
+                        <field name="zone_id" string="Zone" enable_counters="1"/>
+                        <field name="region_id" string="Regions" enable_counters="1"/>
+                        <field name="province_id" string="Provinces" enable_counters="1"/>
+                    </searchpanel>
+               </search>
+            </field>
+        </record>
+    <record id="action_credit_clients" model="ir.actions.act_window">
+        <field name="name">Clientes</field>
+        <field name="res_model">credit_clients</field>
+        <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_credit_client_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('credit_clients_form')})]"/>
+        <field name="view_mode">search,tree,form</field>
+    </record>
+
+    <!--Vue tree membres groupes-->
+    <record id="view_credit_client_membre_tree" model="ir.ui.view">
+            <field name="name">credit_client_membre.tree</field>
+            <field name="model">credit_client_membre</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client" decoration-success="state == 'new'" >
+                    <field name="numero_membre"/>
+                    <field name="name"/>
+                    <field name="telephone"/>
+                    <field name="state"/>
+<!--                    <field name="active"/>-->
+                </tree>
+            </field>
+        </record>
+    <record id="credit_client_membre_form" model="ir.ui.view">
+        <field name="name">view.credit_client_membre.form</field>
+        <field name="model">credit_client_membre</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+<!--                    <button class="oe_highlight" name="set_validate" type="object" icon="fa-check" string="Valider" attrs="{'invisible':[('state','in','new')]}"/>-->
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+<!--                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">-->
+<!--                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>-->
+<!--                        </button>-->
+                    </div>
+
+                    <field name="photo" widget="image" class="oe_left oe_avatar"/>
+                    <div class="oe_title w-auto">
+                        <h1>
+                            <table style="width:75%;">
+                                <tr>
+                                    <td style="padding-right:10px; width:100%;">
+                                        <field name="name" placeholder="Nom"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="numero_membre"/>
+                            <field name="date_ad"/>
+                            <field name="date_appro"/>
+                        </group>
+                        <group></group>
+                    </group>
+                    <notebook>
+                        <page string="Identification">
+                            <group>
+                                <group>
+                                    <field name="nip"/>
+                                    <field name="copie_cnib"/>
+                                    <field name="num_piece"/>
+                                    <field name="dte_piece"/>
+                                </group>
+                                <group>
+                                    <field name="telephone"/>
+                                    <field name="mail"/>
+                                    <field name="personne_a_contacte"/>
+                                    <field name="telephone_pers_a_contacte"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Signature">
+                            <field name="signature" widget="signature"/>
+                        </page>
+                        <page string="Adresse" invisible="1">
+                            <group>
+                                <group>
+                                    <field name="current_user_x_zone_ids" invisible="1"/>
+                                    <field name="zone_id" domain="[('id', 'in', current_user_x_zone_ids )]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                    <field name="region_id" domain="[('zone_id.id', '=', zone_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                    <field name="province_id" domain="[('ref_region_id.id', '=', region_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                    <field name="departement_id" domain="[('ref_province_id.id', '=', province_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                    <field name="village_id" domain="[('commune_id.id', '=', departement_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                </group>
+                                <group>
+                                    <field name="telephone"/>
+                                    <field name="mail"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Données personnelles">
+                            <group>
+                                <group>
+                                    <field name="date_naiss"/>
+                                    <field name="lieu_naiss"/>
+                                    <field name="etat_civil"/>
+                                    <field name="langues_parles"/>
+                                </group>
+                                <group>
+                                    <field name="profession"/>
+                                    <field name="nombre_enfants"/>
+                                    <field name="personnes_charge"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Autres informations">
+                            <group>
+                                <field name="autre_info"/>
+                            </group>
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_credit_client_membre" model="ir.actions.act_window">
+        <field name="name">Clientes</field>
+        <field name="res_model">credit_client_membre</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--Vue tree Titre membres groupes-->
+    <record id="view_credit_client_titre_membre_tree" model="ir.ui.view">
+            <field name="name">credit_client_titre_membre.tree</field>
+            <field name="model">credit_client_titre_membre</field>
+            <field name="arch" type="xml">
+                <tree string="liste des Titres">
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+    <record id="credit_credit_client_titre_membre_form" model="ir.ui.view">
+        <field name="name">view.credit_client_titre_membre.form</field>
+        <field name="model">credit_client_titre_membre</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                        </group>
+                        <group></group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_credit_client_titre_membre" model="ir.actions.act_window">
+        <field name="name">Liste des Titres</field>
+        <field name="res_model">credit_client_titre_membre</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_credit_client_garantie" model="ir.actions.act_window">
+        <field name="name">Trans garantie</field>
+        <field name="res_model">credit_client_garantie</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

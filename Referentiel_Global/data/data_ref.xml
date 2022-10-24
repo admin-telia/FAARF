@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+          
+        <!-- Donnees de bases continents -->
+       
+        <record id="AFRI" model="ref_continent">
+            <field name="name">AFRIQUE</field>
+            <field name="libcourt">AFRIQUE</field>
+            <field name="code_continent">AFRI</field>
+        </record>
+        
+        <record id="amq" model="ref_continent">
+            <field name="name">AMERIQUE</field>
+            <field name="libcourt">AMERIQUE</field>
+            <field name="code_continent">AMER</field>
+        </record>
+        
+        <record id="EU" model="ref_continent">
+            <field name="name">EUROPE</field>
+            <field name="libcourt">EUROPE</field>
+            <field name="code_continent">EU</field>
+        </record>
+        
+        <record id="AS" model="ref_continent">
+            <field name="name">ASIE</field>
+            <field name="libcourt">ASIE</field>
+            <field name="code_continent">AS</field>
+        </record>
+        
+        <record id="OC" model="ref_continent">
+            <field name="name">OCEANIE</field>
+            <field name="libcourt">OCEANIE</field>
+            <field name="code_continent">OC</field>
+        </record>
+        
+        <!-- Donnes de base GRH -->
+        <record id="CATA" model="hr_categorie">
+            <field name="name">A</field>
+            <field name="libcourt">A</field>
+        </record>
+
+        <record id="CATB" model="hr_categorie">
+            <field name="name">B</field>
+            <field name="libcourt">B</field>
+        </record>
+
+        <record id="CATC" model="hr_categorie">
+            <field name="name">C</field>
+            <field name="libcourt">C</field>
+        </record>
+
+        <record id="CATD" model="hr_categorie">
+            <field name="name">D</field>
+            <field name="libcourt">D</field>
+        </record>
+
+        <record id="CATE" model="hr_categorie">
+            <field name="name">E</field>
+            <field name="libcourt">E</field>
+        </record>
+
+        <record id="CATP" model="hr_categorie">
+            <field name="name">P</field>
+            <field name="libcourt">P</field>
+        </record>
+
+        <record id="CATA1" model="hr_categorie">
+            <field name="name">1</field>
+            <field name="libcourt">1</field>
+        </record>
+
+        <record id="CATB2" model="hr_categorie">
+            <field name="name">2</field>
+            <field name="libcourt">2</field>
+        </record>
+
+        <record id="CATC3" model="hr_categorie">
+            <field name="name">3</field>
+            <field name="libcourt">3</field>
+        </record>
+
+        <record id="CATD4" model="hr_categorie">
+            <field name="name">4</field>
+            <field name="libcourt">4</field>
+        </record>
+
+        <record id="CATE5" model="hr_categorie">
+            <field name="name">5</field>
+            <field name="libcourt">5</field>
+        </record>
+
+        <record id="CATP6" model="hr_categorie">
+            <field name="name">6</field>
+            <field name="libcourt">6</field>
+        </record>
+
+	    <record id="CATP7" model="hr_categorie">
+            <field name="name">Neant</field>
+            <field name="libcourt">Neant</field>
+        </record>
+
+        <!-- Donnes de base de la classe -->
+        <record id="CLASSE1" model="hr_classe">
+            <field name="name">1</field>
+            <field name="libcourt">1</field>
+        </record>
+
+        <record id="CLASSE2" model="hr_classe">
+            <field name="name">2</field>
+            <field name="libcourt">2</field>
+        </record>
+
+        <record id="CLASSE3" model="hr_classe">
+            <field name="name">3</field>
+            <field name="libcourt">3</field>
+        </record>
+
+ 	    <record id="CLASSE4" model="hr_classe">
+            <field name="name">Neant</field>
+            <field name="libcourt">Neant</field>
+        </record>
+
+        <!-- Donnes de base echelle -->
+        <record id="ECHELLE1" model="hr_echelle">
+            <field name="name">1</field>
+            <field name="libcourt">1</field>
+        </record>
+
+        <record id="ECHELLE2" model="hr_echelle">
+            <field name="name">2</field>
+            <field name="libcourt">2</field>
+        </record>
+
+        <record id="ECHELLE3" model="hr_echelle">
+            <field name="name">3</field>
+            <field name="libcourt">3</field>
+        </record>
+
+        <record id="ECHELLEA" model="hr_echelle">
+            <field name="name">A</field>
+            <field name="libcourt">A</field>
+        </record>
+
+        <record id="ECHELLEB" model="hr_echelle">
+            <field name="name">B</field>
+            <field name="libcourt">B</field>
+        </record>
+
+        <record id="ECHELLEC" model="hr_echelle">
+            <field name="name">C</field>
+            <field name="libcourt">C</field>
+        </record>
+
+	    <record id="ECHELLE4" model="hr_echelle">
+            <field name="name">Neant</field>
+            <field name="libcourt">Neant</field>
+        </record>
+
+        <!-- Donnes de base echelon -->
+        <record id="ECHELON1" model="hr_echellon">
+            <field name="name">1</field>
+            <field name="libcourt">1</field>
+        </record>
+
+        <record id="ECHELON2" model="hr_echellon">
+            <field name="name">2</field>
+            <field name="libcourt">2</field>
+        </record>
+
+        <record id="ECHELON3" model="hr_echellon">
+            <field name="name">3</field>
+            <field name="libcourt">3</field>
+        </record>
+
+        <record id="ECHELON4" model="hr_echellon">
+            <field name="name">4</field>
+            <field name="libcourt">4</field>
+        </record>
+
+        <record id="ECHELON5" model="hr_echellon">
+            <field name="name">5</field>
+            <field name="libcourt">5</field>
+        </record>
+
+        <record id="ECHELON6" model="hr_echellon">
+            <field name="name">6</field>
+            <field name="libcourt">6</field>
+        </record>
+
+        <record id="ECHELON7" model="hr_echellon">
+            <field name="name">7</field>
+            <field name="libcourt">7</field>
+        </record>
+
+        <record id="ECHELON8" model="hr_echellon">
+            <field name="name">8</field>
+            <field name="libcourt">8</field>
+        </record>
+
+        <record id="ECHELON9" model="hr_echellon">
+            <field name="name">9</field>
+            <field name="libcourt">9</field>
+        </record>
+
+        <record id="ECHELON10" model="hr_echellon">
+            <field name="name">10</field>
+            <field name="libcourt">10</field>
+        </record>
+
+        <record id="ECHELON11" model="hr_echellon">
+            <field name="name">11</field>
+            <field name="libcourt">11</field>
+        </record>
+
+        <record id="ECHELON12" model="hr_echellon">
+            <field name="name">12</field>
+            <field name="libcourt">12</field>
+        </record>
+
+        <record id="ECHELON13" model="hr_echellon">
+            <field name="name">13</field>
+            <field name="libcourt">13</field>
+        </record>
+
+        <record id="ECHELON14" model="hr_echellon">
+            <field name="name">14</field>
+            <field name="libcourt">14</field>
+        </record>
+
+        <record id="ECHELON15" model="hr_echellon">
+            <field name="name">15</field>
+            <field name="libcourt">15</field>
+        </record>
+
+        <record id="ECHELON16" model="hr_echellon">
+            <field name="name">16</field>
+            <field name="libcourt">16</field>
+        </record>
+
+        <record id="ECHELON17" model="hr_echellon">
+            <field name="name">17</field>
+            <field name="libcourt">17</field>
+        </record>
+
+        <record id="ECHELON18" model="hr_echellon">
+            <field name="name">18</field>
+            <field name="libcourt">18</field>
+        </record>
+
+        <record id="ECHELON19" model="hr_echellon">
+            <field name="name">19</field>
+            <field name="libcourt">19</field>
+        </record>
+
+	    <record id="ECHELON20" model="hr_echellon">
+            <field name="name">Neant</field>
+            <field name="libcourt">Neant</field>
+        </record>
+
+        <!-- Donnes de base zone -->
+        <record id="ZONEU" model="hr_zone">
+            <field name="name">ZONE URBAINE</field>
+            <field name="libcourt">ZONE URBAINE</field>
+        </record>
+
+        <record id="ZONESEMI" model="hr_zone">
+            <field name="name">ZONE SEMI-URBAINE</field>
+            <field name="libcourt">ZONE SEMI-URBAINE</field>
+        </record>
+
+        <record id="ZONER" model="hr_zone">
+            <field name="name">ZONE RURALE</field>
+            <field name="libcourt">ZONE RURALE</field>
+        </record>
+
+         <record id="ZONEC" model="hr_zone">
+            <field name="name">NON DEFINI</field>
+            <field name="libcourt">NON DEFINI</field>
+        </record>
+
+        #ROLE USER
+        <record id="ROLEGEST" model="ref_user_role">
+            <field name="code">ROLEGEST</field>
+            <field name="name">Gestionnaire</field>
+        </record>
+        <record id="ROLESUP" model="ref_user_role">
+            <field name="code">ROLESUP</field>
+            <field name="name">Superviseur</field>
+        </record>
+        <record id="ROLECAIS" model="ref_user_role">
+            <field name="code">ROLECAIS</field>
+            <field name="name">Caissière</field>
+        </record>
+    </data>
+</odoo>

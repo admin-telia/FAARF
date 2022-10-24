@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="hr_contract_view_form">
+		<field name="name">	hr_contract hr_contract_view_form</field>
+		<field name="model">hr.contract</field>
+		<field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//div[@name='title']/h1" position="before">
+				<label for="name"/>
+			</xpath>
+
+			<xpath expr="//field[@name='employee_id']" position="after">
+				<field name = "date_signature"/>
+			</xpath>
+			<xpath expr="//group[@name='duration_group']" position="before">
+				<group>
+					<field name="type_id"/>
+					<field name="struct_id" string="Type employé" required="1" />
+				</group>
+			</xpath>
+			<xpath expr="//group[@name='notes_group']" position="before">
+				<group invisible="1">
+					<group name="duration_group">
+					<field name="date_start"/>
+					<field name="first_contract_date" attrs="{'invisible': ['|', ('first_contract_date', '=', False), ('first_contract_date', '=', 'date_start')]}"/>
+					<field name="date_end"/>
+					<field name="calendar_mismatch" invisible="1"/>
+					<label for="resource_calendar_id"/>
+					<div>
+						<field name="resource_calendar_id" required="1" nolabel="1"/>
+						<span attrs="{'invisible': ['|', ('calendar_mismatch', '=', False), ('state', '!=', 'open')]}" class="fa fa-exclamation-triangle text-danger o_calendar_warning pl-3">
+						</span>
+						<span class="o_calendar_warning_tooltip text-danger">
+							Calendar Mismatch : The employee's calendar does not match this contract's calendar. This could lead to unexpected behaviors.
+						</span>
+					</div>
+				<field name="hr_responsible_id"/>
+			</group>
+				</group>
+			</xpath>
+			
+			<xpath expr="//group[@name='duration_group']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//page[@name='information']" position="attributes">
+			   <attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='structure_type_id']" position="attributes">
+			   <attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='company_id']" position="attributes">
+			   <attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='department_id']" position="attributes">
+			   <attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='job_id']" position="attributes">
+			   <attribute name="invisible">1</attribute>
+			</xpath>
+
+		</field>
+	</record>
+</odoo>

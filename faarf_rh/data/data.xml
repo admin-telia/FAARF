@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="TYPE1" model="hr_typeconges">
+        <field name="name">Congé annuel</field>
+        <field name="lib_long">Congé annuel</field>
+    </record>
+
+    <record id="TYPE2" model="hr_typeconges">
+        <field name="name">Congé de maternité</field>
+        <field name="lib_long">Congé de maternité</field>
+    </record>
+
+    <record id="TYPE3" model="hr_typeconges">
+        <field name="name">Congé de paternité</field>
+        <field name="lib_long">Congé de paternité</field>
+    </record>
+
+    <record id="TYPE4" model="hr_typeconges">
+        <field name="name">Congé pour examens ou concours</field>
+        <field name="lib_long">Congé pour examens ou concours</field>
+    </record>
+
+    <record id="TYPEA1" model="hr_typeabsence">
+        <field name="name">Autorisation d'absence</field>
+        <field name="lib_long">Autorisation d'absence</field>
+    </record>
+</odoo>

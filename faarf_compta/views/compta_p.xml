@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+<!-- prépartion pour prise en charge dépense -->
+<record model="ir.ui.view" id="view_pcp_form">
+    <field name="name">view.pcp.form</field>
+    <field name="model">compta_prise_charge_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+	    <form string="Prise en charge">
+	    <header>
+	    	<button string="Rechercher" name="remplir_prise" type="object" class="oe_highlight"/>
+	    	<button string="Valider" name="valider_pc" type="object" class="oe_highlight"
+	    	attrs="{'invisible' : [('state', 'in', ['V', 'P'])]}"/>
+	    	<button string="Générer écriture" name="generer_ecriture_pc" type="object" class="oe_highlight"
+	    	attrs="{'invisible' : [('state', 'not in', ['V'])]}"/>
+	    	<field name="state" widget="statusbar"/>
+	    </header>
+	    <sheet>
+		    <group col="3">
+		    	<group>
+		    		<field name="etat_mandat" widget="radio"/>
+		    		<field name="mnt_total" invisible="1"/>
+					<field name="no_ecr" invisible="0" style="width:50%" force_save="1"/>
+		    	</group>
+		        <group>
+		        	<field name="numero_mandat" options="{'no_create': True}"
+		        	attrs="{'invisible' : [('etat_mandat', 'in', ['T'])]}"/>
+		        	<field name="date_pc" force_save="1" style="width:50%"/>
+		        </group>
+		        	<field name = "x_exercice_id" invisible="1" force_save="1"/>
+					<field name = "current_users" invisible="1" force_save="1"/>
+		        	<field name="company_id" invisible="1"/>
+		        	<field name="type_ecriture" invisible="1"/>
+		    </group>
+
+	        <field name = "prise_charge_lines" nolabel ="1">
+             	<tree string = "Prise en charge " editable = "bottom">
+             		<field name = "no_lecr" force_save="1" invisible="1"/>
+					<field name = "num_eng" force_save="1"/>
+             		<field name = "num_liq" force_save="1"/>
+             		<field name = "num_mandat" force_save="1"/>
+             		<!--<field name = "imputation"/>-->
+             		<field name = "date_mandat" force_save="1"/>
+             		<field name = "montant" force_save="1"/>
+             		<field name = "imp_deb" force_save="1"/>
+             		<field name = "imp_cred" force_save="1"/>
+             		<field name = "etat"/>
+					<field name = "company_id" invisible="1"/>
+					<field name = "x_exercice_id" invisible="1" force_save="1"/>
+					<field name = "current_users" invisible="1" force_save="1"/>
+             		<!--<field name = "id_imp_deb"/>
+             		<field name = "active"/>-->
+             	</tree>
+             </field>
+             <group col="4">
+             	<field name="type1" style="width:100%" attrs="{'invisible' : [('state', 'not in', ['draft'])]}"/>
+		        <field name="type2" style="width:100%" attrs="{'invisible' : [('state', 'not in', ['draft']),]}"/>
+		     </group>
+             </sheet>
+	    </form>
+	</field>
+</record>
+
+<record model="ir.ui.view" id="view_pcp_tree">
+    <field name="name">view.pcp.tree</field>
+    <field name="model">compta_prise_charge_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+	    <tree string="Prise en charge">
+	    	<field name="etat_mandat"/>
+	        <field name="trier_par"/>
+	    </tree>
+	</field>
+</record>
+
+<record id="act_prepa_p" model="ir.actions.act_window">
+    <field name="name">Préparation écriture</field>
+    <field name="res_model">compta_prise_charge_p</field>
+    <field name="view_mode">form</field>
+</record>
+
+		<menuitem id="menu_compta_pcm_p" parent="menu_compta" sequence="2" name="Budget programme" groups="faarf_compta.faarf_compta_aca"/>
+<menuitem id="menu_prepa_p" parent="menu_compta_pcm_p" sequence="2" name="Préparation et génération écriture"
+          action="act_prepa_p"/>
+
+
+    </data>
+</odoo>

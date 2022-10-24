@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="temp_hr_bordereau_paie">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                <h4 style="text-align:left">
+                    <span t-field="o.name"/>
+                </h4>
+                <table class = 'table table-sm'>
+                                <thead style="border:2px solid #000000;">
+                                      <tr style="border:2px solid;">
+
+                                          <th style="border:2px solid;"><strong><i>Libellé</i></strong></th>
+                                          <th style="border:2px solid;"><strong><i>Type employé</i></strong></th>
+                                          <th style="border:2px solid;"><strong><i>Element salaire</i></strong></th>
+                                          <th style="border:2px solid;"><strong><i>Du</i></strong></th>
+                                          <th style="border:2px solid;"><strong><i>Au</i></strong></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        <td style="border:2px solid;"><span t-field="o.name"/></td>
+                                        <td style="border:2px solid;"><span t-esc="o.x_type_employe_id.name"/></td>
+                                        <td style="border:2px solid;"><span t-esc="o.x_elt_sal_id.name"/></td>
+                                        <td style="border:2px solid;"><span t-field="o.x_date_debut"/></td>
+                                        <td style="border:2px solid;"><span t-field="o.x_date_fin"/></td>
+                                </tbody>
+                    </table>
+                    <table class = 'table table-sm'>
+                            <thead style="border:2px solid #000000;">
+                                  <tr style="border:2px solid;" >
+                                    <th style="border:2px solid;"><strong><i>N°</i></strong></th>
+                                      <th style="border:2px solid;"><strong><i>Matricule</i></strong></th>
+                                      <th style="border:2px solid;"><strong><i>Employé</i></strong></th>
+                                      <th style="border:2px solid;"><strong><i>Montant</i></strong></th>
+                                  </tr>
+                            </thead>
+                            <tbody>
+                                 <tr t-foreach="o.x_line_ids" t-as="line">
+                                    <td style="border:2px solid;" ><span t-field="line.numero"/></td>
+                                    <td style="border:2px solid;" ><span t-field="line.x_matricule"/></td>
+                                    <td style="border:2px solid;" ><span t-field="line.name"/></td>
+                                    <td style="border:2px solid;" ><span t-esc="line.x_mnt"/></td>
+                                </tr>
+                            </tbody>
+                    </table>
+                    <p style="text-align:right; widht:100%"> Total : <span t-field="o.x_mnts"/> FCFA</p>
+                    <p style="text-align:right; widht:100%">
+                        Arrêté à la somme de :
+                          <span t-field="o.x_mnt_en_lettre"/> francs CFA.
+                    </p>
+                    <tfoot>
+                            <div class="row mt32 mb32">
+                                <div class="col-2">
+                                    <strong>DRH</strong>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <p t-field="o.drhs_id.name"/>
+                                </div>
+                                <div class="col-4">
+                                    <strong></strong>
+                                    <p/>
+                                </div>
+                                <div class="col-3">
+                                    <strong></strong>
+                                    <p/>
+                                </div>
+                                <div class="col-3">
+                                    <strong>Financier</strong>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <p t-esc="o.financiers_id.name"/>
+                                </div>
+                            </div>
+                    </tfoot>
+
+                </t>
+             </t>
+        </t>
+    </template>
+
+    <report
+        id="report_hr_bordereau_paie"
+        string="Imprimer"
+        model="hr_bordereau_paie"
+        report_type="qweb-html"
+        file="faarf_paie.temp_hr_bordereau_paie"
+        name="faarf_paie.temp_hr_bordereau_paie"
+        groups = "base.group_user"
+        menu = "True"/>
+</odoo>

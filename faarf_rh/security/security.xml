@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id = 'Gestion_RH_category' model = 'ir.module.category'>
+	  			<field name = 'name'>GESTION RH</field>
+	  </record>
+
+	  <record id = 'Gestion_RH_manager_Gestionnaire' model = 'res.groups'>
+	  			<field name = 'name'>RESPONSABLE RH</field>
+	  			<field name = 'category_id' ref ='Gestion_RH_category'/>
+	  </record>
+
+	  <record id = 'Gestion_RH_manager_Agent' model = 'res.groups'>
+	  			<field name = 'name'>AGENT</field>
+	  			<field name = 'category_id' ref ='Gestion_RH_category'/>
+	  </record>
+
+	  <record id = 'Gestion_RH_chef_service' model = 'res.groups'>
+	  			<field name = 'name'>CHEF DE SERVICE</field>
+	  			<field name = 'category_id' ref ='Gestion_RH_category'/>
+	  </record>
+
+	 <record id = 'Gestion_RH_admin_donnees' model = 'res.groups'>
+	  			<field name = 'name'>ADMIN DONNEES</field>
+	  			<field name = 'category_id' ref ='Gestion_RH_category'/>
+	  </record>
+
+	  <record id = 'Gestion_RH_consultation_donnees' model = 'res.groups'>
+	  			<field name = 'name'>CONSULTATION</field>
+	  			<field name = 'category_id' ref ='Gestion_RH_category'/>
+	  </record>
+
+			  <record id = 'Gestion_Conges_category' model = 'ir.module.category'>
+	  			<field name = 'name'>GESTION CONGES</field>
+	  </record>
+
+	  <record id = 'Gestion_Conges_manager_Gestionnaire' model = 'res.groups'>
+	  			<field name = 'name'>RESPONSABLE RH</field>
+	  			<field name = 'category_id' ref ='Gestion_Conges_category'/>
+	  </record>
+
+	  <record id = 'Gestion_Conges_manager_Agent' model = 'res.groups'>
+	  			<field name = 'name'>AGENT</field>
+	  			<field name = 'category_id' ref ='Gestion_Conges_category'/>
+	  </record>
+
+	  <record id = 'Gestion_Conges_chef_service' model = 'res.groups'>
+	  			<field name = 'name'>CHEF DE SERVICE</field>
+	  			<field name = 'category_id' ref ='Gestion_Conges_category'/>
+	  </record>
+
+	  <record id = 'Gestion_Conges_admin_donnees' model = 'res.groups'>
+	  			<field name = 'name'>ADMIN DONNEES</field>
+	  			<field name = 'category_id' ref ='Gestion_Conges_category'/>
+	  </record>
+
+	  <record id = 'Gestion_Conges_consultation_donnees' model = 'res.groups'>
+	  			<field name = 'name'>CONSULTATION</field>
+	  			<field name = 'category_id' ref ='Gestion_Conges_category'/>
+	  </record>
+</odoo>

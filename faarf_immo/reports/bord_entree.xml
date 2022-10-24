@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+<record id="id_format_paysage" model="report.paperformat">
+	<field name="name">Format Paysage</field>
+	<field name="default" eval="True"/>
+	<field name="format">A4</field>
+	<field name="page_height">0</field>
+	<field name="page_width">0</field>
+	<field name="orientation">Landscape</field>
+	<field name="margin_top">40</field>
+	<field name="margin_bottom">28</field>
+	<field name="margin_left">7</field>
+	<field name="margin_right">7</field>
+	<field name="header_line" eval="False"/>
+	<field name="header_spacing">35</field>
+	<field name="dpi">90</field>
+</record>
+
+
+<report id = "report_oem"
+    string = "Ordre d'entrée des matières"
+    model = "faarf.ordre.entree"
+    report_type = "qweb-html"
+    file = "faarf_immo.report_oem"
+    name = "faarf_immo.report_oem_view"
+    print_report_name="'OEM - %s' % (object.name)"
+    paperformat="id_format_paysage"
+    menu = "True"/>
+
+
+    <template id="report_oem_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+
+                        <style type="text/css">
+
+                        th,
+                        td {
+                            font-family : times new roman;
+                        }
+
+                        table {
+                            width:100%;
+                        }
+
+                        h3 {
+                            text-align : center;
+                            border : 1px solid;
+                            background-color: #dddddd;
+                            font-family : times new roman;
+                        }
+
+
+                    </style>
+                    <h3>ORDRE D'ENTREE DES MATIERES N° <span t-field="o.name"/> DU <span t-field="o.dte"/></h3><br/>
+                        <table>
+                        <thead>
+                            <th>N° Ordre</th>
+                            <th>Sous code</th>
+                            <th>Désignation</th>
+                            <th>Unité</th>
+                            <th>Quantité</th>
+                            <th>Valeur unitaire</th>
+                            <th>Valeur totale</th>
+                            <th>Décompte par article de la valeur de la matière</th>
+                            <th>Observation</th>
+                        </thead>
+
+                         <tbody>
+                            <tr t-foreach="o.line_ids" t-as="ligne">
+                                <td>
+                                    <span t-field="ligne.num_ordre"/>
+                                </td>
+                                <td>
+                                    <span t-field="ligne.code"/>
+                                </td>
+                                <td>
+                                    <span t-field="ligne.matiere_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="ligne.unite_id"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <span t-esc="'{:,}'.format(int(ligne.qte)).replace(',', ' ')"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <span t-esc="'{:,}'.format(int(ligne.valeur_unitaire)).replace(',', ' ')"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <span t-esc="'{:,}'.format(int(ligne.valeur_totale)).replace(',', ' ')"/>
+                                </td>
+                                <td style="margin-left: 5em; text-indent : 10px;">
+                                    <span t-field="ligne.decompte"/>
+                                </td>
+                                <td>
+                                    <span t-field="ligne.observation"/>
+                                </td>
+                             </tr>
+                        </tbody>
+                </table><br/>
+
+                <div>
+                    <div style="float:left">
+                        <span style="font-family : Times New Roman;">Arrêté le présent ordre d'entrée de matières de ...<br/>
+                            unités pour une valeur de <span t-esc="'{:,}'.format(int(sum([ligne.valeur_totale for ligne in o.line_ids]))).replace(',', ' ')"/> Francs CFA</span><br/>
+                        <span style="font-family : Times New Roman;"> A Ouagadougou le <td><span t-field="o.dte"/></td></span><br/>
+                        <strong><td>Ordonnateur des matières</td></strong><br/><br/><br/>
+                        <span style="text-align:center; text-decoration:underline;" t-field="o.ordre_matiere.name"/><br/>
+                        <td><span style="text-align:center; font-size:small; font-style:italic;" t-field="o.ordre_matiere.distinction"/></td>
+                    </div>
+                    <div style="float:right">
+                        <span style="font-family : Times New Roman;">Le comptable des matières, soussigné, déclare avoir pris en charge<br/>
+                        les matières ci-dessus, d'une valeur de <span t-esc="'{:,}'.format(int(sum([ligne.valeur_totale for ligne in o.line_ids]))).replace(',', ' ')"/> Francs CFA</span><br/>
+                        <span style="font-family : Times New Roman;"> A Ouagadougou le <td><span t-field="o.dte"/></td></span><br/>
+                        <strong><td>Le comptable des matières</td></strong><br/><br/><br/>
+                        <span style="text-align:center; text-decoration:underline;" t-field="o.compte_matiere.name"/><br/>
+                        <td><span style="text-align:center; font-size:small; font-style:italic;" t-field="o.compte_matiere.distinction"/></td>
+                    </div>
+                </div>
+            </div>
+
+        </t>
+    </t>
+</t>
+</template>
+
+
+
+    <!--ordre de sortie-->
+    <report id = "report_osm"
+    string = "Ordre de sortie des matières"
+    model = "faarf.ordre.sortie"
+    report_type = "qweb-html"
+    file = "faarf_immo.report_osm"
+    name = "faarf_immo.report_osm_view"
+    print_report_name="'OSM - %s' % (object.name)"
+    paperformat="id_format_paysage"
+    menu = "True"/>
+
+
+    <template id="report_osm_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+
+                        <style type="text/css">
+
+                        th,
+                        td {
+                            font-family : times new roman;
+                        }
+
+                        table {
+                            width:100%;
+                        }
+
+                        h3 {
+                            text-align : center;
+                            border : 1px solid;
+                            background-color: #dddddd;
+                            font-family : times new roman;
+                        }
+
+                    </style>
+                    <h3>ORDRE DE SORTIE DES MATIERES N° <span t-field="o.name"/> DU <span t-field="o.dte"/></h3><br/>
+                        <table>
+                        <thead>
+                            <th>N° Ordre</th>
+                            <th>Sous code</th>
+                            <th>Désignation</th>
+                            <th>Unité</th>
+                            <th>Quantité</th>
+                            <th>Valeur unitaire</th>
+                            <th>Valeur totale</th>
+                            <th>Décompte par article de la valeur de la matière</th>
+                            <th>Observation</th>
+                        </thead>
+
+                         <tbody>
+                            <tr t-foreach="o.line_ids" t-as="ligne">
+                                <td>
+                                    <span t-field="ligne.num_ordre"/>
+                                </td>
+                                <td>
+                                    <span t-field="ligne.code"/>
+                                </td>
+                                <td>
+                                    <span t-field="ligne.matiere_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="ligne.unite_id"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <span t-esc="'{:,}'.format(int(ligne.qte)).replace(',', ' ')"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <span t-esc="'{:,}'.format(int(ligne.valeur_unitaire)).replace(',', ' ')"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <span t-esc="'{:,}'.format(int(ligne.valeur_totale)).replace(',', ' ')"/>
+                                </td>
+                                <td style="margin-left: 5em; text-indent : 10px;">
+                                    <span t-field="ligne.decompte"/>
+                                </td>
+                                <td>
+                                    <span t-field="ligne.observation"/>
+                                </td>
+                             </tr>
+                        </tbody>
+                </table><br/>
+
+                <div>
+                    <div style="float:left">
+                        <span style="font-family : Times New Roman;">Arrêté le présent ordre de sortie de matières de ...<br/>
+                            unités pour une valeur de <span t-esc="'{:,}'.format(int(sum([ligne.valeur_totale for ligne in o.line_ids]))).replace(',', ' ')"/> Francs CFA</span><br/>
+                        <strong><td></td></strong><br/>
+                        <span style="font-family : Times New Roman;"> A Ouagadougou le ............</span><br/>
+                        <strong><td>Ordonnateur des matières</td></strong><br/><br/><br/>
+                        <span style="text-align:center; text-decoration:underline;" t-field="o.ordre_matiere.name"/><br/>
+                        <td><span style="text-align:center; font-size:small; font-style:italic;" t-field="o.ordre_matiere.distinction"/></td>
+                    </div>
+                    <div style="float:right">
+                        <span style="font-family : Times New Roman;">Je soussigné, reconnais avoir diminué mes prises en charge<br/>
+                        portées au présent ordre de sortie de ... unités pour une valeur de <br/><span t-esc="'{:,}'.format(int(sum([ligne.valeur_totale for ligne in o.line_ids]))).replace(',', ' ')"/> Francs CFA</span><br/>
+                        <span style="font-family : Times New Roman;"> A Ouagadougou le ............</span><br/>
+                        <strong><td>Le comptable des matières</td></strong><br/><br/><br/>
+                        <span style="text-align:center; text-decoration:underline;" t-field="o.compte_matiere.name"/><br/>
+                        <td><span style="text-align:center; font-size:small; font-style:italic;" t-field="o.compte_matiere.distinction"/></td>
+                    </div>
+                </div>
+            </div>
+
+        </t>
+    </t>
+</t>
+</template>
+
+
+    <!--BORDEREAU D'AFFECTATION DE MATIERE-->
+    <report id = "report_bam"
+    string = "Bordereau d'affectation des matières"
+    model = "faarf.affectation"
+    report_type = "qweb-html"
+    file = "faarf_immo.report_bam"
+    name = "faarf_immo.report_bam_view"
+    print_report_name="'BAM - %s' % (object.name)"
+    paperformat="id_format_paysage"
+    menu = "True"/>
+
+
+    <template id="report_bam_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+
+                        <style type="text/css">
+
+                        th,
+                        td {
+                            font-family : times new roman;
+                        }
+
+                        table {
+                            width:100%;
+                        }
+
+                        h3 {
+                            text-align : center;
+                            border : 1px solid;
+                            background-color: #dddddd;
+                            font-family : times new roman;
+                        }
+
+                        .left-col {
+                            float: left;
+                            width:25%;
+                        }
+                        .center-col {
+                            float: left;
+                            width: 50%;
+                        }
+                        .right-col {
+                            float: left;
+                            width: 25%;
+                        }
+
+                    </style>
+                    <h3>BORDEREAU D'AFFECTATION DES MATIERES N° <span t-field="o.name"/> DU <span t-field="o.dte"/></h3><br/>
+                        <div>
+                            <div style="float:left;">
+								<strong>Magasin d'origine des matières :<br/></strong><span t-field="o.magasin_id"/>
+							</div>
+							<div style="float:right;">
+								<strong>Service du détenteur des matières :<br/></strong><span t-field="o.direction_id"/>
+							</div>
+                        </div><br/>
+                        <table>
+                        <thead>
+                            <th>N° Ordre</th>
+                            <th>Code Identification</th>
+                            <th>Désignation</th>
+                            <th>Unité</th>
+                            <th>Quantité</th>
+                            <th>Valeur unitaire</th>
+                            <th>Montant</th>
+                            <th>Décompte par article de la valeur de la matière</th>
+                            <th>Observation</th>
+                        </thead>
+
+                         <tbody>
+                            <tr t-foreach="o.line_ids" t-as="ligne">
+                                <td>
+                                    <span t-field="ligne.num_ordre"/>
+                                </td>
+                                <td>
+                                    <span t-field="ligne.codification"/>
+                                </td>
+                                <td>
+                                    <span t-field="ligne.matiere_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="ligne.unite_id"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <span t-esc="'{:,}'.format(int(ligne.qte)).replace(',', ' ')"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <span t-esc="'{:,}'.format(int(ligne.valeur_unitaire)).replace(',', ' ')"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <span t-esc="'{:,}'.format(int(ligne.montant)).replace(',', ' ')"/>
+                                </td>
+                                <td style="margin-left: 5em; text-indent : 10px;">
+                                    <span t-field="ligne.decompte"/>
+                                </td>
+                                <td>
+                                    <span t-field="ligne.observation"/>
+                                </td>
+                             </tr>
+                        </tbody>
+                </table><br/>
+
+                <div>
+                    <div class="left-col">
+                        <span style="font-family : Times New Roman;">Vu l'ordonnateur des matières</span><br/>
+                        <span style="font-family : Times New Roman;"> A Ouagadougou le ............</span><br/>
+                        <strong><td>Ordonnateur des matières</td></strong><br/><br/><br/>
+                        <span style="text-align:center; text-decoration:underline;" t-field="o.ordre_matiere.name"/><br/>
+                        <td><span style="text-align:center; font-size:small; font-style:italic;" t-field="o.ordre_matiere.distinction"/></td><br/>
+                    </div>
+                    <div class="center-col">
+                        <span></span><br/>
+                        <span style="font-family : Times New Roman;"></span><br/>
+                        <span style="font-family : Times New Roman;"> A Ouagadougou le ............</span><br/>
+                        <td>Magasinier</td><br/><br/><br/>
+                        <span style="text-align:center; text-decoration:underline;" t-field="o.magasinier.name"/><br/>
+                    </div>
+
+                    <div class="right-col">
+                        <td></td><br/>
+                        <span style="font-family : Times New Roman;"> A Ouagadougou le ............</span><br/>
+                        <strong><td>Le comptable des matières</td></strong><br/><br/><br/>
+                        <span style="text-align:center; text-decoration:underline;" t-field="o.compte_matiere.name"/><br/>
+                        <td><span style="text-align:center; font-size:small; font-style:italic;" t-field="o.compte_matiere.distinction"/></td>
+                    </div>
+                </div>
+            </div>
+
+        </t>
+    </t>
+</t>
+</template>
+
+
+    <!--BORDEREAU DE MUTATION DE MATIERE-->
+    <report id = "report_bmm"
+    string = "Bordereau de mutation des matières"
+    model = "faarf.mutation"
+    report_type = "qweb-html"
+    file = "faarf_immo.report_bmm"
+    name = "faarf_immo.report_bmm_view"
+    print_report_name="'BMM - %s' % (object.name)"
+    paperformat="id_format_paysage"
+    menu = "True"/>
+
+
+    <template id="report_bmm_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+
+                        <style type="text/css">
+
+                        th,
+                        td {
+                            font-family : times new roman;
+                        }
+
+                        table {
+                            width:100%;
+                        }
+
+                        h3 {
+                            text-align : center;
+                            border : 1px solid;
+                            background-color: #dddddd;
+                            font-family : times new roman;
+                        }
+
+                            .left-col {
+                            float: left;
+                            width:25%;
+                        }
+                        .center-col {
+                            float: left;
+                            width: 50%;
+                        }
+                        .right-col {
+                            float: left;
+                            width: 25%;
+                        }
+
+                    </style>
+                    <h3>BORDEREAU DE MUTATION DES MATIERES N° <span t-field="o.name"/> DU <span t-field="o.dte"/></h3><br/>
+                        <div>
+                            <div style="float:left;">
+								<strong>Service du détenteur des matières de départ :</strong><br/>
+                                <span t-field="o.direction_dep"/>
+							</div>
+							<div style="float:right;">
+								<strong>Service du détenteur des matières d'accueil :</strong><br/>
+                                <span t-field="o.direction_arr"/>
+							</div>
+                        </div><br/>
+                        <table>
+                        <thead>
+                            <th>N° Ordre</th>
+                            <th>Code Identification</th>
+                            <th>Désignation</th>
+                            <th>Unité</th>
+                            <th>Quantité</th>
+                            <th>Valeur unitaire</th>
+                            <th>Montant</th>
+                            <th>Décompte par article de la valeur de la matière</th>
+                            <th>Observation</th>
+                        </thead>
+
+                         <tbody>
+                            <tr t-foreach="o.line_ids" t-as="ligne">
+                                <td>
+                                    <span t-field="ligne.num_ordre"/>
+                                </td>
+                                <td>
+                                    <span t-field="ligne.codification"/>
+                                </td>
+                                <td>
+                                    <span t-field="ligne.matiere"/>
+                                </td>
+                                <td>
+                                    <span t-field="ligne.unite_id"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <span t-esc="'{:,}'.format(int(ligne.qte)).replace(',', ' ')"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <span t-esc="'{:,}'.format(int(ligne.valeur_unitaire)).replace(',', ' ')"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <span t-esc="'{:,}'.format(int(ligne.montant)).replace(',', ' ')"/>
+                                </td>
+                                <td style="margin-left: 5em; text-indent : 10px;">
+                                    <span t-field="ligne.decompte"/>
+                                </td>
+                                <td>
+                                    <span t-field="ligne.observation"/>
+                                </td>
+                             </tr>
+                        </tbody>
+                </table><br/>
+
+                <div>
+                    <div class="left-col">
+                        <span style="font-family : Times New Roman;">Vu l'ordonnateur des matières</span><br/>
+                        <span style="font-family : Times New Roman;"> A Ouagadougou le ............</span><br/>
+                        <strong><td>Ordonnateur des matières</td></strong><br/><br/><br/>
+                        <span style="text-align:center; text-decoration:underline;" t-field="o.ordre_matiere.name"/><br/>
+                        <td><span style="text-align:center; font-size:small; font-style:italic;" t-field="o.ordre_matiere.distinction"/></td><br/>
+                    </div>
+
+                    <div class="center-col">
+                        <span style="font-family : Times New Roman;"></span><br/>
+                        <span style="font-family : Times New Roman;"> A Ouagadougou le ............</span><br/>
+                        <strong><td>Magasinier</td></strong><br/><br/><br/><br/>
+                        <span style="text-align:center; text-decoration:underline;" t-field="o.magasinier.name"/><br/>
+                    </div>
+
+                    <div class="right-col">
+                        <span style="font-family : Times New Roman;"></span><br/>
+                        <span style="font-family : Times New Roman;"> A Ouagadougou le ............</span><br/>
+                        <strong><td>Le comptable des matières</td></strong><br/><br/><br/>
+                        <span style="text-align:center; text-decoration:underline;" t-field="o.compte_matiere.name"/><br/>
+                        <td><span style="text-align:center; font-size:small; font-style:italic;" t-field="o.compte_matiere.distinction"/></td>
+                    </div>
+                </div>
+            </div>
+
+        </t>
+    </t>
+</t>
+</template>
+
+
+
+    <!--BORDEREAU DE SORTIE TEMPORAIRE DE MATIERE-->
+    <report id = "report_bstm"
+    string = "Bordereau de sortie temporaire des matières"
+    model = "faarf.sortie.temp"
+    report_type = "qweb-html"
+    file = "faarf_immo.report_bstm"
+    name = "faarf_immo.report_bstm_view"
+    print_report_name="'BSTM - %s' % (object.name)"
+    paperformat="id_format_paysage"
+    menu = "True"/>
+
+
+    <template id="report_bstm_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+
+                        <style type="text/css">
+
+                        th,
+                        td {
+                            font-family : times new roman;
+                        }
+
+                        table {
+                            width:100%;
+                        }
+
+                        h3 {
+                            text-align : center;
+                            border : 1px solid;
+                            background-color: #dddddd;
+                            font-family : times new roman;
+                        }
+
+                    </style>
+                    <h3>BORDEREAU DE SORTIE TEMPORAIRE DES MATIERES N° <span t-field="o.name"/> DU <span t-field="o.dte"/></h3><br/>
+                        <div>
+                            <div style="float:left;">
+								<strong>Origine :</strong> <span t-field="o.direction_id"/><br/>
+                                <strong>Motif :</strong><span t-field="o.motif"/>
+							</div>
+							<div style="float:right;">
+								<strong>Destination : </strong><span t-field="o.destination_id"/><br/>
+                                <strong>Date retour : </strong><span t-field="o.dte_retour"/>
+							</div>
+                        </div><br/><br/>
+                        <table>
+                        <thead>
+                            <th>Code</th>
+                            <th>Désignation</th>
+                            <th>Quantité</th>
+                            <th>Valeur unitaire</th>
+                            <th>Montant</th>
+                            <th>Etat des matières</th>
+                            <th>Observation</th>
+                        </thead>
+
+                         <tbody>
+                            <tr t-foreach="o.line_ids" t-as="ligne">
+                                <td>
+                                    <span t-field="ligne.code"/>
+                                </td>
+                                <td>
+                                    <span t-field="ligne.matiere"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <span t-esc="'{:,}'.format(int(ligne.qte)).replace(',', ' ')"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <span t-esc="'{:,}'.format(int(ligne.valeur_unitaire)).replace(',', ' ')"/>
+                                </td>
+                                <td style="text-align:right;">
+                                    <span t-esc="'{:,}'.format(int(ligne.montant)).replace(',', ' ')"/>
+                                </td>
+                                <td style="margin-left: 5em; text-indent : 10px;">
+                                    <span t-field="ligne.etat"/>
+                                </td>
+                                <td>
+                                    <span t-field="ligne.observation"/>
+                                </td>
+                             </tr>
+                        </tbody>
+                </table><br/>
+
+                <div>
+                    <div style="float:left">
+                        <td>L'ordonnateur Matières</td><br/><br/><br/>
+                        <span style="text-align:center; text-decoration:underline;" t-field="o.ordre_matiere.name"/><br/>
+                        <td><span style="text-align:center; font-size:small; font-style:italic;" t-field="o.ordre_matiere.distinction"/></td><br/><br/>
+
+                        <td>Le Détenteur</td>
+                    </div>
+                    <div style="float:right">
+                        <td>Le comptable Matières</td><br/><br/><br/>
+                        <span style="text-align:center; text-decoration:underline;" t-field="o.compte_matiere.name"/><br/>
+                        <td><span style="text-align:center; font-size:small; font-style:italic;" t-field="o.compte_matiere.distinction"/></td><br/><br/>
+
+                        <td>Le Bénéficiaire</td>
+                    </div>
+                </div>
+            </div>
+
+        </t>
+    </t>
+</t>
+</template>
+
+
+</odoo>

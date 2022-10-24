@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Vue fiche credit-->
+    <record id="view_credit_synthese_fiche_form" model="ir.ui.view">
+        <field name="name">view.credit_synthese_fiche.form</field>
+        <field name="model">credit_synthese_fiche</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+                    <button class="oe_highlight" name="set_afficher" type="object" icon="fa-search" string="Rechercher"/>
+                </header>
+                <sheet>
+                    <group>
+                       <group>
+                           <field name="credit_id"/>
+                       </group>
+                    </group>
+                    <notebook>
+                        <page string="Transaction">
+                            <field name="line_ids" readonly="1" force_save="1">
+                                <tree decoration-bf="state=='tranche'" decoration-success="state=='remboursement'"
+                                      decoration-warning="state=='S'"
+                                      decoration-it="state=='CR'" decoration-danger="state=='CC'"
+                                      decoration-info="state=='DG'" decoration-muted="state=='CCA'"
+                                      decoration-primary="state=='DAJ'" >
+                                    <field name="date"/>
+                                    <field name="transaction"/>
+                                    <field name="piece_comptable"/>
+                                    <field name="principal"/>
+                                    <field name="interet"/>
+                                    <field name="fa"/>
+                                    <field name="penalite"/>
+                                    <field name="solde_courant"/>
+                                    <field name="solde_principal"/>
+                                    <field name="solde_interet"/>
+                                    <field name="solde_fa"/>
+                                    <field name="solde_total"/>
+                                    <field name="state" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_credit_synthese_fiche" model="ir.actions.act_window">
+        <field name="name">Fiche de crédit</field>
+        <field name="res_model">credit_synthese_fiche</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <!--Vue synthese demandes recues-->
+    <record id="view_credit_synthese_demande_tree" model="ir.ui.view">
+            <field name="name">credit_synthese_demande.tree</field>
+            <field name="model">credit_synthese_demande</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="date_deb"/>
+                    <field name="date_fin"/>
+                </tree>
+            </field>
+    </record>
+
+    <record id="view_credit_synthese_demande_form" model="ir.ui.view">
+        <field name="name">view.credit_synthese_demande.form</field>
+        <field name="model">credit_synthese_demande</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+                </header>
+                <sheet>
+                    <h1 style="text-align: center">Demandes reçues</h1>
+                    <group>
+                        <group>
+                             <field name="bailleur_id" required="True"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True, 'create': False}"/>
+                            <field name="zone_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"
+                                   required="True"/>
+                            <field name="region_id" domain="[('zone_id.id', '=', zone_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                        </group>
+                        <group>
+                             <field name="province_id" domain="[('ref_region_id.id', '=', region_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="departement_id" domain="[('ref_province_id.id', '=', province_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="village_id" domain="[('commune_id.id', '=', departement_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                             <field name="state"/>
+                        </group>
+                        <group>
+                            <label for="date_deb" string="Période"/>
+                            <div>
+                                <field name="date_deb" class="oe_inline"/> -
+                                <field name="date_fin" class="oe_inline"/>
+                            </div>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <div>
+                                <button class="oe_highlight" name="set_afficher" type="object" icon="fa-cogs" style="" string="Rechercher"/>
+
+                                <button class="oe_highlight" name="set_afficher" type="object" icon="fa-print" string="Imprimer (Pdf)"/>
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="demandes">
+                            <field name="line_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="num_demande"/>
+                                    <field name="cliente_id"/>
+                                    <field name="type_client"/>
+                                    <field name="gestionnaire_id"/>
+                                    <field name="date_demande"/>
+                                    <field name="montant_demande"/>
+                                    <field name="zone_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_credit_synthese_demande" model="ir.actions.act_window">
+        <field name="name">Demande reçue</field>
+        <field name="res_model">credit_synthese_demande</field>
+        <field name="target">inline</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <!--Vue synthese credits par getionnaire-->
+    <record id="view_credit_synthese_demande_gest_tree" model="ir.ui.view">
+            <field name="name">credit_synthese_demande_gest.tree</field>
+            <field name="model">credit_synthese_demande_gest</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="date_deb"/>
+                    <field name="date_fin"/>
+                </tree>
+            </field>
+    </record>
+
+    <record id="view_credit_synthese_demande_gest_form" model="ir.ui.view">
+        <field name="name">view.credit_synthese_demande_gest.form</field>
+        <field name="model">credit_synthese_demande_gest</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="gestionnaire_id" required="True"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True}"/>
+                            <label for="date_deb" string="Période"/>
+                            <div>
+                                du <field name="date_deb" class="oe_inline"/> au
+                                <field name="date_fin" class="oe_inline"/>
+                            </div>
+<!--                            <field name="zone_ids" widget="many2many_tags"-->
+<!--                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True, 'color_field': 'color'}"/>-->
+                        </group>
+                        <group>
+                            <field name="state"/>
+                        </group>
+                    </group>
+                    <group>
+                        <button class="oe_highlight" name="set_afficher" type="object" icon="fa-cogs" string="Rechercher"/>
+                    </group>
+                    <notebook>
+                        <page string="demandes">
+                            <field name="line_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="num_demande"/>
+                                    <field name="cliente_id"/>
+                                    <field name="type_client"/>
+                                    <field name="gestionnaire_id"/>
+                                    <field name="date_demande"/>
+                                    <field name="montant_demande"/>
+                                    <field name="zone_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_credit_synthese_demande_gest" model="ir.actions.act_window">
+        <field name="name">Demande par gestionnaire</field>
+        <field name="res_model">credit_synthese_demande_gest</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <!--Vue synthese credits par region-->
+    <record id="view_credit_synthese_demande_region_tree" model="ir.ui.view">
+            <field name="name">credit_synthese_demande_region.tree</field>
+            <field name="model">credit_synthese_demande_region</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="date_deb"/>
+                    <field name="date_fin"/>
+                </tree>
+            </field>
+    </record>
+
+    <record id="view_credit_synthese_demande_region_form" model="ir.ui.view">
+        <field name="name">view.credit_synthese_demande_region.form</field>
+        <field name="model">credit_synthese_demande_region</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+                    <button class="oe_highlight" name="set_afficher" type="object" icon="fa-search" string="Rechercher"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <label for="date_deb" string="Période"/>
+                            <div>
+                                <field name="date_deb" class="oe_inline" style="width:50%"/> -
+                                <field name="date_fin" class="oe_inline"/>
+                            </div>
+                            <field name="localisation" widget="radio"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"
+                                   placeholder="Type de client"/>
+                            <field name="state" width="40"/>
+                        </group>
+                        <group>
+                            <field name="region_ids" widget="many2many_tags"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True}"/>
+                            <field name="province_ids" widget="many2many_tags"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True}"/>
+                            <field name="departement_ids" widget="many2many_tags"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True}"/>
+                            <field name="village_ids" widget="many2many_tags"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+
+
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="demandes">
+                            <field name="line_ids">
+                                <tree>
+                                    <field name="localisation"/>
+                                    <field name="nombre"/>
+                                    <field name="montant_demande"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_credit_synthese_demande_region" model="ir.actions.act_window">
+        <field name="name">Demande par zone géographique</field>
+        <field name="res_model">credit_synthese_demande_region</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--Vue synthese portefeuille a risque-->
+    <record id="view_credit_synthese_porte_risque_tree" model="ir.ui.view">
+            <field name="name">credit_synthese_porte_risque.tree</field>
+            <field name="model">credit_synthese_porte_risque</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="date"/>
+                </tree>
+            </field>
+    </record>
+
+    <record id="view_credit_synthese_porte_risque_form" model="ir.ui.view">
+        <field name="name">view.credit_synthese_porte_risque.form</field>
+        <field name="model">credit_synthese_porte_risque</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+                    <button class="oe_highlight" name="set_afficher" type="object" icon="fa-search" string="Rechercher"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="bailleur_ids" widget="many2many_tags"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True}"/>
+                            <field name="zone_ids" widget="many2many_tags"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True}"/>
+                            <field name="gestionnaire_ids" widget="many2many_tags"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True}"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+
+                        </group>
+                    </group>
+                    <group>
+                    </group>
+                    <notebook>
+                        <page string="Crédits">
+                            <field name="line_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="cliente_id"/>
+                                    <field name="gestionnaire_id"/>
+                                    <field name="montant_prin_encours"/>
+                                    <field name="montant_p_arriere"/>
+                                    <field name="montant_prin_non_du"/>
+                                    <field name="montant_risque_1"/>
+                                    <field name="montant_risque_30"/>
+                                    <field name="montant_risque_60"/>
+                                    <field name="montant_risque_90"/>
+                                    <field name="montant_risque_120"/>
+                                    <field name="montant_risque_150"/>
+                                    <field name="montant_risque_180"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_credit_synthese_porte_risque" model="ir.actions.act_window">
+        <field name="name">Portefeuille à risque</field>
+        <field name="res_model">credit_synthese_porte_risque</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

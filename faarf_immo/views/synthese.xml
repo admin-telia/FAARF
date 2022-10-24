@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--Vue form Liste  livre journal-->
+    <record id="view_faarf_livre_journal_form" model="ir.ui.view">
+        <field name="name">faarf.livre.journal.form</field>
+        <field name="model">faarf.livre.journal</field>
+        <field name="arch" type="xml">
+            <form string="Liste des livres-journal">
+                <header>
+                    <button class="oe_highlight" name="afficher" type="object" icon="fa-check" string="Voir le livre-journal"/>
+                </header>
+            <sheet>
+                    <group>
+                        <field name="dte_deb" style="width:50%"/>
+                        <field name="dte_fin" style="width:50%"/>
+                        <field name="journal_id" style="width:50%"/>
+                    </group>
+                <group invisible="1">
+                    <field name="compte_matiere"/>
+                    <field name="company_id"/>
+                </group>
+                <notebook>
+                    <page string="Livre-journal des entrées" attrs="{'invisible':[('journal_id','in',['2'])]}">
+                        <field name="livre_entree_ids">
+                            <tree editable="bottom">
+                                <field name="num_ordre"/>
+                                <field name="nature_id"/>
+                                <field name="dte"/>
+                                <field name="code" force_save="1"/>
+                                <field name="matiere_id"/>
+                                <field name="qte"/>
+                                <field name="valeur_unitaire"/>
+                                <field name="valeur_totale" force_save="1"/>
+                                <field name="piece_id"/>
+                                <field name="observation"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Livre-journal des sorties"  attrs="{'invisible':[('journal_id','in',['1'])]}">
+                        <field name="livre_sortie_ids">
+                            <tree editable="bottom">
+                                <field name="num_ordre"/>
+                                <field name="nature_id"/>
+                                <field name="dte"/>
+                                <field name="code" force_save="1"/>
+                                <field name="matiere_id"/>
+                                <field name="qte"/>
+                                <field name="valeur_unitaire"/>
+                                <field name="valeur_totale" force_save="1"/>
+                                <field name="piece_id"/>
+                                <field name="observation"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--action de création livre journal-->
+    <record id="action_faarf_livre_journal" model="ir.actions.act_window">
+        <field name="name">Livre-journal</field>
+        <field name="res_model">faarf.livre.journal</field>
+        <field name="view_mode">form</field>
+    </record>
+
+
+    <!--Vue form Liste fiche stock-->
+    <record id="view_faarf_fiche_stock_form" model="ir.ui.view">
+        <field name="name">faarf.fiche.stock.form</field>
+        <field name="model">faarf.fiche.stock</field>
+        <field name="arch" type="xml">
+            <form string="Liste des fiche stock">
+                <header>
+                    <button class="oe_highlight" name="afficher" type="object" icon="fa-check" string="Voir la fiche de stock"/>
+                </header>
+            <sheet>
+                    <group>
+                        <field name="dte_deb" style="width:50%"/>
+                        <field name="dte_fin" style="width:50%"/>
+                    </group>
+                <group invisible="1">
+                    <field name="magasinier"/>
+                    <field name="company_id"/>
+                    <field name="x_exercice_id"/>
+                </group>
+                    <field name="lines_ids">
+                        <tree editable="bottom">
+                            <field name="code" force_save="1"/>
+                            <field name="matiere_id"/>
+                            <field name="entree"/>
+                            <field name="sortie"/>
+                            <field name="solde"/>
+                            <field name="observation"/>
+                        </tree>
+                    </field>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--action de création livre journal-->
+    <record id="action_faarf_fiche_stock" model="ir.actions.act_window">
+        <field name="name">Fiche de stock</field>
+        <field name="res_model">faarf.fiche.stock</field>
+        <field name="view_mode">form</field>
+    </record>
+
+
+     <menuitem id="menu_synthese" name="Synthèse" parent="menu_immo" sequence="6"/>
+        <menuitem id="menu_livr_jr" name="Livre-Journal" parent="menu_synthese" action="action_faarf_livre_journal" sequence="1"/>
+        <menuitem id="menu_fiche_stock" name="Fiche de stock" parent="menu_synthese" action="action_faarf_fiche_stock" sequence="2"/>
+
+
+</odoo>

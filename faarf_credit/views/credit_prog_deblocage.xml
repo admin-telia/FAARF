@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Vue programme pour deblocage gestionnaire-->
+    <record id="view_credit_prog_deblocage_tree" model="ir.ui.view">
+            <field name="name">credit_prog_deblocage.tree</field>
+            <field name="model">credit_prog_deblocage</field>
+            <field name="arch" type="xml" >
+                <tree string="Type de client"
+                      decoration-warning="state=='V'"
+                      decoration-info="state=='PD'"
+                      decoration-success="state=='CE'"
+                      decoration-danger="state=='DA'">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="date_deblocage"/>
+                    <field name="dossier_decaisse"/>
+                    <field name="nbr_dossier"/>
+                    <field name="montants"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_credit_prog_deblocage_form" model="ir.ui.view">
+        <field name="name">view.credit_prog_deblocage.form</field>
+        <field name="model">credit_prog_deblocage</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+<!--                    <button class="oe_highlight" name="afficher" type="object" icon="fa-check"-->
+<!--                            string="Afficher" states="N"/>-->
+
+                    <button class="oe_highlight" name="set_valider" type="object" icon="fa-check"
+                            confirm="Êtes-vous sûr d'exécuter cette action ?"
+                            string="Valider" states="N"
+                            style="background-color: #28a745; border-color: #28a745;"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1" force_save="1"/>
+<!--                            <field name="libelle" attrs="{'readonly':[('state','!=','N')]}"/>-->
+                            <field name="date" readonly="1" force_save="1"/>
+                            <field name="date_deblocage" required="True" attrs="{'readonly':[('state','!=','N')]}"/>
+                            <field name="gestionnaire_id" invisible="1" force_save="1"/>
+                            <field name="superviseur_id" invisible="1" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="nbr_dossier" force_save="1"/>
+                            <field name="montant" force_save="1" invisible="1"/>
+							<field name="montants" force_save="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="crédits">
+                            <field name="credit_ids" attrs="{'readonly':[('state','!=','N')]}"
+                                   domain="[('gestionnaire_id.id','=', gestionnaire_id), ('state','=', 'DA'),]">
+                                <tree create="false" edit="false"
+                                          decoration-primary="state=='PD'"
+                                          decoration-warning="state=='CE'"
+                                          decoration-info="state=='DC'">
+                                     <field name="name"/>
+                                    <field name="cliente_id"/>
+                                    <field name="type_client"/>
+                                    <field name="telephone"/>
+                                    <field name="date_demande"/>
+                                    <field name="gestionnaire_id"/>
+                                    <field name="montant_demande"/>
+                                    <field name="montant_superviseur" string="Montant superviseur"/>
+                                    <field name="secteur_activite"/>
+                                    <field name="duree_pret"/>
+                                    <field name="produit_credit"/>
+                                    <field name="periodicite"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Commentaires">
+                            <field name="commentaires" nolabel=""/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_credit_prog_deblocage_search" model="ir.ui.view">
+            <field name="name">credit_prog_deblocage</field>
+            <field name="model">credit_prog_deblocage</field>
+            <field name="arch" type="xml">
+                <search string="Search modules">
+<!--                    <filter name="atraiter" domain="[('state','=','N')]" string="A traiter"/>-->
+                    <searchpanel>
+                        <field name="gestionnaire_id" string="Gestionnaire"/>
+                    </searchpanel>
+               </search>
+            </field>
+        </record>
+
+    <record id="action_credit_prog_deblocage" model="ir.actions.act_window">
+        <field name="name">Liste des programmes</field>
+        <field name="res_model">credit_prog_deblocage</field>
+        <field name="domain">[('gestionnaire_id', '=', uid)]</field>
+        <field name="view_mode">search,tree,form</field>
+        <field name="search_view_id" ref="view_credit_prog_deblocage_search"/>
+        <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_credit_prog_deblocage_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_credit_prog_deblocage_form')})]"/>
+    </record>
+
+     <!--Vue programme pour deblocage superviseur-->
+    <record id="view_credit_prog_sup_deblocage_tree" model="ir.ui.view">
+            <field name="name">credit_prog_deblocage.tree</field>
+            <field name="model">credit_prog_deblocage</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client" create="false"
+                      decoration-warning="state=='V'"
+                      decoration-info="state=='PD'"
+                      decoration-success="state=='CE'"
+                      decoration-danger="state=='DA'">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="date_deblocage"/>
+                    <field name="dossier_decaisse"/>
+                    <field name="nbr_dossier"/>
+                    <field name="montants"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_credit_prog_sup_deblocage_form" model="ir.ui.view">
+        <field name="name">view.credit_prog_deblocage.form</field>
+        <field name="model">credit_prog_deblocage</field>
+        <field name="arch" type="xml">
+            <form string="Information client" create="false">
+                <header>
+                    <button class="oe_highlight" name="approuver" type="object" icon="fa-check"
+                            confirm="Êtes-vous sûr d'exécuter cette action ?"
+                            string="Approuver" states="V"
+                            style="background-color: #28a745; border-color: #28a745;"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1" force_save="1"/>
+                            <field name="libelle" attrs="{'readonly':[('state','!=','N')]}"/>
+                            <field name="date" readonly="1" force_save="1" />
+                            <field name="date_deblocage" required="True" attrs="{'readonly':[('state','!=','N')]}"/>
+                        </group>
+                        <group>
+                            <field name="nbr_dossier" force_save="1"/>
+                            <field name="montant" force_save="1" invisible="1"/>
+							<field name="montants" force_save="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="crédits">
+                            <field name="credit_ids" attrs="{'readonly':[('state','!=','N')]}"
+                                   domain="[('state','=','AA')]">
+                                <tree create="false" edit="false">
+                                    <field name="name"/>
+                                    <field name="cliente_id"/>
+                                    <field name="type_client"/>
+                                    <field name="telephone"/>
+                                    <field name="date_demande"/>
+                                    <field name="gestionnaire_id"/>
+                                    <field name="montant_demande"/>
+                                    <field name="montant_superviseur" string="Montant superviseur"/>
+                                    <field name="secteur_activite"/>
+                                    <field name="duree_pret"/>
+                                    <field name="produit_credit"/>
+                                    <field name="periodicite"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Commentaires">
+                            <field name="commentaires" nolabel=""/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_credit_prog_sup_deblocage_search" model="ir.ui.view">
+            <field name="name">credit_prog_deblocage</field>
+            <field name="model">credit_prog_deblocage</field>
+            <field name="arch" type="xml">
+                <search string="Search modules">
+                    <filter name="atraiter" domain="[('state','=','V')]" string="A traiter"/>
+                    <searchpanel>
+                        <field name="gestionnaire_id" string="Gestionnaire"/>
+                    </searchpanel>
+               </search>
+            </field>
+        </record>
+
+    <record id="action_credit_prog_sup_deblocage" model="ir.actions.act_window">
+        <field name="name">Liste des programmes</field>
+        <field name="res_model">credit_prog_deblocage</field>
+        <field name="domain">[('superviseur_id', '=', uid), ('state', 'in', ('V', 'PD', 'CE') )]</field>
+        <field name="view_mode">search,tree,form</field>
+        <field name="context">{
+                'search_default_atraiter': 1,
+            }
+        </field>
+        <field name="search_view_id" ref="view_credit_prog_sup_deblocage_search"/>
+        <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_credit_prog_sup_deblocage_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_credit_prog_sup_deblocage_form')})]"/>
+    </record>
+
+    <!--Vue programme deblocage-->
+    <record id="view_credit_prog_d_deblocage_tree" model="ir.ui.view">
+            <field name="name">credit_prog_deblocage.tree</field>
+            <field name="model">credit_prog_deblocage</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client" create="false" edit="false"
+                      decoration-warning="state=='V'"
+                      decoration-info="state=='PD'"
+                      decoration-success="state=='CE'"
+                      decoration-danger="state=='DA'">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="date_deblocage"/>
+                    <field name="dossier_decaisse"/>
+                    <field name="nbr_dossier"/>
+                    <field name="montants"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_credit_prog_d_deblocage_form" model="ir.ui.view">
+        <field name="name">view.credit_prog_deblocage.form</field>
+        <field name="model">credit_prog_deblocage</field>
+        <field name="arch" type="xml">
+            <form string="Information client" create="false">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1" force_save="1"/>
+<!--                            <field name="libelle" attrs="{'readonly':[('state','!=','N')]}"/>-->
+                            <field name="date" readonly="1" force_save="1"/>
+                            <field name="date_deblocage" required="True" readonly="1" force_save="1"/>
+                            <field name="gestionnaire_id" invisible="1" force_save="1"/>
+                            <field name="superviseur_id" invisible="1" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="nbr_dossier" force_save="1"/>
+                            <field name="montant" force_save="1" invisible="1"/>
+							<field name="montants" force_save="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="crédits">
+                            <field name="credit_ids" readonly="1" force_save="1"
+                                   domain="[('gestionnaire_id.id','=', gestionnaire_id), ('state','=', 'DA'),]">
+                                <tree create="false" edit="false"
+                                          decoration-primary="state=='PD'"
+                                          decoration-warning="state=='CE'"
+                                          decoration-info="state=='DC'">
+                                     <field name="name"/>
+                                    <field name="cliente_id"/>
+                                    <field name="type_client"/>
+                                    <field name="telephone"/>
+                                    <field name="date_demande"/>
+                                    <field name="gestionnaire_id"/>
+                                    <field name="montant_demande"/>
+                                    <field name="montant_superviseur" string="Montant superviseur"/>
+                                    <field name="secteur_activite"/>
+                                    <field name="duree_pret"/>
+                                    <field name="produit_credit"/>
+                                    <field name="periodicite"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Commentaires">
+                            <field name="commentaires" nolabel=""/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_credit_prog_d_deblocage_search" model="ir.ui.view">
+            <field name="name">credit_prog_deblocage</field>
+            <field name="model">credit_prog_deblocage</field>
+            <field name="arch" type="xml">
+                <search string="Search modules">
+<!--                    <filter name="atraiter" domain="[('state','=','N')]" string="A traiter"/>-->
+                    <searchpanel>
+                        <field name="gestionnaire_id" string="Gestionnaire"/>
+                    </searchpanel>
+               </search>
+            </field>
+        </record>
+
+    <record id="action_credit_prog_d_deblocage" model="ir.actions.act_window">
+        <field name="name">Liste des programmes de déblocage</field>
+        <field name="res_model">credit_prog_deblocage</field>
+        <field name="domain">[('state', '=', 'CE')]</field>
+        <field name="view_mode">search,tree,form</field>
+        <field name="search_view_id" ref="view_credit_prog_deblocage_search"/>
+        <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_credit_prog_d_deblocage_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_credit_prog_d_deblocage_form')})]"/>
+    </record>
+
+</odoo>

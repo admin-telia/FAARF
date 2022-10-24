@@ -1,0 +1,54 @@
+.o_main_navbar > ul > li > a[data-menu-xmlid="faarf_accueil.menu_faarf_accueil"]{
+    display: none;
+    color: black;
+}
+
+.o_main_navbar > ul > li > a[data-menu-xmlid="faarf_accueil.menu_faarf_accueil_ref"]{
+    display: none;
+    color: black;
+}
+
+.o_main_navbar > ul > li > a[data-menu-xmlid="faarf_accueil.menu_faarf_accueil_budg"]{
+    display: none;
+    color: black;
+}
+
+.o_main_navbar > ul > li > a[data-menu-xmlid="faarf_accueil.menu_faarf_accueil_compta"]{
+    display: none;
+    color: black;
+}
+
+.o_main_navbar > ul > li > a[data-menu-xmlid="faarf_accueil.menu_faarf_accueil_immo"]{
+    display: none;
+    color: black;
+}
+
+.o_main_navbar > ul > li > a[data-menu-xmlid="faarf_accueil.menu_faarf_accueil_conv"]{
+    display: none;
+    color: black;
+}
+
+.o_main_navbar > ul > li > a[data-menu-xmlid="faarf_accueil.menu_faarf_accueil_form"]{
+    display: none;
+    color: black;
+}
+
+.o_main_navbar > ul > li > a[data-menu-xmlid="faarf_accueil.menu_faarf_accueil_stock"]{
+    display: none;
+    color: black;
+}
+
+.o_main_navbar > ul > li > a[data-menu-xmlid="faarf_accueil.menu_faarf_accueil_paie"]{
+    display: none;
+    color: black;
+}
+
+.o_main_navbar > ul > li > a[data-menu-xmlid="faarf_accueil.menu_faarf_accueil_rh"]{
+    display: none;
+    color: black;
+}
+
+.o_main_navbar > ul > li > a[data-menu-xmlid="faarf_accueil.menu_faarf_accueil_carr"]{
+    display: none;
+    color: black;
+}

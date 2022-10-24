@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_faarf_acceuil_form" model="ir.ui.view">
+        <field name="name">view.faarf_acceuil.form</field>
+        <field name="model">faarf_acceuil</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+				</header>
+                    <div style='
+                            margin-top: 30px;
+                            min-height: 500px;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            background-image: url(/faarf_accueil/static/img/sig.png);
+                            background-size: 50%'>
+
+                    </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_faarf_acceuil" model="ir.actions.act_window">
+        <field name="name">Accueil</field>
+        <field name="res_model">faarf_acceuil</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="menu_faarf_accueil" name ="Accueil" sequence="-1" parent="faarf_credit.main_menu" action="action_faarf_acceuil"/>
+    <menuitem id="menu_faarf_accueil_ref" name ="Accueil" sequence="-1" parent="Referentiel_Global.main_menu" action="action_faarf_acceuil"/>
+    <menuitem id="menu_faarf_accueil_budg" name ="Accueil" sequence="-1" parent="faarf_budget.main_menu" action="action_faarf_acceuil"/>
+
+    <menuitem id="menu_faarf_accueil_compta" name ="Accueil" sequence="-1" parent="faarf_compta.main_menu" action="action_faarf_acceuil"/>
+    <menuitem id="menu_faarf_accueil_immo" name ="Accueil" sequence="-1" parent="faarf_immo.menu_immo" action="action_faarf_acceuil"/>
+    <menuitem id="menu_faarf_accueil_conv" name ="Accueil" sequence="-1" parent="faarf_convention.menu_gestion_conv_part" action="action_faarf_acceuil"/>
+    <menuitem id="menu_faarf_accueil_form" name ="Accueil" sequence="-1" parent="faarf_formation.menu_gestion_formation" action="action_faarf_acceuil"/>
+    <menuitem id="menu_faarf_accueil_stock" name ="Accueil" sequence="-1" parent="Gestion_Stocks.main_menu" action="action_faarf_acceuil"/>
+    <menuitem id="menu_faarf_accueil_paie" name ="Accueil" sequence="-1" parent="payroll.payroll_menu_root" action="action_faarf_acceuil"/>
+    <menuitem id="menu_faarf_accueil_rh" name ="Accueil" sequence="-1" parent="faarf_rh.main_menu" action="action_faarf_acceuil"/>
+    <menuitem id="menu_faarf_accueil_carr" name ="Accueil" sequence="-1" parent="faarf_carriere.main_menu" action="action_faarf_acceuil"/>
+</odoo>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Convention -->
+	<template id="temp_credit_prog_deblocage">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.basic_layout">
+					<style>
+
+					</style>
+					<div t-if="o.state == 'PD'">
+						<table class="table">
+							<tr>
+								<td style="text-align:left">
+									<p style="font-size:11px; font-weight:bold">
+										MINISTERE DU GENRE, <br/>
+										DE LA FAMILLE ET DE L'ACTION <br/>
+										HUMANITAIRE <br/>
+										-------------------- <br/>
+										SECRETARIAT GENERAL <br/>
+										-------------------- <br/>
+										FONDS D'APPUI AUX ACTIVITES <br/>
+										REMUNERATRIVES DES FEMMES <br/>
+										(FAARF) <br/>
+									</p>
+								</td>
+								<td style="text-align:center">
+<!--									<img src="/faarf_credit/static/img/faarf_logo.png"/>-->
+								</td>
+								<td style="text-align:center">
+									<p>
+										Burkina Faso <br/>
+										Unité - Progès - Justice
+									</p>
+								</td>
+							</tr>
+						</table>
+						<div style="text-align: center;">
+							<h4>Programme de déblocage N° <span t-field="o.name"/>
+								du <span t-field="o.date"/></h4>
+						</div>
+						<table class="table">
+							<tr>
+								<td style="border: none">
+									Gestionnaire: <span t-field="o.gestionnaire_id.name"/>
+								</td>
+								<td style="border: none">
+									Nombre de dossiers: <span t-field="o.nbr_dossier"/>
+								</td>
+							</tr>
+							<tr>
+								<td style="border: none">
+									Date débloquage: <span t-field="o.date_deblocage"/>
+								</td>
+								<td style="border: none">
+									Montant total: <span t-field="o.montants"/>
+								</td>
+							</tr>
+						</table>
+						<table class="table table-striped">
+							<tr>
+								<td>N° prêt</td>
+								<td>Sollicitante</td>
+								<td>Type</td>
+								<td>Tel</td>
+								<td>Date dmde</td>
+								<td>Montant</td>
+								<td>Durée</td>
+								<td>Périodicité</td>
+							</tr>
+							<t t-foreach="o.credit_ids" t-as="c">
+								<tr>
+									<td><span t-field="c.name"/></td>
+									<td><span t-field="c.cliente_id.name"/></td>
+									<td><span t-field="c.type_client.name"/></td>
+									<td><span t-field="c.telephone"/></td>
+									<td><span t-field="c.date_demande"/></td>
+									<td><span t-field="c.montant_accorde"/></td>
+									<td><span t-field="c.duree_pret"/></td>
+									<td><span t-field="c.periodicite"/></td>
+								</tr>
+							</t>
+						</table>
+						<br/><br/><br/><br/>
+						<table class="table">
+							<tr>
+								<td style="text-align: left">
+									La Superviseure <br/><br/><br/><br/>
+
+									<p style="text-decoration:underline"><span t-field="o.superviseur_id.name"/></p>
+								</td>
+								<td style="text-align: right">
+									La Comptabilité <br/><br/><br/><br/>
+
+								</td>
+							</tr>
+						</table>
+					</div>
+				</t>
+			 </t>
+		</t>
+	</template>
+	<report
+		id="report_credit_prog_deblocage"
+		string="Programme d'émission de chèque"
+		model="credit_prog_deblocage"
+		report_type="qweb-html"
+		file="faarf_credit.temp_credit_prog_deblocage"
+		name="faarf_credit.temp_credit_prog_deblocage"
+		groups = "base.group_user"
+		menu = "True"/>
+</odoo>

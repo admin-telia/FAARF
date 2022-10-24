@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Vue programme restitution-->
+    <record id="view_credit_prog_rest_fa_tree" model="ir.ui.view">
+            <field name="name">credit_prog_rest_fa.tree</field>
+            <field name="model">credit_prog_rest_fa</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client">
+                    <field name="name"/>
+                    <field name="libelle"/>
+                    <field name="date"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_credit_prog_rest_fa_form" model="ir.ui.view">
+        <field name="name">view.credit_prog_rest_fa.form</field>
+        <field name="model">credit_prog_rest_fa</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+<!--                    <button class="oe_highlight" name="afficher" type="object" icon="fa-check"-->
+<!--                            string="Afficher" states="N"/>-->
+<!--                    <button class="oe_highlight" name="approuver" type="object" icon="fa-check"-->
+<!--                            confirm="Êtes-vous sûr d'exécuter cette action ?"-->
+<!--                            string="Approuver" states="N"-->
+<!--                            style="background-color: #28a745; border-color: #28a745;"/>-->
+<!--                    <button class="oe_highlight" name="set_decaiss" type="object" icon="fa-check"-->
+<!--                            confirm="Êtes-vous sûr d'exécuter cette action ?"-->
+<!--                            string="Cheque emis" states="CE"-->
+<!--                            style="background-color: #28a745; border-color: #38b745;"/>-->
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1" force_save="1"/>
+                            <field name="libelle" attrs="{'readonly':[('state','!=','N')]}"/>
+                            <field name="date" readonly="1" force_save="1"/>
+                            <field name="date_deblocage" required="True"/>
+                        </group>
+                        <group>
+                            <field name="nbr_dossier" force_save="1"/>
+                            <field name="montant" force_save="1" invisible="0"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Ordre de restitution">
+                            <field name="ordre_ids"
+                                   domain="[('state','=','A')]"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_credit_prog_rest_fa" model="ir.actions.act_window">
+        <field name="name">Liste des programmes de restitution</field>
+        <field name="res_model">credit_prog_rest_fa</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

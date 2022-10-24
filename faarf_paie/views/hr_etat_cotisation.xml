@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vue Etat nominatif CARFO -->
+    <record model="ir.ui.view" id="hr_etat_carfo_form">
+        <field name="name">view.hr_etat_carfo.form</field>
+        <field name="model">hr_etat_carfo</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <form string="Report/Avoir">
+                <header>
+                        <button string="Afficher" name="avoir" type="object"  class="oe_highlight"/>
+                </header>
+                <sheet>
+                        <group><field name="name" placeholder = "Bordereaux de ..."/></group>
+                        <group col = '2'>
+                            <group>
+                                <field name="x_elt_sal_id"  options="{'no_create':True}"/>
+                                <field name="x_type_employe_id" options="{'no_create':True}"/>
+                                <field name="x_date_debut" style="width:50%"/>
+                                <field name="x_date_fin" style="width:50%"/>
+                            </group>
+                            <group>
+                                <field name="financiers_id"/>
+                                <field name="drhs_id"/>
+                                <field name="date_op" invisible = "0" force_save = '1'/>
+                            </group>
+                            <group>
+                                <field name="periode" force_save="1"/>
+                            </group>
+                        </group>
+                        <group><field name="x_mnts" invisible = "0"/></group>
+                        <group><field name="x_mnt_en_lettre" invisible = "0"/></group>
+
+                        <field name = 'x_line_ids'/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_etat_carfo_tree">
+        <field name="name">view.hr_etat_carfo.tree</field>
+        <field name="model">hr_etat_carfo</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Report/Avoir">
+                <field name="name"/>
+                <field name="x_type_employe_id"/>
+                <field name="x_elt_sal_id"/>
+                <field name="x_date_debut"/>
+                <field name="x_date_fin"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="act_hr_etat_carfo">
+		<field name="name">Etats Carfo Part Employe </field>
+		<field name="res_model">hr_etat_carfo</field>
+		<field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_etat_carfo_line_tree">
+        <field name="name">hr_etat_carfo_line.tree</field>
+        <field name="model">hr_etat_carfo_line</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Report/Avoir" editable="bottom">
+                <field name="x_element_id" invisible = '1'/>
+                <field name="numero"/>
+                <field name="name"/>
+                <field name="x_matricule"/>
+                <field name="x_matricule_c"/>
+                <field name="x_mnt" sum = 'Total Avoirs'/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vue Etat nominatif CARFO Part Patronale-->
+    <record model="ir.ui.view" id="hr_etat_carfo_pat_form">
+        <field name="name">view.hr_etat_carfo_pat.form</field>
+        <field name="model">hr_etat_carfo_pat</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <form string="Report/Avoir">
+                <header>
+                        <button string="Afficher" name="avoir" type="object"  class="oe_highlight"/>
+                </header>
+                <sheet>
+                        <group><field name="name" placeholder = "Bordereaux de ..."/></group>
+                        <group col = '2'>
+                            <group>
+                                <field name="x_elt_sal_id"  options="{'no_create':True}"/>
+                                <field name="x_type_employe_id" options="{'no_create':True}"/>
+                                <field name="x_date_debut" style="width:50%"/>
+                                <field name="x_date_fin" style="width:50%"/>
+                            </group>
+                            <group>
+                                <field name="financiers_id"/>
+                                <field name="drhs_id"/>
+                                <field name="date_op" invisible = "0" force_save = '1'/>
+                            </group>
+                            <group>
+                                <field name="periode" force_save="1"/>
+                            </group>
+                        </group>
+                        <group><field name="x_mnts" invisible = "0"/></group>
+                        <group><field name="x_mnt_en_lettre" invisible = "0"/></group>
+
+                        <field name = 'x_line_ids'/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_etat_carfo_pat_tree">
+        <field name="name">view.hr_etat_carfo_pat.tree</field>
+        <field name="model">hr_etat_carfo_pat</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Report/Avoir">
+                <field name="name"/>
+                <field name="x_type_employe_id"/>
+                <field name="x_elt_sal_id"/>
+                <field name="x_date_debut"/>
+                <field name="x_date_fin"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="act_hr_etat_carfo_pat">
+		<field name="name">Etats Carfo Part Patronale </field>
+		<field name="res_model">hr_etat_carfo_pat</field>
+		<field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_etat_carfo_pat_line_tree">
+        <field name="name">hr_etat_carfo_pat_line.tree</field>
+        <field name="model">hr_etat_carfo_pat_line</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Report/Avoir" editable="bottom">
+                <field name="x_element_id" invisible = '1'/>
+                <field name="numero"/>
+                <field name="name"/>
+                <field name="x_matricule"/>
+                <field name="x_matricule_c"/>
+                <field name="x_mnt" sum = 'Total Avoirs'/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vue Etat nominatif CNSS -->
+    <record model="ir.ui.view" id="hr_etat_cnss_form">
+        <field name="name">view.hr_etat_cnss.form</field>
+        <field name="model">hr_etat_cnss</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <form string="Report/Avoir">
+                <header>
+                        <button string="Afficher" name="avoir" type="object"  class="oe_highlight"/>
+                </header>
+                <sheet>
+                        <group><field name="name" placeholder = "Bordereaux de ..."/></group>
+                        <group col = '2'>
+                            <group>
+                                <field name="x_elt_sal_id"  options="{'no_create':True}"/>
+                                <field name="x_type_employe_id" options="{'no_create':True}"/>
+                                <field name="x_date_debut" style="width:50%"/>
+                                <field name="x_date_fin" style="width:50%"/>
+                            </group>
+                            <group>
+                                <field name="financiers_id"/>
+                                <field name="drhs_id"/>
+                                <field name="date_op" invisible = "0" force_save = '1'/>
+                            </group>
+                            <group>
+                                <field name="periode" force_save="1"/>
+                            </group>
+                        </group>
+                        <group><field name="x_mnts" invisible = "0"/></group>
+                        <group><field name="x_mnt_en_lettre" invisible = "0"/></group>
+
+                        <field name = 'x_line_ids'/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_etat_cnss_tree">
+        <field name="name">view.hr_etat_cnss.tree</field>
+        <field name="model">hr_etat_cnss</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Report/Avoir">
+                <field name="name"/>
+                <field name="x_type_employe_id"/>
+                <field name="x_elt_sal_id"/>
+                <field name="x_date_debut"/>
+                <field name="x_date_fin"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="act_hr_cnss_carfo">
+		<field name="name">Etats CNSS Part Employe </field>
+		<field name="res_model">hr_etat_cnss</field>
+		<field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_etat_cnss_line_tree">
+        <field name="name">hr_etat_cnss_line.tree</field>
+        <field name="model">hr_etat_cnss_line</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Report/Avoir" editable="bottom">
+                <field name="x_element_id" invisible = '1'/>
+                <field name="numero"/>
+                <field name="name"/>
+                <field name="x_matricule"/>
+                <field name="x_matricule_c"/>
+                <field name="x_mnt" sum = 'Total Avoirs'/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vue Etat nominatif CARFO Part Patronale-->
+    <record model="ir.ui.view" id="hr_etat_cnss_pat_form">
+        <field name="name">view.hr_etat_cnss_pat.form</field>
+        <field name="model">hr_etat_cnss_pat</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <form string="Report/Avoir">
+                <header>
+                        <button string="Afficher" name="avoir" type="object"  class="oe_highlight"/>
+                </header>
+                <sheet>
+                        <group><field name="name" placeholder = "Bordereaux de ..."/></group>
+                        <group col = '2'>
+                            <group>
+                                <field name="x_elt_sal_id"  options="{'no_create':True}"/>
+                                <field name="x_type_employe_id" options="{'no_create':True}"/>
+                                <field name="x_date_debut" style="width:50%"/>
+                                <field name="x_date_fin" style="width:50%"/>
+                            </group>
+                            <group>
+                                <field name="financiers_id"/>
+                                <field name="drhs_id"/>
+                                <field name="date_op" invisible = "0" force_save = '1'/>
+                            </group>
+                            <group>
+                                <field name="periode" force_save="1"/>
+                            </group>
+                        </group>
+                        <group><field name="x_mnts" invisible = "0"/></group>
+                        <group><field name="x_mnt_en_lettre" invisible = "0"/></group>
+
+                        <field name = 'x_line_ids'/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_etat_cnss_pat_tree">
+        <field name="name">view.hr_etat_cnss_pat.tree</field>
+        <field name="model">hr_etat_cnss_pat</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Report/Avoir">
+                <field name="name"/>
+                <field name="x_type_employe_id"/>
+                <field name="x_elt_sal_id"/>
+                <field name="x_date_debut"/>
+                <field name="x_date_fin"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="act_hr_etat_cnss_pat">
+		<field name="name">Etats Carfo Part Patronale </field>
+		<field name="res_model">hr_etat_cnss_pat</field>
+		<field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_etat_cnss_pat_line_tree">
+        <field name="name">hr_etat_cnss_pat_line.tree</field>
+        <field name="model">hr_etat_cnss_pat_line</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Report/Avoir" editable="bottom">
+                <field name="x_element_id" invisible = '1'/>
+                <field name="numero"/>
+                <field name="name"/>
+                <field name="x_matricule"/>
+                <field name="x_matricule_c"/>
+                <field name="x_mnt" sum = 'Total Avoirs'/>
+            </tree>
+        </field>
+    </record>
+</odoo>

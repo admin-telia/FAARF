@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+ 
+	<record id="faarf_budget_category" model="ir.module.category">
+        <field name="name">PROFILS BUDGET</field>
+    </record>
+	
+	
+    <record id="faarf_budget_ac_agent" model="res.groups">
+        <field name="name">Agent DFC</field>
+        <field name="category_id" ref="faarf_budget_category"/>
+    </record>
+	
+	<record id="faarf_budget_ac" model="res.groups">
+        <field name="name">DFC</field>
+        <field name="category_id" ref="faarf_budget_category"/>
+        <field name="implied_ids" eval="[(4, ref('faarf_budget.faarf_budget_ac_agent'))]"/>
+    </record>
+	
+	<record id="faarf_budget_consultation" model="res.groups">
+        <field name="name">CONSULTATION</field>
+        <field name="category_id" ref="faarf_budget_category"/>
+    </record>
+	
+	<record id="faarf_budget_agent" model="res.groups">
+        <field name="name">ACCES BUDGET</field>
+		<field name="implied_ids" eval="[(4,ref('faarf_budget.faarf_budget_consultation'))]"/>
+        <field name="category_id" ref="faarf_budget_category"/>
+    </record>
+	
+
+	<record id="agent_budget_depense" model="res.groups">
+        <field name="name">DFC-A</field>
+		<field name="implied_ids" eval="[(4,ref('faarf_budget.faarf_budget_agent'))]"/>
+        <field name="category_id" ref="faarf_budget_category"/>
+    </record>
+	
+    <record id="faarf_budget_user" model="res.groups">
+        <field name="name">DFC-R</field>
+		<field name="implied_ids" eval="[(4, ref('faarf_budget.faarf_budget_consultation'))]"/>
+        <field name="category_id" ref="faarf_budget_category"/>
+    </record>
+	
+	<record id="faarf_budget_manager_daf" model="res.groups">
+        <field name="name">DFC-S</field>
+		<field name="implied_ids" eval="[(4, ref('faarf_budget.faarf_budget_user'))]"/>
+        <field name="category_id" ref="faarf_budget_category"/>
+    </record>
+
+	
+	<record id="faarf_budget_controle" model="res.groups">
+        <field name="name">CONTROLE</field>
+		<!--<field name="implied_ids" eval="[(4, ref('faarf_budget.faarf_budget_user'))]"/>-->
+        <field name="category_id" ref="faarf_budget_category"/>
+    </record>
+
+
+    <record id="faarf_budget_ppm" model="res.groups">
+        <field name="name">PRM</field>
+		<!--<field name="implied_ids" eval="[(4, ref('faarf_budget.faarf_budget_user'))]"/>-->
+        <field name="category_id" ref="faarf_budget_category"/>
+    </record>
+	
+	<record id="faarf_budget_admin_donnees" model="res.groups">
+        <field name="name">ADMIN DONNEES</field>
+		<field name="implied_ids" eval="[(4,ref('faarf_budget.faarf_budget_manager_daf'))]"/>
+        <field name="category_id" ref="faarf_budget_category"/>
+    </record>
+
+</odoo>

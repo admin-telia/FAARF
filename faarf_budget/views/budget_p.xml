@@ -1,0 +1,1193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="budg_section_p_view_form">
+        <field name="name">budg_section_p.view.form</field>
+        <field name="model">budg_section_p</field>
+        <field name="arch" type="xml">
+            <form string="Section">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                         <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+	                <group>
+		                <field name = "code" style ="width:10%"/>
+		                <field name = "lb_court" style ="width:50%"/>
+		                <field name = "name" style ="width:75%"/>
+	                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_section_p_view_tree">
+            <field name="name">budg_section_p.view.tree</field>
+            <field name="model">budg_section_p</field>
+            <field name="arch" type="xml">
+                <tree string="Titre">
+                    <field name = "code"/>
+                    <field name = "lb_court"/>
+                    <field name = "name"/>
+                    <field name = "active"/>
+                </tree>
+            </field>
+    </record>
+
+
+    <record id="act_section_p" model="ir.actions.act_window">
+        <field name="name">Liste des sections</field>
+        <field name="res_model">budg_section_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="budg_programme_p_view_form">
+        <field name="name">budg_programme_p.view.form</field>
+        <field name="model">budg_programme_p</field>
+        <field name="arch" type="xml">
+            <form string="Prog pro">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                         <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+	                <group>
+		                <field name = "code" style ="width:10%"/>
+		                <field name = "lb_court" style ="width:50%"/>
+		                <field name = "name" style ="width:75%"/>
+	                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_programme_p_view_tree">
+            <field name="name">budg_programme_p.view.tree</field>
+            <field name="model">budg_programme_p</field>
+            <field name="arch" type="xml">
+                <tree string="Progr pro">
+                    <field name = "code"/>
+                    <field name = "lb_court"/>
+                    <field name = "name"/>
+                    <field name = "active"/>
+                </tree>
+            </field>
+    </record>
+
+
+    <record id="act_programme_p" model="ir.actions.act_window">
+        <field name="name">Liste des programmes</field>
+        <field name="res_model">budg_programme_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="budg_action_p_view_form">
+        <field name="name">budg_action_p.view.form</field>
+        <field name="model">budg_action_p</field>
+        <field name="arch" type="xml">
+            <form string="Action">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                         <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+	                <group>
+		                <field name = "code" style ="width:10%"/>
+		                <field name = "lb_court" style ="width:50%"/>
+		                <field name = "name" style ="width:75%"/>
+	                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_action_p_view_tree">
+            <field name="name">budg_action_p.view.tree</field>
+            <field name="model">budg_action_p</field>
+            <field name="arch" type="xml">
+                <tree string="Action">
+                    <field name = "code"/>
+                    <field name = "lb_court"/>
+                    <field name = "name"/>
+                    <field name = "active"/>
+                </tree>
+            </field>
+    </record>
+
+
+    <record id="act_action_p" model="ir.actions.act_window">
+        <field name="name">Liste des actions</field>
+        <field name="res_model">budg_action_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="budg_activite_p_view_form">
+        <field name="name">budg_activite_p.view.form</field>
+        <field name="model">budg_activite_p</field>
+        <field name="arch" type="xml">
+            <form string="Activité">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                         <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+	                <group>
+		                <field name = "code" style ="width:10%"/>
+		                <field name = "lb_court" style ="width:50%"/>
+		                <field name = "name" style ="width:75%"/>
+	                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_activite_p_view_tree">
+            <field name="name">budg_activite_p.view.tree</field>
+            <field name="model">budg_activite_p</field>
+            <field name="arch" type="xml">
+                <tree string="Activité">
+                    <field name = "code"/>
+                    <field name = "lb_court"/>
+                    <field name = "name"/>
+                    <field name = "active"/>
+                </tree>
+            </field>
+    </record>
+
+
+    <record id="act_activite_p" model="ir.actions.act_window">
+        <field name="name">Liste des activités</field>
+        <field name="res_model">budg_activite_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="budg_chapitre_p_view_form">
+        <field name="name">budg_chapitre_p.view.form</field>
+        <field name="model">budg_chapitre_p</field>
+        <field name="arch" type="xml">
+            <form string="Chapitre">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                         <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+	                <group>
+		                <field name = "code" style ="width:10%"/>
+		                <field name = "lb_court" style ="width:50%"/>
+		                <field name = "name" style ="width:75%"/>
+	                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_chapitre_p_view_tree">
+            <field name="name">budg_chapitre_p.view.tree</field>
+            <field name="model">budg_chapitre_p</field>
+            <field name="arch" type="xml">
+                <tree string="Activité">
+                    <field name = "code"/>
+                    <field name = "lb_court"/>
+                    <field name = "name"/>
+                    <field name = "active"/>
+                </tree>
+            </field>
+    </record>
+
+
+    <record id="act_chapitre_p" model="ir.actions.act_window">
+        <field name="name">Liste des chapitres</field>
+        <field name="res_model">budg_chapitre_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="budg_article_p_view_form">
+        <field name="name">budg_article_p.view.form</field>
+        <field name="model">budg_article_p</field>
+        <field name="arch" type="xml">
+            <form string="Article">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                         <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+	                <group>
+		                <field name = "code" style ="width:10%"/>
+		                <field name = "lb_court" style ="width:50%"/>
+		                <field name = "name" style ="width:75%"/>
+	                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_article_p_view_tree">
+            <field name="name">budg_article_p.view.tree</field>
+            <field name="model">budg_article_p</field>
+            <field name="arch" type="xml">
+                <tree string="Article">
+                    <field name = "code"/>
+                    <field name = "lb_court"/>
+                    <field name = "name"/>
+                    <field name = "active"/>
+                </tree>
+            </field>
+    </record>
+
+
+    <record id="act_article_p" model="ir.actions.act_window">
+        <field name="name">Liste des articles</field>
+        <field name="res_model">budg_article_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="budg_paragraphe_p_view_form">
+        <field name="name">budg_paragraphe_p.view.form</field>
+        <field name="model">budg_paragraphe_p</field>
+        <field name="arch" type="xml">
+            <form string="Paragraphe">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                         <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+	                <group>
+		                <field name = "code" style ="width:10%"/>
+		                <field name = "lb_court" style ="width:50%"/>
+		                <field name = "name" style ="width:75%"/>
+	                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_paragraphe_p_view_tree">
+        <field name="name">budg_paragraphe_p.view.tree</field>
+        <field name="model">budg_paragraphe_p</field>
+        <field name="arch" type="xml">
+            <tree string="Paragraphe">
+                <field name = "code"/>
+                <field name = "lb_court"/>
+                <field name = "name"/>
+                <field name = "active"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="act_paragrahe_p" model="ir.actions.act_window">
+        <field name="name">Liste des paragraphes</field>
+        <field name="res_model">budg_paragraphe_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="budg_rubrique_p_view_form">
+        <field name="name">budg_rubrique_p.view.form</field>
+        <field name="model">budg_rubrique_p</field>
+        <field name="arch" type="xml">
+            <form string="Rubrique">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                         <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+	                <group>
+		                <field name = "code" style ="width:10%"/>
+		                <field name = "lb_court" style ="width:50%"/>
+		                <field name = "name" style ="width:75%"/>
+	                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_rubrique_p_view_tree">
+        <field name="name">budg_rubrique_p.view.tree</field>
+        <field name="model">budg_rubrique_p</field>
+        <field name="arch" type="xml">
+            <tree string="Rubrique">
+                <field name = "code"/>
+                <field name = "lb_court"/>
+                <field name = "name"/>
+                <field name = "active"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="act_rubrique_p" model="ir.actions.act_window">
+        <field name="name">Liste des rubriques</field>
+        <field name="res_model">budg_rubrique_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <!--paramétrage budget programme-->
+    <record model="ir.ui.view" id="budg_param_action_p_view_form">
+        <field name="name">budg_param_action_p.view.form</field>
+        <field name="model">budg_param_action_p</field>
+        <field name="arch" type="xml">
+            <form string="Parametre action">
+                <sheet>
+	                <group>
+		                <field name = "prog_id" options="{'no_create': True}" style ="width:50%"/>
+		                <field name = "action_id" options="{'no_create': True}" style ="width:50%"/>
+	                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_param_action_p_view_tree">
+        <field name="name">budg_param_action_p.view.tree</field>
+        <field name="model">budg_param_action_p</field>
+        <field name="arch" type="xml">
+            <tree string="Parametre action">
+                <field name = "prog_id"/>
+                <field name = "action_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="act_budg_param_action_p" model="ir.actions.act_window">
+        <field name="name">Paramétrage des action</field>
+        <field name="res_model">budg_param_action_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="budg_param_activite_p_view_form">
+        <field name="name">budg_param_activite_p.view.form</field>
+        <field name="model">budg_param_activite_p</field>
+        <field name="arch" type="xml">
+            <form string="Parametre activite">
+                <sheet>
+	                <group>
+		                <field name = "prog_id" options="{'no_create': True}" style ="width:50%"/>
+		                <field name = "action_id" options="{'no_create': True}" domain ="[('prog_id.id', '=', prog_id)]"
+                               style ="width:50%"/>
+                        <field name = "activite_id" options="{'no_create': True}" style ="width:50%"/>
+	                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_param_activite_p_view_tree">
+        <field name="name">budg_param_activite_p.view.tree</field>
+        <field name="model">budg_param_activite_p</field>
+        <field name="arch" type="xml">
+            <tree string="Parametre action">
+                <field name = "prog_id"/>
+                <field name = "action_id"/>
+                <field name = "activite_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="act_budg_param_activite_p" model="ir.actions.act_window">
+        <field name="name">Paramétrage des activités</field>
+        <field name="res_model">budg_param_activite_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="budg_param_article_p_view_form">
+        <field name="name">budg_param_article_p.view.form</field>
+        <field name="model">budg_param_article_p</field>
+        <field name="arch" type="xml">
+            <form string="Parametre article">
+                <sheet>
+	                <group>
+		                <field name = "prog_id" options="{'no_create': True}" style ="width:50%"/>
+		                <field name = "action_id" options="{'no_create': True}" domain ="[('prog_id.id', '=', prog_id)]"
+                               style ="width:50%"/>
+                        <field name = "activite_id" options="{'no_create': True}" domain ="[('action_id.id', '=', action_id)]"
+                                style ="width:50%"/>
+                        <field name = "article_id" options="{'no_create': True}" style ="width:50%"/>
+	                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_param_article_p_view_tree">
+        <field name="name">budg_param_article_p.view.tree</field>
+        <field name="model">budg_param_article_p</field>
+        <field name="arch" type="xml">
+            <tree string="Parametre article">
+                <field name = "prog_id"/>
+                <field name = "action_id"/>
+                <field name = "activite_id"/>
+                <field name = "article_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="act_budg_param_article_p" model="ir.actions.act_window">
+        <field name="name">Paramétrage des articles</field>
+        <field name="res_model">budg_param_article_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="budg_param_parag_p_view_form">
+        <field name="name">budg_param_parag_p.view.form</field>
+        <field name="model">budg_param_parag_p</field>
+        <field name="arch" type="xml">
+            <form string="Parametre paragraphe">
+                <sheet>
+	                <group>
+		                <field name = "prog_id" options="{'no_create': True}" style ="width:50%"/>
+		                <field name = "action_id" options="{'no_create': True}" style ="width:50%" domain ="[('prog_id.id', '=', prog_id)]"/>
+                        <field name = "activite_id" options="{'no_create': True}" style ="width:50%" domain="[('action_id.id', '=',action_id)]"/>
+                        <field name = "article_id" options="{'no_create': True}" style ="width:50%" domain="[('activite_id.id', '=',activite_id)]"/>
+                        <field name = "parag_id" options="{'no_create': True}" style ="width:50%"/>
+	                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_param_parag_p_view_tree">
+        <field name="name">budg_param_parag_p.view.tree</field>
+        <field name="model">budg_param_parag_p</field>
+        <field name="arch" type="xml">
+            <tree string="Parametre paragraphe">
+                <field name = "prog_id"/>
+                <field name = "action_id"/>
+                <field name = "activite_id"/>
+                <field name = "article_id"/>
+                <field name = "parag_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="act_budg_param_parag_p" model="ir.actions.act_window">
+        <field name="name">Paramétrage des paragraphes</field>
+        <field name="res_model">budg_param_parag_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="budg_param_rub_p_view_form">
+        <field name="name">budg_param_rub_p.view.form</field>
+        <field name="model">budg_param_rub_p</field>
+        <field name="arch" type="xml">
+            <form string="Parametre rubrique">
+                <sheet>
+	                <group>
+		                <field name = "prog_id" options="{'no_create': True}" style ="width:50%"/>
+		                <field name = "action_id" options="{'no_create': True}" domain ="[('prog_id.id', '=', prog_id)]" style ="width:50%"/>
+                        <field name = "activite_id" options="{'no_create': True}" domain="[('action_id.id', '=',action_id)]" style ="width:50%"/>
+                        <field name = "article_id" options="{'no_create': True}" domain="[('activite_id.id', '=',activite_id)]" style ="width:50%"/>
+                        <field name = "parag_id" options="{'no_create': True}" domain="[('article_id.id', '=',article_id)]" style ="width:50%"/>
+                        <field name = "rub_id" options="{'no_create': True}" style ="width:50%"/>
+                        <field name = "cpte_id" options="{'no_create': True}" style ="width:50%"/>
+	                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_param_rub_p_view_tree">
+        <field name="name">budg_param_rub_p.view.tree</field>
+        <field name="model">budg_param_rub_p</field>
+        <field name="arch" type="xml">
+            <tree string="Parametre paragraphe">
+                <field name = "prog_id"/>
+                <field name = "action_id"/>
+                <field name = "activite_id"/>
+                <field name = "article_id"/>
+                <field name = "parag_id"/>
+                <field name = "rub_id"/>
+                <field name = "cpte_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="act_budg_param_rub_p" model="ir.actions.act_window">
+        <field name="name">Paramétrage des rubriques</field>
+        <field name="res_model">budg_param_rub_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="view_budg_budget_dep_p_form">
+        <field name="name">view.budg_budget_dep_p.form</field>
+        <field name="model">budg_budget_dep_p</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <form string="Budget">
+                <header>
+                    <button name="valider_avt_projet" string="Valider Avant Projet" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'in', ['N', 'E'])]}" groups="faarf_budget.faarf_budget_user"/>
+
+                    <button name="budget_valider" string="Valider" type="object" class="oe_highlight"
+         	        attrs="{'invisible' : [('state', 'in', ['AP', 'E'])]}" groups="faarf_budget.faarf_budget_manager_daf"/>
+
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group string="Informations sur le budget">
+                        <group>
+                            <field name="typebudget_id" style = "width:100%" options="{'no_create': True}"	/>
+                            <field name="date_to" style = "width:100%"/>
+                            <field name="date_execution" style = "width:100%" invisible ="1"/>
+                        </group>
+                        <group>
+                            <field name="cd_type_piece_budget" style = "width:100%" options="{'no_create': True}"/>
+                            <field name="refp" style = "width:100%"/>
+                            <field name="fichier_joint"/>
+                        </group>
+                        <field name="x_exercice_id" style = "width:50%" invisible ="1" force_save="1"/>
+                        <field name="current_users" style = "width:50%" invisible ="1" force_save="1"/>
+                        <field name="company_id" style = "width:50%" invisible ="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Saisie des dotations">
+                            <button name="afficher_rubrique" string="Afficher" type="object" class="oe_highlight"
+                            attrs="{'invisible' : [('typebudget_id', '!=', 1)]}"/>
+                            <group>
+                                <field name="rubrique_ids" nolabel = "1">
+                                    <tree string="Rubriques budgetaires" editable = "bottom">
+                                        <field name="section_id" force_save='1' options="{'no_create': True}"/>
+                                        <field name="prog_id" force_save='1' options="{'no_create': True}"/>
+                                        <field name="chap_id" force_save='1' options="{'no_create': True}"/>
+                                        <field name="action_id" options="{'no_create': True}"/>
+                                        <field name="activite_id" options="{'no_create': True}"/>
+                                        <field name="source_id" options="{'no_create': True}"/>
+                                        <field name="article_id" options="{'no_create': True}"/>
+                                        <field name="parag_id" optional="show"/>
+                                        <field name="rub_id" optional="show"/>
+                                        <field name="montant"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="view_budg_budget_dep_p_tree">
+        <field name="name">view.budg_budget_dep_p.tree</field>
+        <field name="model">budg_budget_dep_p</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree decoration-success="state == 'E'" string="Budget">
+                <field name="typebudget_id" />
+                <field name="cd_type_piece_budget"/>
+                <field name="date_to" class="oe_inline"/>
+                <field name="refp"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="act_budget_p" model="ir.actions.act_window">
+    <field name="name">Budget</field>
+    <field name="res_model">budg_budget_dep_p</field>
+    <field name="view_mode">tree,form,kanban</field>
+    <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Cliquer pour créer un budget.
+            </p>
+        </field>
+</record>
+
+    <!--Données de bases Recettes budget programme-->
+      <record model="ir.ui.view" id="budg_titre_rec_p_view_form">
+        <field name="name">budg_titre_rec_p.view.form</field>
+        <field name="model">budg_titre_rec_p</field>
+        <field name="arch" type="xml">
+            <form string="Section">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                         <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+	                <group>
+		                <field name = "code" style ="width:10%"/>
+		                <field name = "lb_court" style ="width:50%"/>
+		                <field name = "name" style ="width:75%"/>
+	                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_titre_rec_p_view_tree">
+            <field name="name">budg_titre_rec_p.view.tree</field>
+            <field name="model">budg_titre_rec_p</field>
+            <field name="arch" type="xml">
+                <tree string="Titre">
+                    <field name = "code"/>
+                    <field name = "lb_court"/>
+                    <field name = "name"/>
+                    <field name = "active"/>
+                </tree>
+            </field>
+    </record>
+
+
+    <record id="act_titre_rec_p" model="ir.actions.act_window">
+        <field name="name">Liste des titres</field>
+        <field name="res_model">budg_titre_rec_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="budg_section_rec_p_view_form">
+        <field name="name">budg_section_rec_p.view.form</field>
+        <field name="model">budg_section_rec_p</field>
+        <field name="arch" type="xml">
+            <form string="Section">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                         <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+	                <group>
+		                <field name = "code" style ="width:10%"/>
+		                <field name = "lb_court" style ="width:50%"/>
+		                <field name = "name" style ="width:75%"/>
+	                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_section_rec_p_view_tree">
+            <field name="name">budg_section_rec_p.view.tree</field>
+            <field name="model">budg_section_rec_p</field>
+            <field name="arch" type="xml">
+                <tree string="Titre">
+                    <field name = "code"/>
+                    <field name = "lb_court"/>
+                    <field name = "name"/>
+                    <field name = "active"/>
+                </tree>
+            </field>
+    </record>
+
+
+    <record id="act_section_rec_p" model="ir.actions.act_window">
+        <field name="name">Liste des sections</field>
+        <field name="res_model">budg_section_rec_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="budg_chapitre_rec_p_view_form">
+        <field name="name">budg_chapitre_rec_p.view.form</field>
+        <field name="model">budg_chapitre_rec_p</field>
+        <field name="arch" type="xml">
+            <form string="Chap">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                         <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+	                <group>
+		                <field name = "code" style ="width:10%"/>
+		                <field name = "lb_court" style ="width:50%"/>
+		                <field name = "name" style ="width:75%"/>
+	                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_chapitre_rec_p_view_tree">
+            <field name="name">budg_chapitre_rec_p.view.tree</field>
+            <field name="model">budg_chapitre_rec_p</field>
+            <field name="arch" type="xml">
+                <tree string="Chap">
+                    <field name = "code"/>
+                    <field name = "lb_court"/>
+                    <field name = "name"/>
+                    <field name = "active"/>
+                </tree>
+            </field>
+    </record>
+
+
+    <record id="act_chapitre_rec_p" model="ir.actions.act_window">
+        <field name="name">Liste des chapitres</field>
+        <field name="res_model">budg_chapitre_rec_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_article_rec_p_view_form">
+        <field name="name">budg_article_rec_p.view.form</field>
+        <field name="model">budg_article_rec_p</field>
+        <field name="arch" type="xml">
+            <form string="Chap">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                         <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+	                <group>
+		                <field name = "code" style ="width:10%"/>
+		                <field name = "lb_court" style ="width:50%"/>
+		                <field name = "name" style ="width:75%"/>
+	                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_article_rec_p_view_tree">
+            <field name="name">budg_article_rec_p.view.tree</field>
+            <field name="model">budg_article_rec_p</field>
+            <field name="arch" type="xml">
+                <tree string="Chap">
+                    <field name = "code"/>
+                    <field name = "lb_court"/>
+                    <field name = "name"/>
+                    <field name = "active"/>
+                </tree>
+            </field>
+    </record>
+
+
+    <record id="act_article_rec_p" model="ir.actions.act_window">
+        <field name="name">Liste des articles</field>
+        <field name="res_model">budg_article_rec_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="budg_parag_rec_p_view_form">
+        <field name="name">budg_paragraphe_rec_p.view.form</field>
+        <field name="model">budg_paragraphe_rec_p</field>
+        <field name="arch" type="xml">
+            <form string="parag">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                         <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+	                <group>
+		                <field name = "code" style ="width:10%"/>
+		                <field name = "lb_court" style ="width:50%"/>
+		                <field name = "name" style ="width:75%"/>
+	                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_parag_rec_p_view_tree">
+            <field name="name">budg_paragraphe_rec_p.view.tree</field>
+            <field name="model">budg_paragraphe_rec_p</field>
+            <field name="arch" type="xml">
+                <tree string="Chap">
+                    <field name = "code"/>
+                    <field name = "lb_court"/>
+                    <field name = "name"/>
+                    <field name = "active"/>
+                </tree>
+            </field>
+    </record>
+
+
+    <record id="act_paragraphe_rec_p" model="ir.actions.act_window">
+        <field name="name">Liste des paragraphes</field>
+        <field name="res_model">budg_paragraphe_rec_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="budg_rubrique_rec_p_view_form">
+        <field name="name">budg_rubrique_rec_p.view.form</field>
+        <field name="model">budg_rubrique_rec_p</field>
+        <field name="arch" type="xml">
+            <form string="parag">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                         <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+	                <group>
+		                <field name = "code" style ="width:10%"/>
+		                <field name = "lb_court" style ="width:50%"/>
+		                <field name = "name" style ="width:75%"/>
+	                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_rubrique_rec_p_view_tree">
+            <field name="name">budg_rubrique_rec_p.view.tree</field>
+            <field name="model">budg_rubrique_rec_p</field>
+            <field name="arch" type="xml">
+                <tree string="Chap">
+                    <field name = "code"/>
+                    <field name = "lb_court"/>
+                    <field name = "name"/>
+                    <field name = "active"/>
+                </tree>
+            </field>
+    </record>
+
+
+    <record id="act_rubrique_rec_p" model="ir.actions.act_window">
+        <field name="name">Liste des rubriques</field>
+        <field name="res_model">budg_rubrique_rec_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="budg_param_section_rec_p_view_form">
+        <field name="name">budg_param_section_rec_p.view.form</field>
+        <field name="model">budg_param_section_rec_p</field>
+        <field name="arch" type="xml">
+            <form string="Parametre section">
+                <sheet>
+	                <group>
+		                <field name = "titre_id" options="{'no_create': True}" style ="width:50%"/>
+		                <field name = "section_id" options="{'no_create': True}" style ="width:50%"/>
+	                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_param_section_rec_p_view_tree">
+        <field name="name">budg_param_section_rec_p.view.tree</field>
+        <field name="model">budg_param_section_rec_p</field>
+        <field name="arch" type="xml">
+            <tree string="Parametre action">
+                <field name = "titre_id"/>
+                <field name = "section_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="act_budg_param_section_rec_p" model="ir.actions.act_window">
+        <field name="name">Paramétrage des sections</field>
+        <field name="res_model">budg_param_section_rec_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="budg_param_chapitre_rec_p_view_form">
+        <field name="name">budg_param_chapitre_rec_p.view.form</field>
+        <field name="model">budg_param_chapitre_rec_p</field>
+        <field name="arch" type="xml">
+            <form string="Parametre section">
+                <sheet>
+	                <group>
+		                <field name = "titre_id" options="{'no_create': True}" style ="width:50%"/>
+		                <field name = "section_id" options="{'no_create': True}" style ="width:50%"/>
+                        <field name = "chapitre_id" style ="width:50%"/>
+	                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_param_chapitre_rec_p_view_tree">
+        <field name="name">budg_param_chapitre_rec_p.view.tree</field>
+        <field name="model">budg_param_chapitre_rec_p</field>
+        <field name="arch" type="xml">
+            <tree string="Parametre action">
+                <field name = "titre_id"/>
+                <field name = "section_id"/>
+                <field name = "chapitre_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="act_budg_param_chapitre_rec_p" model="ir.actions.act_window">
+        <field name="name">Paramétrage des chapitres</field>
+        <field name="res_model">budg_param_chapitre_rec_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="budg_param_article_rec_p_view_form">
+        <field name="name">budg_param_article_rec_p.view.form</field>
+        <field name="model">budg_param_article_rec_p</field>
+        <field name="arch" type="xml">
+            <form string="Parametre section">
+                <sheet>
+	                <group>
+		                <field name = "titre_id" options="{'no_create': True}" style ="width:50%"/>
+		                <field name = "section_id" options="{'no_create': True}" style ="width:50%"/>
+                        <field name = "chapitre_id" options="{'no_create': True}" style ="width:50%"/>
+                        <field name = "article_id" style ="width:50%"/>
+	                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_param_article_rec_p_view_tree">
+        <field name="name">budg_param_article_rec_p.view.tree</field>
+        <field name="model">budg_param_article_rec_p</field>
+        <field name="arch" type="xml">
+            <tree string="Parametre action">
+                <field name = "titre_id"/>
+                <field name = "section_id"/>
+                <field name = "chapitre_id"/>
+                <field name = "article_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="act_budg_param_article_rec_p" model="ir.actions.act_window">
+        <field name="name">Paramétrage des articles</field>
+        <field name="res_model">budg_param_article_rec_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="budg_param_paragraphe_rec_p_view_form">
+        <field name="name">budg_param_paragraphe_rec_p.view.form</field>
+        <field name="model">budg_param_paragraphe_rec_p</field>
+        <field name="arch" type="xml">
+            <form string="Parametre section">
+                <sheet>
+	                <group>
+		                <field name = "titre_id" options="{'no_create': True}" style ="width:50%"/>
+		                <field name = "section_id" options="{'no_create': True}" style ="width:50%"/>
+                        <field name = "chapitre_id" options="{'no_create': True}" style ="width:50%"/>
+                        <field name = "article_id" options="{'no_create': True}" style ="width:50%"/>
+                        <field name = "paragraphe_id" style ="width:50%"/>
+	                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_param_paragraphe_rec_p_view_tree">
+        <field name="name">budg_param_paragraphe_rec_p.view.tree</field>
+        <field name="model">budg_param_paragraphe_rec_p</field>
+        <field name="arch" type="xml">
+            <tree string="Parametre action">
+                <field name = "titre_id"/>
+                <field name = "section_id"/>
+                <field name = "chapitre_id"/>
+                <field name = "article_id"/>
+                <field name = "paragraphe_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="act_budg_param_paragraphe_rec_p" model="ir.actions.act_window">
+        <field name="name">Paramétrage des paragraphes</field>
+        <field name="res_model">budg_param_paragraphe_rec_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="budg_param_rubrique_rec_p_view_form">
+        <field name="name">budg_param_rubrique_rec_p.view.form</field>
+        <field name="model">budg_param_rubrique_rec_p</field>
+        <field name="arch" type="xml">
+            <form string="Parametre section">
+                <sheet>
+	                <group>
+		                <field name = "titre_id" options="{'no_create': True}" style ="width:50%"/>
+		                <field name = "section_id" options="{'no_create': True}" style ="width:50%"/>
+                        <field name = "chapitre_id" options="{'no_create': True}" style ="width:50%"/>
+                        <field name = "article_id" options="{'no_create': True}" style ="width:50%"/>
+                        <field name = "paragraphe_id" style ="width:50%" options="{'no_create': True}"/>
+                        <field name = "rub_id" style ="width:50%"/>
+                        <field name = "cpte_id" style ="width:50%" options="{'no_create': True}"/>
+	                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budg_param_rubrique_rec_p_view_tree">
+        <field name="name">budg_param_rubrique_rec_p.view.tree</field>
+        <field name="model">budg_param_rubrique_rec_p</field>
+        <field name="arch" type="xml">
+            <tree string="Parametre action">
+                <field name = "titre_id"/>
+                <field name = "section_id"/>
+                <field name = "chapitre_id"/>
+                <field name = "article_id"/>
+                <field name = "paragraphe_id"/>
+                <field name = "rub_id"/>
+                <field name = "cpte_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="act_budg_param_rubrique_rec_p" model="ir.actions.act_window">
+        <field name="name">Paramétrage des rubriques</field>
+        <field name="res_model">budg_param_rubrique_rec_p</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+<record model="ir.ui.view" id="view_budg_budget_rec_p_form">
+        <field name="name">view.budg_budget_rec_p.form</field>
+        <field name="model">budg_budget_rec_p</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <form string="Budget">
+                <header>
+                    <button name="valider_avt_projet" string="Valider Avant Projet" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'in', ['N', 'E'])]}" groups="faarf_budget.faarf_budget_user"/>
+
+                    <button name="budget_valider" string="Valider" type="object" class="oe_highlight"
+         	        attrs="{'invisible' : [('state', 'in', ['AP', 'E'])]}" groups="faarf_budget.faarf_budget_manager_daf"/>
+
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group string="Informations sur le budget">
+                        <group>
+                            <field name="typebudget_id" style = "width:100%" options="{'no_create': True}"	/>
+                            <field name="date_to" style = "width:100%"/>
+                            <field name="date_execution" style = "width:100%" invisible ="1"/>
+                        </group>
+                        <group>
+                            <field name="cd_type_piece_budget" style = "width:100%" options="{'no_create': True}"/>
+                            <field name="refp" style = "width:100%"/>
+                            <field name="fichier_joint"/>
+                        </group>
+                        <field name="x_exercice_id" style = "width:50%" invisible ="1" force_save="1"/>
+                        <field name="current_users" style = "width:50%" invisible ="1" force_save="1"/>
+                        <field name="company_id" style = "width:50%" invisible ="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Saisie des dotations">
+                            <button name="afficher_rubrique" string="Afficher" type="object" class="oe_highlight"
+                            attrs="{'invisible' : [('typebudget_id', '!=', 1)]}"/>
+                            <group>
+                                <field name="rubrique_ids" nolabel = "1">
+                                    <tree string="Rubriques budgetaires" editable = "bottom">
+                                        <field name="titre_id" force_save='1' options="{'no_create': True}"/>
+                                        <field name="section_id" force_save='1' options="{'no_create': True}"/>
+                                        <field name="chapitre_id" force_save='1' options="{'no_create': True}"/>
+                                        <field name="article_id" options="{'no_create': True}"/>
+                                        <field name="parag_id" options="{'no_create': True}"/>
+                                        <field name="rub_id" options="{'no_create': True}"/>
+                                        <field name="montant"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="view_budg_budget_rec_p_tree">
+        <field name="name">view.budg_budget_rec_p.tree</field>
+        <field name="model">budg_budget_rec_p</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree decoration-success="state == 'E'" string="Budget">
+                <field name="typebudget_id" />
+                <field name="cd_type_piece_budget"/>
+                <field name="date_to" class="oe_inline"/>
+                <field name="refp"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="act_budget_rec_p" model="ir.actions.act_window">
+    <field name="name">Budget</field>
+    <field name="res_model">budg_budget_rec_p</field>
+    <field name="view_mode">tree,form,kanban</field>
+    <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Cliquer pour créer un budget.
+            </p>
+        </field>
+    </record>
+
+
+
+
+
+    <menuitem id="menu_parametres_nom_bp" parent="menu_parametres_nom" sequence="2" name="Budget programme"/>
+
+    <menuitem id="menu_parametres_nom_bp_dep" parent="menu_parametres_nom_bp" sequence="2" name="Budget programme Dépenses"/>
+
+    <menuitem id="menu_section_p" parent="menu_parametres_nom_bp_dep" sequence="1" name="Paramètrage des Actions"
+    action="act_budg_param_action_p"/>
+    <menuitem id="menu_activite_p" parent="menu_parametres_nom_bp_dep" sequence="2" name="Paramètrage des Activités"
+    action="act_budg_param_activite_p"/>
+    <menuitem id="menu_article_p" parent="menu_parametres_nom_bp_dep" sequence="3" name="Paramètrage des Articles"
+    action="act_budg_param_article_p"/>
+    <menuitem id="menu_parag_p" parent="menu_parametres_nom_bp_dep" sequence="4" name="Paramètrage des Paragraphes"
+    action="act_budg_param_parag_p"/>
+    <menuitem id="menu_rub_p" parent="menu_parametres_nom_bp_dep" sequence="5" name="Paramètrage des Rubriques"
+    action="act_budg_param_rub_p"/>
+
+        <menuitem id="menu_parametres_nom_bp_rec" parent="menu_parametres_nom_bp" sequence="1" name="Budget programme Recettes"/>
+        <menuitem id="menu_p_sec_rec_p" parent="menu_parametres_nom_bp_rec" sequence="1" name="Paramètrage des Sections"
+        action="act_budg_param_section_rec_p"/>
+        <menuitem id="menu_p_cha_rec_p" parent="menu_parametres_nom_bp_rec" sequence="2" name="Paramètrage des Chapitres"
+        action="act_budg_param_chapitre_rec_p"/>
+        <menuitem id="menu_p_art_rec_p" parent="menu_parametres_nom_bp_rec" sequence="3" name="Paramètrage des Articles"
+        action="act_budg_param_article_rec_p"/>
+        <menuitem id="menu_p_par_rec_p" parent="menu_parametres_nom_bp_rec" sequence="4" name="Paramètrage des Paragraphes"
+        action="act_budg_param_paragraphe_rec_p"/>
+        <menuitem id="menu_p_rub_rec_p" parent="menu_parametres_nom_bp_rec" sequence="5" name="Paramètrage des Rubriques"
+        action="act_budg_param_rubrique_rec_p"/>
+
+
+    <menuitem id="menu_gestion_prevision" parent="main_menu" sequence="4" name="Gestion des prévisions"/>
+
+    <menuitem id="menu_gestion_prevision_p" parent="menu_gestion_prevision" sequence="2" name="Budget programme"/>
+    <menuitem id="menu_lbudg_p_d" parent="menu_gestion_prevision_p" sequence="1" name="Saisie/MàJ du budget (Dépenses)"
+    action="act_budget_p"/>
+    <menuitem id="menu_lbudg_p_r" parent="menu_gestion_prevision_p" sequence="2" name="Saisie/MàJ du budget (Recettes)"
+    action="act_budget_rec_p"/>
+    <menuitem id="menu_ppm2r" parent="menu_gestion_prevision_p" sequence="3" name="Saisie/MàJ du PPM"
+    action="act_budget_rec_p"/>
+
+
+</odoo>

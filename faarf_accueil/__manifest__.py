@@ -1,0 +1,28 @@
+{
+    "name": "FAARF ACCUEIL",
+    "version": "1.0",
+    "author": "TELIA INFORMATIQUE",
+    "depends":[
+        'faarf_credit',
+        'Referentiel_Global',
+        'faarf_budget',
+        'faarf_compta',
+        'faarf_immo',
+        'faarf_convention',
+        'faarf_formation',
+        'Gestion_Stocks',
+        'payroll',
+        'faarf_rh',
+        'faarf_carriere',
+    ],
+    "data":[
+        "security/ir.model.access.csv",
+        "views/views.xml",
+        "views/assets.xml",
+    ],
+    "category": "EPE",
+    "Summary": "FAARF ACCUEIL",
+    "installable": True,
+    "auto_install": False,
+    "application": True,
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id = 'Gestion_Stocks_category' model = 'ir.module.category'>
+	  			<field name = 'name'>Gestion stock et Appro.</field>
+	</record>
+	
+		  
+	<record id = 'Gestion_Stocks_manager_Agent' model = 'res.groups'>
+		<field name = 'name'>AGENT</field>
+		<field name = 'category_id' ref ='Gestion_Stocks_category'/>
+	</record>
+	  
+	<record id = 'Gestion_Stocks_manager_Gestionnaire' model = 'res.groups'>
+	  	<field name = 'name'>GESTIONNAIRE</field>
+		<field name="implied_ids" eval="[(4,ref('Gestion_Stocks.Gestion_Stocks_manager_Agent'))]"/>
+	  	<field name = 'category_id' ref ='Gestion_Stocks_category'/>
+	</record>
+
+	  
+	<record id = 'Gestion_Stocks_chef_service' model = 'res.groups'>
+		<field name = 'name'>CHEF DE SERVICE</field>
+		<field name="implied_ids" eval="[(4,ref('Gestion_Stocks.Gestion_Stocks_manager_Gestionnaire'))]"/>
+		<field name = 'category_id' ref ='Gestion_Stocks_category'/>
+	</record>
+
+
+</odoo>

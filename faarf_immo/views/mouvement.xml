@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+<!--Vue tree des liste des affectation-->
+    <record id="view_faarf_affectation_tree" model="ir.ui.view">
+        <field name="name">faarf.affectation.tree</field>
+        <field name="model">faarf.affectation</field>
+        <field name="arch" type="xml">
+            <tree string="Liste des affectation">
+                <field name="dte"/>
+                <field name="name"/>
+                <field name="direction_id"/>
+                <field name="service_id"/>
+                <field name="magasin_id"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--Vue form Liste des ordres d'entrées-->
+    <record id="view_faarf_affectation_form" model="ir.ui.view">
+        <field name="name">faarf.affectation.form</field>
+        <field name="model">faarf.affectation</field>
+        <field name="arch" type="xml">
+            <form string="Liste des affectations">
+                <header>
+                    <button class="oe_highlight" name="valider" type="object" icon="fa-check" string="Valider"
+                            attrs="{'invisible':[('state','in',['V'])]}" style="background-color: #28a745; border-color: #28a745;"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+            <sheet>
+                <group col="2">
+                    <group>
+                        <field name="name"/>
+                        <field name="dte"/>
+                    </group>
+                    <group>
+                        <field name="magasin_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                        <field name="direction_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                        <field name="service_id"
+                               options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                    </group>
+                </group>
+                <group invisible="1">
+                    <field name="ordre_matiere"/>
+                    <field name="compte_matiere"/>
+                    <field name="magasinier"/>
+                    <field name="company_id"/>
+                    <field name="x_exercice_id" force_save="1"/>
+                    <field name="cd_ministere" force_save="1"/>
+                    <field name="cd_struct" force_save="1"/>
+                     <field name="region_id" force_save="1"/>
+                    <field name="cd_region" force_save="1"/>
+                    <field name="province_id" force_save="1"/>
+                    <field name="cd_province" force_save="1"/>
+                    <field name="departement_id" force_save="1"/>
+                    <field name="cd_departement" force_save="1"/>
+                    <field name="cd_direction" force_save="1"/>
+                </group>
+                    <field name="line_ids">
+                        <tree editable="bottom">
+                            <field name="num_ordre" force_save="1"/>
+                            <field name="code" force_save="1"/>
+                            <field name="matiere_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="id_matiere" invisible="1" force_save="1"/>
+                            <field name="unite_id" invisible="1" force_save="1"/>
+                            <field name="qte"/>
+                            <field name="valeur_unitaire" force_save="1"/>
+                            <field name="montant" force_save="1" sum="Total"/>
+                            <field name="decompte" invisible="1"/>
+                            <field name="observation"/>
+                            <field name="annee" invisible="1" force_save="1"/>
+                            <field name="dte_acquisition" invisible="1" force_save="1"/>
+                            <field name="fournisseur_id" invisible="1" force_save="1"/>
+                            <field name="type_immo" invisible="1" force_save="1"/>
+                            <field name="source_id" invisible="1" force_save="1"/>
+                            <field name="utilisateur_id" force_save="1"/>
+                            <field name="codification" invisible="0" force_save="1"/>
+                        </tree>
+                    </field>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--action affectation-->
+    <record id="action_faarf_affectation" model="ir.actions.act_window">
+        <field name="name">Liste des affectations</field>
+        <field name="res_model">faarf.affectation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+    <!--Vue tree des liste des mutations-->
+    <record id="view_faarf_mutation_tree" model="ir.ui.view">
+        <field name="name">faarf.mutation.tree</field>
+        <field name="model">faarf.mutation</field>
+        <field name="arch" type="xml">
+            <tree string="Liste des mutations">
+                <field name="dte"/>
+                <field name="name"/>
+                <field name="direction_dep"/>
+                <field name="direction_arr"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+    <!--Vue form Liste des mutations-->
+    <record id="view_faarf_mutation_form" model="ir.ui.view">
+        <field name="name">faarf.mutation.form</field>
+        <field name="model">faarf.mutation</field>
+        <field name="arch" type="xml">
+            <form string="Liste des mutations">
+                <header>
+                    <button class="oe_highlight" name="valider" type="object" icon="fa-check" string="Valider"
+                            attrs="{'invisible':[('state','in',['V'])]}" style="background-color: #28a745; border-color: #28a745;"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+            <sheet>
+                <group col="2">
+                    <group>
+                        <field name="name"/>
+                        <field name="dte"/>
+                    </group>
+                    <group>
+                        <field name="direction_dep" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                        <field name="direction_arr" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                    </group>
+                </group>
+                <group invisible="1">
+                    <field name="ordre_matiere"/>
+                    <field name="compte_matiere"/>
+                    <field name="company_id"/>
+                    <field name="x_exercice_id" force_save="1"/>
+                </group>
+                    <field name="line_ids">
+                        <tree editable="bottom">
+                            <field name="num_ordre"/>
+                            <field name="code" force_save="1" invisible="1"/>
+                            <field name="codification" force_save="1" invisible="1"/>
+                            <field name="id_matiere" invisible="1"/>
+                            <field name="matiere_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="matiere" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}" force_save="1" invisible="0"/>
+                            <field name="unite_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="qte"/>
+                            <field name="valeur_unitaire" force_save="1"/>
+                            <field name="montant" force_save="1" readonly="1" sum="Total"/>
+                            <field name="utilisateur_id" force_save="1"/>
+                            <field name="observation"/>
+                        </tree>
+                    </field>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--action mutation-->
+    <record id="action_faarf_mutation" model="ir.actions.act_window">
+        <field name="name">Liste des mutations</field>
+        <field name="res_model">faarf.mutation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!--Vue tree des liste de sorties temp-->
+    <record id="view_faarf_sortie_temp_tree" model="ir.ui.view">
+        <field name="name">faarf.sortie.temp.tree</field>
+        <field name="model">faarf.sortie.temp</field>
+        <field name="arch" type="xml">
+            <tree string="Liste des sorties temp">
+                <field name="dte"/>
+                <field name="dte_retour"/>
+                <field name="direction_id"/>
+                <field name="destination_id"/>
+                <field name="motif"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+    <!--Vue form Liste de sortie temp-->
+    <record id="view_faarf_sortie_temp_form" model="ir.ui.view">
+        <field name="name">faarf.ordre.sortie.temp.form</field>
+        <field name="model">faarf.sortie.temp</field>
+        <field name="arch" type="xml">
+            <form string="Liste des ordres sorties">
+                <header>
+                    <button class="oe_highlight" name="valider" type="object" icon="fa-check" string="Valider"
+                            attrs="{'invisible':[('state','in',['V','R'])]}" style="background-color: #28a745; border-color: #28a745;"/>
+                    <button class="oe_highlight" name="retour" type="object" icon="fa-check" string="Retour"
+                            attrs="{'invisible':[('state','not in',['V'])]}"/>
+
+                    <field name="state" widget="statusbar"/>
+                </header>
+            <sheet>
+                <group col="2">
+                    <group>
+                        <field name="name"/>
+                        <field name="dte"/>
+                        <field name="dte_retour_pro"/>
+                        <field name="dte_retour"/>
+                    </group>
+                    <group>
+                        <field name="direction_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                        <field name="destination_id"/>
+                        <field name="motif"/>
+                    </group>
+                </group>
+                <group invisible="1">
+                    <field name="ordre_matiere"/>
+                    <field name="compte_matiere"/>
+                    <field name="company_id"/>
+                    <field name="x_exercice_id" force_save="1"/>
+                </group>
+                    <field name="line_ids">
+                        <tree editable="bottom">
+                            <field name="code" force_save="1" invisible="1"/>
+                            <field name="id_matiere" invisible="1"/>
+                            <field name="matiere_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="matiere" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}" force_save="1" invisible="0"/>
+                            <field name="qte"/>
+                            <field name="valeur_unitaire" force_save="1"/>
+                            <field name="montant" force_save="1" sum="Total"/>
+                            <field name="etat"/>
+                            <field name="observation"/>
+                        </tree>
+                    </field>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--action ordre de sortie-->
+    <record id="action_faarf_sortie_temp" model="ir.actions.act_window">
+        <field name="name">Liste des ordres de sorties temporaires</field>
+        <field name="res_model">faarf.sortie.temp</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+
+        <!--Vue tree des liste des ordre sorties-->
+    <record id="view_faarf_ordre_sortie_tree" model="ir.ui.view">
+        <field name="name">faarf.ordre.sortie.tree</field>
+        <field name="model">faarf.ordre.sortie</field>
+        <field name="arch" type="xml">
+            <tree string="Liste des ordres de sorties">
+                <field name="dte"/>
+                <field name="name"/>
+                <field name="nature_id"/>
+                <field name="observation"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+    <!--Vue form Liste des ordre de sortie-->
+    <record id="view_faarf_ordre_sortie_form" model="ir.ui.view">
+        <field name="name">faarf.ordre.sortie.form</field>
+        <field name="model">faarf.ordre.sortie</field>
+        <field name="arch" type="xml">
+            <form string="Liste des ordres sorties">
+                <header>
+                    <button class="oe_highlight" name="valider" type="object" icon="fa-check" string="Valider"
+                            attrs="{'invisible':[('state','in',['P', 'V', 'A'])]}" style="background-color: #28a745; border-color: #28a745;"/>
+                    <button class="oe_highlight" name="valider_dfc" type="object" icon="fa-check" string="Validation DFC"
+                            attrs="{'invisible':[('state','not in',['P'])]}" style="background-color: #28a745; border-color: #28a745;"/>
+
+                    <field name="state" widget="statusbar"/>
+                </header>
+            <sheet>
+                <group col="2">
+                    <group>
+                        <field name="name"/>
+                        <field name="dte"/>
+                        <field name="piece_id"/>
+                    </group>
+                    <group>
+                        <field name="nature_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                        <field name="observation"/>
+                    </group>
+                </group>
+                <group invisible="1">
+                    <field name="ordre_matiere"/>
+                    <field name="compte_matiere"/>
+                    <field name="company_id"/>
+                    <field name="x_exercice_id" force_save="1"/>
+                </group>
+                    <field name="line_ids">
+                        <tree editable="bottom">
+                            <field name="num_ordre" force_save="1"/>
+                            <field name="code" force_save="1"/>
+                            <field name="matiere_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="unite_id"  options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="qte"/>
+                            <field name="valeur_unitaire" force_save="1"/>
+                            <field name="valeur_totale" force_save="1" sum="Total"/>
+                            <field name="observation"/>
+                            <field name="nature_id" invisible="1"/>
+                            <field name="id_matiere" invisible="1" force_save="1"/>
+                            <field name="piece_id" invisible="1"/>
+                            <field name="dte" invisible="1"/>
+                        </tree>
+                    </field>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--action ordre de sortie-->
+    <record id="action_faarf_ordre_sortie" model="ir.actions.act_window">
+        <field name="name">Liste des ordres de sorties</field>
+        <field name="res_model">faarf.ordre.sortie</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+ <menuitem id="menu_gest_bien" name="Gestion des mouvements" parent="menu_immo" sequence="4"/>
+            <!--<menuitem id="menu_codification" name="Codification des matières" parent="menu_sans_inc" sequence="1" action="action_faarf_codification"/>-->
+        <menuitem id="menu_sans_inc" name="Mouvements sans incidence" parent="menu_gest_bien" sequence="2"/>
+            <menuitem id="menu_aff_mat" name="Affectation des matières" parent="menu_sans_inc" sequence="2" action="action_faarf_affectation"/>
+            <menuitem id="menu_mut_mat" name="Mutation des matières" parent="menu_sans_inc" action="action_faarf_mutation" sequence="3"/>
+            <menuitem id="menu_srt_mat" name="Sortie temporaire des matières" parent="menu_sans_inc" action="action_faarf_sortie_temp" sequence="4"/>
+        <menuitem id="menu_avec_inc" name="Mouvements avec incidence" parent="menu_gest_bien" sequence="3"/>
+            <menuitem id="menu_ord_sortie" name="Ordre de sortie" parent="menu_avec_inc" sequence="1" action="action_faarf_ordre_sortie"/>
+
+
+    </data>
+</odoo>

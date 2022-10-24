@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_credit_client_membre_tree" model="ir.ui.view">
+            <field name="name">credit_credit_membre.tree</field>
+            <field name="model">credit_credit_membre</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client">
+                    <field name="name"/>
+                    <field name="titres"/>
+                    <field name="telephone"/>
+                    <field name="domaine_active"/>
+                    <field name="rang"/>
+                    <field name="montant"/>
+                </tree>
+            </field>
+    </record>
+    <record id="view_credit_credit_membre_form" model="ir.ui.view">
+        <field name="name">view.credit_credit_membre.form</field>
+        <field name="model">credit_credit_membre</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="client_id" invisible="1"/>
+                            <field name="membres_ids" invisible="1"/>
+                            <field name="membre_id"
+                                context="{'form_view_ref':'faarf_credit.credit_clients_membre_form',}"
+                                domain="[('id', 'in',membres_ids)]"
+                                options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+<!--                            <field name="name"-->
+<!--                                   context="{'default_groupe_id': client_id}" invisible="0"/>-->
+                            <field name="nip"/>
+                            <field name="num_piece"/>
+                            <field name="telephone"/>
+                            <field name="rang"/>
+                        </group>
+                        <group>
+                            <field name="domaine_active"/>
+                            <field name="titres" invisible="1"/>
+                            <field name="montant"/>
+                            <field name="montant_propose"/>
+                            <field name="montant_debloque"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

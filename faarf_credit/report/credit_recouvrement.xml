@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="temp_credit_credit_port_risque">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.basic_layout">
+					 <style>
+						td{
+						 	font-size: 12px
+						 }
+					</style>
+					<div class="page">
+						<table class="table">
+							<tr>
+								<td style="text-align:left">
+									<p style="font-size:11px; font-weight:bold">
+										MINISTERE DU GENRE, <br/>
+										DE LA FAMILLE ET DE L'ACTION <br/>
+										HUMANITAIRE <br/>
+										-------------------- <br/>
+										SECRETARIAT GENERAL <br/>
+										-------------------- <br/>
+										FONDS D'APPUI AUX ACTIVITES <br/>
+										REMUNERATRIVES DES FEMMES <br/>
+										(FAARF) <br/>
+									</p>
+								</td>
+								<td style="text-align:center">
+<!--									<img src="/faarf_credit/static/img/faarf_logo.png"/>-->
+								</td>
+								<td style="text-align:center">
+									<p>
+										Burkina Faso <br/>
+										Unité - Progès - Justice
+									</p>
+								</td>
+							</tr>
+						</table>
+						<div style="text-align:center">
+							<h4 style="color: #916969">
+								Portefeuille à risque du <span t-field="o.date"/>
+							</h4>
+						</div>
+						<br/>
+						<table class="table table-bordered table-condensed table-striped table-sm">
+							<tr>
+								<td>
+									Ordre
+								</td>
+								<td>
+									N° dossier
+								</td>
+								<td>
+									Cliente
+								</td>
+								<td>
+									Tel
+								</td>
+								<td>
+									Type
+								</td>
+								<td>
+									Jrs retard
+								</td>
+								<td>
+									Gestionnaire
+								</td>
+								<td>
+									Mont. Total
+								</td>
+								<td>
+									Mont. Remboursé
+								</td>
+								<td>
+									Mont. dû
+								</td>
+								<td>
+									Princ. dû
+								</td>
+								<td>
+									Int dû
+								</td>
+								<td>
+									Fa dû
+								</td>
+								<td>
+									90 ou +
+								</td>
+								<td>
+									180 ou +
+								</td>
+								<td>
+									270 ou +
+								</td>
+							</tr>
+							<t t-foreach="o.line_ids" t-as="l">
+								<tr>
+									<td>
+										<span t-field="l.ordre"/>
+									</td>
+									<td>
+										<span t-field="l.name"/>
+									</td>
+									<td>
+										<span t-field="l.cliente_id"/>
+									</td>
+									<td>
+										<span t-field="l.telephone"/>
+									</td>
+									<td>
+										<span t-field="l.type_client"/>
+									</td>
+									<td>
+										<span t-field="l.jours_retard"/>
+									</td>
+									<td>
+										<span t-field="l.gestionnaire_id"/>
+									</td>
+										<td>
+										<span t-field="l.montant_total"/>
+									</td>
+									<td>
+										<span t-field="l.montant_rembourse"/>
+									</td>
+									<td>
+										<span t-field="l.montant_du"/>
+									</td>
+									<td>
+										<span t-field="l.montant_prin_encours"/>
+									</td>
+									<td>
+										<span t-field="l.montant_int_encours"/>
+									</td>
+									<td>
+										<span t-field="l.montant_fa_encours"/>
+									</td>
+									<td>
+										<span t-field="l.montant_risque_90"/>
+									</td>
+									<td>
+										<span t-field="l.montant_risque_180"/>
+									</td>
+									<td>
+										<span t-field="l.montant_risque_270"/>
+									</td>
+								</tr>
+							</t>
+						</table>
+					</div>
+				</t>
+			 </t>
+		</t>
+	</template>
+
+	<record id="paperformat_credit_credit_port_risque" model="report.paperformat">
+		 <field name="name">A4</field>
+		<field name="orientation">Landscape</field>
+		<field name="margin_top">0</field>
+	</record>
+
+	<report
+		id="report_credit_credit_port_risque"
+		string="Imprimer"
+		model="credit_credit_port_risque"
+		report_type="qweb-html"
+		file="faarf_credit.temp_credit_credit_port_risque"
+		name="faarf_credit.temp_credit_credit_port_risque"
+		paperformat="paperformat_credit_credit_port_risque"
+		groups = "base.group_user"
+		menu = "True"/>
+</odoo>

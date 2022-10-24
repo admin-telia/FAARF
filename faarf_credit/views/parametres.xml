@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!--Produits de credits faarf-->
+        <record id="view_credit_param_produit_tree" model="ir.ui.view">
+            <field name="name">credit_param_produit</field>
+            <field name="model">credit_param_produit</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client">
+                    <field name="name"/>
+                    <field name="bailleur_id"/>
+                </tree>
+            </field>
+        </record>
+    
+        <record id="view_credit_param_produit_form" model="ir.ui.view">
+            <field name="name">credit_param_produit</field>
+            <field name="model">credit_param_produit</field>
+            <field name="arch" type="xml">
+                <form string="Type de client">
+                <sheet>
+                     <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="bailleur_id"/>
+                            <field name="name"/>
+                            <field name="type_produit" invisible="1"/>
+                        </group>
+                        <group>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Comité">
+                            <group>
+                                <group>
+                                    <field name="montant_max_antenne"/>
+                                    <field name="montant_max_com_credit"/>
+                                    <field name="montant_max_dg"/>
+                                    <field name="montant_max_cca"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Individuelle">
+                            <group col="3">
+                                <group colspan="1">
+                                    <field name="taux_int_annuel"/>
+                                    <field name="taux_int_annuel_psh"/>
+                                    <field name="taux_garantie"/>
+                                </group>
+                                <group colspan="1">
+                                    <field name="taux_frais_dossier"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Groupe solidaire">
+                            <group col="3">
+                                <group colspan="1">
+                                    <field name="taux_int_annuel_gs"/>
+                                    <field name="taux_int_annuel_psh_gs"/>
+                                    <field name="taux_garantie_gs"/>
+                                    <field name="taux_frais_dossier_gs"/>
+                                </group>
+                                <group colspan="1">
+                                    <field name="n_min_membre_gs"/>
+                                    <field name="n_max_membre_gs"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Groupement/Association">
+                            <group col="3">
+                                <group colspan="1">
+                                    <field name="taux_int_annuel_ass"/>
+                                    <field name="taux_int_annuel_psh_gs"/>
+                                    <field name="taux_garantie_ass"/>
+                                    <field name="taux_frais_dossier_ass"/>
+                                </group>
+                                <group colspan="1">
+                                    <field name="n_min_membre_ass"/>
+                                    <field name="n_max_membre_ass"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Ordre de remboursement">
+                            <group>
+                                <group>
+                                    <field name="ordre_remboursment"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Critère">
+                            <group string="Critère fondamentaux">
+                                <field name="crit_fondamentaux" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="name" width="3" required="True"/>
+                                        <field name="borne_inf" width="1" sum="Total"/>
+                                        <field name="borne_sup" width="1" sum="Total"/>
+                                        <field name="sequence" width="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group string="Critère Complementaires">
+                                 <field name="crit_complementaires" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="name" width="3" required="True"/>
+                                        <field name="borne_inf" width="1" sum="Total"/>
+                                        <field name="borne_sup" width="1" sum="Total"/>
+                                        <field name="sequence" width="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Documents">
+                            <field name="document_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="name" width="3" required="True"/>
+                                    <field name="sc" width="1" />
+                                    <field name="ef" width="1"/>
+                                    <field name="grp" width="1" />
+                                    <field name="ass" width="1"/>
+                                    <field name="gs" width="1" />
+                                    <field name="ind" width="1"/>
+                                    <field name="est_obligatoire" width="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Comptes de déblocage">
+                            <group>
+                                <field name="cpte_membr" style="width:50%"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                <field name="capital" style="width:50%"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                <field name="cpte_frais" style="width:50%"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                <field name="cpte_assurance" style="width:50%"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            </group>
+                        </page>
+                        <page string="Comptes de remboursement">
+                            <group>
+                                <field name="cpte_membr" style="width:50%"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                <field name="cpte_int" style="width:50%"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                <field name="cpte_penalite" style="width:50%"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                <field name="cpte_fa" style="width:50%"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+    
+        <record id="action_credit_param_produit" model="ir.actions.act_window">
+            <field name="name">Liste de produits de crédits</field>
+            <field name="res_model">credit_param_produit</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_produit','=','CREDIT')]</field>
+            <field name="context">{'default_type_produit': 'CREDIT'}</field>
+        </record>
+
+        <!--Produits de credits Projet/Programme-->
+        <record id="view_credit_param_produit_proj_tree" model="ir.ui.view">
+            <field name="name">credit_param_produit</field>
+            <field name="model">credit_param_produit</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client">
+                    <field name="name"/>
+                    <field name="bailleur_id"/>
+                    <field name="type_produit"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_credit_param_produit_proj_form" model="ir.ui.view">
+            <field name="name">credit_param_produit</field>
+            <field name="model">credit_param_produit</field>
+            <field name="arch" type="xml">
+                <form string="Type de client">
+                <sheet>
+                     <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="bailleur_id"/>
+                        </group>
+                        <group>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Comité" invisible="1">
+                            <group>
+                                <group>
+                                    <field name="montant_max_antenne"/>
+                                    <field name="montant_max_com_credit"/>
+                                    <field name="montant_max_dg"/>
+                                    <field name="montant_max_cca"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Individuelle">
+                            <group col="3">
+                                <group colspan="1">
+                                    <field name="taux_int_annuel"/>
+                                    <field name="taux_int_annuel_psh"/>
+                                    <field name="taux_garantie" invisible="1"/>
+                                </group>
+                                <group colspan="1">
+                                    <field name="taux_frais_dossier"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Groupe solidaire">
+                            <group col="3">
+                                <group colspan="1">
+                                    <field name="taux_int_annuel_gs"/>
+                                    <field name="taux_int_annuel_psh_gs"/>
+                                    <field name="taux_garantie_gs" invisible="1"/>
+                                    <field name="taux_frais_dossier_gs"/>
+                                </group>
+                                <group colspan="1">
+                                    <field name="n_min_membre_gs"/>
+                                    <field name="n_max_membre_gs"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Groupement/Association">
+                            <group col="3">
+                                <group colspan="1">
+                                    <field name="taux_int_annuel_ass"/>
+                                    <field name="taux_int_annuel_psh_gs"/>
+                                    <field name="taux_garantie_ass" invisible="1"/>
+                                    <field name="taux_frais_dossier_ass"/>
+                                </group>
+                                <group colspan="1">
+                                    <field name="n_min_membre_ass"/>
+                                    <field name="n_max_membre_ass"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Ordre de remboursement">
+                            <group>
+                                <group>
+                                    <field name="ordre_remboursment"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Critères">
+                            <group string="Critères fondamentaux">
+                                <field name="crit_fondamentaux" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="name" width="3" required="True"/>
+                                        <field name="borne_inf" width="1" sum="Total"/>
+                                        <field name="borne_sup" width="1" sum="Total"/>
+                                        <field name="sequence" width="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group string="Critères Complémentaires">
+                                 <field name="crit_complementaires" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="name" width="3" required="True"/>
+                                        <field name="borne_inf" width="1" sum="Total"/>
+                                        <field name="borne_sup" width="1" sum="Total"/>
+                                        <field name="sequence" width="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Comptes de déblocage">
+                            <group>
+                                <field name="cpte_membr" style="width:50%"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                <field name="capital" style="width:50%"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                <field name="cpte_frais" style="width:50%"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                <field name="cpte_assurance" style="width:50%"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            </group>
+                        </page>
+                        <page string="Comptes de remboursement">
+                            <group>
+                                <field name="cpte_membr" style="width:50%"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                <field name="cpte_int" style="width:50%"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                <field name="cpte_penalite" style="width:50%"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                <field name="cpte_fa" style="width:50%"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_credit_param_proj_produit" model="ir.actions.act_window">
+            <field name="name">Liste de produits de crédits Projet/Programme</field>
+            <field name="res_model">credit_param_produit</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_produit','=','PROJET')]</field>
+            <field name="context">{'default_type_produit': 'PROJET'}</field>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_credit_param_produit_proj_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_credit_param_produit_proj_form')})]"/>
+
+        </record>
+
+        <!--Param assureur-->
+        <record id="view_credit_param_assureur" model="ir.ui.view">
+            <field name="name">credit_param_assureur</field>
+            <field name="model">credit_param_assureur</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client">
+                    <field name="assureur_id"/>
+                    <field name="bailleur_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_credit_param_assureur_form" model="ir.ui.view">
+            <field name="name">credit_param_assureur</field>
+            <field name="model">credit_param_assureur</field>
+            <field name="arch" type="xml">
+                <form string="Type de client">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="assureur_id"/>
+                            <field name="bailleur_id"/>
+                            <field name="taux_assureur" />
+                            <field name="taux_bailleur"/>
+                            <field name="taux_gestionnaire"/>
+                        </group>
+                        <group>
+                            <field name="cpte_assureur"/>
+                            <field name="cpte_produit"/>
+                        </group>
+                    </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_credit_param_assureur_produit" model="ir.actions.act_window">
+            <field name="name">Assureurs</field>
+            <field name="res_model">credit_param_assureur</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+</odoo>

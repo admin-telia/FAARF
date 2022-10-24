@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+
+    <menuitem
+        name="Time Off"
+        id="menu_hr_holidays_root"
+        sequence="95"
+        web_icon="hr_holidays,static/description/icon.png"
+        groups="base.group_user"/>
+
+
+<!--    <menuitem id="menu_hr_holidays_db" name="Données de base" parent="menu_hr_holidays_root" sequence="10"/>-->
+<!--        <menuitem id="menu_hr_holidays_db_ctype" name="Type de congé" parent="menu_hr_holidays_db"-->
+<!--                  action="action_faarf_conge_type" sequence="10"/>-->
+
+<!--    <menuitem id="menu_hr_holidays_pm" name="Paramétrage" parent="menu_hr_holidays_root" sequence="20"/>-->
+<!--        <menuitem id="menu_hr_holidays_pm_ctype" name="Paramétrage congé" parent="menu_hr_holidays_pm"-->
+<!--                  action="open_view_holiday_status" sequence="10"/>-->
+
+<!--    <menuitem id="menu_hr_holidays_con" name="Congés" parent="menu_hr_holidays_root" sequence="50"/>-->
+<!--        <menuitem id="menu_hr_holidays_d_c" name="Décision de congés" parent="menu_hr_holidays_con"-->
+<!--                  action="open_view_holiday_status" sequence="10"/>-->
+<!--        <menuitem id="menu_hr_holidays_c_c" name="Compte congés" parent="menu_hr_holidays_con"-->
+<!--                  action="hr_leave_allocation_action_approve_department" sequence="20"/>-->
+<!--        <menuitem id="menu_hr_holidays_de_c" name="Demandes de congés" parent="menu_hr_holidays_con"-->
+<!--                  action="hr_leave_action_action_approve_department" sequence="30"/>-->
+
+<!--        <menuitem id="menu_hr_holidays_my" name="Mes Congés" parent="menu_hr_holidays_con" sequence="40"/>-->
+<!--            <menuitem id="menu_hr_holidays_my_dash" name="Tableau de bord" parent="menu_hr_holidays_my"-->
+<!--                      action="hr_leave_action_new_request" sequence="10"/>-->
+<!--            <menuitem id="menu_hr_holidays_my_dmde" name="Demandes de congés" parent="menu_hr_holidays_my"-->
+<!--                  action="hr_leave_action_my" sequence="20"/>-->
+
+<!--    <menuitem id="menu_hr_holidays_dash" name="Tableau de bord" parent="menu_hr_holidays_root"-->
+<!--                  action="action_hr_holidays_dashboard" sequence="55"/>-->
+
+<!--    <menuitem id="menu_hr_holidays_synth" name="Synthèse" parent="menu_hr_holidays_root" sequence="60"/>-->
+<!--        <menuitem id="menu_hr_holidays_synth_pe" name="Par employé" parent="menu_hr_holidays_synth"-->
+<!--                  action="action_hr_available_holidays_report" sequence="10"/>-->
+<!--        <menuitem id="menu_hr_holidays_synth_pt" name="Par type" parent="menu_hr_holidays_synth"-->
+<!--                  action="act_hr_employee_holiday_request" sequence="20"/>-->
+
+
+
+
+
+<!--    <menuitem-->
+<!--        id="menu_hr_holidays_my_leaves"-->
+<!--        name="My Time Off"-->
+<!--        parent="menu_hr_holidays_root"-->
+<!--        sequence="1"/>-->
+
+<!--    <menuitem-->
+<!--        id="hr_leave_menu_new_request"-->
+<!--        parent="menu_hr_holidays_my_leaves"-->
+<!--        action="hr_leave_action_new_request"-->
+<!--        sequence="1"/>-->
+
+<!--    <menuitem-->
+<!--        id="hr_leave_menu_my"-->
+<!--        parent="menu_hr_holidays_my_leaves"-->
+<!--        action="hr_leave_action_my"-->
+<!--        sequence="2"/>-->
+
+<!--    <menuitem-->
+<!--        id="menu_open_allocation"-->
+<!--        name="My Allocation Requests"-->
+<!--        parent="menu_hr_holidays_my_leaves"-->
+<!--        action="hr_leave_allocation_action_my"-->
+<!--        sequence="3"/>-->
+
+<!--    <menuitem-->
+<!--        id="menu_hr_holidays_dashboard"-->
+<!--        name="Everyone"-->
+<!--        parent="menu_hr_holidays_root"-->
+<!--        sequence="2"-->
+<!--        action="action_hr_holidays_dashboard"/>-->
+
+<!--    <menuitem-->
+<!--        id="menu_hr_holidays_approvals"-->
+<!--        name="Managers"-->
+<!--        parent="menu_hr_holidays_root"-->
+<!--        sequence="3"/>-->
+
+<!--    <menuitem-->
+<!--        id="menu_open_department_leave_approve"-->
+<!--        name="Time Off"-->
+<!--        parent="menu_hr_holidays_approvals"-->
+<!--        action="hr_leave_action_action_approve_department"-->
+<!--        sequence="1"/>-->
+
+<!--    <menuitem-->
+<!--        id="hr_holidays_menu_manager_approve_allocations"-->
+<!--        name="Allocations"-->
+<!--        parent="menu_hr_holidays_approvals"-->
+<!--        action="hr_leave_allocation_action_approve_department"-->
+<!--        sequence="2"/>-->
+
+<!--    <menuitem-->
+<!--        id="menu_hr_holidays_report"-->
+<!--        name="Reporting"-->
+<!--        parent="menu_hr_holidays_root"-->
+<!--        groups="hr_holidays.group_hr_holidays_manager"-->
+<!--        sequence="4"/>-->
+
+<!--    <menuitem-->
+<!--        id="menu_hr_available_holidays_report_tree"-->
+<!--        name="by Employee"-->
+<!--        parent="menu_hr_holidays_report"-->
+<!--        action="action_hr_available_holidays_report"-->
+<!--        sequence="1"/>-->
+
+<!--    <menuitem-->
+<!--        id="menu_hr_holidays_summary_all"-->
+<!--        name="by Type"-->
+<!--        parent="menu_hr_holidays_report"-->
+<!--        action="act_hr_employee_holiday_request"-->
+<!--        sequence="3"/>-->
+
+<!--    <menuitem-->
+<!--        id="menu_hr_holidays_configuration"-->
+<!--        name="Configuration"-->
+<!--        parent="menu_hr_holidays_root"-->
+<!--        sequence="5"/>-->
+
+<!--    <menuitem-->
+<!--        id="hr_holidays_status_menu_configuration"-->
+<!--        action="open_view_holiday_status"-->
+<!--        name="Time Off Types"-->
+<!--        parent="menu_hr_holidays_configuration"-->
+<!--        groups="hr_holidays.group_hr_holidays_user"-->
+<!--        sequence="1"/>-->
+
+<!--    <menuitem id="hr_holidays_menu_config_activity_type"-->
+<!--        action="mail_activity_type_action_config_hr_holidays"-->
+<!--        parent="menu_hr_holidays_configuration"-->
+<!--        groups="base.group_no_one"/>-->
+
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menu en héritant le id de configuration -->
+    <menuitem id="hr_paie_bulletin" name ="Bulletins"
+              sequence="1" parent="payroll.payroll_menu_root"/>
+        <menuitem id="hr_paie_bulletin_b" parent="hr_paie_bulletin" name="Bulletins de l'employé"
+                  action="payroll.hr_payslip_action" sequence = "1"/>
+        <menuitem id="hr_paie_bulletin_lb" parent="hr_paie_bulletin" name="Lots de bulletins de paie"
+                  action="payroll.hr_payslip_run_action" sequence = "2"/>
+        <menuitem id="hr_paie_bulletin_bp" parent="hr_paie_bulletin" name="Etats nominatifs de paie"
+                  action="act_hr_bordereau_paiel" sequence = "3"/>
+
+    <menuitem id="hr_etat_nominatif" name ="Etats de synthèse"
+              sequence="99" parent="payroll.payroll_menu_root"/>
+        <menuitem id="hr_act_mode_paiement" parent="hr_etat_nominatif" name="Etat par mode de paiement"
+                  action="hr_report_mode_paiement_action" sequence = "6"/>
+        <menuitem id="hr_report_banq_action" parent="hr_etat_nominatif" name="Etat par banque"
+                  action="hr_report_banq_act" sequence = "8"/>
+        <menuitem id="hr_etat_elt_sal" parent="hr_etat_nominatif" name="Etat élément de salaire"
+                  action="act_hr_etat_elt_sal" sequence = "10"/>
+        <menuitem id="hr_etat_cot_carfo" parent="hr_etat_nominatif" name="Etat Cotisation CARFO"
+                  sequence = "11"/>
+            <menuitem id="hr_etat_cot_carfo_emp" parent="hr_etat_cot_carfo" name="Part employée"
+                      action="act_hr_etat_carfo" sequence = "1"/>
+            <menuitem id="hr_etat_cot_carfo_pat" parent="hr_etat_cot_carfo" name="Part patronale"
+                      action="act_hr_etat_carfo_pat" sequence = "2"/>
+        <menuitem id="hr_etat_cot_cnss" parent="hr_etat_nominatif" name="Etat Cotisation CNSS"
+                  sequence = "12"/>
+            <menuitem id="hr_etat_cot_cnss_emp" parent="hr_etat_cot_cnss" name="Part employée"
+                      action="act_hr_cnss_carfo" sequence = "1"/>
+            <menuitem id="hr_etat_cot_cnss_pat" parent="hr_etat_cot_cnss" name="Part patronale"
+                      action="act_hr_etat_cnss_pat" sequence = "2"/>
+        <menuitem id="hr_act_livre_paie" parent="hr_etat_nominatif" name="Livre de paie"
+                  action="act_livre_paie" sequence = "13"/>
+
+
+        <menuitem id="hr_param_imputation" parent="payroll.payroll_menu_configuration" name="Imputation"
+                  action="act_hr_element_imputation" sequence = "13"/>
+</odoo>

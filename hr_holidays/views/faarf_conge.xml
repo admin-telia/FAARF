@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <record id="view_faarf_conge_type_tree" model="ir.ui.view">
+            <field name="name">faarf_conge_type.tree</field>
+            <field name="model">faarf_conge_type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+    <record id="faarf_conge_type_form" model="ir.ui.view">
+        <field name="name">view.faarf_conge_type.form</field>
+        <field name="model">faarf_conge_type</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code" style="width:25%" required="True"/>
+                            <field name="name" required="True"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_faarf_conge_type" model="ir.actions.act_window">
+        <field name="name">Types congés</field>
+        <field name="res_model">faarf_conge_type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

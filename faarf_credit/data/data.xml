@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <data noupdate="1">
+        <record id="sequence_client_seq" model="ir.sequence">
+            <field name="name">Client sequence</field>
+            <field name="code">client.sequence.code</field>
+            <field name="prefix">CL</field>
+            <field name="padding">5</field>
+            <field name="number_next" eval="1"/>
+            <field name="number_increment" eval="1"/>
+            <field eval="False" name="company_id"/>
+        </record>
+
+        <record id="sequence_demande_seq" model="ir.sequence">
+            <field name="name">Demande sequence</field>
+            <field name="code">demande.sequence.code</field>
+            <field name="prefix">D</field>
+            <field name="padding">5</field>
+            <field name="number_next" eval="1"/>
+            <field name="number_increment" eval="1"/>
+            <field eval="False" name="company_id"/>
+        </record>
+
+        <record id="sequence_credit_seq" model="ir.sequence">
+            <field name="name">Credit sequence</field>
+            <field name="code">credit.sequence.code</field>
+            <field name="prefix">C</field>
+            <field name="padding">5</field>
+            <field name="number_next" eval="1"/>
+            <field name="number_increment" eval="1"/>
+            <field eval="False" name="company_id"/>
+        </record>
+
+         <record id="sequence_transaction_seq" model="ir.sequence">
+            <field name="name">Credit Transaction</field>
+            <field name="code">transaction.sequence.code</field>
+            <field name="padding">8</field>
+             <field name="prefix">1</field>
+            <field name="number_next" eval="1"/>
+            <field name="number_increment" eval="1"/>
+            <field eval="False" name="company_id"/>
+        </record>
+
+        <record id="sequence_deblocage_seq" model="ir.sequence">
+            <field name="name">Credit Deblocage</field>
+            <field name="code">deblocage.sequence.code</field>
+            <field name="padding">8</field>
+             <field name="prefix">0</field>
+            <field name="number_next" eval="1"/>
+            <field name="number_increment" eval="1"/>
+            <field eval="False" name="company_id"/>
+        </record>
+
+        #TYPE CLIENT sc ef group ass indi gs
+         <record id="TSC" model="credit_type_client">
+            <field name="codification">01</field>
+            <field name="code">ASS</field>
+            <field name="name">Société coopérative</field>
+        </record>
+         <record id="EEF" model="credit_type_client">
+            <field name="codification">02</field>
+            <field name="code">ASS</field>
+            <field name="name">Entreprise formelle</field>
+        </record>
+        <record id="TGROUP" model="credit_type_client">
+            <field name="codification">03</field>
+            <field name="code">ASS</field>
+            <field name="name">Groupement</field>
+        </record>
+         <record id="TASS" model="credit_type_client">
+            <field name="codification">04</field>
+            <field name="code">ASS</field>
+            <field name="name">Association</field>
+        </record>
+        <record id="TGROUPSOL" model="credit_type_client">
+            <field name="codification">05</field>
+            <field name="code">GROUP</field>
+            <field name="name">Groupe solidaire</field>
+        </record>
+        <record id="TIND" model="credit_type_client">
+            <field name="codification">06</field>
+            <field name="code">IND</field>
+            <field name="name">Individuelle</field>
+        </record>
+     </data>
+</odoo>

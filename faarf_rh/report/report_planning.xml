@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <report 
+            id="report_plannings"
+            string="Planning Congé"
+            model="hr_planning_conge" 
+            report_type="qweb-pdf"
+            file="Gestion_Conges.report_plannings" 
+            name="Gestion_Conges.report_plannings"
+            groups = "base.group_user"
+            menu = "True"/>
+
+<template id="report_plannings">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.external_layout">
+            <t t-if="o.state in ('C','V') " >
+		            <h1><p style="text-align:center; widht:100%">PLANNING DES CONGES <span t-field="o.x_exercice_id.no_ex"/></p></h1>
+					 <table class = 'table table-sm'>
+			        		<thead style="background-color:#D2D2FF">
+			                      <tr style = "border: 2px SOLID #434146" >
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146"><strong><i>Employé</i></strong></th>
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146"><strong><i></i>Mlle Contractuel</strong></th>
+			                      	  <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146"><strong><i>Mlle Fonctionnaire</i></strong></th>
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146"><strong><i>Emploi</i></strong></th>
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146%"><strong><i>Service</i></strong></th>
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146"><strong><i>Date début</i></strong></th>
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146"><strong><i>Date fin</i></strong></th>
+			                      </tr>
+			                </thead>  
+			                <tbody>
+			                     <tr t-foreach="o.x_line_ids" t-as="line" style = "border: 2px SOLID #434146">
+			                        <td style = "border: 2px SOLID #434146"><span t-field="line.x_employee_id.name"/></td> 
+			                        <td style = "border: 2px SOLID #434146"><span t-esc="line.mat_ctrct"/></td> 
+			                        <td style = "border: 2px SOLID #434146"><span t-field="line.mat_fct"/></td> 
+			                        <td style = "border: 2px SOLID #434146"><span t-esc="line.x_emploi_id.lib_long"/></td>
+			                        <td style = "border: 2px SOLID #434146"><span t-field="line.x_service_id.name"/></td> 
+			                        <td style = "border: 2px SOLID #434146"><span t-esc="line.x_date_debut"/></td> 
+			                        <td style = "border: 2px SOLID #434146"><span t-field="line.x_date_fin"/></td> 
+			                    </tr>
+			                </tbody>
+			    </table>
+			    <tfoot>
+	            		<div class="row mt32 mb32">
+	            			<div class="col-2">
+	                            <strong>DRH</strong>
+	                            <br/>
+	                            <br/>
+	                            <br/>
+	                            <br/>
+	                            <p t-field="o.current_user.name"/>
+                            </div>
+                        </div>
+	            </tfoot>            
+			    </t>
+             </t>
+         </t>
+    </t>
+</template>
+</odoo>

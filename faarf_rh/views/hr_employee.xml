@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.ui.view" id="hr_employee_form">
+		<field name="name">hr.employee.form</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="hr.view_employee_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//page[@name='personal_information']" position="attributes">
+			   <attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//page[@name='public']" position="attributes">
+			   <attribute name="invisible">1</attribute>
+			</xpath>
+<!--			<xpath expr="//field[@name='category_ids']" position="after">-->
+<!--				<h5><field name="struct_id" readonly="1" force_save="1"/></h5>-->
+<!--				<h5><field name="department_id" readonly="1" force_save="1"/></h5>-->
+<!--&lt;!&ndash;				<h5><field name="x_emploi_id" readonly="1" force_save="1"/></h5>&ndash;&gt;-->
+<!--&lt;!&ndash;				<h5><field name="x_fonction_id" readonly="1" force_save="1"/></h5>&ndash;&gt;-->
+<!--			</xpath>-->
+            <xpath expr="//page[@name='public']" position="before">
+                <page string="Informations personnelles">
+					<group>
+						<group string="Nationalité &amp; Autre Information">
+							<field name="x_nationalite_id"/>
+							<field name="matricule_genere"/>
+							<field name="matricule"/>
+							<field name="x_type_piece_id"/>
+							<field name="ref_identification"/>
+						</group>
+						<group string="Information de contact" >
+							<field name="tel"/>
+							<field name="personne_id"/>
+							<field name="x_email"/>
+						</group>
+						<group string="Status">
+							<field name="genre"/>
+							<field name="situation_marital"/>
+							<field name="charge_femme"/>
+							<field name="charge_enfant" readonly="1" force_save="1"/>
+							<field name="charge" readonly="1" force_save="1"/>
+						</group>
+						<group string="Naissance" >
+							<field name="x_date_naissance"/>
+							<field name="x_nb_annee_retraite"/>
+							<field name="x_date_retraite" force_save="1"/>
+							<field name="lieu_naiss"/>
+							<field name="country_of_birth"/>
+						</group>
+						<group string="Éducation">
+						<field name="x_diplome_id"/>
+						<field name="x_diplome_recrut_id"/>
+						<field name="branche"/>
+						<field name="ecole"/>
+					</group>
+					</group>
+					<group string="Observations">
+						<field name="observations" nolabel="1"/>
+					</group>
+				</page>
+				<page string="Enfants">
+					<field name="enfants_ids" nolabel="1">
+						<tree editable="bottom"
+							decoration-success="est_pris==True" decoration-danger="est_pris==False">
+							<field name="name"/>
+							<field name="sexe"/>
+							<field name="etat"/>
+							<field name="date_naissance"/>
+							<field name="age"/>
+							<field name="est_pris" invisible="1"/>
+						</tree>
+					</field>
+				</page>
+				<page string="Informations professionnelles">
+					<group>
+						<group>
+							<field name="x_categorie_employe_id"/>
+							<field name="struct_id"/>
+							<field name="struct_id_code" invisible="1"/>
+							<field name="department_id" required="True"/>
+							<field name="hr_service"/>
+<!--							<field name="x_unite_id"/>-->
+							<field name="x_zone_id"/>
+						</group>
+						<group>
+                            <field name="x_emploi_id"/>
+                            <field name="x_fonction_id"/>
+                            <field name="x_mode_paiement"/>
+                            <field name="x_banque_id"/>
+							<field name="num_banque"/>
+							<field name="intitule"/>
+					  	</group>
+					</group>
+				</page>
+				<page string = "Situation Fonction Publique (FP)"
+					  attrs="{'invisible':[('struct_id_code','==', 'CTRCT')]}">
+					<group>
+						<group string="Situation administrative de l'agent dans l'Etat">
+							<field name="x_classees_id" options="{'no_create':True}"/>
+							<field name="x_categorie_id" options="{'no_create':True}"/>
+							<field name="x_echelle_id" options="{'no_create':True}"/>
+							<field name="date_modiff" invisible = '1'/>
+							<field name="x_echellon_id"  options="{'no_create':True}"/>
+							<field name="x_classification" invisible = '1' />
+							<field name="date_debut"/>
+							<field name="date_fin"/>
+					  	</group>
+						<group string="Informations Salariales">
+							<field name="x_solde_indiciaire" force_save = '1'/>
+							<field name="x_indemnite_residence" force_save = '1' readonly="1"/>
+							<field name="x_solde_indiciaire_net" force_save = '1'/>
+							<field name="x_indice" invisible ='1' force_save = '1'/>
+					  	</group>
+					</group>
+					<group>
+						<group string="Période">
+							<field name="date_debut"/>
+							<field name="date_fin"/>
+					  	</group>
+					</group>
+				</page>
+				<page string = "Situation FAARF" style="text-align:center;">
+					<group>
+						<group string="Situation administrative de l'agent">
+							<field name="x_categorie_c_id" options="{'no_create':True}"/>
+							<field name="x_echelle_c_id" options="{'no_create':True}"/>
+							<field name="x_echellon_c_id" options="{'no_create':True}"/>
+					  	</group>
+						<group string="Informations Salariales">
+							<field name="x_solde_indiciaire_ctrct" force_save = '1' readonly="1"/>
+					  	</group>
+					</group>
+					<group>
+						<group string="Période">
+							<field name="date_embauche"/>
+							<field name="date_fin_embauche"/>
+							<field name="date_modiff" invisible = '0'/>
+							<field name="company_id" invisible = '1'/>
+					  	</group>
+					</group>
+				</page>
+				<page string="Indemnités">
+					<group col="3">
+						<group>
+							<field name="x_total_indemnites" force_save="1"/>
+						</group>
+						<group></group>
+						<group></group>
+					</group>
+					<group col="3">
+						<group>
+							<field name="x_indem_resp" force_save = '1' readonly="1"/>
+							<field name="x_indemnite_residence" force_save = '1' readonly="1"/>
+							<field name="x_indem_astr" force_save = '1' readonly="1"/>
+							<field name="x_indem_techn" force_save = '1' readonly="1"/>
+							<field name="x_indem_specif" force_save = '1' readonly="1"/>
+							<field name="x_indem_spec_inspect_trav" force_save = '1' readonly="1"/>
+							<field name="x_indem_spec_inspect_irp" force_save = '1' readonly="1"/>
+							<field name="x_indem_spec_inspect_ish" force_save = '1' readonly="1"/>
+						</group>
+						<group>
+							<field name="x_indem_spec_inspect_ifc" force_save = '1' readonly="1"/>
+							<field name="x_indem_loge" force_save = '1' readonly="1"/>
+							<field name="x_indem_transp" force_save = '1' readonly="1"/>
+							<field name="x_indem_inform" force_save = '1' readonly="1"/>
+							<field name="x_indem_exploit" force_save = '1' readonly="1"/>
+							<field name="x_indem_finance" force_save = '1' readonly="1"/>
+							<field name="x_indem_garde" force_save = '1' readonly="1"/>
+						</group>
+						<group>
+							<field name="x_indem_risque" force_save = '1' readonly="1"/>
+							<field name="x_indem_suj" force_save = '1' readonly="1"/>
+							<field name="x_indem_form" force_save = '1' readonly="1"/>
+							<field name="x_indem_caisse" force_save = '1' readonly="1"/>
+							<field name="x_indem_veste" force_save = '1' readonly="1"/>
+							<field name="x_indem_prime_rendement" force_save = '1' readonly="1"/>
+<!--							<field name="x_allocation_familial" force_save = '1'/>-->
+						</group>
+					</group>
+					<group col="3">
+						<group>
+							<field name="x_total_indemnites" force_save="1"/>
+						</group>
+						<group></group>
+						<group></group>
+					</group>
+				</page>
+				<page  string = "Exonérations" invisible="0">
+					<group col="3">
+						<group>
+							<field name="x_total_exo" force_save='1'/>
+						</group>
+					</group>
+					<group col="3">
+						<group>
+							<field name="x_indem_resp_exo" force_save='1'/>
+							<field name="x_indem_residence_exo" force_save='1'/>
+							<field name="x_indem_astr_exo" force_save='1'/>
+							<field name="x_indem_techn_exo" force_save='1'/>
+							<field name="x_indem_specif_exo" force_save='1'/>
+							<field name="x_indem_specif_it_exo" force_save='1'/>
+							<field name="x_indem_specif_ifc_exo" force_save='1'/>
+						</group>
+						<group>
+							<field name="x_indem_loge_exo" force_save='1'/>
+							<field name="x_indem_transp_exo" force_save='1'/>
+							<field name="x_indem_inform_exo" force_save='1'/>
+							<field name="x_indem_exploit_exo" force_save='1'/>
+							<field name="x_indem_finance_exo" force_save='1'/>
+							<field name="x_indem_garde_exo" force_save='1'/>
+							<field name="x_indem_specif_ish_exo" force_save='1'/>
+						</group>
+						<group>
+							<field name="x_indem_risque_exo" force_save='1'/>
+							<field name="x_indem_suj_exo" force_save='1'/>
+							<field name="x_indem_form_exo" force_save='1'/>
+							<field name="x_indem_caisse_exo" force_save='1'/>
+							<field name="x_indem_veste_exo" force_save='1'/>
+							<field name="x_indem_specif_irp_exo" force_save='1'/>
+							<field name="x_prime_exo" force_save='1'/>
+						</group>
+					</group>
+				</page>
+				<page string="Information sur le salaire">
+					<group col="3">
+						<group string="Informations salariales">
+							<field name="x_salaire_base" readonly="1" force_save='1' style="text-align: right;"/>
+							<field name="x_total_indemnites" readonly="1" force_save='1' style="text-align: right;"/>
+							<field name="x_remuneration_total" readonly="1" force_save='1' style="text-align: right;"/>
+							<field name="x_mnt_carfo" readonly="1"  force_save="1"
+								   attrs="{'invisible':[('x_mnt_carfo','==',0)]}"/>
+							<field name="x_mnt_cnss" readonly="1" force_save="1"
+								   attrs="{'invisible':[('x_mnt_cnss','==',0)]}"/>
+							<field name="x_salaire_brut" readonly="1" force_save='1' />
+							<field name="x_abattement_forfaitaire" force_save='1' />
+							<field name="x_total_exo" force_save='1' string="Totale exonération"/>
+							<field name="x_salaire_net_imposable" force_save='1' />
+							<field name="mnt_total_retenues" readonly="1" force_save='1'/>
+							<field name="x_allocation_familial" readonly="1" force_save="1"
+								   attrs="{'invisible':[('x_allocation_familial','==',0)]}"/>
+							<field name="x_net_payer" force_save='1' readonly="1" />
+						</group>
+						<group string="Retenues">
+							<field name="x_mnt_carfo" readonly="1"  force_save="1"
+								   attrs="{'invisible':[('x_mnt_carfo','==',0)]}"/>
+							<field name="x_mnt_patronal_carfo" readonly="1" force_save="1"
+								   attrs="{'invisible':[('x_mnt_patronal_carfo','==',0)]}"/>
+							<field name="x_mnt_cnss" readonly="1" force_save="1"
+								   attrs="{'invisible':[('x_mnt_cnss','==',0)]}"/>
+							<field name="x_mnt_patronal_cnss" readonly="1" force_save="1"
+								   attrs="{'invisible':[('x_mnt_patronal_cnss','==',0)]}"/>
+							<field name="x_retenue_iuts" force_save="1" readonly="1" style="text-align: right;"/>
+							<field name="x_montant_charge" force_save='1' readonly="1" style="text-align: right;"/>
+							<field name="x_iuts_net" force_save='1' readonly="1" style="text-align: right;"/>
+						</group>
+						<group string="Rappel/Trop perçu">
+
+						</group>
+					</group>
+				</page>
+				<page string = "Nomination/Decret">
+					<field name="x_actes_ids">
+						<tree string="Pièces Nominations" editable="bottom">
+							<field name="ref_acte"/>
+							<field name="date_nomination"/>
+							<field name="date_effet"/>
+							<field name="date_fin"/>
+							<field name="fichier_joint"/>
+							<field name="etat_nomination"/>
+
+						</tree>
+						<form string="Pièces Nomination Line">
+							<group>
+								<field name="ref_acte"/>
+								<field name="date_nomination"/>
+								<field name="date_effet"/>
+								<field name="date_fin"/>
+								<field name="fichier_joint"/>
+								<field name="etat_nomination"/>
+							</group>
+						</form>
+					</field>
+				</page>
+				<page string = "Détachement">
+					<field name="x_acte_ids">
+						<tree string="Pièces" editable="bottom">
+							<field name="ref_acte"/>
+							<field name="date_acte"/>
+							<field name="date_effet"/>
+							<field name="date_fin"/>
+							<field name="fichier_joint"/>
+						</tree>
+						<form string="Pièces Line">
+							<group>
+								<field name="ref_acte"/>
+								<field name="date_acte"/>
+								<field name="date_effet"/>
+								<field name="date_fin"/>
+								<field name="fichier_joint"/>
+							</group>
+						</form>
+					</field>
+				</page>
+				<page string = "Mise à Disposition">
+					<field name="x_acte_dec_ids">
+						<tree string="Pièces" editable="bottom">
+							<field name="ref_acte_dec"/>
+							<field name="date_acte_dec"/>
+							<field name="date_effet_dec"/>
+							<field name="date_fin_dec"/>
+							<field name="fichier_joint_dec"/>
+
+						</tree>
+						<form string="Pièces Line">
+							<group>
+								<field name="ref_acte_dec"/>
+							<field name="date_acte_dec"/>
+							<field name="date_effet_dec"/>
+							<field name="date_fin_dec"/>
+							<field name="fichier_joint_dec"/>
+							</group>
+						</form>
+					</field>
+				</page>
+				<page string = "Dossier Individuel">
+					<field name="x_dossier_ind_ids">
+							<tree string="Fichiers" editable="bottom">
+								<field name="objet_ligne"/>
+								<field name="fichier_joint"/>
+								<field name="date_op"/>
+							</tree>
+							<form string="Fichiers Line">
+								<group>
+									<field name="objet_ligne"/>
+									<field name="fichier_joint"/>
+									<field name="date_op"/>
+								</group>
+							</form>
+					</field>
+				</page>
+				<page string="Notes">
+					<field name="x_note_ids" style="width:50%">
+						<tree editable="bottom">
+							<field name="annee" width="1"/>
+							<field name="note" width="1"/>
+						</tree>
+					</field>
+				</page>
+            </xpath>
+		</field>
+	</record>
+	<record model="ir.actions.act_window" id="act_list_emp">
+			<field name="name">Liste Des Employés</field>
+			<field name="res_model">hr.employee</field>
+			<field name="view_mode">kanban,tree,form</field>
+	</record>
+</odoo>

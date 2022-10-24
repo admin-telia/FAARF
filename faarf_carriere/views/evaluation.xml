@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.ui.view" id="view_id_evaluation_tree">
+		<field name="name">view.evaluation.tree</field>
+		<field name="model">hr_evaluation</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des evalauations">
+				<field name="employee_id"/>
+				<field name="contract_id"/>
+			</tree>
+		</field>
+	</record>
+	<record model="ir.ui.view" id="view_id_evaluation_form">
+		<field name="name">view.evaluation.form</field>
+		<field name="model">hr_evaluation</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Liste des evaluations">
+				<header>
+                    <button string="Rechercher" name="action_rechercher" type="object" class="oe_highlight"/>
+                    <button string="Confirmer" name="action_confrimer" type="object" class="oe_highlight"/>
+            	</header>
+				<sheet>
+					<group>
+						<field name="x_titre_id"/>
+					</group>
+					<notebook>
+					    <page string="Identification de l’agent" >
+					        <group string="">
+						<group>
+							<field name="employee_id"/>
+							<field name="contract_id"/>
+							<field name="x_categorie_employe_id"/>
+							<field name="x_type_employe_id"/>
+							<field name="x_matricule" force_save="1"/>
+							<field name="x_classees" force_save="1"/>
+						</group>
+						<group>
+							<field name="x_categorie" force_save="1"/>
+							<field name="x_echelle" force_save="1"/>
+							<field name="x_echellon" force_save="1"/>
+							<field name="x_service" force_save="1"  invisible="1"/>
+							<field name="x_emploi" force_save="1"/>
+							<field name="x_fonction" force_save="1"/>
+						</group>
+					</group>
+					    </page>
+						<page string="Identification du supérieur hiérarchique immédiat">
+							<group string="">
+						<group>
+							<field name="employee_h_id"/>
+							<field name="contract_h_id"/>
+							<field name="x_categorie_employe_h_id"/>
+							<field name="x_type_employe_h_id"/>
+							<field name="x_matricule_h" force_save="1"/>
+							<field name="x_classees_h" force_save="1"/>
+						</group>
+						<group>
+							<field name="x_categorie_h" force_save="1"/>
+							<field name="x_echelle_h" force_save="1"/>
+							<field name="x_echellon_h" force_save="1"/>
+							<field name="x_service_h" force_save="1" invisible="0"/>
+							<field name="x_emploi_h" force_save="1"/>
+							<field name="x_fonction_h" force_save="1"/>
+						</group>
+					</group>
+						</page>
+					</notebook>
+					<notebook>
+					    <page name="" string="Critères">
+							<field name="x_sous_criteres_ids">
+								<tree string="Sous-Critère" editable="bottom"
+											decoration-danger="crit_seq == 1"
+											decoration-success="crit_seq == 2"
+									  		decoration-warning="crit_seq == 3"
+											create="false">
+									<field name="x_critere" force_save = '1' readonly="1"/>
+									<field name="x_sous_critere" force_save = '1' readonly="1"/>
+									<field name="x_note" force_save = '1' sum="Total" />
+									<field name="born_sup" force_save = '1' sum="Total" readonly="1"/>
+									<field name="crit_seq" invisible="0"/>
+									<field name="s_crit_seq" invisible="0"/>
+								</tree>
+						   </field>
+					    </page>
+						<page string = "Procès-Verbal de l'entretien d'évaluation">
+				           <field name="observation_sup_imm" placeholder="Observations du supérieur hiérarchique immédiat sur le niveau de performance de l'agent ici..."/>
+					       <field name="contrainte_realisation" placeholder="Contraintes de réalisation relevées (éventuellement) ici..." />
+					       <field name="point_divergence" placeholder="Points de divergence (s'il y a lieu) ici..."/>
+				       </page>
+				       <page string = "Proposition Amelioration/Motivation">
+				           <field name="observation_amelioration" placeholder="Propositions d'amélioration où de motivation de l'agent..."/>
+				       </page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
+    <record model="ir.actions.act_window" id="act_list_evaluation">
+			<field name="name">Liste des Evaluations des cadres supérieurs recevant lettre de mission/Agents non investis</field>
+			<field name="res_model">hr_evaluation</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Vue fiche attente form -->
+	<record model="ir.ui.view" id="view_id_fiche_attente_form">
+		<field name="name">view.hr.fiche.form</field>
+		<field name="model">hr_ficheattente</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Fiche Attente">
+			<header>
+						<button string="Soumettre" name="action_valider" type="object" class="oe_highlight"
+						attrs="{'invisible' : [('state', 'not in', ['draft'])]}"/>
+
+						 <button string="Non Valider" name="action_non_valider" type="object" class="oe_highlight"
+						attrs="{'invisible' : [('state', 'not in', ['draft'])]}"/>
+
+
+						<button string="Confirmer" name="action_confirmer" type="object" class="oe_highlight"
+						attrs="{'invisible' : [('state', 'not in', ['V'])]}"/>
+
+						<button string="Non Confirmer" name="action_non_confirmer" type="object" class="oe_highlight"
+						attrs="{'invisible' : [('state', 'not in', ['V'])]}"/>
+
+						<button string="Approuver" name="action_appr" type="object" class="oe_highlight"
+						attrs="{'invisible' : [('state', 'not in', ['C'])]}" />
+
+						<button string="Non Approuver" name="action_non_appr" type="object" class="oe_highlight"
+						attrs="{'invisible' : [('state', 'not in', ['C'])]}" />
+
+						<field name="state" widget = "statusbar"/>
+				</header>
+				<sheet>
+					<div class="oe_button_box" name="button_box">
+						<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+							<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+						</button>
+					</div>
+					<label for="name" class="oe_edit_only"/>
+					<h1>
+						<field name="name"/>
+					</h1>
+
+					<label for="x_drh_id" class="oe_edit_only"/>
+					<h3>
+						<field name="x_drh_id"/>
+					</h3>
+					<group><field name="date_op"  force_save = '1'/></group>
+					<group><field name="fichier_joint"/></group>
+					<field name = 'x_line_ids'/>
+
+				</sheet>
+
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="view_id_attente_fiche_tree">
+		<field name="name">view.hr.fiche.tree</field>
+		<field name="model">hr_ficheattente</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Fiche Attente">
+				<field name="sequence" widget="handle"/>
+				<field name="name"/>
+				<field name="current_user"/>
+				<field name="date_op"/>
+				<field name="company_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="view_id_fiche_attente_line_tree">
+		<field name="name">view.hr.fiche.attente.Line</field>
+		<field name="model">hr_ficheattente_line</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Fiche Attente Line" editable="bottom">
+					<field name="objectif"/>
+					<field name="company_id" force_save = '1'/>
+					<field name="x_exercice_id" force_save = '1'/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_list_fiche_attente">
+		<field name="name">Liste des objectifs</field>
+		<field name="res_model">hr_ficheattente</field>
+		<field name="view_mode">tree,form</field>
+
+</record>
+</odoo>

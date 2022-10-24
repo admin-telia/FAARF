@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- vue from sasie informations stage -->
+    <record id="infos_stage_form" model="ir.ui.view">
+        <field name="name">hr.stage.form</field>
+        <field name="model">hr_saisie_infos</field>
+        <field name="arch" type="xml">
+            <form string="Infos stage">
+            <header>
+                    <button string="Valider" name="action_valider" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['draft'])]}"/>
+
+                     <button string="Confimer" name="action_confirmer" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['V'])]}"/>
+
+                    <button string="Annuler" name="action_annuler" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['V'])]}"/>
+
+                    <button string="Reporter" name="action_reporter" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['V'])]}"/>
+
+                    <button string="Clôturer" name="action_cloturer" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['C','R']),('state', 'in', ['A','draft','V','CL'])]}"/>
+
+                    <field name="state" widget = "statusbar"/>
+            </header>
+            <sheet>
+            <notebook>
+            	<page string = 'Infos Stage'>
+
+		        		<div class="oe_button_box" name="button_box">
+										<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+											<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+										</button>
+					     </div>
+		                <label for="employee_id" class="oe_edit_only"/>
+		                <h1>
+		                    <field name="employee_id"/>
+		                </h1>
+		                <group col = '3'>
+					                	<group>
+					                	       <field name="x_service_id" class="oe_inline" invisible = '1'/>
+					                	       <field name="service" class="oe_inline" force_save='1'/>
+					                	       <field name="domaine_id" class="oe_inline"/>
+					                	</group>
+					                	<group>
+					                		  <field name="type_stage_id" class="oe_inline"/>
+		                      				  <field name="organisme_id" class="oe_inline"/>
+					                	</group>
+					                	<group>
+					                		  <field name="lieu_id" class="oe_inline"/>
+		                      				  <field name="x_mnts" class="oe_inline"/>
+					                	</group>
+
+					                	<group>
+					                		  <field name="date_eng" class="oe_inline" invisible = '1'/>
+		                      				  <field name="company_id" class="oe_inline" invisible = '1'/>
+		                      				  <field name="x_exercice_id" class="oe_inline" invisible = '1'/>
+					                	</group>
+		                </group>
+		                <group col = '2'>
+		                		 <group><field name="x_date_debut" class="oe_inline"/></group>
+				                 <group><field name="x_date_fin" class="oe_inline"/></group>
+		                </group>
+		                <group><field name="observations"/></group>
+		           </page>
+		           <page string = 'Frais Annexes'>
+		           	    <group><field name="fichier_joint"/></group>
+		           	    <field name="x_line_ids"/>
+		           </page>
+            </notebook>
+            </sheet>
+            </form>
+        </field>
+</record>
+
+    <record model="ir.ui.view" id="view_id_infos_tree">
+	<field name="name">view.stage.tree</field>
+	<field name="model">hr_saisie_infos</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Infos stages">
+		    <field name="sequence" widget="handle"/>
+			<field name="employee_id"/>
+			<field name="current_user"/>
+			<field name="service"/>
+			<field name="x_date_debut"/>
+			<field name="x_date_fin"/>
+			<field name="date_eng"/>
+			<field name="state"/>
+		</tree>
+	</field>
+</record>
+
+    <record model="ir.actions.act_window" id="act_stage_list">
+		<field name="name">Liste Stage Personnel</field>
+		<field name="res_model">hr_saisie_infos</field>
+		<field name="view_mode">tree,form</field>
+
+</record>
+
+    <!-- Vue frais annexes line tree -->
+    <record model="ir.ui.view" id="view_id_frais_line_tree">
+	<field name="name">view.frais.line.tree</field>
+	<field name="model">hr_frais</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Frais Annexes Line" editable="bottom">
+		    <field name="obj"/>
+		    <field name="mnt_annex" sum = 'Total'/>
+		    <field name="observation"/>
+			<field name="x_exercice_id" force_save = '1'/>
+			<field name="company_id" force_save = '1'/>
+
+		</tree>
+	</field>
+</record>
+
+    <!-- vue from sasie informations stage interne-->
+    <record id="infos_stage_interne_form" model="ir.ui.view">
+        <field name="name">hr.stage.interne.form</field>
+        <field name="model">hr_saisie_infos_stage</field>
+        <field name="arch" type="xml">
+            <form string="Infos stage Interne">
+            <header>
+                    <button string="Valider" name="action_valider" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['draft'])]}" groups='Gestion_Formation.Gestion_Formation_chef_service'/>
+
+                     <button string="Confimer" name="action_confirmer" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['V'])]}" groups='Gestion_Formation.Gestion_Formation_chef_service'/>
+
+                    <button string="Annuler" name="action_annuler" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['V'])]}" groups='Gestion_Formation.Gestion_Formation_chef_service'/>
+
+                    <button string="Reporter" name="action_reporter" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['V'])]}" groups='Gestion_Formation.Gestion_Formation_manager_Gestionnaire'/>
+
+                    <button string="Clôturer" name="action_cloturer" type="object" class="oe_highlight"
+                    attrs="{'invisible' : [('state', 'not in', ['C','R']),('state', 'in', ['A','draft','V','CL'])]}" groups='Gestion_Formation.Gestion_Formation_manager_Gestionnaire'/>
+
+
+                    <field name="state" widget = "statusbar"/>
+            </header>
+            <sheet>
+            	<notebook>
+		            	<page string = "Informations sur le stagiaire">
+				        		<div class="oe_button_box" name="button_box">
+												<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+													<field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+												</button>
+							     </div>
+				                <label for="domaine_id" class="oe_edit_only"/>
+				                <h1>
+				                    <field name="domaine_id"/>
+				                </h1>
+				                <group col = '3'>
+							                	<group>
+							                	       <field name="x_service_id" class="oe_inline"/>
+							                	       <field name="type_stage_id" class="oe_inline"/>
+							                	</group>
+							                	<group>
+							                		  <field name="nom_stagiaire" class="oe_inline"/>
+				                      				  <field name="prenom_stagiaire" class="oe_inline"/>
+							                	</group>
+							                	<group>
+							                		  <field name="maitre_sage_id" class="oe_inline"/>
+				                      				  <field name="nationalite" class="oe_inline"/>
+							                	</group>
+
+							                	<group>
+							                		  <field name="date_naissance" class="oe_inline" />
+				                      				  <field name="sexe" class="oe_inline"/>
+							                	</group>
+							                	<group>
+							                		  <field name="situation_id" class="oe_inline" />
+				                      				  <field name="tel" class="oe_inline"/>
+							                	</group>
+							                	<group>
+							                		  <field name="mail" class="oe_inline" />
+<!--				                      				  <field name="etb" class="oe_inline"/>-->
+							                	</group>
+
+				                </group>
+				                <group col = '2'>
+				                		 <group><field name="x_date_debut" class="oe_inline"/></group>
+						                 <group><field name="x_date_fin" class="oe_inline"/></group>
+				                </group>
+				                <group><field name="theme"/></group>
+				                <group><field name="observations"/></group>
+				                <group><field name="nom_dm"/></group>
+				        </page>
+				        <page string = 'Demande de stage'>
+				        		<field name="x_line_d_ids"/>
+				        </page>
+				        <page string = 'Notification de stage'>
+				        		<field name="x_line_a_ids"/>
+				        </page>
+				        <page string = 'Attestation de stage'>
+			        		<group><field name="x_titre"/></group>
+			        		<group col ='6'>
+								<field name="p1"/>
+								<field name="responsale"/>
+								<field name="x_fonction_id"/>
+								<field name="p2"/>
+								<field name="p3"/>
+								<field name="x_service_id"/>
+								<field name="p4"/>
+								<field name="x_date_debut"/>
+								<field name="p5"/>
+								<field name="x_date_fin"/>
+								<field name="p6"/>
+					        </group>
+					        <group><field name="p7"/></group>
+					        <group col = '2'>
+					        		<group><field name="fichier_joint"/></group>
+					        		<group><field name="fichier_joint_fic"/></group>
+					        </group>
+					        <group><field name="date_attest" invisible = '0'/></group>
+
+				        </page>
+		      </notebook>
+            </sheet>
+            </form>
+        </field>
+</record>
+
+    <record model="ir.ui.view" id="view_id_infos_intern_tree">
+	<field name="name">view.stage.interne.tree</field>
+	<field name="model">hr_saisie_infos_stage</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Infos stages interne">
+		    <field name="sequence" widget="handle"/>
+			<field name="nom_stagiaire"/>
+			<field name="prenom_stagiaire"/>
+			<field name="x_service_id"/>
+			<field name="domaine_id"/>
+			<field name="type_stage_id"/>
+			<field name="x_date_debut"/>
+			<field name="x_date_fin"/>
+			<field name="date_eng"/>
+			<field name="current_user"/>
+			<field name="state"/>
+		</tree>
+	</field>
+</record>
+
+	<record model="ir.actions.act_window" id="act_stage_interne_list">
+		<field name="name">Liste Stage Interne</field>
+		<field name="res_model">hr_saisie_infos_stage</field>
+		<field name="view_mode">tree,form</field>
+
+</record>
+
+    <!-- Vue demande de stage tree -->
+    <record model="ir.ui.view" id="view_demande_stage_tree">
+	<field name="name">view.stage.demande.tree</field>
+	<field name="model">hr_demandestage</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Demandes de stage" editable="bottom">
+			<field name="name"/>
+			<field name="fichier_joint"/>
+			<field name="date_op" force_save = '1'/>
+		</tree>
+	</field>
+</record>
+
+    <!-- Vue autorisation stage tree -->
+    <record model="ir.ui.view" id="view_id_auto_tree">
+	<field name="name">view.stage.autorisation.tree</field>
+	<field name="model">hr_autorisationstage</field>
+	<field name="priority" eval="16"/>
+	<field name="arch" type="xml">
+		<tree string="Autorisations de stage" editable="bottom">
+		    <field name="name"/>
+			<field name="fichier_joint"/>
+			<field name="date_op" force_save = '1'/>
+		</tree>
+	</field>
+</record>
+
+</odoo>

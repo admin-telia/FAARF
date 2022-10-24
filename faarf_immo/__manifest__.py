@@ -1,0 +1,26 @@
+# See LICENSE file for full copyright and licensing details.
+
+{
+    'name': 'Immobilisations',
+    'version': '1.0',
+    'author': 'Telia Informatique',
+    'category': 'Gestion des immobilisations',
+    'Summary': 'Module de gestion des immobilisations',
+    'description': 'Gestion des immobilisations',
+    'images': ['static/description/immo.jpg'],
+    'depends': ['base', 'Referentiel_Global', 'faarf_rh'],
+    'data': ['security/security.xml',
+             'security/ir.model.access.csv',
+             'views/donnee.xml',
+             'views/traitement.xml',
+             'views/mouvement.xml',
+             'views/synthese.xml',
+             'views/inventaire.xml',
+             'reports/bord_entree.xml',
+             'reports/report_inventaire.xml',
+             'reports/report_immatriculation.xml',
+             'reports/synthese.xml',
+             ],
+    'installable': True,
+    'auto_install': False,
+}

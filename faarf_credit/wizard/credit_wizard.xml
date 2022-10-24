@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record id="wiz_credit_credit_com_valider_form" model="ir.ui.view">
+         <field name="name">wiz_credit_credit_com_valider</field>
+         <field name="model">wiz_credit_credit_com_valider</field>
+         <field name="arch" type="xml">
+            <form string="Create Appointment">
+                <group>
+                    <field name="name"/>
+                    <field name="credit_id"/>
+                </group>
+                <footer>
+                    <button name="valider" string="Valider" type="object" class="btn-primary"/>
+                    <button string="Annuler" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+         </field>
+     </record>
+
+    <record id="action_wiz_credit_credit_com_valider" model="ir.actions.act_window">
+        <field name="name">Suspension contrat</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wiz_credit_credit_com_valider</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

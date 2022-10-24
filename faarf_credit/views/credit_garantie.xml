@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Vue des editions convention-->
+    <record id="view_credit_garantie_tree" model="ir.ui.view">
+            <field name="name">credit_garantie.tree</field>
+            <field name="model">credit_garantie</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client" decoration-bf="state=='G'" decoration-warning="state=='S'"
+                      decoration-it="state=='CR'" decoration-danger="state=='CC'"
+                      decoration-info="state=='DG'" decoration-muted="state=='CCA'"
+                      decoration-primary="state=='DAJ'" decoration-success="state=='DA'" >
+                    <field name="cliente_id"/>
+                    <field name="bailleur_id"/>
+                    <field name="produit_credit"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_credit_garantie_form" model="ir.ui.view">
+        <field name="name">view.credit_garantie.form</field>
+        <field name="model">credit_garantie</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+                    <button class="oe_highlight" name="set_calculer" type="object" icon="fa-cogs"
+                            states="N"
+                            string="Calculer"/>
+                      <button class="oe_highlight" name="set_valider" type="object" string="Valider"
+                        confirm="Êtes-vous sûr d'exécuter cette action ?"
+                        icon="fa-check"
+                        style="background-color: #28a745; border-color: #28a745;"
+                        states="N"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="cliente_id"
+                                   attrs="{'readonly':[('state','!=','N')]}"
+                                   options="{'no_create':True, 'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="gestionnaire"/>
+                            <field name="province"/>
+                            <field name="departement"/>
+                            <field name="state" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="name" readonly="1" force_save="1"/>
+                            <field name="date" readonly="1" force_save="1"/>
+                            <field name="montant" force_save="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Dossier">
+                            <field name="credit_ids"
+                                   domain="[
+                                   ('cliente_id.id','=', cliente_id),
+                                   ('montant_garantie','!=', 0),
+                                   ('fa_state','=', '1'),]"
+                                attrs="{'readonly':[('state','!=','S')]}">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="fa_state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="line_ids" string="FA">
+                            <field name="line_ids" attrs="{'readonly':[('state','!=','S')]}">
+                                <tree string="_tree">
+                                    <field name="num_pret"/>
+                                    <field name="montant_capital" sum="Total Duration"/>
+                                    <field name="montant_a_rembourser" sum="Total"/>
+                                    <field name="montant_rembourser" sum="Total"/>
+                                    <field name="montant_reste" sum="Total"/>
+                                    <field name="montant_fa" sum="Total"/>
+                                    <field name="montant_penalite" sum="Total"/>
+                                    <field name="montant_fa_reverser" sum="Total"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_credit_garantie" model="ir.actions.act_window">
+        <field name="name">Gestion de fonds d'autonomisation</field>
+        <field name="res_model">credit_garantie</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

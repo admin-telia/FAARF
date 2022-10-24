@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_payroll_rappel">
+        <field name="name">view.payroll_rappel</field>
+        <field name="model">payroll_rappel</field>
+        <field name="arch" type="xml">
+            <tree decoration-success ="state == 'V'"
+                  decoration-danger ="state == 'A'"
+                  decoration-info ="state == 'P'">
+                <field name="x_employe_id"/>
+                <field name="x_rappel_id"/>
+                <field name="date"/>
+                <field name="date_validation"/>
+                <field name="raison"/>
+                <field name="mnt_rappel"/>
+                <field name="state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_payroll_rappel_form">
+        <field name="name">view.payroll_rappel.form</field>
+        <field name="model">payroll_rappel</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                        <button string="Valider" name="set_valider" type="object"  class="oe_highlight" states="draft"/>
+                        <button string="Annuler" name="set_annuler" type="object"  class="oe_highlight" states="V"/>
+                         <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="x_employe_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="x_rappel_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <label for="date" string="Période" />
+                            <div>
+                                <field name="date" style="width:48%; display:inline-block"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}" />
+<!--                                -<field name="date_to" style="width:48% ; display:inline-block" attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
+                            </div>
+                            <field name="raison" attrs="{'readonly': [('state', '!=', 'draft')]}" required="True"/>
+                        </group>
+                        <group>
+                            <field name="date_effet" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="date_dernier" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="mnt_avant" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="mnt_apres" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="occurence" required="True"/>
+                            <field name="mnt_rappel" force_save="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="motif_ann_paie" attrs="{
+                                'readonly': [('state', 'in', ('A', 'P'))],
+                                'required': [('state', '=', 'V' )]}"/>
+                        </group>
+                        <group>
+                            <field name="date_validation" readonly="1" force_save="1"/>
+                            <field name="fiche_paie_id" readonly="1" invisible="0" force_save="1"/>
+                            <field name="is_paye" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="act_payroll_rappel">
+		<field name="name">Liste Rappel sur salaire</field>
+		<field name="res_model">payroll_rappel</field>
+		<field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="hr_rappel_element_action">
+		<field name="name">Liste des elements de rappel</field>
+		<field name="res_model">hr_rappel_element</field>
+		<field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_payroll_trop_percu">
+        <field name="name">view.payroll_trop_percu</field>
+        <field name="model">payroll_trop_percu</field>
+        <field name="arch" type="xml">
+            <tree decoration-success ="state == 'V'"
+                  decoration-info ="state == 'P'"
+                  decoration-danger ="state == 'A'">
+                <field name="x_employe_id"/>
+                <field name="x_rappel_id"/>
+                <field name="date"/>
+                <field name="date_validation"/>
+                <field name="raison"/>
+                <field name="mnt_rappel"/>
+                <field name="state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_payroll_trop_percu_form">
+        <field name="name">view.payroll_trop_percu.form</field>
+        <field name="model">payroll_trop_percu</field>
+        <field name="arch" type="xml">
+             <form>
+                <header>
+                        <button string="Valider" name="set_valider" type="object"  class="oe_highlight" states="draft"/>
+                        <button string="Annuler" name="set_annuler" type="object"  class="oe_highlight" states="V"/>
+                         <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="x_employe_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="x_rappel_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <label for="date" string="Période" />
+                            <div>
+                                <field name="date" style="width:48%; display:inline-block"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+<!--                                -<field name="date_to" style="width:48% ; display:inline-block" attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
+                            </div>
+                            <field name="raison" attrs="{'readonly': [('state', '!=', 'draft')]}" required="True"/>
+                            <field name="date_validation" readonly="1" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="date_effet" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="date_dernier" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="mnt_avant" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="mnt_apres" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="occurence" required="True"/>
+                            <field name="mnt_rappel" force_save="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="motif_ann_paie" attrs="{
+                                'readonly': [('state', 'in', ('A', 'P'))],
+                                'required': [('state', '=', 'V' )]}"/>
+                        </group>
+                        <group>
+                            <field name="date_validation" readonly="1" force_save="1"/>
+                            <field name="fiche_paie_id" readonly="1" invisible="0" force_save="1"/>
+                            <field name="is_paye" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="act_payroll_trop_percu">
+		<field name="name">Liste trop perçu sur salaire</field>
+		<field name="res_model">payroll_trop_percu</field>
+		<field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="hr_rappel_trop_percu_element_action">
+		<field name="name">Liste des elements de trop percu</field>
+		<field name="res_model">hr_rappel_trop_percu_element</field>
+		<field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!--    precompte-->
+    <record model="ir.ui.view" id="view_hr_paie_precompte">
+        <field name="name">view.hr_paie_precompte</field>
+        <field name="model">hr_paie_precompte</field>
+        <field name="arch" type="xml">
+            <tree decoration-success ="state == 'V'"
+                  decoration-info ="state == 'P'"
+                  decoration-danger ="state == 'A'">
+                <field name="name"/>
+                <field name="x_employe_id"/>
+                <field name="x_precompte_id"/>
+                <field name="montant"/>
+                <field name="montant_echeance"/>
+                <field name="nbr_echeance"/>
+                 <field name="date_deb"/>
+                <field name="state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_hr_paie_precompte_form">
+        <field name="name">view.hr_paie_precompte.form</field>
+        <field name="model">hr_paie_precompte</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                        <button string="Valider" name="set_valider" type="object"
+                                confirm="Êtes-vous sûr d'exécuter cette action ?"
+                                class="oe_highlight" states="draft"/>
+                        <button string="Suspendre" name="set_suspendre"
+                                confirm="Êtes-vous sûr d'exécuter cette action ?"
+                                type="object"  class="oe_highlight" states="V"/>
+                        <button string="Reprendre" name="set_reprendre"
+                                confirm="Êtes-vous sûr d'exécuter cette action ?"
+                                type="object"  class="oe_highlight" states="S"/>
+                        <button string="Annuler" name="set_annuler"
+                                confirm="Êtes-vous sûr d'exécuter cette action ?"
+                                type="object"  class="oe_highlight" states="V"/>
+                        <button string="Solder" name="set_payer"
+                                confirm="Êtes-vous sûr d'exécuter cette action ?"
+                                type="object"  class="oe_highlight" states="V"/>
+                         <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="x_employe_id" string="Agent"
+                                attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="x_precompte_id" string="Element"
+                                attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+
+                            <field name="raison" attrs="{'readonly': [('state', '!=', 'draft')]}" required="True"/>
+                            <field name="date_validation" readonly="1" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="montant"/>
+                            <field name="montant_echeance"/>
+                            <field name="nbr_echeance" invisible="1"/>
+                            <field name="date_deb" invisible="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="fiche_paie_id" invisible="1"/>
+                            <field name="is_paye" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="motif_ann_paie" attrs="{
+                                'readonly': [('state', 'in', ('A', 'P'))]}"/>
+                        </group>
+                    </group>
+                     <notebook>
+                            <page string="Versement">
+                                <button string="Calculer" name="calcul_ta" type="object"
+                                        icon="fa-cogs"
+                                        class="oe_highlight" states="draft" invisible="1"/>
+                                <field name="lines_ids" nolabel="1" readonly="1">
+                                    <tree decoration-success ="state == 'V'"
+                                          decoration-info ="state == 'P'"
+                                          decoration-danger ="state == 'A'">
+                                        <field name="date" invisible="1"/>
+                                        <field name="payslip_id"/>
+                                        <field name="montant" sum="Total"/>
+                                        <field name="state" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                     </notebook>
+                    <group class="oe_subtotal_footer oe_right" colspan="2" >
+                        <field name="montant" widget="monetary" force_save="1" readonly="1"/>
+                        <field name="montant_paye" widget="monetary" force_save="1" readonly="1"/>
+                        <field name="montant_reste" class="oe_subtotal_footer_separator" widget="monetary" force_save="1" readonly="1"/>
+                    </group>
+                    <div class="oe_clear"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="act_hr_paie_precompte">
+		<field name="name">Liste des précomptes</field>
+		<field name="res_model">hr_paie_precompte</field>
+		<field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="act_hr_paie_precompte_element">
+		<field name="name">Liste des precompte element</field>
+		<field name="res_model">hr_paie_precompte_element</field>
+		<field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="main_menu_rappel" name ="Rappel et Retenue" parent="payroll.payroll_menu_root"  sequence="30"/>
+        <menuitem id="main_menu_rappel_rappel" name ="Rappel sur salaire" parent="main_menu_rappel" action="act_payroll_rappel" sequence="1" />
+<!--        <menuitem id="main_menu_rappel_rappel_elt" name ="Element Rappel" parent="main_menu_rappel" action="Gestion_RH.hr_rappel_element_action" sequence="2" />-->
+        <menuitem id="main_menu_rappel_trop_percu" name ="Trop perçu sur salaire" parent="main_menu_rappel" action="act_payroll_trop_percu" sequence="2" />
+<!--        <menuitem id="main_menu_rappel_trop_percu_elt" name ="Element trop perçu" parent="main_menu_rappel" action="Gestion_RH.hr_rappel_trop_percu_element_action" sequence="4" />-->
+        <menuitem id="main_menu_rappel_precompte" name ="Précompte" parent="main_menu_rappel" action="act_hr_paie_precompte" sequence="3" />
+<!--        <menuitem id="main_menu_rappel_precompte_elt" name ="Element Precompte" parent="main_menu_rappel" action="Gestion_RH.act_hr_paie_precompte_element" sequence="2" />-->
+
+</odoo>

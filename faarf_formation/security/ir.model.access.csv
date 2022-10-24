@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_faarf_module,faarf.module,model_faarf_module,base.group_user,1,1,1,1
+access_faarf_element_budget,faarf.element.budget,model_faarf_element_budget,base.group_user,1,1,1,1
+access_faarf_prog_prev,faarf.prog.prev,model_faarf_prog_prev,base.group_user,1,1,1,1
+access_faarf_prog_prev_line,faarf.prog.prev.line,model_faarf_prog_prev_line,base.group_user,1,1,1,1
+access_faarf_cout_prev,faarf.cout.prev,model_faarf_cout_prev,base.group_user,1,1,1,1
+access_faarf_formation,faarf.formation,model_faarf_formation,base.group_user,1,1,1,1
+access_faarf_formation_line,faarf.formation.line,model_faarf_formation_line,base.group_user,1,1,1,1
+access_faarf_formation_fichier,faarf.formation.fichier,model_faarf_formation_fichier,base.group_user,1,1,1,1
+access_faarf_bilan_formation,faarf.bilan.formation,model_faarf_bilan_formation,base.group_user,1,1,1,1
+access_faarf_bilan_formation_line,faarf.bilan.formation.line,model_faarf_bilan_formation_line,base.group_user,1,1,1,1
+access_faarf_budget_formation,faarf.budget.formation,model_faarf_budget_formation,base.group_user,1,1,1,1
+access_faarf_budget_formation_line,faarf.budget.formation.line,model_faarf_budget_formation_line,base.group_user,1,1,1,1
+access_faarf_tableau_bord,faarf.tableau.bord,model_faarf_tableau_bord,base.group_user,1,1,1,1
+access_faarf_tableau_bord_line,faarf.tableau.bord.line,model_faarf_tableau_bord_line,base.group_user,1,1,1,1
+access_faarf_suggestion,faarf.suggestion,model_faarf_suggestion,base.group_user,1,1,1,1

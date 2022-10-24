@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!--Vue tree des types de client-->
+        <record id="view_credit_type_client_tree" model="ir.ui.view">
+            <field name="name">credit_type_client</field>
+            <field name="model">credit_type_client</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client" create="false">
+                    <field name="codification"/>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Vue form des types de client-->
+        <record id="view_credit_type_client_form" model="ir.ui.view">
+            <field name="name">credit_type_client</field>
+            <field name="model">credit_type_client</field>
+            <field name="arch" type="xml">
+                <form string="Type de client" create="false" edit="false">
+                <sheet>
+                     <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+<!--                        <field name="code" style="width:50%"/>-->
+                        <field name="codification"/>
+                        <field name="name" style="width:50%"/>
+                        <field name="description" style="width:50%"/>
+                    </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--action des types de client-->
+        <record id="action_credit_type_client" model="ir.actions.act_window">
+            <field name="name">Liste des types de client</field>
+            <field name="res_model">credit_type_client</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!--Vue secteur d'activite -->
+        <record id="view_credit_secteur_activite_tree" model="ir.ui.view">
+            <field name="name">credit_secteur_activite.tree</field>
+            <field name="model">credit_secteur_activite</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des types de secteurs">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_credit_secteur_activite_form" model="ir.ui.view">
+            <field name="name">credit_secteur_activite.form</field>
+            <field name="model">credit_secteur_activite</field>
+            <field name="arch" type="xml">
+                <form string="Liste de types de secteurs">
+                    <sheet>
+                     <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="code" style="width:50%"/>
+                        <field name="name" style="width:50%"/>
+                        <field name="description" style="width:50%"/>
+                    </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_credit_secteur_activite" model="ir.actions.act_window">
+            <field name="name">Liste des Domaines d'activités</field>
+            <field name="res_model">credit_secteur_activite</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!--Vue secteur d'activite -->
+
+        <!--Vue  activite -->
+        <record id="view_credit_activite_tree" model="ir.ui.view">
+            <field name="name">credit_activite.tree</field>
+            <field name="model">credit_activite</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des types de secteurs">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_credit_activiteform" model="ir.ui.view">
+            <field name="name">credit_activite.form</field>
+            <field name="model">credit_activite</field>
+            <field name="arch" type="xml">
+                <form string="Liste de types de secteurs">
+                    <sheet>
+                     <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="code" style="width:50%"/>
+                        <field name="name" style="width:50%"/>
+                        <field name="description" style="width:50%"/>
+                    </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_credit_activite" model="ir.actions.act_window">
+            <field name="name">Liste des Domaines d'activités</field>
+            <field name="res_model">credit_activite</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!--Vue activite -->
+
+        <!--Vue objet de l'emprunt -->
+        <record id="view_credit_objet_emprunt_tree" model="ir.ui.view">
+            <field name="name">credit_objet_emprunt.tree</field>
+            <field name="model">credit_objet_emprunt</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des types de secteurs">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_credit_objet_emprunt_form" model="ir.ui.view">
+            <field name="name">credit_objet_emprunt.form</field>
+            <field name="model">credit_objet_emprunt</field>
+            <field name="arch" type="xml">
+                <form >
+                    <sheet>
+                     <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="code" style="width:50%"/>
+                        <field name="name" style="width:50%"/>
+                        <field name="description" style="width:50%"/>
+                    </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_credit_objet_emprunt" model="ir.actions.act_window">
+            <field name="name">Objet de l'emprunt</field>
+            <field name="res_model">credit_objet_emprunt</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!--Vue secteur d'activite -->
+
+        <!--Vue bailleur -->
+        <record id="view_credit_bailleur_tree" model="ir.ui.view">
+            <field name="name">credit_bailleur.tree</field>
+            <field name="model">credit_bailleur</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_credit_bailleur_form" model="ir.ui.view">
+            <field name="name">credit_bailleur.form</field>
+            <field name="model">credit_bailleur</field>
+            <field name="arch" type="xml">
+                <form string="Liste de types de secteurs">
+                    <sheet>
+                     <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="code" style="width:50%"/>
+                        <field name="name" style="width:50%"/>
+                        <field name="description" style="width:50%"/>
+                    </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_credit_bailleur" model="ir.actions.act_window">
+            <field name="name">Liste des Sources de financement</field>
+            <field name="res_model">credit_bailleur</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!--Vue bailleur -->
+
+        <!--Vue periodicite -->
+        <record id="view_credit_periodicite_tree" model="ir.ui.view">
+            <field name="name">credit_periodicite.tree</field>
+            <field name="model">credit_periodicite</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_credit_periodicite_form" model="ir.ui.view">
+            <field name="name">credit_periodicite.form</field>
+            <field name="model">credit_periodicite</field>
+            <field name="arch" type="xml">
+                <form string="Liste de types de secteurs">
+                    <sheet>
+                    <group>
+                        <field name="code" style="width:50%"/>
+                        <field name="name" style="width:50%"/>
+                    </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_credit_periodicite" model="ir.actions.act_window">
+            <field name="name">Périodicité</field>
+            <field name="res_model">credit_periodicite</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!--Vue periodicite -->
+</odoo>

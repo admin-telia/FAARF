@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Vue des credits remboursement-->
+    <record id="view_credit_credit_remboursement_tree" model="ir.ui.view">
+            <field name="name">credit_credit_remboursement.tree</field>
+            <field name="model">credit_credit_remboursement</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client">
+                    <field name="credit_id"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_credit_credit_remboursement_form" model="ir.ui.view">
+        <field name="name">view.credit_credit_remboursement.form</field>
+        <field name="model">credit_credit_remboursement</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header >
+                    <button name="payer" type="object" string="Payer"
+                            class="oe_highlight" icon="fa-check"
+                            style="background-color: #28a745; border-color: #28a745;"/>
+                </header>
+                <sheet>
+                    <group style="text-align: center; text-decoration:underline">
+                        <h1>Remboursement de prêts</h1>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="credit_id" force_save="1"
+                                   domain="[('state','=','DC')]"
+
+                                   options="{'no_create':True, 'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="montant_total" readonly="1" force_save="1" />
+                            <field name="solde" readonly="1" force_save="1"/>
+                            <field name="date"/>
+                            <field name="datep"/>
+                        </group>
+                        <group>
+                            <field name="montant_p_paye" readonly="1" force_save="1"/>
+                            <field name="interet_paye" readonly="1" force_save="1"/>
+                            <field name="garantie_paye" readonly="1" force_save="1"/>
+                            <field name="montant_t_paye" readonly="1" force_save="1"/>
+                            <field name="montant_a_payer" force_save="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="penalite" readonly="1" force_save="1"/>
+                            <field name="montant_arriere" readonly="1" force_save="1"/>
+                            <field name="date_arriere" readonly="1" force_save="1"/>
+                            <field name="interet_arriere" readonly="1" force_save="1"/>
+                            <field name="montant_p_arriere" readonly="1" force_save="1"/>
+                            <field name="garantie_arriere" readonly="1" force_save="1"/>
+                            <field name="interet" readonly="1" force_save="1"/>
+                            <field name="montant" readonly="1" force_save="1"/>
+                            <field name="garantie" readonly="1" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="penalite_p" readonly="1" nolabel="0" force_save="1"/>
+                            <field name="interet_arriere_p" readonly="1" nolabel="0" force_save="1"/>
+                            <field name="montant_p_arriere_p" readonly="1" nolabel="0" force_save="1"/>
+                            <field name="garantie_arriere_p" readonly="1" force_save="1"/>
+                            <field name="interet_p" readonly="1" nolabel="0" force_save="1"/>
+                            <field name="montant_p" readonly="1" nolabel="0" force_save="1"/>
+                            <field name="garantie_p" readonly="1" force_save="1"/>
+                            <field name="interet_anticipe" readonly="1" force_save="1"/>
+                            <field name="montant_anticipe" readonly="1" force_save="1"/>
+                            <field name="garantie_anticipe" readonly="1" force_save="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_credit_credit_remboursement" model="ir.actions.act_window">
+        <field name="name">Remboursement de crédit</field>
+        <field name="res_model">credit_credit_remboursement</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <!--Vue des credits remboursement line-->
+    
+    <record id="view_credit_credit_remboursement_tree" model="ir.ui.view">
+            <field name="name">credit_credit_remboursement_line.tree</field>
+            <field name="model">credit_credit_remboursement_line</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client">
+                    <field name="credit_id"/>
+                    <field name="transaction"/>
+                    <field name="montant_p"/>
+                    <field name="interet_p"/>
+                    <field name="penalite_p"/>
+                </tree>
+            </field>
+        </record>
+    
+    <record id="action_credit_credit_remboursement_line" model="ir.actions.act_window">
+        <field name="name">Remboursement de crédit trans</field>
+        <field name="res_model">credit_credit_remboursement_line</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
+
+@api.model
+    def create(self, vals):
+        print("Maaaaxx")
+        if not vals['client_id']:
+            raise ValidationError("Veuillez d'abord selectionner la cliente avant d'en choisir les membres")
+
+        print("Maaaaxx2")
+        rec = self._cr.execute("SELECT * FROM client_clients WHERE parent_id=%s and child_id=%s",
+                               [vals['client_id'].id], vals['membre_id'].id)
+        rec = self.env['client_clients'].search([
+            ('parent_id', '=', vals['client_id'].id),
+            ('child_id', '=', vals['membre_id'].id)
+        ])
+
+        print("Maaaaxx3")
+        if not rec:
+            self.env['client_clients'].create({
+                'parent_id': vals['client_id'].id,
+                'child_id': vals['membre_id'].id
+            })
+
+        result = super(CreditCreditMembre, self).create(vals)
+        return result
+
+    def write(self, vals):
+        """Override default Odoo write function and extend."""
+        if not vals['client_id']:
+            raise ValidationError("Veuillez d'abord selectionner la cliente avant d'en choisir les membres")
+
+        rec = self.env['client_clients'].search([
+            ('parent_id', '=', vals['client_id'].id),
+            ('child_id', '=', vals['membre_id'].id)
+        ])
+
+        if not rec:
+            self.env['client_clients'].create({
+                'parent_id': vals['client_id'].id,
+                'child_id': vals['membre_id'].id
+            })
+        result = super(CreditCreditMembre, self).create(vals)
+        return result
+
+@api.model
+    def create(self, vals):
+        if not vals['client_id']:
+            raise ValidationError("Veuillez d'abord selectionner la cliente avant d'en choisir les membres")
+
+        rec = self._cr.execute("SELECT * FROM client_clients WHERE parent_id=%s and child_id=%s",
+                               [vals['client_id'], vals['membre_id']])
+
+        if not rec:
+            self._cr.execute("INSERT INTO client_clients (parent_id, child_id) values (%s, %s)",
+                             [vals['client_id'], vals['membre_id']])
+
+        result = super(CreditCreditMembre, self).create(vals)
+        return result
+
+    def write(self, vals):
+        """Override default Odoo write function and extend."""
+        result = super(CreditCreditMembre, self).write(vals)
+
+        if not self.client_id:
+            raise ValidationError("Veuillez d'abord selectionner la cliente avant de choisir les membres")
+
+        rec = self._cr.execute("SELECT * FROM client_clients WHERE parent_id=%s and child_id=%s",
+                               [self.client_id, self.membre_id])
+
+        if not rec:
+            self._cr.execute("INSERT INTO client_clients (parent_id, child_id) values (%s, %s)",
+                             [self.client_id, self.membre_id])
+
+        return result
+
+<page name="membres"  string="Membres du bureau" attrs="{'invisible':[('type_client_code','==','IND')]}">
+                            <group>
+                                <group>
+                                    <field name="presidente_id" />
+                                    <field name="secretaire_id" />
+                                    <field name="tresoriere_id" />
+                                </group>
+                            </group>
+                        </page>

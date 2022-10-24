@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record model="ir.ui.view" id="view_hr_employee_registre_tree">
+		<field name="name">view.hr_employee_registre.tree</field>
+		<field name="model">hr_employee_registre</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="struct_ids"/>
+                <field name="department_ids"/>
+                <field name="x_emploi_ids"/>
+				<field name="x_fonction_ids"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="view_hr_employee_registre_form">
+		<field name="name">view._hr_employee_registre.form</field>
+		<field name="model">hr_employee_registre</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+                    <button class="oe_highlight" name="set_afficher" type="object"
+                            style="background-color: #28a745; border-color: #28a745;"
+                            icon="fa-cogs" string="Rechercher"/>
+                </header>
+				<sheet>
+					<group>
+						<group>
+							<field name="struct_ids" widget="many2many_tags"/>
+							<field name="department_ids" widget="many2many_tags"/>
+						</group>
+						<group>
+							<field name="x_emploi_ids" widget="many2many_tags"/>
+							<field name="x_fonction_ids" widget="many2many_tags"/>
+						</group>
+					</group>
+					<notebook>
+						<page string="Employés">
+							<field name="line_ids" nolabel="1">
+								<tree>
+									<field name="ordre"/>
+									<field name="name"/>
+									<field name="matricule_genere"/>
+									<field name="type"/>
+									<field name="direction"/>
+									<field name="fonction"/>
+									<field name="emploi"/>
+									<field name="categorie"/>
+									<field name="echelle"/>
+									<field name="echelon"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_hr_employee_registre">
+			<field name="name">Registre des employés</field>
+			<field name="res_model">hr_employee_registre</field>
+			<field name="view_mode">tree,form</field>
+
+	</record>
+</odoo>

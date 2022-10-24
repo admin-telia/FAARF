@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--Vue tree des demande de partenariat-->
+        <record id="view_faarf_demande_partenariat_tree" model="ir.ui.view">
+            <field name="name">faarf.demande.partenariat.tree</field>
+            <field name="model">faarf.demande.partenariat</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des demandes de partenariat">
+                    <field name="dte_dmde"/>
+                    <field name="name"/>
+                    <field name="partenaire_id"/>
+                    <field name="objet"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Vue form des module-->
+        <record id="view_faarf_demande_partenariat_form" model="ir.ui.view">
+            <field name="name">faarf.demande.partenariat.form</field>
+            <field name="model">faarf.demande.partenariat</field>
+            <field name="arch" type="xml">
+                <form string="Liste des demandes de partenariat">
+                    <header>
+                        <button class="oe_highlight" name="valider" type="object"
+                                string="Valider la demande" attrs="{'invisible':[('state','in',['V'])]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="company_id" invisible="1"/>
+                            <field name="name"/>
+                            <field name="dte_dmde" style="width:35%"/>
+                            <field name="partenaire_id" style="width:50%" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                        </group>
+                            <h1><field name="objet" placeholder="Objet de la demande de partenariat"/></h1>
+                        <group string="Ensemble de fichiers">
+                            <field name="fichier_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="libelle"/>
+                                    <field name="fichier_id"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--action des partenaires-->
+        <record id="action_dmde_part" model="ir.actions.act_window">
+            <field name="name">Liste des demandes de partenariat</field>
+            <field name="res_model">faarf.demande.partenariat</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    <!--Vue tree des conventions-->
+        <record id="view_faarf_convention_tree" model="ir.ui.view">
+            <field name="name">faarf.convention.tree</field>
+            <field name="model">faarf.convention</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des conventions">
+                    <field name="dte_dmde"/>
+                    <field name="name"/>
+                    <field name="demande_id"/>
+                    <field name="dte_debut"/>
+                    <field name="dte_fin"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Vue form des module-->
+        <record id="view_faarf_convention_form" model="ir.ui.view">
+            <field name="name">faarf.convention.form</field>
+            <field name="model">faarf.convention</field>
+            <field name="arch" type="xml">
+                <form string="Liste des conventions">
+                    <header>
+                        <button class="oe_highlight" name="valider" type="object"
+                                string="Valider la convention" attrs="{'invisible':[('state','in',['E','R','A'])]}"/>
+                        <button class="oe_highlight" name="renouveller" type="object"
+                                string="Renouveller la convention" attrs="{'invisible':[('state','in',['R','A','N'])]}"/>
+                        <button class="oe_highlight" name="annuler" type="object"
+                                string="Annuler la convention" attrs="{'invisible':[('state','in',['A','N'])]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group col="2">
+                            <group>
+                                 <field name="company_id" invisible="1"/>
+                                <field name="name"/>
+                                <field name="demande_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            </group>
+                            <group>
+                                <field name="dte_dmde"/>
+                                <label for="dte_debut" string="Date debut-Date fin"/>
+                                    <div class="o_row">
+                                        <field name="dte_debut"  nolabel="1" class="oe_inline"/>
+                                        <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
+                                        <field name="dte_fin" nolabel="1" class="oe_inline"/>
+                                    </div>
+                            </group>
+                        </group>
+                            <group><field name="resume"/></group>
+                        <group string="Ensemble de fichiers">
+                            <field name="fichier_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="libelle"/>
+                                    <field name="fichier_id"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+    <!--action des conventions-->
+        <record id="action_convention" model="ir.actions.act_window">
+            <field name="name">Liste des conventions</field>
+            <field name="res_model">faarf.convention</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+    <!--Vue form des module-->
+        <record id="view_faarf_historisation_form" model="ir.ui.view">
+            <field name="name">faarf.historisation.form</field>
+            <field name="model">faarf.historisation</field>
+            <field name="arch" type="xml">
+                <form string="Liste des historisations">
+                    <header>
+                        <button class="oe_highlight" name="valider" type="object"
+                                string="Valider" attrs="{'invisible':[('state','in',['V'])]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group col="2">
+                            <group>
+                                <field name="dte_hist" style="width:50%"/>
+                                <field name="type_hist" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}" style="width:50%"/>
+                                <field name="name" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}" style="width:50%"/>
+                            </group>
+                            <group><field name="observation"/></group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_faarf_historisation_tree" model="ir.ui.view">
+            <field name="name">faarf.historisation.tree</field>
+            <field name="model">faarf.historisation</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des historisations">
+                    <field name="dte_hist"/>
+                    <field name="name"/>
+                    <field name="type_hist"/>
+                    <field name="observation"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+    <!--action des conventions-->
+        <record id="action_historisation" model="ir.actions.act_window">
+            <field name="name">Liste des historisations</field>
+            <field name="res_model">faarf.historisation</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- MenuItem Donnees de base -->
+
+    <menuitem id="conv" name="Conventions" parent="menu_gestion_conv_part" sequence="3"/>
+    <menuitem id="menu_conve_part" name="Saisie/Màj d'une demande de partenariat" parent="conv" action="action_dmde_part" sequence="1"/>
+<!--        <menuitem id="menu_visu_conve_part" name="Visu/Edition demande de partenariat" parent="conv" action="action_dmde_part" sequence="2"/>-->
+
+    <menuitem id="menu_conve" name="Enregistrer une convention" parent="conv" action="action_convention" sequence="3"/>
+<!--    <menuitem id="menu_visu_conve" name="Visu/Edition convention" parent="conv" action="action_convention" sequence="4"/>-->
+    <menuitem id="menu_visu_conve" name="Historisation des échanges" parent="conv" action="action_historisation" sequence="5"/>
+
+</odoo>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_credit_credit_transfert_tree" model="ir.ui.view">
+            <field name="name">credit_credit_transfert.tree</field>
+            <field name="model">credit_credit_transfert</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client"
+                      decoration-bf="state == 'A' "
+                      decoration-success="state == 'A'" >
+                    <field name="gestionnaire_de_id"/>
+                    <field name="gestionnaire_a_id"/>
+                    <field name="date_transf"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+    <record id="credit_credit_transfert_form" model="ir.ui.view">
+        <field name="name">view.credit_credit_transfert.form</field>
+        <field name="model">credit_credit_transfert</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+                    <button class="oe_highlight" name="set_validate"
+                            type="object" icon="fa-check" string="Transferer"
+                            states="B"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <table class="table" style="width:50%">
+                            <tr>
+                                <td style="border:none">
+                                   <label for="gestionnaire_de_id" string="De la gestionnaire"/>
+                                </td>
+                                <td  style="border:none">
+                                    <field name="gestionnaire_de_id"/>
+                                </td>
+                                <td style="border:none">
+                                   <label for="gestionnaire_a_id" string="A la gestionnaire"/>
+                                </td>
+                                <td style="border:none">
+                                    <field name="gestionnaire_a_id"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </group>
+                    <group>
+                        <field name="motif" attrs="{'readonly':[('state','=','T')]}"/>
+                        <field name="date_transf" readonly="1" force_save="1"/>
+                    </group>
+                    <group>
+                        <field name="credit_ids"
+                               nolabel="1"
+                               attrs="{'readonly':[('state','=','T')]}"
+                               domain="[
+                                   ('gestionnaire_id.id','=', gestionnaire_de_id)]">
+                            <tree create="false">
+                                <field name="name"/>
+                                <field name="cliente_id"/>
+                                <field name="type_client"/>
+                                <field name="telephone"/>
+                                <field name="montant_accorde"/>
+                                <field name="gestionnaire_id"/>
+                            </tree>
+                            <form>
+                                <field name="name"/>
+                            </form>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_credit_credit_transfert" model="ir.actions.act_window">
+        <field name="name">Transfert de portefeuille</field>
+        <field name="res_model">credit_credit_transfert</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

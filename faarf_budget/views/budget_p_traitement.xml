@@ -1,0 +1,1852 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+<record model="ir.ui.view" id="view_budg_engagement_p_form">
+    <field name="name">view.engagementp.form</field>
+    <field name="model">budg_engagement_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Engagement">
+            <header>
+              <button string="Confirmer" name="action_eng_confirmer" type="object" class="oe_highlight"
+              attrs="{'invisible' : [('state', 'not in', ['draft'])]}" groups="faarf_budget.agent_budget_depense"/>
+              <field name="state" widget = "statusbar"/>
+            </header>
+        <sheet>
+        <notebook>
+        	<page string="Engagement">
+            <group col="2">
+                <group string="Engagement">
+                    <field name="no_eng" style = "width:50%" force_save="1"/>
+                	<field name="cumul" style = "width:50%" invisible="1"/>
+					<field name="credit_disponible" style = "width:50%" invisible="1"/>
+                	<field name="dt_etat" style = "width:35%" force_save="1"/>
+                	<field name="typedossier" style = "width:100%" invisible="1"/>
+                    <field name="type_procedure" style = "width:75%" options="{'no_create': True}"/>
+                 	<field name="lb_obj" style = "width:75%"/>
+                    <field name="type_beneficiaire_id" style = "width:75%" options="{'no_create': True}"/>
+                    <field name="no_beneficiaire" style = "width:75%" domain = "[('type_beneficiaire_id' ,'=', type_beneficiaire_id)]"/>
+                    <field name="bank_id" style = "width:75%" options="{'no_create': True}" force_save='1'/>
+					<field name="acc_number" style = "width:75%" options="{'no_create': True}" force_save='1'/>
+                    <field name="modereg" options="{'no_create': True}" style = "width:75%"/>
+                    <field name="ref_mp" options="{'no_create': True}" style = "width:75%"/>
+                </group>
+                <group string="Imputation">
+                    <field name="section_id" style = "width:100%" options="{'no_create': True}"/>
+                    <field name="prog_id" style = "width:100%" force_save="1" options="{'no_create': True}"/>
+                    <field name="action_id" style = "width:100%" force_save="1" options="{'no_create': True}"/>
+                    <field name="chapitre_id" style = "width:100%" options="{'no_create': True}"/>
+                    <field name="activite_id" style = "width:100%" options="{'no_create': True}"/>
+                    <field name="article_id" style = "width:100%" options="{'no_create': True}"/>
+                    <field name="parag_id" style = "width:100%" options="{'no_create': True}"/>
+                    <field name="rubrique_id" style = "width:100%" options="{'no_create': True}"/>
+					<field name="motif_rejet" style = "width:75%" attrs="{'invisible' : [('state', 'not in', ['R'])]}"/>
+                    <field name="mnt_annule" style = "width:50%" invisible="1"/>
+                	<field name="mnt_tot_eng" style = "width:50%" invisible="1"/>
+                	<field name="mnt_lbudg_ap" style = "width:50%" invisible="1" force_save = "1"/>
+                	<field name="credit_eng" style = "width:50%" invisible="1"/>
+                    <field name="credit_dispo" style = "width:50%" force_save = "1"/>
+                    <field name="mnt_eng" style = "width:50%"/>
+                </group>
+            </group>
+                <group invisible="1">
+                	<field name="company_currency_id" invisible="1"/>
+                    <field name="text_amount" invisible="1"/>
+                    <field name="ref_mp" style = "width:75%" options="{'no_create': True}" invisible="1"/>
+                    <field name="cpte_benef" invisible="1"/>
+                    <field name="cpte_rub" invisible="0"/>
+                    <field name="imput_benef" invisible="0"/>
+					<field name="reste" invisible="1"/>
+                </group>
+                    <field name="x_exercice_id" invisible="1" force_save="1"/>
+					<field name="current_users" invisible ="1" force_save="1"/>
+                    <field name="company_id" invisible="1"/>
+					<field name="signataire_1" invisible="1" force_save="1"/>
+                    <field name="signataire_2" invisible="1" force_save="1"/>
+             </page>
+            <page string = "Pièces justificatives">
+                <field name = "piecejust_ids" nolabel ="1">
+             	<tree string = "Pièces justificatives" editable = "bottom">
+             		<field name = "lb_long" />
+             		<field name = "oblige"/>
+             		<field name = "ref"/>
+					<field name = "dte"/>
+             		<field name = "montant"/>
+             		<field name = "nombre"/>
+             	</tree>
+             </field>
+            </page>
+            </notebook>
+        </sheet>
+        </form>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="view_budg_engagement_p_tree">
+    <field name="name">view.engagementp.tree</field>
+    <field name="model">budg_engagement_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <tree decoration-info="state in ('L','LC')" decoration-warning="state == 'V'" decoration-success="state == 'W'" decoration-danger="state == 'A'" string="Engagement">
+            <field name="x_exercice_id"/>
+            <field name="dt_etat"/>
+            <field name="no_eng"/>
+            <field name="no_beneficiaire"/>
+            <field name="lb_obj"/>
+            <field name="company_currency_id" invisible="1"/>
+            <field name="mnt_eng" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+            <field name="state"/>
+        </tree>
+    </field>
+</record>
+
+
+<record id="act_engagement_p" model="ir.actions.act_window">
+    <field name="name">Liste des engagements</field>
+    <field name="res_model">budg_engagement_p</field>
+    <field name="view_mode">tree,form,kanban,graph</field>
+</record>
+
+
+
+<record model="ir.ui.view" id="view_appro_eng_group_p_form">
+    <field name="name">view.appro.engagement_p.group.form</field>
+    <field name="model">budg_appro_group_eng_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Appro engagement group">
+            <header>
+                <button string="Afficher" name="afficher" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('state', 'in', ['V'])]}"/>
+                <button string="Confirmer Approbation" name="approuver" type="object" class="oe_highlight"
+				attrs="{'invisible' : [('state', 'in', ['V'])]}"/>
+                <field name="state" widget = "statusbar"/>
+            </header>
+            <sheet>
+                    <group>
+	                    <group>
+	                    	<field name="dte" style = "width:35%" force_save="1" options="{'no_create': True}"/>
+	                    </group>
+	                    <group>
+	                    	<field name="x_exercice_id" invisible="1" force_save="1"/>
+							<field name="current_users" invisible ="1" force_save="1"/>
+							<field name="company_id" style = "width:50%" force_save="1"/>
+	                    </group>
+                    </group>
+                    <field name="appro_ids">
+		                <tree string="Approbation Engagement" editable='bottom'>
+							<field name="eng_id" force_save="1"/>
+	                    	<field name="section_id" force_save="1"/>
+                            <field name="prog_id" force_save="1"/>
+                            <field name="action_id" force_save="1"/>
+	                   		<field name="chapitre_id" force_save="1"/>
+							<field name="activite_id" force_save="1"/>
+                            <field name="article_id" force_save="1"/>
+							<field name="parag_id" force_save="1"/>
+							<field name="rubrique_id" force_save="1"/>
+							<field name="objet" force_save="1"/>
+							<field name="mnt" force_save="1"/>
+							<field name="approuver" force_save="1"/>
+							<field name="x_exercice_id" invisible="1"/>
+	                   		<field name="company_id" invisible="1" />
+							<field name="typeprocedure" invisible="1" />
+	                    </tree>
+                    </field>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+
+<record id="act_appro_eng_p" model="ir.actions.act_window">
+    <field name="name">Approbation Engagement</field>
+    <field name="res_model">budg_appro_group_eng_p</field>
+    <field name="view_mode">form</field>
+</record>
+
+
+        <record model="ir.ui.view" id="view_annulation_eng_p_form">
+    <field name="name">view.annulation.engagementp.form</field>
+    <field name="model">budg_annulation_engagement_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Annulation engagement">
+            <header>
+                <button string="ANNULER" name="annuler_engagement" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('state', 'not in', ['V'])]}"/>
+                <field name="state" widget = "statusbar"/>
+            </header>
+            <sheet>
+                <group>
+                    <group>
+                    	<field name="eng_id" style = "width:35%" force_save="1" options="{'no_create': True}"/>
+                    	<field name="objet" style = "width:50%" force_save="1"/>
+						<field name="beneficiaire" style = "width:50%" force_save="1"/>
+                    	<field name="mnt" style = "width:50%" force_save="1"/>
+                    </group>
+                    <group>
+						<field name="section_id" force_save="1"/>
+                        <field name="prog_id" force_save="1"/>
+                        <field name="action_id" force_save="1"/>
+                        <field name="chapitre_id" force_save="1"/>
+                        <field name="activite_id" force_save="1"/>
+                        <field name="article_id" force_save="1"/>
+                        <field name="parag_id" force_save="1"/>
+                        <field name="rubrique_id" force_save="1"/>
+                    </group>
+                </group>
+                		<field name="x_exercice_id" invisible="1" force_save="1"/>
+						<field name="current_users" invisible ="1" force_save="1"/>
+                   		<field name="company_id" invisible="1"/>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+
+<record id="act_annulation_eng_p" model="ir.actions.act_window">
+    <field name="name">Annulation Engagement</field>
+    <field name="res_model">budg_annulation_engagement_p</field>
+    <field name="view_mode">form</field>
+</record>
+
+
+        <record model="ir.ui.view" id="view_correction_eng_p_form">
+    <field name="name">view.correction.engagementp.form</field>
+    <field name="model">budg_correction_engagement_approbation_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Correction engagement après approbation">
+            <header>
+                <button string="CORRIGER" name="corriger" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('state', 'not in', ['V'])]}"/>
+                <field name="state" widget = "statusbar"/>
+            </header>
+            <sheet>
+                <group>
+                    <group>
+                    	<field name="eng_id" style = "width:35%" force_save="1" options="{'no_create': True}"/>
+                    	<field name="objet" style = "width:50%" force_save="1"/>
+						<field name="beneficiaire" style = "width:50%" force_save="1"/>
+                    	<field name="mnt" style = "width:50%" force_save="1"/>
+
+                    </group>
+                    <group>
+						<field name="section_id" force_save="1"/>
+                        <field name="prog_id" force_save="1"/>
+                        <field name="action_id" force_save="1"/>
+                        <field name="chapitre_id" force_save="1"/>
+                        <field name="activite_id" force_save="1"/>
+                        <field name="article_id" force_save="1"/>
+                        <field name="parag_id" force_save="1"/>
+                        <field name="rubrique_id" force_save="1"/>
+                    </group>
+                </group>
+                    <field name="x_exercice_id" invisible="1" force_save="1"/>
+				    <field name="current_users" invisible ="1" force_save="1"/>
+                    <field name="company_id" invisible="1" />
+
+            </sheet>
+        </form>
+    </field>
+</record>
+
+
+<record id="act_correction_eng_p" model="ir.actions.act_window">
+    <field name="name">Correction Engagement</field>
+    <field name="res_model">budg_correction_engagement_approbation_p</field>
+    <field name="view_mode">form</field>
+</record>
+
+
+        <record model="ir.ui.view" id="view_id_bordereau_engagement_p_form">
+    <field name="name">view.bordereau.engagementp.form</field>
+    <field name="model">budg_bordereau_engagement_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Mise en Bordereau Engagement">
+            <header>
+                <button icon ="fa-paper-plane" string="Envoyer à DCMEF/CG" name="action_generer_bord_eng" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('state', 'not in', ['N'])]}"/>
+                <field name="state" widget = "statusbar"/>
+            </header>
+            <sheet>
+                <group string="Bordereau d'engagement" col="2">
+                    <group>
+                    	<field name="no_bord_en" style = "width:35%" force_save="1"/>
+                    	<field name="cd_acteur" style = "width:35%"/>
+                    	<field name="cd_acteur_accuse" style = "width:15%" invisible="1"/>
+                    	<field name="totaux" invisible="1"/>
+                    	<field name="text_amount" invisible="1"/>
+                    </group>
+                    <group>
+                    	<field name="date_emis" style = "width:20%"/>
+                   		<field name="type_bord_trsm" style = "width:100%" />
+                    </group>
+					<field name="signataire_2" invisible="1" force_save="1"/>
+                    <field name="signataire_3" invisible="1" force_save="1"/>
+                </group>
+                <field name="engagement_ids" options="{'no_create': True}" force_save="1"/>
+                		<field name="x_exercice_id" invisible="1" force_save="1"/>
+						<field name="current_users" invisible ="1" force_save="1"/>
+                   		<field name="company_id" invisible="1" />
+                   		<field name="total_prec" invisible="1"/>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+
+<record model="ir.ui.view" id="view_id_bordereau_engagement_p_tree">
+    <field name="name">view.engagementp.tree</field>
+    <field name="model">budg_bordereau_engagement_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <tree decoration-info="state == 'T'" decoration-success="state == 'R'" string="Engagement">
+            <field name="x_exercice_id"/>
+            <field name="no_bord_en"/>
+            <field name="date_emis"/>
+			<field name="date_recus"/>
+            <field name="type_bord_trsm"/>
+            <field name="state"/>
+        </tree>
+    </field>
+</record>
+
+<record id="act_bordereau_engagement_p" model="ir.actions.act_window">
+    <field name="name">Mise en bordereau pour DCMEF/CG</field>
+    <field name="res_model">budg_bordereau_engagement_p</field>
+    <field name="view_mode">tree,form,kanban</field>
+</record>
+
+
+
+        <record model="ir.ui.view" id="view_id_bordereau_engagement_p_ctrl_form">
+    <field name="name">view.bordereau.engagementp.ctrl.form</field>
+    <field name="model">budg_bordereau_engagement_controle_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Mise en Bordereau Engagement">
+            <header>
+                <button icon ="fa-download" string="Réceptionner" name="receptionner" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('state', 'not in', ['N'])]}"/>
+                <field name="state" widget = "statusbar"/>
+            </header>
+            <sheet>
+                <group string="Bordereau d'engagement" col="2">
+                    <group>
+                    	<field name="no_bord_en" style = "width:35%" force_save="1"/>
+                    	<field name="bord_recu" style = "width:35%" options="{'no_create': True}"/>
+                    	<field name="cd_acteur_accuse" style = "width:15%" invisible="1"/>
+                    	<field name="totaux" invisible="1"/>
+                    </group>
+                    <group>
+                    	<field name="date_recus" style = "width:30%"/>
+						<field name="cd_acteur" style = "width:35%"/>
+                   		<field name="x_exercice_id" invisible="1" force_save="1"/>
+						<field name="current_users" invisible ="1" force_save="1"/>
+                    </group>
+                </group>
+
+                <group>
+                <field name="engagement_ids" nolabel="1" options="{'no_create': True}">
+             	<tree string = "Pièces justificatives" decoration-success="state == 'W'" decoration-danger="state == 'R'">
+             		<field name = "no_eng" force_save='1'/>
+             		<field name = "dt_etat" force_save='1'/>
+             		<field name = "lb_obj" force_save='1'/>
+             		<field name = "mnt_eng" force_save='1'/>
+             		<field name = "x_exercice_id" invisible="1" force_save='1'/>
+					<field name = "current_users" invisible="1" force_save='1'/>
+             		<field name = "company_id" invisible="1" force_save='1'/>
+             		<field name="section_id" force_save="1"/>
+                    <field name="prog_id" force_save="1"/>
+                    <field name="action_id" force_save="1"/>
+                    <field name="chapitre_id" force_save="1"/>
+                    <field name="activite_id" force_save="1"/>
+                    <field name="article_id" force_save="1"/>
+                    <field name="parag_id" force_save="1"/>
+                    <field name="rubrique_id" force_save="1"/>
+             		<field name = "type_procedure" invisible="1" force_save='1'/>
+             		<field name = "type_beneficiaire_id" invisible="1" force_save='1'/>
+             		<field name = "no_beneficiaire" invisible="1" force_save='1'/>
+             		<field name = "envoyer_daf" invisible="1" force_save='1'/>
+					<field name = "state" invisible="0" force_save='1'/>
+             	</tree>
+             </field>
+             </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="view_budg_liste_engagement_p_form">
+    <field name="name">view.budg_liste_engagmentp.form</field>
+    <field name="model">budg_liste_engagment_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Engagement">
+        <header>
+        <button string="Viser" name="viser" type="object" class="oe_highlight"
+        		attrs="{'invisible' : [('state', 'not in', ['V'])]}"/>
+                <button string="Rejéter" name="rejeter" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('state', 'not in', ['V'])]}" />
+               <field name="state" widget = "statusbar"/>
+        </header>
+        <sheet>
+            <group>
+                <group string="Engagement">
+                	<field name="dt_etat" style = "width:35%" force_save="1"/>
+                    <field name="no_eng" style = "width:50%" force_save="1"/>
+                    <field name="type_procedure" force_save="1" style = "width:75%" options="{'no_create': True}"/>
+                 	<field name="lb_obj" force_save="1"/>
+                 	<field name="type_beneficiaire_id" style = "width:75%" force_save="1" options="{'no_create': True}"/>
+                    <field name="no_beneficiaire" style = "width:75%" force_save="1" domain = "[('type_beneficiaire_id' ,'=', type_beneficiaire_id)]"/>
+                 	<field name="mnt_eng" style = "width:50%" force_save="1"/>
+                    <field name="motif_rejet"/>
+					<field name="observation" style = "width:100%"/>
+                 	<field name="envoyer_daf" force_save="1" invisible="1"  style = "width:35%"/>
+                 </group>
+                <group string="Imputation">
+                    <field name="section_id" force_save="1"/>
+                    <field name="prog_id" force_save="1"/>
+                    <field name="action_id" force_save="1"/>
+                    <field name="chapitre_id" force_save="1"/>
+                    <field name="activite_id" force_save="1"/>
+                    <field name="article_id" force_save="1"/>
+                    <field name="parag_id" force_save="1"/>
+                    <field name="rubrique_id" force_save="1"/>
+                    <field name="x_exercice_id" invisible="1" force_save="1"/>
+				</group>
+             </group>
+
+					<field name="current_users" invisible ="1" force_save="1"/>
+                    <field name="company_id" invisible="1"/>
+              <button string="Voir les pièces justificatives" name="afficher_piece" type="object" class="oe_highlight"/>
+              <group>
+                   <field name = "piecejust_ids" nolabel ="1">
+		             	<tree string = "Pièces justificatives" editable = "bottom">
+		             		<field name = "lib" />
+		             		<field name = "ref"/>
+							<field name = "dte"/>
+		             		<field name = "mnt"/>
+		             		<field name = "nbr"/>
+							<field name = "oblige"/>
+		             	</tree>
+	               </field>
+             </group>
+        </sheet>
+        </form>
+    </field>
+</record>
+
+
+
+<record model="ir.ui.view" id="view_id_bordereau_engagement_p_ctrl_tree">
+    <field name="name">view.engagementp.ctrl.tree</field>
+    <field name="model">budg_bordereau_engagement_controle_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+         <tree string="Engagement">
+            <field name="x_exercice_id"/>
+            <field name="no_bord_en"/>
+			<field name="date_recus"/>
+            <field name="type_bord_trsm"/>
+            <field name="state"/>
+        </tree>
+    </field>
+</record>
+
+
+<record id="act_bord_eng_ctrl_p" model="ir.actions.act_window">
+    <field name="name">Réception bordereau d'engagement DFC</field>
+    <field name="res_model">budg_bordereau_engagement_controle_p</field>
+    <field name="view_mode">tree,form,kanban</field>
+</record>
+
+
+<record model="ir.ui.view" id="view_id_bordereau_engagementp_ctrl_renvoi_forms">
+    <field name="name">view.bordereau.engagementp.ctrl.reNVOI.form</field>
+    <field name="model">budg_bordereau_engagement_renvoi_daf_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Mise en Bordereau Engagement">
+            <header>
+                <button icon ="fa-paper-plane" string="Envoyer bordereau à DAF/DFC" name="envoyer" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('state', 'not in', ['N'])]}"/>
+                <field name="state" widget = "statusbar"/>
+            </header>
+            <sheet>
+                <group string="Bordereau d'engagement" col="2">
+                    <group>
+                    	<field name="no_bord_en" style = "width:35%" force_save="1" invisible="1"/>
+                    	<field name="bord_recu" style = "width:35%" options="{'no_create': True}" invisible="1"/>
+                    	<field name="date_emis" style = "width:20%"/>
+						<field name="cd_acteur_accuse" style = "width:15%" invisible="1"/>
+                    	<field name="totaux" invisible="1"/>
+                    </group>
+                    <group>
+						<field name="cd_acteur" style = "width:35%"/>
+						<field name="x_exercice_id" invisible="1" force_save="1"/>
+						<field name="current_users" invisible ="1" force_save="1"/>
+						<field name="company_id" invisible ="1" force_save="1"/>
+					</group>
+					<field name="signataire_3" invisible="1" force_save="1"/>
+                    <field name="signataire_2" invisible="1" force_save="1"/>
+                </group>
+
+                	<button string="Afficher engagements à envoyer" name="afficher" type="object" class="oe_highlight"/>
+                <group>
+                <field name="engagement_ids" nolabel="1" >
+				<tree string = "Pièces justificatives" editable="bottom" decoration-success="envoyer == 'Y'" decoration-danger="envoyer == 'N'">
+             		<field name = "no_eng" force_save='1'/>
+             		<field name = "dt_etat" force_save='1'/>
+             		<field name = "lb_obj" force_save='1'/>
+             		<field name = "mnt_eng" force_save='1'/>
+             		<field name = "x_exercice_id" invisible="1" force_save='1'/>
+             		<field name = "company_id" invisible="1" force_save='1'/>
+             		<field name="section_id" force_save="1"/>
+                    <field name="prog_id" force_save="1"/>
+                    <field name="action_id" force_save="1"/>
+                    <field name="chapitre_id" force_save="1"/>
+                    <field name="activite_id" force_save="1"/>
+                    <field name="article_id" force_save="1"/>
+                    <field name="parag_id" force_save="1"/>
+                    <field name="rubrique_id" force_save="1"/>
+             		<field name = "type_procedure" invisible="1" force_save='1'/>
+             		<field name = "type_beneficiaire_id" invisible="1" force_save='1'/>
+             		<field name = "no_beneficiaire" invisible="1" force_save='1'/>
+					<field name = "envoyer" invisible="0" force_save='1'/>
+             	</tree>
+             </field>
+             </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="view_budg_liste_engagmentp_renvoi_form">
+    <field name="name">view.budg_liste_engagmentp.renvoi.form</field>
+    <field name="model">budg_liste_engagment_renvoi_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Engagement">
+
+        <sheet>
+            <group>
+                <group string="Engagement">
+                	<field name="dt_etat" style = "width:35%" force_save="1"/>
+                    <field name="no_eng" style = "width:50%" force_save="1"/>
+                    <field name="type_procedure" force_save="1" style = "width:75%" options="{'no_create': True}"/>
+                 	<field name="lb_obj" force_save="1"/>
+                 	<field name="type_beneficiaire_id" style = "width:75%" force_save="1" options="{'no_create': True}"/>
+                    <field name="no_beneficiaire" style = "width:75%" force_save="1" domain = "[('type_beneficiaire_id' ,'=', type_beneficiaire_id)]"/>
+                 	<field name="mnt_eng" style = "width:50%" force_save="1"/>
+                    <field name="motif_rejet" invisible="1"/>
+					<field name="envoyer" invisible="1" style = "width:50%"/>
+                 </group>
+                <group string="Imputation">
+                   <field name="section_id" force_save="1"/>
+                    <field name="prog_id" force_save="1"/>
+                    <field name="action_id" force_save="1"/>
+                    <field name="chapitre_id" force_save="1"/>
+                    <field name="activite_id" force_save="1"/>
+                    <field name="article_id" force_save="1"/>
+                    <field name="parag_id" force_save="1"/>
+                    <field name="rubrique_id" force_save="1"/>
+					<field name="x_exercice_id" invisible="1" force_save="1"/>
+				</group>
+             </group>
+
+					<field name="current_users" invisible ="1" force_save="1"/>
+                    <field name="company_id" invisible="1"/>
+        </sheet>
+        </form>
+    </field>
+</record>
+
+
+
+<record model="ir.ui.view" id="view_id_bordereau_engagementp_ctrl_renvoi_trees">
+    <field name="name">view.engagementp.renvoi.ctrl.tree</field>
+    <field name="model">budg_bordereau_engagement_renvoi_daf_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+         <tree string="Engagement">
+            <field name="x_exercice_id"/>
+            <field name="no_bord_en"/>
+            <field name="date_emis"/>
+            <field name="type_bord_trsm"/>
+            <field name="state"/>
+        </tree>
+    </field>
+</record>
+
+
+<record id="act_bord_eng_renvoi_ctrl_p" model="ir.actions.act_window">
+    <field name="name">Envoi bordereau d'engagements visés à DFC</field>
+    <field name="res_model">budg_bordereau_engagement_renvoi_daf_p</field>
+    <field name="view_mode">tree,form,kanban</field>
+</record>
+
+
+        <record model="ir.ui.view" id="view_id_bordereau_engagementp_ctrl_recep_form">
+    <field name="name">view.bordereau.engagementp.ctrl.recep.form</field>
+    <field name="model">budg_bordereau_engagement_recep_controle_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Mise en Bordereau Engagement">
+            <header>
+                <button icon ="fa-download" string="Réceptionner bordereau" name="receptionner" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('state', 'not in', ['E'])]}"/>
+                <field name="state" widget = "statusbar"/>
+            </header>
+            <sheet>
+                <group string="Bordereau d'engagement" col="2">
+                    <group>
+                    	<field name="no_bord_en" style = "width:35%" force_save="1"/>
+                    	<field name="bord_recu" style = "width:35%" options="{'no_create': True}"/>
+                    	<field name="cd_acteur_accuse" style = "width:15%" invisible="1"/>
+                    	<field name="totaux" invisible="1"/>
+                    </group>
+                    <group>
+                    	<field name="date_recus" style = "width:30%"/>
+						<field name="cd_acteur" style = "width:35%"/>
+                   		<field name="x_exercice_id" invisible="1" force_save="1"/>
+					<field name="current_users" invisible ="1" force_save="1"/>
+                    </group>
+                </group>
+
+                	<!--<button string="Afficher engagements" name="afficher" type="object" class="oe_highlight"
+					attrs="{'invisible' : [('state', 'not in', ['R'])]}"/>-->
+                <group>
+                <field name="engagement_ids" nolabel="1" options="{'no_create': True}">
+             	<tree string = "Pièces justificatives">
+             		<field name = "no_eng" force_save='1'/>
+             		<field name = "dt_etat" force_save='1'/>
+             		<field name = "lb_obj" force_save='1'/>
+             		<field name = "mnt_eng" force_save='1'/>
+             		<field name = "x_exercice_id" invisible="1" force_save='1'/>
+					<field name = "current_users" invisible="1" force_save='1'/>
+             		<field name = "company_id" invisible="1" force_save='1'/>
+             		<field name="section_id" force_save="1"/>
+                    <field name="prog_id" force_save="1"/>
+                    <field name="action_id" force_save="1"/>
+                    <field name="chapitre_id" force_save="1"/>
+                    <field name="activite_id" force_save="1"/>
+                    <field name="article_id" force_save="1"/>
+                    <field name="parag_id" force_save="1"/>
+                    <field name="rubrique_id" force_save="1"/>
+             		<field name = "type_procedure" invisible="1" force_save='1'/>
+             		<field name = "type_beneficiaire_id" invisible="1" force_save='1'/>
+             		<field name = "no_beneficiaire" invisible="1" force_save='1'/>
+             		<field name = "envoyer_daf" invisible="1" force_save='1'/>
+             	</tree>
+             </field>
+             </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="view_budg_liste_engagment_p_recu_form">
+    <field name="name">view.budg_liste_engagmentp.recu.form</field>
+    <field name="model">budg_liste_engagment_recu_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Engagement">
+        <sheet>
+            <group>
+                <group string="Engagement">
+                	<field name="dt_etat" style = "width:35%" force_save="1"/>
+                    <field name="no_eng" style = "width:50%" force_save="1"/>
+                    <field name="type_procedure" force_save="1" style = "width:75%" options="{'no_create': True}"/>
+                 	<field name="lb_obj" force_save="1"/>
+                 	<field name="type_beneficiaire_id" style = "width:75%" force_save="1" options="{'no_create': True}"/>
+                    <field name="no_beneficiaire" style = "width:75%" force_save="1" domain = "[('type_beneficiaire_id' ,'=', type_beneficiaire_id)]"/>
+                 	<field name="mnt_eng" style = "width:50%" force_save="1"/>
+                    <field name="motif_rejet" invisible="1"/>
+                 	<field name="envoyer_daf" invisible="1" force_save="1"  style = "width:35%"/>
+                 </group>
+                <group string="Imputation">
+                    <field name="section_id" force_save="1"/>
+                    <field name="prog_id" force_save="1"/>
+                    <field name="action_id" force_save="1"/>
+                    <field name="chapitre_id" force_save="1"/>
+                    <field name="activite_id" force_save="1"/>
+                    <field name="article_id" force_save="1"/>
+                    <field name="parag_id" force_save="1"/>
+                    <field name="rubrique_id" force_save="1"/>
+                </group>
+             </group>
+                    <field name="x_exercice_id" invisible="1" force_save="1"/>
+					<field name="current_users" invisible ="1" force_save="1"/>
+                    <field name="company_id" invisible="1"/>
+        </sheet>
+        </form>
+    </field>
+</record>
+
+
+
+<record model="ir.ui.view" id="view_id_bordereau_engagementp_ctrl_recep_tree">
+    <field name="name">view.engagementp.recep.ctrl.tree</field>
+    <field name="model">budg_bordereau_engagement_recep_controle_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+         <tree string="Engagement">
+            <field name="x_exercice_id"/>
+            <field name="no_bord_en"/>
+            <field name="date_emis"/>
+            <field name="type_bord_trsm"/>
+            <field name="state"/>
+        </tree>
+    </field>
+</record>
+
+
+<record id="act_bord_eng_recep_ctrl_p" model="ir.actions.act_window">
+    <field name="name">Réception du bordereau d'engagemens visés</field>
+    <field name="res_model">budg_bordereau_engagement_recep_controle_p</field>
+    <field name="view_mode">tree,form,kanban</field>
+</record>
+
+
+        <!--MISE EN BORDEREAU ENGAGEMENT REJETER PAR DCMEF-->
+<record model="ir.ui.view" id="view_id_bordereau_engagementp_rejet_ctrl_form">
+    <field name="name">view.bordereau.engagementp.ctrl.rejet.form</field>
+    <field name="model">budg_bordereau_engagement_rejet_controle_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Mise en Bordereau Engagement Rejet">
+            <header>
+                <button icon ="fa-paper-plane" string="Envoyer" name="envoyer" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('state', 'not in', ['N'])]}"/>
+                <field name="state" widget = "statusbar"/>
+            </header>
+            <sheet>
+                <group string="Bordereau de rejet" col="2">
+                    <group>
+                    	<field name="no_bord_en" style = "width:35%" force_save="1"/>
+                    	<field name="cd_acteur" style = "width:35%"/>
+                    </group>
+                    <group>
+                    	<field name="date_emis" style = "width:20%"/>
+						<field name="date_recus" style = "width:20%"/>
+                   		<field name="type_bord_trsm" style = "width:100%" />
+                    </group>
+                </group>
+				<button string="Afficher engagements rejetés" name="afficher" type="object" class="oe_highlight"/>
+                <field name="engagement_ids">
+	                <tree  string="Engagements" decoration-danger="state == 'R'">
+		                <field name="dt_etat" force_save="1"/>
+		                <field name="no_eng" force_save="1"/>
+		                <field name="no_beneficiaire" force_save="1"/>
+		                <field name="lb_obj" force_save="1"/>
+		                <field name="mnt_eng" force_save="1"/>
+						<field name="motif_rejet" force_save="1"/>
+						<field name="state" force_save="1" invisible="0"/>
+		                <field name="section_id" force_save="1"/>
+                        <field name="prog_id" force_save="1"/>
+                        <field name="action_id" force_save="1"/>
+                        <field name="chapitre_id" force_save="1"/>
+                        <field name="activite_id" force_save="1"/>
+                        <field name="article_id" force_save="1"/>
+                        <field name="parag_id" force_save="1"/>
+                        <field name="rubrique_id" force_save="1"/>
+		                <field name="type_procedure" force_save="1" invisible="1"/>
+		                <field name="type_beneficiaire_id" force_save="1" invisible="1"/>
+		                <field name="no_beneficiaire" force_save="1" invisible="1" />
+	                </tree>
+                </field>
+					<field name="x_exercice_id" invisible="1" force_save="1"/>
+					<field name="current_users" invisible ="1" force_save="1"/>
+					<field name="company_id" invisible="1"/>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+
+<record model="ir.ui.view" id="view_id_bordereau_engagementp_rejet_ctrl_tree">
+    <field name="name">view.engagementp.rejet.ctrl.tree</field>
+    <field name="model">budg_bordereau_engagement_rejet_controle_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <tree string="Liste des bordereaux d'engagements rejetés">
+            <field name="no_bord_en"/>
+            <field name="date_emis"/>
+			<field name="date_recus"/>
+            <field name="type_bord_trsm"/>
+            <field name="state"/>
+        </tree>
+    </field>
+</record>
+
+
+<record id="act_bord_eng_rejet_ctrl_p" model="ir.actions.act_window">
+    <field name="name">Bordereau de rejet</field>
+    <field name="res_model">budg_bordereau_engagement_rejet_controle_p</field>
+    <field name="view_mode">tree,form,kanban</field>
+</record>
+
+
+        <!-- Reception bordereau rejet engagement de controle -->
+<record model="ir.ui.view" id="view_id_bordereau_engagement_p_ctrl_recpe_rejet_renvoi_form">
+    <field name="name">view.bordereau.engagementp.ctrl.recep.rejet.form</field>
+    <field name="model">budg_bordereau_engagement_recep_rejet_controle_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Mise en Bordereau Engagement">
+            <header>
+                <button icon ="fa-download" string="Recepetionner" name="receptionner" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('state', 'not in', ['E'])]}"/>
+                <field name="state" widget = "statusbar"/>
+            </header>
+            <sheet>
+                <group col="2">
+                    <group>
+                    	<field name="no_bord_en" style = "width:35%" force_save="1"/>
+                    	<field name="bord_recu" style = "width:35%" options="{'no_create': True}"/>
+                    </group>
+                    <group>
+                    	<field name="date_recus" style = "width:20%"/>
+						<field name="cd_acteur" style = "width:35%"/>
+                   		<field name="type_bord_trsm" style = "width:100%"/>
+						<field name="x_exercice_id" invisible="1" force_save="1"/>
+						<field name="current_users" invisible ="1" force_save="1"/>
+                    </group>
+                </group>
+
+                <!--<button string="Afficher engagements réjetés" name="afficher" type="object" class="oe_highlight"/>-->
+                <group>
+                <field name="rejet_ids" nolabel="1" >
+             	<tree string = "Engagements rejetés" editable="bottom">
+             		<field name = "dt_etat" force_save='1'/>
+             		<field name = "eng_id" force_save='1'/>
+             		<field name = "objet" force_save='1'/>
+             		<field name = "beneficiciare" force_save='1'/>
+             		<field name = "montant" force_save='1'/>
+					<field name = "motif_rejet" force_save='1'/>
+					<field name = "state" invisible="0" force_save='1'/>
+             	</tree>
+             </field>
+             </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="view_id_bordereau_engagement_recep_rejt_ctrl_p_renvoi_tree">
+    <field name="name">view.engagementp.recep.rejet.ctrl.tree</field>
+    <field name="model">budg_bordereau_engagement_recep_rejet_controle_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+         <tree string="Engagement">
+            <field name="no_bord_en"/>
+            <field name="date_recus"/>
+            <field name="type_bord_trsm"/>
+            <field name="state"/>
+        </tree>
+    </field>
+</record>
+
+<record id="act_bord_eng_recep_rejet_ctrl_p" model="ir.actions.act_window">
+    <field name="name">Réception bordereau de rejet contrôle</field>
+    <field name="res_model">budg_bordereau_engagement_recep_rejet_controle_p</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+
+        <record model="ir.ui.view" id="view_correction_eng_rejet_p_form">
+    <field name="name">view.correction.engagementp.rejet.form</field>
+    <field name="model">budg_correction_engagement_rejet_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Correction engagement après rejet">
+            <header>
+                <button string="CORRIGER" name="corriger" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('state', 'in', ['C'])]}"/>
+                <field name="state" widget = "statusbar"/>
+            </header>
+            <sheet>
+                <group>
+                    <group>
+                    	<field name="eng_id" style = "width:35%" force_save="1" options="{'no_create': True}"/>
+                    	<field name="anc_objet" style = "width:50%" force_save="1"/>
+						<field name="anc_beneficiaire" style = "width:50%" force_save="1"/>
+                    	<field name="mnt" style = "width:50%" force_save="1"/>
+						<field name="motif_rejet" style = "width:50%" force_save="1"/>
+						<field name="beneficiaire" style = "width:50%" force_save="1"
+						attrs="{'invisible' : [('motif_rejet', 'not in', ['4'])]}" options="{'no_create': True}"/>
+						<field name="objet" style = "width:100%" force_save="1"
+						attrs="{'invisible' : [('motif_rejet', 'not in', ['5'])]}"/>
+                    </group>
+                    <group>
+						<field name="section_id" force_save="1"/>
+                        <field name="prog_id" force_save="1"/>
+                        <field name="action_id" force_save="1"/>
+                        <field name="chapitre_id" force_save="1"/>
+                        <field name="activite_id" force_save="1"/>
+                        <field name="article_id" force_save="1"/>
+                        <field name="parag_id" force_save="1"/>
+                        <field name="rubrique_id" force_save="1"/>
+                    </group>
+
+					<group>
+					<field name="piece_ids" attrs="{'invisible' : [('motif_rejet', 'not in', ['3'])]}">
+						<tree string="piece">
+							<field name="piecejust_id" force_save="1"/>
+							<field name="reference" force_save="1"/>
+							<field name="datepj" force_save="1"/>
+							<field name="active" force_save="1"/>
+							<field name="montant" force_save="1"/>
+							<field name="nombre" force_save="1"/>
+						</tree>
+					</field>
+				</group>
+                </group>
+					<field name="x_exercice_id" invisible="1" force_save="1"/>
+					<field name="current_users" invisible ="1" force_save="1"/>
+					<field name="company_id" invisible="1"/>
+					<field name="cpte_benef" invisible="1" force_save="1"/>
+					<field name="imput_benef" invisible="1" force_save="1"/>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+
+<record id="act_correction_eng_rejet_p" model="ir.actions.act_window">
+    <field name="name">Correction Engagement</field>
+    <field name="res_model">budg_correction_engagement_rejet_p</field>
+    <field name="view_mode">form</field>
+</record>
+
+
+        <record model="ir.ui.view" id="view_id_liqord_p_form">
+    <field name="name">view.liqordp.form</field>
+    <field name="model">budg_liqord_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Liquidation">
+        <header>
+        	<button icon ="fa-check" string="Confirmer" name="action_liquidation_confirmer" type="object" class="oe_highlight"
+               attrs="{'invisible' : [('state', 'not in', ['draft'])]}"/>
+            <button string="Certifier" name="action_liquidation_liquider" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('state', 'not in', ['N'])]}" />
+            <field name="state" widget="statusbar"/>
+        </header>
+        <sheet>
+        <notebook>
+        <page string="Liquidation">
+            <group>
+                <group string="Information sur la liquidation">
+                	<field name="dt_etat" style = "width:35%" force_save="1"/>
+                    <field name="no_eng" style = "width:75%" options="{'no_create': True}"/>
+                    <field name="no_lo" style = "width:75%" force_save="1"/>
+                    <field name="typedossier" style = "width:100%" invisible="1"/>
+                    <field name="cd_type_accompte" style = "width:75%" options="{'no_create': True}"/>
+                    <field name='company_currency_id' invisible="1"/>
+                    <field name="mnt_eng" style = "width:50%" force_save="1"/>
+                    <field name="mnt_paye" style = "width:50%" force_save="1"/>
+                    <field name="res_liq" style = "width:50%" force_save="1"/>
+                    <field name="certif_id" style = "width:100%" attrs="{'invisible' : [('state', 'not in', ['L'])]}"/>
+                	<field name="text_amount" invisible="1"/>
+                </group>
+                <group string="Imputation">
+                    <field name="section_id" force_save="1"/>
+                    <field name="prog_id" force_save="1"/>
+                    <field name="action_id" force_save="1"/>
+                    <field name="chapitre_id" force_save="1"/>
+                    <field name="activite_id" force_save="1"/>
+                    <field name="article_id" force_save="1"/>
+                    <field name="parag_id" force_save="1"/>
+                    <field name="rubrique_id" force_save="1"/>
+                </group>
+                <group string = "Engagement">
+                    <field name="type_procedure" style = "width:75%" force_save="1"/>
+                    <field name="ref_mp" style = "width:75%"  invisible="1" force_save="1"/>
+                    <field name="modereg" style = "width:75%" force_save="1"/>
+					<field name="lb_obj" style = "width:100%" force_save="1"/>
+					<field name="x_exercice_id" invisible="1" force_save="1"/>
+					<field name="current_users" invisible ="1" force_save="1"/>
+                </group>
+                <group string="Bénéficiaire">
+                    <field name="categorie_beneficiaire_id" style = "width:75%" force_save="1" invisible="1"/>
+                    <field name="type_beneficiaire_id" style = "width:75%" force_save="1"/>
+                    <field name="no_beneficiaire" style = "width:75%" force_save="1"/>
+					<field name="bank_id" style = "width:75%" options="{'no_create': True}" force_save='1'/>
+					<field name="acc_number" style = "width:75%" options="{'no_create': True}" force_save='1'/>
+                    <field name="cpte_benef" invisible="1"/>
+                    <field name="cpte_rub" invisible="1"/>
+                    <field name="imput_benef" invisible="1"/>
+                    <field name="total_liq_engs" invisible="1"/>
+                    <field name="dispo_engs" invisible="1"/>
+		    		<field name="company_id" invisible="1"/>
+					<field name="signataire_2" invisible="1" force_save="1"/>
+                </group>
+            </group>
+             </page>
+
+              <page string="Pièces justificatives">
+              <button string="Afficher les pièces" name="afficher_piece" type="object" class="oe_highlight"/>
+               <field name = "piecejust_line_ids" nolabel ="1">
+             	<tree string = "Pièces justificatives" editable = "bottom">
+             		<field name = "lb_long" />
+             		<field name = "oblige"/>
+             		<field name = "ref"/>
+					<field name = "dte"/>
+             		<field name = "montant"/>
+             		<field name = "nombre"/>
+             	</tree>
+             </field>
+              </page>
+               </notebook>
+        </sheet>
+        </form>
+    </field>
+</record>
+
+
+<record model="ir.ui.view" id="view_id_liqord_p_tree">
+    <field name="name">view.liqordp.tree</field>
+    <field name="model">budg_liqord_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <tree decoration-info="state == 'draft'" decoration-success="state == 'L'" decoration-danger="state == 'A'" string="Liquidation">
+            <field name="x_exercice_id"/>
+            <field name="dt_etat"/>
+			<field name="no_lo"/>
+            <field name="no_eng"/>
+            <field name="no_beneficiaire"/>
+            <field name="lb_obj"/>
+            <field name='company_currency_id' invisible="1"/>
+			<field name="mnt_paye" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+            <field name="state"/>
+        </tree>
+    </field>
+</record>
+
+
+<record id="act_liqord_p" model="ir.actions.act_window">
+    <field name="name">Liquidation</field>
+    <field name="res_model">budg_liqord_p</field>
+    <field name="view_mode">tree,form,kanban,graph</field>
+    <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Cliquer sur le bouton "Créer" un  nouvel enregistrement.
+            </p>
+        </field>
+</record>
+
+
+        <record model="ir.ui.view" id="view_id_mandat_p_form">
+    <field name="name">view.mandatp.form</field>
+    <field name="model">budg_mandat_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Mandatement">
+        <header>
+                <button icon = "fa-check" string="Confirmer" name="action_mandat_confirme" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('state', 'not in', ['draft'])]}"/>
+                <field name="state" widget="statusbar"/>
+            </header>
+        <sheet>
+        <notebook>
+        	<page string="Ordonnancement">
+        		<group>
+                 <group string = "Information sur la liquidation">
+                 	<field name="dt_etat" style = "width:35%" force_save="1"/>
+                    <field name="no_lo" style = "width:35%" options="{'no_create': True}"/>
+                    <field name="no_mandat" style = "width:35%"/>
+                    <field name="type_accompte_id" style = "width:50%" force_save="1"/>
+                    <field name="company_currency_id" invisible="1"/>
+                    <field name="mnt_ord" force_save="1" style = "width:50%; text-align:right" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+                	<field name="text_amount" invisible="1"/>
+                </group>
+                 <group string="Imputation">
+                    <field name="section_id" force_save="1"/>
+                    <field name="prog_id" force_save="1"/>
+                    <field name="action_id" force_save="1"/>
+                    <field name="chapitre_id" force_save="1"/>
+                    <field name="activite_id" force_save="1"/>
+                    <field name="article_id" force_save="1"/>
+                    <field name="parag_id" force_save="1"/>
+                    <field name="rubrique_id" force_save="1"/>
+                </group>
+                </group>
+            <group>
+                <group string = "Information sur l'engagement">
+                   <field name="no_eng" style = "width:50%" force_save="1"/>
+                   <field name="mnt_eng" force_save="1" style = "width:50%; text-align:right" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+                   <field name="type_procedure" style = "width:75%" force_save="1"/>
+                   <field name="obj" force_save="1"/>
+                   <field name="modereg" style = "width:75%" force_save="1"/>
+				   <field name="x_exercice_id" invisible="1" force_save="1"/>
+				   <field name="current_users" invisible ="1" force_save="1"/>
+                </group>
+                <group string="Bénéficiaire">
+                    <field name="type_beneficiaire_id" style = "width:75%" force_save="1"/>
+                    <field name="no_beneficiaire" style = "width:75%" force_save="1"/>
+                    <field name="ac_cf" style = "width:75%" invisible="1"/>
+		            <field name="bank_id" style = "width:75%" force_save="1"/>
+                    <field name="acc_number" style = "width:75%" force_save="1"/>
+                    <field name="x_exercice_id" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="mnt_annule" invisible="1"/>
+                    <field name="cpte_benef" invisible="1"/>
+                    <field name="cpte_rub" invisible="1"/>
+                    <field name="imput_benef" invisible="1"/>
+                    <field name="signataire_1" invisible="1" force_save="1"/>
+                    <field name="signataire_2" invisible="1" force_save="1"/>
+
+                </group>
+            </group>
+        	</page>
+               <page string="Pièces justificatives">
+               <button string="Afficher les pièces" name="afficher_piece" type="object" class="oe_highlight"/>
+            	<field name = "piecejust_ids" nolabel ="1">
+             	<tree string = "Pièces justificatives" editable = "bottom">
+             		<field name = "lb_long" />
+             		<field name = "oblige"/>
+             		<field name = "ref"/>
+			<field name = "dte"/>
+             		<field name = "montant"/>
+             		<field name = "nombre"/>
+             	</tree>
+             </field>
+            </page>
+         </notebook>
+        </sheet>
+        </form>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="view_id_mandat_p_tree">
+    <field name="name">view.mandatp.tree</field>
+    <field name="model">budg_mandat_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <tree string="Mandatement" decoration-info="state in ('V','W')" decoration-warning="state == 'O'" decoration-success="state == 'F'" decoration-danger="state == 'A'">
+			<field name="x_exercice_id"/>
+            <field name="dt_etat"/>
+            <field name="no_mandat"/>
+            <field name="no_lo"/>
+            <field name="no_beneficiaire"/>
+			<field name="obj"/>
+			<field name="company_currency_id" invisible="1"/>
+			<field name="mnt_ord" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+			<field name="state"/>
+        </tree>
+    </field>
+</record>
+
+
+<record id="act_mandat_p" model="ir.actions.act_window">
+    <field name="name">Ordonnancement</field>
+    <field name="res_model">budg_mandat_p</field>
+    <field name="view_mode">tree,form,kanban,graph</field>
+</record>
+
+
+<record model="ir.ui.view" id="view_appro_mdt_group_p_form">
+    <field name="name">view.appro.mdt.groupp.form</field>
+    <field name="model">budg_appro_group_mdt_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Appro engagement group">
+            <header>
+                <button string="Afficher" name="afficher" type="object" class="oe_highlight"/>
+                <button string="Confirmer Approbation" name="approuver" type="object" class="oe_highlight"
+				attrs="{'invisible' : [('state', 'in', ['V'])]}"/>
+                <field name="state" widget = "statusbar"/>
+            </header>
+            <sheet>
+                    <group>
+	                    <group>
+	                    	<field name="dte" style = "width:35%" force_save="1" options="{'no_create': True}"/>
+	                    </group>
+	                    <group>
+	                    	<field name="x_exercice_id" invisible="1" force_save="1"/>
+							<field name="current_users" invisible ="1" force_save="1"/>
+							<field name="company_id" style = "width:50%" force_save="1"/>
+	                    </group>
+                    </group>
+                    <field name="appro_ids">
+		                <tree string="Approbation Engagement" editable='bottom'>
+							<field name="mdt_id" force_save="1"/>
+							<field name="section_id" force_save="1"/>
+                            <field name="prog_id" force_save="1"/>
+                            <field name="action_id" force_save="1"/>
+                            <field name="chapitre_id" force_save="1"/>
+                            <field name="activite_id" force_save="1"/>
+                            <field name="article_id" force_save="1"/>
+                            <field name="parag_id" force_save="1"/>
+                            <field name="rubrique_id" force_save="1"/>
+							<field name="objet" force_save="1"/>
+							<field name="mnt" force_save="1"/>
+							<field name="approuver" force_save="1"/>
+							<field name="x_exercice_id" invisible="1"/>
+	                   		<field name="company_id" invisible="1" />
+	                    </tree>
+                    </field>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+
+<record id="act_appro_mdt_group_p" model="ir.actions.act_window">
+    <field name="name">Approbation Mandat</field>
+    <field name="res_model">budg_appro_group_mdt_p</field>
+    <field name="view_mode">form</field>
+</record>
+
+
+        <record model="ir.ui.view" id="mandat_annule_view_form">
+        <field name="name">mandat.view.form</field>
+        <field name="model">budg_mandat_annule_p</field>
+        <field name="arch" type="xml">
+            <form string="Mandat annulé">
+            <header>
+	            <button icon = "fa-check" string="Annuler" name="annuler" type="object" class="oe_highlight"
+	            attrs="{'invisible' : [('state', 'in', ['A'])]}" groups="faarf_budget.faarf_budget_manager_daf" />
+            	<field name="state" widget="statusbar"/>
+            </header>
+                <sheet>
+                  <group>
+	                <group>
+		              <field name = "x_exercice_id" invisible="1" force_save="1"/>
+		              <field name = "company_id" invisible="1" force_save="1"/>
+		              <field name = "no_lo" invisible="1" force_save="1"/>
+					  <field name = "no_engs" invisible="1" force_save="1"/>
+		              <field name = "mandat_id" style = "width:50%" options="{'no_create': True}"/>
+		              <field name = "montant" style = "width:50%" force_save="1"/>
+		              <field name = "typebenef" style = "width:100%" force_save="1"/>
+		              <field name = "nom" style = "width:100%" force_save="1"/>
+		              <field name = "objet" style = "width:100%" force_save="1"/>
+		              <field name = "dte_mandat" style = "width:50%" force_save="1"/>
+	                </group>
+	                <group>
+	                    <field name="section_id" force_save="1"/>
+                        <field name="prog_id" force_save="1"/>
+                        <field name="action_id" force_save="1"/>
+                        <field name="chapitre_id" force_save="1"/>
+                        <field name="activite_id" force_save="1"/>
+                        <field name="article_id" force_save="1"/>
+                        <field name="parag_id" force_save="1"/>
+                        <field name="rubrique_id" force_save="1"/>
+	                </group>
+	                <group>
+	                  <field name = "dte_annulation" style = "width:50%" />
+		              <field name = "motif" style = "width:100%"/>
+					  <field name="x_exercice_id" invisible="1" force_save="1"/>
+						<field name="current_users" invisible ="1" force_save="1"/>
+	                </group>
+	              </group>
+            	</sheet>
+            </form>
+        </field>
+</record>
+
+
+<record id="act_mandat_annule_p" model="ir.actions.act_window">
+    <field name="name">Annulation de mandat</field>
+    <field name="res_model">budg_mandat_annule_p</field>
+    <field name="view_mode">form</field>
+</record>
+
+
+        <record model="ir.ui.view" id="view_id_bordereau_mdt_recep_p_cf_form">
+    <field name="name">view.bordereau.mdt.cfp.recep.form</field>
+    <field name="model">budg_bordereau_mandatement_recep_dcmef_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Mise en Bordereau de mandat">
+            <header>
+                <!--<button icon ="fa-download" string="Réceptionner" name="receptionner" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('et_doss', 'not in', ['E'])]}"/>-->
+                <button icon ="fa-download" string="Envoyer pour PeC" name="envoyer" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('et_doss', 'in', ['PC'])]}"/>
+                <field name="et_doss" widget = "statusbar"/>
+            </header>
+            <sheet>
+                <group string="Bordereau d'ordonnance" col="2">
+                    <group>
+                    	<field name="no_bord_mandat" style = "width:35%" force_save="1"/>
+                    	<field name="cd_acteur" style = "width:35%"/>
+                    	<field name="cd_acteur_accuse" style = "width:15%" invisible="1"/>
+                    	<field name="totaux" invisible="1"/>
+                    </group>
+                    <group>
+						<field name="date_envoi" style = "width:30%"/>
+                   		<field name="type_bord_trsm" style = "width:100%" />
+						<field name="text_amount" invisible="1"/>
+						<field name="total_prec" invisible="1"/>
+						<field name="total_gle" invisible="1"/>
+                    </group>
+                </group>
+                <button string="Afficher les ordannances à envoyer" name="afficher" type="object" class="oe_highlight"/>
+                <field name="mandat_ids">
+	                <tree string="Mandatement" editable="bottom">
+		                <field name="dt_etat" force_save="1"/>
+		                <field name="no_mandat" force_save="1"/>
+		                <field name="no_beneficiaire" force_save="1"/>
+		                <field name="obj" force_save="1"/>
+		                <field name="mnt_ord" force_save="1"/>
+						<field name="no_lo" force_save="1" invisible="1"/>
+						<field name="type_procedure" force_save="1" invisible="1"/>
+		                <field name="section_id" force_save="1" invisible="1"/>
+                        <field name="prog_id" force_save="1" invisible="1"/>
+                        <field name="action_id" force_save="1" invisible="1"/>
+                        <field name="chapitre_id" force_save="1" invisible="1"/>
+                        <field name="activite_id" force_save="1" invisible="1"/>
+                        <field name="article_id" force_save="1" invisible="1"/>
+                        <field name="parag_id" force_save="1" invisible="1"/>
+                        <field name="rubrique_id" force_save="1" invisible="1"/>
+						<field name="envoyer" force_save="1"/>
+						<field name="x_exercice_id" invisible="1" force_save="1"/>
+						<field name="current_users" invisible ="1" force_save="1"/>
+	                </tree>
+                </field>
+                		<field name="x_exercice_id" invisible="1" force_save="1"/>
+						<field name="current_users" invisible ="1" force_save="1"/>
+                   		<field name="company_id" invisible="1" />
+                   		<field name="total_prec" invisible="1"/>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+
+<record model="ir.ui.view" id="view_id_bordereau_mdt_recep_p_daf_tree">
+    <field name="name">view.mdt.recep.mdtp.tree</field>
+    <field name="model">budg_bordereau_mandatement_recep_dcmef_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <tree string="Liste des bordereaux d'ordonnances" decoration-info="et_doss == 'PC'" decoration-success="et_doss == 'RP'">
+            <field name="x_exercice_id"/>
+            <field name="no_bord_mandat"/>
+			<field name="type_bord_trsm"/>
+			<field name="date_envoi"/>
+			<field name="date_recep"/>
+            <field name="et_doss"/>
+        </tree>
+    </field>
+</record>
+
+<record id="act_bord_mdt_recep_ctrl_p" model="ir.actions.act_window">
+    <field name="name">Mise en bordereau et envoi pour PeC</field>
+    <field name="res_model">budg_bordereau_mandatement_recep_dcmef_p</field>
+    <field name="view_mode">tree,form,kanban</field>
+</record>
+
+
+        <record model="ir.ui.view" id="view_id_bordereau_mdt_p_viser_ctrl_form">
+    <field name="name">view.bordereau.mdt.ctrlp.viser.form</field>
+    <field name="model">budg_bordereau_mandatement_controle_viser_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Mise en Bordereau Engagement">
+            <header>
+                <button icon ="fa-download" string="Réceptionner pour prise en charge" name="receptionner" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('et_doss', 'not in', ['T'])]}"/>
+                <field name="et_doss" widget = "statusbar"/>
+            </header>
+            <sheet>
+                <group string="Bordereau d'ordonnance" col="2">
+                    <group>
+                    	<field name="no_bord_mandat" style = "width:35%" force_save="1"/>
+                    	<field name="bord_recu" style = "width:35%" options="{'no_create': True}"/>
+                    	<field name="cd_acteur_accuse" style = "width:15%" invisible="1"/>
+                    	<field name="totaux" invisible="1"/>
+
+                    </group>
+                    <group>
+                    	<field name="date_recus" style = "width:30%"/>
+						<field name="cd_acteur" style = "width:35%"/>
+                   		<!--<field name="type_bord_trsm" style = "width:100%" />  -->
+                    </group>
+                </group>
+				<button string="Afficher les mandats" name="afficher" type="object" class="oe_highlight" invisible='1'/>
+                <field name="mandat_ids">
+	                <tree  string="Mandatement" decoration-info="state == 'N'" decoration-warning="state == 'J'" decoration-success="state == 'I'">
+		                <field name="dt_etat" force_save="1"/>
+		                <field name="no_mandat" force_save="1"/>
+		                <field name="no_lo" force_save="1"/>
+		                <field name="no_beneficiaire" force_save="1"/>
+		                <field name="obj" force_save="1"/>
+		                <field name="mnt_ord" force_save="1"/>
+		                <field name="section_id" force_save="1" invisible="1"/>
+                        <field name="prog_id" force_save="1" invisible="1"/>
+                        <field name="action_id" force_save="1" invisible="1"/>
+                        <field name="chapitre_id" force_save="1" invisible="1"/>
+                        <field name="activite_id" force_save="1" invisible="1"/>
+                        <field name="article_id" force_save="1" invisible="1"/>
+                        <field name="parag_id" force_save="1" invisible="1"/>
+                        <field name="rubrique_id" force_save="1" invisible="1"/>
+		                <field name="type_procedure" force_save="1" invisible="1"/>
+		                <field name="no_eng" force_save="1" invisible="1"/>
+		                <field name="type_beneficiaire_id" force_save="1" invisible="1"/>
+		                <field name="no_beneficiaire" force_save="1" invisible="1" />
+		                <field name="modereg" force_save="1" invisible="1"/>
+						<field name="state" force_save="1" invisible="0"/>
+	                </tree>
+                </field>
+                		<field name="x_exercice_id" invisible="1" force_save="1"/>
+						<field name="current_users" invisible="1" force_save="1"/>
+                   		<field name="company_id" invisible="1" />
+                   		<field name="total_prec" invisible="1"/>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+
+<record model="ir.ui.view" id="view_id_bordereau_mdt_p_viser_ctrl_tree">
+    <field name="name">view.mdt.viser.ctrlp.tree</field>
+    <field name="model">budg_bordereau_mandatement_controle_viser_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <tree string="Liste des bordereaux d'engagements" decoration-success="et_doss == 'PC'" decoration-info="et_doss == 'T'">
+            <field name="x_exercice_id"/>
+            <field name="company_id"/>
+            <field name="bord_recu"/>
+            <field name="no_bord_mandat"/>
+            <field name="date_recus"/>
+            <field name="type_bord_trsm"/>
+            <field name="et_doss"/>
+        </tree>
+    </field>
+</record>
+
+
+<record model="ir.ui.view" id="view_liste_mandatement_p_pc_form">
+    <field name="name">view.budg_liste_mandatement_pc_p.form</field>
+    <field name="model">budg_liste_mandatement_pc_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Mandatement">
+        <header>
+                <button icon = "fa-check" string="VISA AC" name="PrendreEnCharge" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('state', 'not in', ['N'])]}" />
+                <button string="Rejeter" name="rejeter" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('state', 'not in', ['N'])]}"/>
+                <field name="state" widget="statusbar"/>
+            </header>
+        <sheet>
+        		<group>
+                 <group string = "Information sur la liquidation">
+                 	<field name="dt_etat" style = "width:35%" force_save="1"/>
+                    <field name="no_lo" style = "width:35%" options="{'no_create': True}"/>
+                    <field name="no_mandat" style = "width:35%"/>
+                    <field name="mnt_ord" force_save="1" style = "width:50%; text-align:right"
+                           widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+					<field name="motif_rejet" style = "width:75%" force_save="1"/>
+					<field name="commentaire" style = "width:75%" force_save="1"/>
+                </group>
+                 <group string="Imputation">
+                        <field name="section_id" force_save="1"/>
+                        <field name="prog_id" force_save="1"/>
+                        <field name="action_id" force_save="1"/>
+                        <field name="chapitre_id" force_save="1"/>
+                        <field name="activite_id" force_save="1"/>
+                        <field name="article_id" force_save="1"/>
+                        <field name="parag_id" force_save="1"/>
+                        <field name="rubrique_id" force_save="1"/>
+                </group>
+                </group>
+            <group>
+                <group string = "Information sur l'engagement">
+                   <field name="no_eng" style = "width:50%" force_save="1"/>
+                   <field name="type_procedure" style = "width:75%" force_save="1"/>
+                   <field name="obj" force_save="1"/>
+                   <field name="modereg" style = "width:75%" force_save="1"/>
+                </group>
+                <group string="Bénéficiaire">
+                    <field name="type_beneficiaire_id" style = "width:75%" force_save="1"/>
+                    <field name="no_beneficiaire" style = "width:75%" force_save="1"/>
+                    <field name="x_exercice_id" invisible="1" force_save="1"/>
+					<field name="current_users" invisible ="1" force_save="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="etat" invisible="1"/>
+                </group>
+            </group>
+			<button string="Afficher les pièces" name="afficher_piece" type="object" class="oe_highlight"/>
+            	<field name = "piece_ids" nolabel ="1">
+             	<tree string = "Pièces justificatives" editable = "bottom">
+             		<field name = "lib" />
+             		<field name = "ref"/>
+             		<field name = "mnt"/>
+             		<field name = "nbr"/>
+					<field name = "oblige"/>
+             	</tree>
+             </field>
+        </sheet>
+        </form>
+    </field>
+</record>
+
+ <record id="act_recmandat_p" model="ir.actions.act_window">
+    <field name="name">Reception bordereau d'ordonnance</field>
+    <field name="res_model">budg_bordereau_mandatement_controle_viser_p</field>
+    <field name="view_mode">tree,form,kanban</field>
+</record>
+
+
+        <record model="ir.ui.view" id="view_correction_mdt_rejet_form">
+    <field name="name">view.correction.mandatp.rejet.form</field>
+    <field name="model">budg_correction_mandat_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Correction mandat après rejet">
+            <header>
+                <button string="CORRIGER" name="corriger" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('state', 'in', ['C'])]}"/>
+                <field name="state" widget = "statusbar"/>
+            </header>
+            <sheet>
+                <group>
+                    <group>
+                    	<field name="mandat_id" style = "width:35%" force_save="1" options="{'no_create': True}"/>
+                    	<field name="anc_objet" style = "width:50%" force_save="1"/>
+                        <field name="anc_beneficiaires" style = "width:50%" force_save="1"/>
+                        <field name="mnt" style = "width:50%" force_save="1"/>
+                        <field name="motif_rejet" style = "width:50%" force_save="1"/>
+                        <field name="commentaire" style = "width:100%" force_save="1"/>
+                        <field name="beneficiaire" style = "width:50%" force_save="1"
+                        attrs="{'invisible' : [('motif_rejet', 'not in', ['4'])]}" options="{'no_create': True}"/>
+                        <field name="objet" style = "width:100%" force_save="1"
+                        attrs="{'invisible' : [('motif_rejet', 'not in', ['5'])]}"/>
+                    </group>
+                    <group>
+			            <field name="section_id" force_save="1"/>
+                        <field name="prog_id" force_save="1"/>
+                        <field name="action_id" force_save="1"/>
+                        <field name="chapitre_id" force_save="1"/>
+                        <field name="activite_id" force_save="1"/>
+                        <field name="article_id" force_save="1"/>
+                        <field name="parag_id" force_save="1"/>
+                        <field name="rubrique_id" force_save="1"/>
+			            <field name="etat" style = "width:100%" force_save="1" invisible="1"/>
+                    </group>
+                </group>
+				<group>
+					<field name="piece_ids" attrs="{'invisible' : [('motif_rejet', 'not in', ['3'])]}">
+						<tree string="piece" editable="bottom">
+							<field name="piecejust_id" force_save="1"/>
+							<field name="reference" force_save="1"/>
+							<field name="datepj" force_save="1"/>
+							<field name="active" force_save="1"/>
+							<field name="montant" force_save="1"/>
+							<field name="nombre" force_save="1"/>
+						</tree>
+					</field>
+				</group>
+					<field name="x_exercice_id" invisible="1" force_save="1"/>
+					<field name="current_users" invisible ="1" force_save="1"/>
+					<field name="company_id" invisible="1"/>
+					<field name="cpte_benef" invisible="1" force_save="1"/>
+					<field name="imput_benef" invisible="1" force_save="1"/>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+
+<record id="act_correction_mdt_rejet_p" model="ir.actions.act_window">
+    <field name="name">Correction Mandatement</field>
+    <field name="res_model">budg_correction_mandat_p</field>
+    <field name="view_mode">form</field>
+</record>
+
+
+        <!--MISE EN BORDEREAU MANDATS REJETER PAR AC-->
+<record model="ir.ui.view" id="view_id_bordereau_mdt_p_rejet_ctrl_ac_form">
+    <field name="name">view.bordereau.mandat.ctrl.rejetAcp.form</field>
+    <field name="model">budg_bordereau_mandatement_rejet_ac_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Mise en Bordereau Mandat Rejet AC">
+            <header>
+                <button icon ="fa-paper-plane" string="Envoyer" name="envoyer" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('state', 'not in', ['N'])]}"/>
+                <field name="state" widget = "statusbar"/>
+            </header>
+            <sheet>
+                <group string="Bordereau de rejet" col="2">
+                    <group>
+                    	<field name="no_bord_en" style = "width:35%" force_save="1"/>
+                    	<field name="cd_acteur" style = "width:35%"/>
+                    </group>
+                    <group>
+                    	<field name="date_emis" style = "width:20%"/>
+						<field name="date_recus" style = "width:20%"/>
+                   		<field name="type_bord_trsm" style = "width:100%" />
+                    </group>
+                </group>
+				<button string="Afficher mandats rejetés" name="afficher" type="object" class="oe_highlight"/>
+                <field name="mandat_ids">
+	                <tree  string="Mandats" decoration-danger="state == 'R'">
+		                <field name="dt_etat" force_save="1"/>
+		                <field name="no_mdt" force_save="1"/>
+		                <field name="no_beneficiaire" force_save="1"/>
+		                <field name="lb_obj" force_save="1"/>
+		                <field name="mnt_ord" force_save="1"/>
+						<field name="motif_rejet" force_save="1"/>
+						<field name="commentaire" force_save="1"/>
+						<field name="state" force_save="1" invisible="0"/>
+                        <field name="section_id" force_save="1" invisible="1"/>
+                        <field name="prog_id" force_save="1" invisible="1"/>
+                        <field name="action_id" force_save="1" invisible="1"/>
+                        <field name="chapitre_id" force_save="1" invisible="1"/>
+                        <field name="activite_id" force_save="1" invisible="1"/>
+                        <field name="article_id" force_save="1" invisible="1"/>
+                        <field name="parag_id" force_save="1" invisible="1"/>
+                        <field name="rubrique_id" force_save="1" invisible="1"/>
+		                <field name="no_beneficiaire" force_save="1" invisible="1" />
+	                </tree>
+                </field>
+					<field name="x_exercice_id" invisible="1" force_save="1"/>
+					<field name="current_users" invisible ="1" force_save="1"/>
+					<field name="company_id" invisible="1"/>
+					<field name="totaux" invisible="1" force_save="1"/>
+					<field name="text_amount" invisible="1" force_save="1"/>
+					<field name="signataire_4" invisible="1" force_save="1"/>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+
+<record model="ir.ui.view" id="view_id_bordereau_mdt_rejet_p_ac_tree">
+    <field name="name">view.mandat.rejetp.ctrlAC.tree</field>
+    <field name="model">budg_bordereau_mandatement_rejet_ac_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <tree string="Liste des bordereaux de mandats rejetés par AC">
+            <field name="no_bord_en"/>
+            <field name="date_emis"/>
+			<field name="date_recus"/>
+            <field name="type_bord_trsm"/>
+            <field name="state"/>
+        </tree>
+    </field>
+</record>
+
+
+
+<record id="act_bord_mdt_envoi_rejet_ac_p" model="ir.actions.act_window">
+    <field name="name">Envoi bordereau ordonnances rejetés</field>
+    <field name="res_model">budg_bordereau_mandatement_rejet_ac_p</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+
+        <!-- Reception bordereau rejet mandat de ac -->
+<record model="ir.ui.view" id="view_id_bordereau_mdt_recep_rejet_p_ac_form">
+    <field name="name">view.bordereau.mdt.ctrl.rejetp.form</field>
+    <field name="model">budg_bordereau_mandat_recep_rejet_ac_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Recep en Bordereau mandat">
+            <header>
+                <button icon ="fa-download" string="Récepetionner" name="receptionner" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('state', 'not in', ['E'])]}"/>
+                <field name="state" widget = "statusbar"/>
+            </header>
+            <sheet>
+                <group col="2">
+                    <group>
+                    	<field name="date_recus" style = "width:20%"/>
+                    	<field name="bord_recu" style = "width:35%" options="{'no_create': True}"/>
+                    </group>
+                    <group>
+						<field name="cd_acteur" style = "width:35%"/>
+                   		<field name="type_bord_trsm" style = "width:100%"/>
+						<field name="x_exercice_id" invisible="1" force_save="1"/>
+						<field name="current_users" invisible ="1" force_save="1"/>
+                    </group>
+                </group>
+
+                <!--<button string="Afficher engagements réjetés" name="afficher" type="object" class="oe_highlight"/>-->
+                <group>
+                <field name="rejet_ids" nolabel="1" >
+             	<tree string = "Ordonnances rejetés" editable="bottom">
+             		<field name = "dt_etat" force_save='1'/>
+             		<field name = "mdt_id" force_save='1'/>
+             		<field name = "objet" force_save='1'/>
+             		<field name = "beneficiciare" force_save='1'/>
+             		<field name = "montant" force_save='1'/>
+             		<field name = "motif_rejet" force_save='1'/>
+					<field name = "commentaire" force_save='1'/>
+					<field name = "state" invisible="0" force_save='1'/>
+             	</tree>
+             </field>
+             </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="view_id_bordereau_mandat_recep_p_rejet_ac_tree">
+    <field name="name">view.mandat.recep.rejet.ctrlp.tree</field>
+    <field name="model">budg_bordereau_mandat_recep_rejet_ac_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+         <tree string="Mdt">
+            <field name="date_recus"/>
+            <field name="type_bord_trsm"/>
+            <field name="state"/>
+        </tree>
+    </field>
+</record>
+
+<record id="act_bord_mdt_recep_rejet_ac_p" model="ir.actions.act_window">
+    <field name="name">Réception bordereau ordonnance rejetés</field>
+    <field name="res_model">budg_bordereau_mandat_recep_rejet_ac_p</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+
+        <record model="ir.ui.view" id="view_id_opp_form">
+    <field name="name">view.opp.form</field>
+    <field name="model">budg_op_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <form string="Ordre de paiement">
+         <header>
+            	<button icon ="fa-check" string="Confirmer" name="action_op_confirmer" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('et_doss', 'not in', ['draft'])]}"/>
+                <button string="Certifier" name="action_op_certifier" type="object" class="oe_highlight"
+                attrs="{'invisible' : [('et_doss', 'in', ['draft', 'C',])]}"/>
+                <field name="et_doss" widget = "statusbar"/>
+            </header>
+            <sheet>
+                     <group>
+                        <group>
+                            <field name ="no_op" style = "width:20%" force_save= "1"/>
+                            <field name ="date_emis" style = "width:20%" force_save="1"/>
+                       </group>
+                        <group>
+                            <field name ="type_operation" style = "width:50%" options ="{'no_create': True}"/>
+                            <field name ="mnt_op" style = "width:50%; text-align:right"/>
+
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name ="lb_obj" style = "width:100%"/>
+                            <field name ="piece_ids"/>
+                            <field name ="md_reglement" style = "width:100%" options ="{'no_create': True}"/>
+                            <field name ="cd_certif" style = "width:100%"
+                            attrs="{'invisible' : [('et_doss', 'not in', ['N'])]}" options ="{'no_create': True}"/>
+                            <field name="text_amount" invisible="1"/>
+                        </group>
+                        <group string="Bénéficiaire">
+                            <field name ="type_beneficiaire" style = "width:100%" options ="{'no_create': True}"/>
+                            <field name ="no_beneficiaire"  domain = "[('type_beneficiaire_id.id' ,'=', type_beneficiaire)]" style = "width:100%" options ="{'no_create': True}"/>
+                            <field name ="imput_benef" style = "width:100%" invisible="0" force_save="1" options ="{'no_create': True}"/>
+						    <field name ="imput_benefs" style = "width:100%" invisible="1" force_save="1"/>
+                        </group>
+                    </group>
+                 <field name="x_exercice_id" invisible="1" force_save="1"/>
+				<field name="current_users" invisible ="1" force_save="1"/>
+                 <field name ="company_id" invisible="1"/>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+
+<record model="ir.ui.view" id="view_idp_op_tree">
+    <field name="name">view.opp.tree</field>
+    <field name="model">budg_op_p</field>
+    <field name="priority" eval="16"/>
+    <field name="arch" type="xml">
+        <tree string="Ordre de paiement"  decoration-info="et_doss == 'C'" decoration-success="et_doss == 'F' ">
+            <field name ="no_op"/>
+            <field name ="type_operation"/>
+            <field name ="type_beneficiaire"/>
+            <field name ="no_beneficiaire"/>
+            <field name ="lb_obj"/>
+            <field name ="mnt_op"/>
+			<field name ="et_doss"/>
+        </tree>
+    </field>
+</record>
+
+
+        <record id="act_op_p" model="ir.actions.act_window">
+    <field name="name">Ordre de paiement</field>
+    <field name="res_model">budg_op_p</field>
+    <field name="view_mode">tree,form,kanban</field>
+    <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Cliquer sur le bouton "Créer" un  nouvel enregistrement.
+            </p>
+        </field>
+</record>
+
+
+
+
+
+
+
+                <menuitem id="menu_gestion_depense_p" parent="main_menu" sequence="10" name="Gestion des dépenses" />
+                <menuitem id="menu_gestion_depense_eng_p" parent="menu_gestion_depense_p" sequence="1"
+                name="ENGAGEMENTS" groups="faarf_budget.agent_budget_depense"/>
+
+        <menuitem id="menu_engagement_p" parent="menu_gestion_depense_eng_p" sequence="2" name="Création Engagement"
+    action="act_engagement_p" groups="faarf_budget.agent_budget_depense"/>
+        <menuitem id="menu_appro_engagement_p" parent="menu_gestion_depense_eng_p" sequence="2" name="Approbation Engagement"
+    action="act_appro_eng_p" groups="faarf_budget.faarf_budget_user"/>
+        <menuitem id="menu_annuler_eng_p" parent="menu_gestion_depense_eng_p" sequence="3" name="Annulation Engagement"
+    action="act_annulation_eng_p" groups="faarf_budget.faarf_budget_user"/>
+        <menuitem id="menu_corrig_engagement_p" parent="menu_gestion_depense_eng_p" sequence="4" name="Correction Engagement Après Approbation"
+    action="act_correction_eng_p" groups="faarf_budget.faarf_budget_user"/>
+        <menuitem id="menu_bordereau_engagement_p" parent="menu_gestion_depense_eng_p" sequence="5" name="Mise en bordereau/Envoi des engagements"
+    action="act_bordereau_engagement_p" groups="faarf_budget.agent_budget_depense"/>
+        <menuitem id="menu_recep_bordereau_engagement_cg_p" parent="menu_gestion_depense_eng_p" sequence="6" name="Réception Bordereau Engagements visés"
+    action="act_bord_eng_recep_ctrl_p" groups="faarf_budget.agent_budget_depense"/>
+        <menuitem id="menu_recep_bordereau_engagement_cg_p" parent="menu_gestion_depense_eng_p" sequence="6" name="Réception Bordereau Engagements rejetés"
+    action="act_bord_eng_recep_rejet_ctrl_p" groups="faarf_budget.agent_budget_depense"/>
+        <menuitem id="menu_engagement_correc_reje_p" parent="menu_gestion_depense_eng_p" sequence="7" name="Correction Engagement Après rejet Contrôle"
+    action="act_correction_eng_rejet_p" groups="faarf_budget.faarf_budget_user"/>
+
+        <menuitem id="menu_gestion_depense_liq_p" parent="menu_gestion_depense_p" sequence="2" name="LIQUIDATIONS" groups="faarf_budget.agent_budget_depense"/>
+        <menuitem id="menu_liqord_p" parent="menu_gestion_depense_liq_p" sequence="1" name="Création Liquidation"
+    action="act_liqord_p" groups="faarf_budget.agent_budget_depense"/>
+
+        <menuitem id="menu_gestion_depense_mdt_p" parent="menu_gestion_depense_p" sequence="3" name="ORDONNANCEMENT" groups="faarf_budget.agent_budget_depense"/>
+        <menuitem id="menu_mandat_p" parent="menu_gestion_depense_mdt_p" sequence="1" name="Création Ordonnance"
+    action="act_mandat" groups="faarf_budget.agent_budget_depense"/>
+        <menuitem id="menu_mandats_appro_p" parent="menu_gestion_depense_mdt_p" sequence="3" name="Approbation d'une ordonnance"
+    action="act_appro_mdt_group_p" groups="faarf_budget.faarf_budget_user"/>
+          <menuitem id="menu_bordereau_mandat_recp_p" parent="menu_gestion_depense_mdt_p" sequence="4" name="Mise en Bordereau/Envoi pour prise en charge"
+    action="act_bord_mdt_recep_ctrl_p" groups="faarf_budget.agent_budget_depense"/>
+        <menuitem id="menu_mandat_annule_p" parent="menu_gestion_depense_mdt_p" sequence="5" name="Annulation d'une ordonnance"
+    action="act_mandat_annule_p" groups="faarf_budget.agent_budget_depense"/>
+                <menuitem id="menu_bordereau_recep_mandat_rejet_ac_p" parent="menu_gestion_depense_mdt_p" sequence="6" name="Réception Bordereau de Rejet AC"
+    action="act_bord_mdt_recep_rejet_ac" groups="faarf_budget.agent_budget_depense"/>
+        <menuitem id="menu_correction_mandat_rejet_p" parent="menu_gestion_depense_mdt_p" sequence="7" name="Correction Ordonnance après rejet"
+    action="act_correction_mdt_rejet_p" groups="faarf_budget.agent_budget_depense"/>
+
+                <menuitem id="menu_gestion_paiement_p" parent="menu_gestion_depense_p" sequence="4" name="PAIEMENT / PROCEDURE EXCEPTIONNELLE"/>
+<menuitem id="menu_cop_p" parent="menu_gestion_paiement_p" sequence="1" name="Création ordre de paiement" action="act_op"/>
+
+
+
+
+        <menuitem id="menu_controle_p" parent="menu_gestion_depense_p" sequence="5" name="CONTROLE" groups="faarf_budget.faarf_budget_controle"/>
+        <menuitem id="menu_bordereau_engagement_controle_p" parent="menu_controle_p" sequence="1" name="Réception Bordereau d'engagement/Visa-Rejet Engagement"
+    action="act_bord_eng_ctrl_p"/>
+        <menuitem id="menu_bordereau_engagementdaf_p" parent="menu_controle_p" sequence="2" name="Mise en Bordereau/Envoi Engagements visés"
+    action="act_bord_eng_renvoi_ctrl_p"/>
+        <menuitem id="menu_bordereau_engagement_rej_p" parent="menu_controle_p" sequence="3" name="Mise en Bordereau/Envoi Engagements rejetés"
+    action="act_bord_eng_rejet_ctrl_p"/>
+
+    </data>
+</odoo>

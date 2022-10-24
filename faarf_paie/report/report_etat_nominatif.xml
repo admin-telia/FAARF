@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="temp_hr_etat_elt_salaire">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                <h4 style="text-align:left">ETAT NOMINATIF ELEMENT DE SALAIRE DU MOIS DE :
+                    <span style="color:red;font-weight:bold" t-field="o.periode"/>
+                </h4>
+                <table class = 'table table-sm'>
+                                <thead style="border:2px solid #000000;">
+                                      <tr style="border:2px solid;">
+
+                                          <th style="border:2px solid;"><strong><i>Libellé</i></strong></th>
+                                          <th style="border:2px solid;"><strong><i>Type employé</i></strong></th>
+                                          <th style="border:2px solid;"><strong><i>Element salaire</i></strong></th>
+                                          <th style="border:2px solid;"><strong><i>Du</i></strong></th>
+                                          <th style="border:2px solid;"><strong><i>Au</i></strong></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        <td style="border:2px solid;"><span t-field="o.name"/></td>
+                                        <td style="border:2px solid;"><span t-esc="o.x_type_employe_id.name"/></td>
+                                        <td style="border:2px solid;"><span t-esc="o.x_elt_sal_id.name"/></td>
+                                        <td style="border:2px solid;"><span t-field="o.x_date_debut"/></td>
+                                        <td style="border:2px solid;"><span t-field="o.x_date_fin"/></td>
+                                </tbody>
+                    </table>
+                    <table class = 'table table-sm'>
+                            <thead style="border:2px solid #000000;">
+                                  <tr style="border:2px solid;" >
+                                    <th style="border:2px solid;"><strong><i>N°</i></strong></th>
+                                      <th style="border:2px solid;"><strong><i>Matricule</i></strong></th>
+                                      <th style="border:2px solid;"><strong><i>Employé</i></strong></th>
+                                      <th style="border:2px solid;"><strong><i>Montant</i></strong></th>
+                                  </tr>
+                            </thead>
+                            <tbody>
+                                 <tr t-foreach="o.x_line_ids" t-as="line">
+                                    <td style="border:2px solid;" ><span t-field="line.numero"/></td>
+                                    <td style="border:2px solid;" ><span t-field="line.x_matricule"/></td>
+                                    <td style="border:2px solid;" ><span t-field="line.name"/></td>
+                                    <td style="border:2px solid;" ><span t-esc="line.x_mnt"/></td>
+                                </tr>
+                            </tbody>
+                    </table>
+                    <p style="text-align:right; widht:100%"> Total : <span t-field="o.x_mnts"/> FCFA</p>
+                    <p style="text-align:right; widht:100%">
+                        Arrêté à la somme de :
+                          <span t-field="o.x_mnt_en_lettre"/> francs CFA.
+                    </p>
+                    <tfoot>
+                            <div class="row mt32 mb32">
+                                <div class="col-2">
+                                    <strong>DRH</strong>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <p t-field="o.drhs_id.name"/>
+                                </div>
+                                <div class="col-4">
+                                    <strong></strong>
+                                    <p/>
+                                </div>
+                                <div class="col-3">
+                                    <strong></strong>
+                                    <p/>
+                                </div>
+                                <div class="col-3">
+                                    <strong>Financier</strong>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <p t-esc="o.financiers_id.name"/>
+                                </div>
+                            </div>
+                    </tfoot>
+
+                </t>
+             </t>
+        </t>
+    </template>
+
+    <report
+        id="report_hr_etat_elt_salaire"
+        string="Imprimer"
+        model="hr_etat_elt_salaire"
+        report_type="qweb-html"
+        file="faarf_paie.temp_hr_etat_elt_salaire"
+        name="faarf_paie.temp_hr_etat_elt_salaire"
+        groups = "base.group_user"
+        menu = "True"/>
+
+    <template id="temp_mode_paiement">
+		    <t t-call="web.html_container">
+		        <t t-foreach="docs" t-as="o">
+		            <t t-call="web.external_layout">
+		            <h4 style="text-align:left">ETAT NOMINATIF DES PAIEMENTS DU MOIS DE : <span t-esc="o.periode"/></h4>
+		            <h6 style="text-align:left">MODE DE PAIEMENT : <span t-esc="o.x_mode_paiements"/></h6>
+		            <t t-if="o.x_mode_paiements == 'billetage' ">
+		            <table class = 'table table-sm'>
+					        		<thead style="border:2px solid #000000;">
+					                      <tr>
+					                          <th style="border:2px solid;"><strong><i>Mode Paiement</i></strong></th>
+					                          <th style="border:2px solid;"><strong><i>Du</i></strong></th>
+					                      	  <th style="border:2px solid;"><strong><i>Au</i></strong></th>
+					                    </tr>
+					                </thead>
+					                <tbody>
+					                        <td style="border:2px solid;"><span t-field="o.x_mode_paiements"/></td>
+					                        <td style="border:2px solid;"><span t-esc="o.x_date_debut"/></td>
+					                        <td style="border:2px solid;"><span t-field="o.x_date_fin"/></td>
+					                </tbody>
+					    </table>
+		                <table class = 'table table-sm'>
+					        		<thead style="border:2px solid #000000;">
+					                      <tr style="border:2px solid;">
+					                          <th style="border:2px solid;"><strong><i></i>Matricule</strong></th>
+					                          <th style="border:2px solid;"><strong><i>Employé</i></strong></th>
+					                      	  <th style="border:2px solid;"><strong><i>Emploi</i></strong></th>
+					                          <th style="border:2px solid;"><strong><i>Salaire Net</i></strong></th>
+
+					                      </tr>
+					                </thead>
+					                <tbody>
+					                     <tr t-foreach="o.x_line_ids" t-as="line" >
+					                        <td style="border:2px solid;"><span t-esc="line.x_matricule"/></td>
+					                        <td style="border:2px solid;"><span t-field="line.name"/></td>
+					                        <td style="border:2px solid;"><span t-field="line.x_emploi"/></td>
+					                        <td style="border:2px solid;"><span t-esc="line.x_sal_net"/></td>
+					                    </tr>
+					                </tbody>
+					    </table>
+					    <p style="text-align:right; widht:100%"> Total : <span t-field="o.x_mnts"/> FCFA</p>
+					    <p style="text-align:right; widht:100%">
+			               	Arrêté à la somme de :
+			                  <span t-field="o.x_mnt_en_lettre"/> francs CFA
+			            </p>
+			            <tfoot>
+			            		<div class="row mt32 mb32">
+			            			<div class="col-2">
+			                            <strong>DRH</strong>
+			                            <br/>
+			                            <br/>
+			                            <br/>
+			                            <br/>
+			                            <p t-field="o.drhs_id.name"/>
+		                            </div>
+		                        	<div class="col-4">
+			                            <strong></strong>
+			                            <p/>
+		                            </div>
+		                            <div class="col-3">
+			                            <strong></strong>
+			                            <p/>
+		                            </div>
+			                        <div class="col-3">
+			                            <strong>Financier</strong>
+			                            <br/>
+			                            <br/>
+			                            <br/>
+			                            <br/>
+			                            <p t-esc="o.financiers_id.name"/>
+			                        </div>
+		                        </div>
+			            </tfoot>
+					</t>
+
+					<t t-if="o.x_mode_paiements == 'virement' ">
+					<table class = 'table table-sm'>
+					        		<thead style="border:2px solid #000000;">
+					                      <tr style="border:2px solid;">
+					                          <th style="border:2px solid;"><strong><i>Mode Paiement</i></strong></th>
+					                          <th style="border:2px solid;"><strong><i>Du</i></strong></th>
+					                      	  <th style="border:2px solid;"><strong><i>Au</i></strong></th>
+					                    </tr>
+					                </thead>
+					                <tbody>
+					                        <td style="border:2px solid;"><span t-field="o.x_mode_paiements"/></td>
+					                        <td style="border:2px solid;"><span t-esc="o.x_date_debut"/></td>
+					                        <td style="border:2px solid;"><span t-field="o.x_date_fin"/></td>
+					                </tbody>
+					    </table>
+		                <table class = 'table table-sm'>
+					        		<thead style="border:2px solid #000000;">
+					                      <tr style="border:2px solid;">
+					                          <th style="border:2px solid;"><strong><i>Matricule</i></strong></th>
+					                          <th style="border:2px solid;"><strong><i>Employé</i></strong></th>
+					                          <th style="border:2px solid;"><strong><i>N° Compte</i></strong></th>
+					                      	  <th style="border:2px solid;"><strong><i>Emploi</i></strong></th>
+					                          <th style="border:2px solid;"><strong><i>Salaire Net</i></strong></th>
+					                    </tr>
+					                </thead>
+					                <tbody>
+					                     <tr t-foreach="o.x_line_ids" t-as="line">
+					                        <td style="border:2px solid;"><span t-esc="line.x_matricule"/></td>
+					                        <td style="border:2px solid;"><span t-field="line.name"/></td>
+					                        <td style="border:2px solid;"><span t-esc="line.numb"/></td>
+					                        <td style="border:2px solid;"><span t-field="line.x_emploi"/></td>
+					                        <td style="border:2px solid;"><span t-esc="line.x_sal_net"/></td>
+					                      </tr>
+					                </tbody>
+					    </table>
+					    <p style="text-align:right; widht:100%"> Total : <span t-field="o.x_mnts"/> FCFA</p>
+					    <p style="text-align:right; widht:100%">
+			               	Arrêté à la somme de :
+			                  <span t-field="o.x_mnt_en_lettre"/> francs CFA
+			            </p>
+			            <tfoot>
+			            		<div class="row mt32 mb32">
+			            			<div class="col-2">
+			                            <strong>DRH</strong>
+			                            <br/>
+			                            <br/>
+			                            <br/>
+			                            <br/>
+			                            <p t-field="o.drhs_id.name"/>
+		                            </div>
+		                        	<div class="col-4">
+			                            <strong></strong>
+			                            <p/>
+		                            </div>
+		                            <div class="col-3">
+			                            <strong></strong>
+			                            <p/>
+		                            </div>
+			                        <div class="col-3">
+			                            <strong>Financier</strong>
+			                            <br/>
+			                            <br/>
+			                            <br/>
+			                            <br/>
+			                            <p t-esc="o.financiers_id.name"/>
+			                        </div>
+		                        </div>
+			            </tfoot>
+					</t>
+
+
+		            </t>
+		         </t>
+		    </t>
+		</template>
+    <report
+            id="report_mode_paiement"
+            string="Etat Mode Paiement"
+            model="hr_reportmode"
+            report_type="qweb-pdf"
+            file="faarf_paie.temp_mode_paiement"
+            name="faarf_paie.temp_mode_paiement"
+            groups = "base.group_user"
+            menu = "True"/>
+
+	<template id="tmp_mode_banque_paiement_banque">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.external_layout">
+            <h4 style="text-align:left">ETAT NOMINATIF DES PAIEMENTS DU MOIS DE : <span style="color:red;font-weight:bold" t-esc="o.periode"/></h4>
+            <table class = 'table table-sm'>
+			        		<thead style="border:2px solid #000000;">
+			                      <tr>
+			                          <th style="border:2px solid;"><strong><i>BANQUE</i></strong></th>
+									  <td style="border:2px solid;"><span t-field="o.x_banq_id.name"/></td>
+			                    </tr>
+			                </thead>
+			    </table>
+                <table class = 'table table-sm'>
+			        		<thead style="border:2px solid #000000;">
+			                      <tr style="border:2px solid;">
+			                      <th style="border:2px solid;"><strong><i>N°</i></strong></th>
+			                          <th style="border:2px solid;"><strong><i>Employé</i></strong></th>
+			                      	  <th style="border:2px solid;"><strong><i>N° Compte</i></strong></th>
+			                          <th style="border:2px solid;"><strong><i>Salaire Net</i></strong></th>
+
+			                      </tr>
+			                </thead>
+			                <tbody>
+			                     <tr t-foreach="o.x_line_ids" t-as="line" >
+			                     	<td style="border:2px solid;"><span t-field="line.numero"/></td>
+			                        <td style="border:2px solid;"><span t-field="line.name"/></td>
+			                        <td style="border:2px solid;"><span t-field="line.numb"/></td>
+			                        <td style="border:2px solid;"><span t-esc="'{:,}'.format(int(line.x_sal_net)).replace(',', ' ')"/> </td>
+			                    </tr>
+			                </tbody>
+			    </table>
+			    <p style="text-align:right; widht:100%"> Total : <span t-esc="'{:,}'.format(int(o.x_mnts)).replace(',', ' ')"/></p>
+			    <p style="text-align:right; widht:100%">
+	               	Arrêté à la somme de :
+	                  <span t-field="o.x_mnt_en_lettre"/> (<span t-esc="'{:,}'.format(int(o.x_mnts)).replace(',', ' ')"/>) francs CFA
+	            </p>
+	            <tfoot>
+	            		<div class="row mt32 mb32">
+	            			<div class="col-2">
+	                            <strong>DRH</strong>
+	                            <br/>
+	                            <br/>
+	                            <br/>
+	                            <br/>
+	                            <p t-field="o.drhs_id.name"/>
+                            </div>
+                        	<div class="col-4">
+	                            <strong></strong>
+	                            <p/>
+                            </div>
+                            <div class="col-3">
+	                            <strong></strong>
+	                            <p/>
+                            </div>
+	                        <div class="col-3">
+	                            <strong>Financier</strong>
+	                            <br/>
+	                            <br/>
+	                            <br/>
+	                            <br/>
+	                            <p t-esc="o.financiers_id.name"/>
+	                        </div>
+                        </div>
+	            </tfoot>
+
+            </t>
+         </t>
+    </t>
+</template>
+	<report
+            id="report_mode_banque_paiement_banque"
+            string="Etat Par Banque"
+            model="hr_reportbanque"
+            report_type="qweb-html"
+            file="faarf_paie.tmp_mode_banque_paiement_banque"
+            name="faarf_paie.tmp_mode_banque_paiement_banque"
+            groups = "base.group_user"
+            menu = "True"/>
+</odoo>

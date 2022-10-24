@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="temp_hr_acte_certif_cess_service">
+        <t t-call="web.html_container">
+            <t t-set="data_report_margin_top" t-value="0"/>
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <style>
+						.container-fluid {
+							padding: 0;
+                            margin: 0;
+						}
+					</style>
+                    <table class="table">
+                        <tr>
+                            <td style="text-align:left">
+                                <p>
+                                    MINISTERE DU GENRE, <br/>
+                                    DE LA FAMILLE ET DE L'ACTION <br/>
+                                    HUMANITAIRE <br/>
+                                    -------------------- <br/>
+                                    SECRETARIAT GENERAL <br/>
+                                    -------------------- <br/>
+                                    FONDS D'APPUI AUX ACTIVITES <br/>
+                                    REMUNERATRIVES DES FEMMES <br/>
+                                    (FAARF) <br/>
+                                    --------------------- <br/>
+                                    DIRECTION DES RESSOURCES HUMAINES
+                                </p>
+                            </td>
+                            <td style="text-align:center">
+                                <p>
+                                    Burkina Faso <br/>
+                                    Unité - Progès - Justice <br/><br/><br/><br/><br/>
+
+                                    Ouagadougou, le
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                    <h2 style="text-decoration: underline; text-align:center">
+                        CERTIFICAT DE CESSATION DE SERVICE
+                    </h2>
+
+                    <p style="text-align:justify">
+                        <span t-field="o.texte"/>
+                    </p>
+                    <br/><br/>
+                    <table class="table">
+                        <tr>
+                            <td style="text-align:left">
+                                <p style="text-decoration: underline;">Ampliations</p>
+                                <ul t-foreach="o.ampliation_ids" t-as="a">
+                                    <li>
+                                         <span t-field="a.name"/>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td style="text-align:right">
+                                <p style="text-decoration: underline;">
+                                    <span t-field="o.signataire_id.name"/>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                 </t>
+             </t>
+        </t>
+    </template>
+
+    <!-- Recipisse paperformat="paperformat_credit_recepisse"-->
+	<record id="paperformat_certif_cess_service" model="report.paperformat">
+         <field name="name">A4</field>
+        <field name="margin_top">0</field>
+    </record>
+    <report
+            id="rep_hr_acte_certif_cess_service"
+            string="Imprimer"
+            model="hr_acte_certif_cess_service"
+            report_type="qweb-html"
+            file="faarf_rh.temp_hr_acte_certif_cess_service"
+            name="faarf_rh.temp_hr_acte_certif_cess_service"
+            groups = "base.group_user"
+            paperformat="paperformat_certif_cess_service"
+            menu = "True"/>
+
+
+<!--    acte administratif-->
+    <template id="temp_hr_acte_administratif">
+        <t t-call="web.html_container">
+            <t t-set="data_report_margin_top" t-value="0"/>
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <style>
+						.container-fluid {
+							padding: 0;
+                            margin: 0;
+						}
+					</style>
+<!--                    <table class="table">-->
+<!--                        <tr>-->
+<!--                            <td style="text-align:left">-->
+<!--                                <p>-->
+<!--                                    MINISTERE DU GENRE, <br/>-->
+<!--                                    DE LA FAMILLE ET DE L'ACTION <br/>-->
+<!--                                    HUMANITAIRE <br/>-->
+<!--                                    &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; <br/>-->
+<!--                                    SECRETARIAT GENERAL <br/>-->
+<!--                                    &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; <br/>-->
+<!--                                    FONDS D'APPUI AUX ACTIVITES <br/>-->
+<!--                                    REMUNERATRIVES DES FEMMES <br/>-->
+<!--                                    (FAARF) <br/>-->
+<!--                                    -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; <br/>-->
+<!--                                    DIRECTION DES RESSOURCES HUMAINES-->
+<!--                                </p>-->
+<!--                            </td>-->
+<!--                            <td style="text-align:center">-->
+<!--                                <p>-->
+<!--                                    Burkina Faso <br/>-->
+<!--                                    Unité - Progès - Justice <br/><br/><br/><br/><br/>-->
+
+<!--                                    Ouagadougou, le-->
+<!--                                </p>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                    </table>-->
+<!--                    <h2 style="text-decoration: underline; text-align:center">-->
+<!--                        CERTIFICAT DE CESSATION DE SERVICE-->
+<!--                    </h2>-->
+                    <span t-field="o.entete_acte"/>
+                    <p style="text-align:justify">
+                        <span t-field="o.contenu_acte"/>
+                    </p>
+                    <br/><br/>
+                    <table class="table">
+                        <tr>
+                            <td style="text-align:left; border:none">
+                                <p style="text-decoration: underline;"><b>Ampliations</b></p>
+                                <ul t-foreach="o.ampliation_ids" t-as="a">
+                                    <li>
+                                         <span t-field="a.name"/> (<span t-field="a.nombre_ampliation"/>)
+                                    </li>
+                                </ul>
+                            </td>
+                            <td style="text-align:right;  border:none; padding-right:40px">
+                                <p>Fait à Ougadoudou le, </p>
+                                <br/><br/><br/><br/>
+                                <p style="text-decoration: underline;">
+                                    <span t-field="o.signataire_id.name"/>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                 </t>
+             </t>
+        </t>
+    </template>
+
+    <record id="paperformat_hr_acte_administratif" model="report.paperformat">
+         <field name="name">A4</field>
+        <field name="margin_top">0</field>
+    </record>
+    <report
+            id="rep_hr_acte_administratif"
+            string="Imprimer"
+            model="hr_acte_administratif"
+            report_type="qweb-html"
+            file="faarf_rh.temp_hr_acte_administratif"
+            name="faarf_rh.temp_hr_acte_administratif"
+            paperformat="paperformat_hr_acte_administratif"
+            groups = "base.group_user"
+            menu = "True"/>
+
+    <!--    decision administratif-->
+    <template id="temp_hr_decision_administratif">
+        <t t-call="web.html_container">
+            <t t-set="data_report_margin_top" t-value="0"/>
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <style>
+						.container-fluid {
+							padding: 0;
+                            margin: 0;
+						}
+					</style>
+                    <table class="table">
+                        <tr>
+                            <td style="text-align:left">
+                                <p>
+                                    MINISTERE DU GENRE, <br/>
+                                    DE LA FAMILLE ET DE L'ACTION <br/>
+                                    HUMANITAIRE <br/>
+                                    -------------------- <br/>
+                                    SECRETARIAT GENERAL <br/>
+                                    -------------------- <br/>
+                                    FONDS D'APPUI AUX ACTIVITES <br/>
+                                    REMUNERATRIVES DES FEMMES <br/>
+                                    (FAARF) <br/>
+                                    --------------------- <br/>
+                                    DIRECTION DES RESSOURCES HUMAINES
+                                </p>
+                            </td>
+                            <td style="text-align:center">
+                                <p>
+                                    Burkina Faso <br/>
+                                    Unité - Progès - Justice <br/><br/><br/><br/><br/>
+
+                                    Ouagadougou, le
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table">
+                        <tr>
+                            <td style="text-align:left; ; border:none">
+
+                            </td>
+                            <td style="text-align:right; border:none">
+                               <span t-field="o.entete_decicion"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <br/>
+                    <span t-field="o.decret_decicion"/>
+                    <h4 style="text-align:center">DECIDE</h4>
+                    <div>
+                        <p>
+                            <b>Article 1: </b> <span t-field="o.article1"/>
+                            <table class="table table-striped table-bordered" t-if="o.employe_ids">
+                                <tr>
+                                    <th>N°</th>
+                                    <th>Matricule</th>
+                                    <th>Nom et prénom (s)</th>
+                                    <th>Emploi</th>
+                                    <th>Catégorie</th>
+                                    <th>Echelle</th>
+                                    <th>Echellon</th>
+                                </tr>
+                                <t t-foreach="o.employe_ids" t-as="e">
+                                    <tr>
+                                        <td></td>
+                                         <td><span t-field="e.matricule"/></td>
+                                         <td><span t-field="e.name"/></td>
+                                         <td><span t-field="e.x_emploi_id"/></td>
+                                         <td><span t-field="e.x_categorie_id"/></td>
+                                         <td><span t-field="e.x_echelle_id"/></td>
+                                         <td><span t-field="e.x_echellon_id"/></td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </p>
+                        <p t-if="o.article2"><b>Article 2: </b> <span t-field="o.article2"/></p>
+                        <p t-if="o.article3"><b>Article 3: </b> <span t-field="o.article3"/></p>
+                        <p t-if="o.article4"><b>Article 4: </b> <span t-field="o.article4"/></p>
+                        <p t-if="o.article5"><b>Article 5: </b> <span t-field="o.article5"/></p>
+                        <p t-if="o.article6"><b>Article 6: </b> <span t-field="o.article6"/></p>
+                        <p t-if="o.article7"><b>Article 7: </b> <span t-field="o.article7"/></p>
+                        <p t-if="o.article8"><b>Article 8: </b> <span t-field="o.article8"/></p>
+                    </div>
+                    <br/><br/>
+                    <table class="table">
+                        <tr>
+                            <td style="text-align:left; border:none">
+                                <p t-if="o.ampliation_ids"
+                                   style="text-decoration: underline;"><b>Ampliations</b></p>
+                                <ul t-foreach="o.ampliation_ids" t-as="a">
+                                    <li>
+                                         <span t-field="a.name"/> (<span t-field="a.nombre_ampliation"/>)
+                                    </li>
+                                </ul>
+                            </td>
+                            <td style="text-align:right;  border:none; padding-right:40px">
+                                <p>Fait à Ougadoudou le, </p>
+                                <br/><br/><br/><br/>
+                                <p style="text-decoration: underline;">
+                                    <span t-field="o.signataire_id.name"/>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                 </t>
+             </t>
+        </t>
+    </template>
+
+    <record id="paperformat_hr_decision_administratif_port" model="report.paperformat">
+         <field name="name">A4</field>
+        <field name="margin_top">0</field>
+    </record>
+    <report
+            id="rep_hr_decision_administratif_port"
+            string="Portrait"
+            model="hr_decision_administratif"
+            report_type="qweb-html"
+            file="faarf_rh.temp_hr_decision_administratif"
+            name="faarf_rh.temp_hr_decision_administratif"
+            paperformat="paperformat_hr_decision_administratif_port"
+            groups = "base.group_user"
+            menu = "True"/>
+
+
+    <record id="paperformat_hr_decision_administratif_pay" model="report.paperformat">
+         <field name="name">A4</field>
+        <field name="margin_top">0</field>
+    </record>
+    <report
+            id="rep_hr_decision_administratif_pay"
+            string="Paysage"
+            model="hr_decision_administratif"
+            report_type="qweb-html"
+            file="faarf_rh.temp_hr_decision_administratif"
+            name="faarf_rh.temp_hr_decision_administratif"
+            paperformat="paperformat_hr_decision_administratif_pay"
+            groups = "base.group_user"
+            menu = "True"/>
+
+</odoo>

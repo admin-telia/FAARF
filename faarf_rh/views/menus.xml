@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menu en héritant le id de configuration -->
+    <menuitem id="main_menu" name ="Personnel"
+              web_icon="faarf_rh,static/description/icon.png"
+              sequence="11"/>
+
+        <menuitem id="main_menu_conf" name ="Données de base" sequence="60" parent="main_menu"/>
+            <menuitem id="menu_classif" parent="main_menu_conf" name="CLASSIFICATION" sequence = "61"/>
+                <menuitem id="menu_emplois" parent="menu_classif" name="Saisie/Màj-Emploi" action="act_list_emploi" sequence = "612"/>
+                <menuitem id="menu_fonctions" parent="menu_classif" name="Saisie/Màj-Fonction" action="act_list_fonction" sequence = "613"/>
+            <menuitem id="menu_direction" parent="main_menu_conf" name="DIRECTION" sequence = "62"/>
+                <menuitem id="menu_directions_id" parent="menu_direction" name="Saisie/Màj-Direction/Departement" action="act_list_dep" sequence = "621"/>
+            <menuitem id="menu_service" parent="main_menu_conf" name="SERVICE" sequence = "63"/>
+                <menuitem id="menu_service_id" parent="menu_service" name="Saisie/Màj-Service" action="act_list_service" sequence = "631"/>
+<!--                <menuitem id="menu_section" parent="menu_service" name="Saisie/Màj-Section" action="act_list_section" sequence = "632"/>-->
+<!--                <menuitem id="menu_unite" parent="menu_service" name="Saisie/Màj-Unité" action="act_list_unite" sequence = "633"/>-->
+            <menuitem id="menu_typage" parent="main_menu_conf" name="TYPAGE" sequence = "64"/>
+                <menuitem id="menu_type_contrat" parent="menu_typage" name="Saisie/Maj-Type Contrat" action="act_list_type_contrat" sequence = "642"/>
+<!--                <menuitem id="menu_nature" parent="menu_typage" name="Saisie/Màj-Nature Précompte" action="act_list_nature" sequence = "643"/>-->
+<!--                <menuitem id="menu_motif" parent="menu_typage" name="Saisie/Maj-Motif Cessation Service" action="act_list_motif" sequence = "645"/>-->
+                <menuitem id="menu_nbr" parent="menu_typage" name="Saisie/Maj-Année Retraite" action="act_list_nbre_annee" sequence = "646"/>
+            <menuitem id="menu_grille" parent="main_menu_conf" name="GRILLE" sequence = "80"/>
+                <menuitem id="menu_grille_salaire_ctrct" parent="menu_grille" name="Saisie/Maj-Grille salariale Contractuel" action="act_list_grille_salariale_contract" sequence = "82"/>
+            <menuitem id="menu_donne_conge" name ="Absence et congés" sequence="70" parent="main_menu_conf"/>
+                <menuitem id="menu_hr_holidays_db_ctype" name="Type de congé" parent="menu_donne_conge"
+                  action="hr_holidays.action_faarf_conge_type" sequence="10"/>
+<!--                <menuitem id="main_menu_type" name ="Saisie/MàJ-Type de Congé" sequence="61" parent="menu_donne_conge" action="act_list_typec"/>-->
+<!--                <menuitem id="main_menu_ville" name ="Saisie/MàJ-Type d'absence" sequence="62" parent="menu_donne_conge" action="act_list_typea"/>-->
+<!--                <menuitem id="main_menu_titre" name ="Saisie/MàJ-Titre Poste" sequence="63" parent="menu_donne_conge" action="act_list_titre"/>-->
+            <menuitem id="menu_donne_stage" name ="Stage" sequence="81" parent="main_menu_conf"/>
+                <menuitem id="main_menu_typ_stag" name ="Saisie/MàJ-Type de stage" sequence="62" parent="menu_donne_stage" action="act_list_type_sta"/>
+                <menuitem id="main_menu_domaine" name ="Saisie/MàJ-Domaine" sequence="64" parent="menu_donne_stage" action="act_list_domaine"/>
+                <menuitem id="main_menu_organ" name ="Saisie/MàJ-Organisme" sequence="66" parent="menu_donne_stage" action="act_list_organisme"/>
+                <menuitem id="main_menu_lieu" name ="Saisie/MàJ-Lieu" sequence="67" parent="menu_donne_stage" action="act_list_lieu"/>
+                <menuitem id="main_menu_situation" name ="Saisie/MàJ-Situation de famille" sequence="68" parent="menu_donne_stage" action="act_list_situation"/>
+            <menuitem id="menu_donne_acte_ad" name ="Actes administratifs" sequence="82" parent="main_menu_conf"/>
+                <menuitem id="menu_donne_acte_ad_ty" name ="Saisie/MàJ Type Actes administratifs" sequence="62" parent="menu_donne_acte_ad" action="act_hr_actes_ad_type"/>
+<!--                <menuitem id="menu_donne_acte_ad_mod" name ="Saisie/MàJ Modèle Actes administratifs" sequence="65" parent="menu_donne_acte_ad" action="act_hr_actes_ad_modele"/>-->
+
+                <menuitem id="menu_donne_decision_ad_ty" name ="Saisie/MàJ Type Décisions administratives" sequence="70" parent="menu_donne_acte_ad" action="act_hr_decision_ad_type"/>
+<!--                <menuitem id="menu_donne_decision_ad_mod" name ="Saisie/MàJ Modèle Décisions administratives" sequence="75" parent="menu_donne_acte_ad" action="act_hr_decision_ad_modele"/>-->
+
+        <menuitem id="main_menu_param" name ="Paramétrage" sequence="50" parent="main_menu"/>
+            <menuitem id="menu_emploi" parent="main_menu_param" name="INDEMNITES LIEES A L'EMPLOI" sequence = "50"/>
+                <menuitem id="menu_indem_ordinaire" parent="menu_emploi" name="INDEMNITES ORDINAIRES" sequence = "51"/>
+                    <menuitem id="menu_param_indemnite_astr" parent="menu_indem_ordinaire" name="Parametrage Indemnité/Astreinte" action="act_param_astr_indemnite" sequence = "512"/>
+                    <menuitem id="menu_param_indemnite_loge" parent="menu_indem_ordinaire" name="Parametrage Indemnité/Logement" action="act_param_logement_indemnite" sequence = "513"/>
+                    <menuitem id="menu_param_indemnite_techn" parent="menu_indem_ordinaire" name="Parametrage Indemnité/Technicité" action="act_param_technicite_indemnite" sequence = "514"/>
+                    <menuitem id="menu_param_indemnite_exploit" parent="menu_indem_ordinaire" name="Parametrage Indemnité/Exploitation-Réseau" action="act_param_exploi_indemnite" sequence = "515"/>
+                    <menuitem id="menu_param_indemnite_financiere" parent="menu_indem_ordinaire" name="Parametrage Indemnité/Resp.Financière" action="act_param_financiere_indemnite" sequence = "516"/>
+            <menuitem id="menu_indem_specif" parent="menu_emploi" name="INDEMNITES SPECIFIQUES" sequence = "52"/>
+				<menuitem id="menu_param_indemnite_specifique_grh" parent="menu_indem_specif" name="Parametrage Indemnité/Spécifique GRH" action="act_param_specifique_indemnite_grh" sequence = "521"/>
+				<menuitem id="menu_param_indemnite_specifique_insp" parent="menu_indem_specif" name="Parametrage Indemnité/Spécifique IT" action="act_param_specifique_indemnite_it" sequence = "522"/>
+				<menuitem id="menu_param_indemnite_specifique_irp" parent="menu_indem_specif" name="Parametrage Indemnité/Spécifique IRP" action="act_param_specifique_indemnite_irp" sequence = "523"/>
+				<menuitem id="menu_param_indemnite_informatique" parent="menu_indem_specif" name="Parametrage Indemnité/Informatique" action="act_param_informatique_indemnite" sequence = "524"/>
+				<menuitem id="menu_param_indemnite_caisse" parent="menu_indem_specif" name="Parametrage Indemnité/Caisse" action="act_param_caisse" sequence = "525"/>
+            <menuitem id="menu_indem_hop_journ" parent="menu_emploi" name="INDEMNITES HOSPITALIÈRES/JOURNALISME" sequence = "53"/>
+				<menuitem id="menu_param_indemnite_garde" parent="menu_indem_hop_journ" name="Parametrage Indemnité/Garde" action="act_param_garde" sequence = "531"/>
+				<menuitem id="menu_param_indemnite_contagion" parent="menu_indem_hop_journ" name="Parametrage Indemnité/Risque de Contagion" action="act_param_contagion" sequence = "532"/>
+				<menuitem id="menu_param_indemnite_sujetion" parent="menu_indem_hop_journ" name="Parametrage Indemnité/Sujétion Géographique" action="act_param_sujetion" sequence = "533"/>
+				<menuitem id="menu_param_indemnite_formation" parent="menu_indem_hop_journ" name="Parametrage Indemnité/Formation Spécialisée" action="act_param_speciale" sequence = "534"/>
+				<menuitem id="menu_param_indemnite_specifique_ish" parent="menu_indem_hop_journ" name="Parametrage Indemnité/Spécifique ISH" action="act_param_specifique_indemnite_ish" sequence = "535"/>
+            <menuitem id="menu_fonction" parent="main_menu_param" name="INDEMNITES LIEES A LA FONCTION" sequence = "70"/>
+                <menuitem id="menu_param_indemnite_resp" parent="menu_fonction" name="Parametrage Indemnité/Responsabilité" action="act_param_resp_indemnite" sequence = "71"/>
+                <menuitem id="menu_param_indemnite_specifique_ifc" parent="menu_fonction" name="Parametrage Indemnité/Spécifique ICF" action="act_param_specifique_indemnite_ifc" sequence = "72"/>
+                <menuitem id="menu_param_indemnite_caisse" parent="menu_fonction" name="Parametrage Indemnité/Caisse" action="act_param_caisse" sequence = "73"/>
+             <menuitem id="menu_param_actes_ad" parent="main_menu_param" name="Paramétrage Modèles actes administratifs" sequence = "80"/>
+                <menuitem id="menu_donne_acte_ad_mod" name ="Saisie/MàJ Modèle Actes administratifs" sequence="65" parent="menu_param_actes_ad" action="act_hr_actes_ad_modele"/>
+                <menuitem id="menu_donne_decision_ad_mod" name ="Saisie/MàJ Modèle Décisions administratives" sequence="75" parent="menu_param_actes_ad" action="act_hr_decision_ad_modele"/>
+
+            <menuitem id="menu_param_cong" parent="main_menu_param" name="Paramétrage Congés et absences" sequence = "90"/>
+                    <menuitem id="menu_param_cong_typ" parent="menu_param_cong" name="Paramétrage Congés et absences" action="hr_holidays.open_view_holiday_status" sequence = "1"/>
+<!--                    <menuitem id="menu_param_cong_typ_act" parent="menu_param_cong" name="Types d'activités" action="hr_holidays.mail_activity_type_action_config_hr_holidays" sequence = "2"/>-->
+
+
+        <menuitem id="main_menu_actes_ad" name ="Documents Administratifs" sequence="22" parent="main_menu"/>
+            <menuitem id="main_menu_actes_ad_ad" name ="Actes Administratifs" sequence="10" parent="main_menu_actes_ad" action="act_hr_acte_administratif"/>
+            <menuitem id="main_menu_decision_ad_ad" name ="Décisions Administratives" sequence="20" parent="main_menu_actes_ad" action="act_hr_decision_administratif"/>
+
+<!--            <menuitem id="main_menu_actes_ad_abs" name ="Saisie/Màj-Stage Autorisation d'absence" sequence="38" parent="main_menu_actes_ad" action="act_hr_acte_auto_absence"/>-->
+<!--            <menuitem id="main_menu_actes_cess_serv" name ="Saisie/Màj-Stage Certificat de cessation de service" sequence="37" parent="main_menu_actes_ad" action="act_hr_acte_certif_cess_service"/>-->
+
+        <menuitem id="main_menu_stage" name ="Stage" sequence="22" parent="main_menu"/>
+            <menuitem id="menu_stage_sai" name ="Stage personnel" sequence="38" parent="main_menu_stage"/>
+                <menuitem id="main_menu_stage_saisie_p" name ="Saisie/Màj-Stage Personnel" sequence="38" parent="menu_stage_sai" action="act_stage_list"/>
+            <menuitem id="menu_stage_int" name ="Stage interne" sequence="45" parent="main_menu_stage"/>
+                 <menuitem id="main_menu_stage_int" name ="Saisie/Màj-Informations Stage" sequence="46" parent="menu_stage_int" action="act_stage_interne_list"/>
+
+        <menuitem id="main_menu_conge" name ="Absence et congés" sequence="21" parent="main_menu"/>
+            <menuitem id="menu_hr_holidays_dash" name="Tableau de bord" parent="main_menu_conge"
+                  action="hr_holidays.action_hr_holidays_dashboard" sequence="5"/>
+            <menuitem id="menu_mes_conges" name ="Absences et Congés" sequence="10" parent="main_menu_conge"/>
+                <menuitem id="menu_hr_holidays_c_c" name="Compte Absences/Congés" parent="menu_mes_conges"
+                  action="hr_holidays.hr_leave_allocation_action_approve_department" sequence="20"/>
+                <menuitem id="menu_hr_holidays_de_c" name="Attribution Absences/Congés" parent="menu_mes_conges"
+                  action="hr_holidays.hr_leave_action_action_approve_department" sequence="30"/>
+            <menuitem id="menu_hr_holidays_my" name="Mes Congés" parent="main_menu_conge" sequence="40"/>
+                <menuitem id="menu_hr_holidays_my_dash" name="Tableau de bord" parent="menu_hr_holidays_my"
+                          action="hr_holidays.hr_leave_action_new_request" sequence="10"/>
+                <menuitem id="menu_hr_holidays_my_dmde" name="Demandes de Absences/congés" parent="menu_hr_holidays_my"
+                    action="hr_holidays.hr_leave_action_my" sequence="20"/>
+            <menuitem id="menu_hr_holidays_synth" name="Synthèse" parent="main_menu_conge" sequence="60"/>
+                <menuitem id="menu_hr_holidays_synth_pe" name="Par employé" parent="menu_hr_holidays_synth"
+                          action="hr_holidays.action_hr_available_holidays_report" sequence="10"/>
+                <menuitem id="menu_hr_holidays_synth_pt" name="Par type" parent="menu_hr_holidays_synth"
+                          action="hr_holidays.act_hr_employee_holiday_request" sequence="20"/>
+<!--                <menuitem id="main_menu_demande_c" name ="Demandes de Congés" sequence="11" parent="menu_mes_conges" action="act_list_dde_conge" />-->
+<!--                <menuitem id="main_menu_compt" name ="Compte Congés" sequence="13" parent="menu_mes_conges" action="act_compte_conge_list" />-->
+<!--                <menuitem id="main_menu_decision_compt" name ="Décision Congés" sequence="14" parent="menu_mes_conges" action="act_decision_conge_list" />-->
+<!--                <menuitem id="main_menu_planning_conge" name ="Planning Congés" sequence="15" parent="menu_mes_conges" action="act_planning_list"/>-->
+<!--            <menuitem id="menu_mes_abse" name ="Absence" sequence="10" parent="main_menu_conge"/>-->
+<!--                <menuitem id="menu_autorisation" name ="Autorisations Absences" sequence="20" parent="menu_mes_abse" action="act_list_auto_abs"/>-->
+<!--            <menuitem id="menu_conge_tb" name ="Tableau de bord" sequence="1" parent="menu_m_conge" action="hr_holidays.hr_leave_action_new_request"/>-->
+<!--            <menuitem id="menu_m_conge" name ="Mes congés" sequence="2" parent="main_menu_conge"/>-->
+<!--                <menuitem id="menu_m_conge_b" name ="Tableau de bord" sequence="1" parent="menu_m_conge" action="hr_holidays.action_hr_holidays_dashboard"/>-->
+<!--                <menuitem id="menu_m_conge_dc" name ="Mes demandes de congés" sequence="2" parent="menu_m_conge" action="hr_holidays.hr_leave_action_my"/>-->
+<!--                <menuitem id="menu_m_conge_da" name ="Mes demandes d'attributions" sequence="3" parent="menu_m_conge" action="hr_holidays.hr_leave_allocation_action_my"/>-->
+
+        <menuitem id="main_menu_emp" name ="Personnel" sequence="20" parent="main_menu"/>
+            <menuitem id="main_menu_emp_e" name ="Saisie/MàJ-Personnel" sequence="1" parent="main_menu_emp" action="act_list_emp"/>
+            <menuitem id="menu_contrat" parent="main_menu_emp" name="Contrats Personnels" action="hr_contract.action_hr_contract" sequence = "2"/>
+            <menuitem id="main_menu_emp_reg" name ="Registre Employé" sequence="3" parent="main_menu_emp" action="act_hr_employee_registre"/>
+<!--		<menuitem id="main_menu_prorata" name ="Calcul au Prorata" sequence="28" parent="main_menu_emp" action="act_prorata" />-->
+<!--		<menuitem id="main_menu_emp_re" name ="Régistre Du Personnel" sequence="22" parent="main_menu_emp" action="act_list_employ"/>-->
+<!--		<menuitem id="main_menu_cess" name ="Cessation/Reprise de Service" sequence="25" parent="main_menu_emp" action="act_list_cess"/>-->
+<!--		<menuitem id="main_menu_certif" name ="Attestation/Certificat De Travail" sequence="26" parent="main_menu_emp" action="act_list_cert"/>-->
+<!--		<menuitem id="menu_historisation" parent="main_menu_emp" name="Suivi-Carrière" action="act_list_hist" sequence = "27"/> -->
+</odoo>

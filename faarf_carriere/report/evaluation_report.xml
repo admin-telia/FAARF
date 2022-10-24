@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="temp_eval">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.external_layout">
+					<div class="page">
+						<div style="text-align:center; font-weight:bold; font-size: large;
+									background-color:#f3f3f3; border: 2px black solid">
+							<span>
+								Fiche d’évaluation et de notation des agents de la fonction publique
+							</span><br/>
+							<span style="font-weight:500px; font-size: xx-large; text-decoration:underline">
+								FICHE <span t-field="o.x_categorie_employe_id.lib_court" />
+							</span><br/>
+							<span>(<span t-field="o.x_categorie_employe_id.name" />)</span><br/>
+						</div>
+						<div style="text-align:center; font-weight:bold; font-size: large; ">
+							Année:
+						</div>
+
+						<p style="font-weight:bold; ">1. Identification de l’agent à noter</p>
+						<table class="table table-bordered table-sm" >
+							<tr>
+								<td colspan="2" style="border: 2px SOLID #089CB8;">Ministère/ Institution: </td>
+								<td colspan="2" style="border: 2px SOLID #089CB8;">Unité administrative: </td>
+							</tr>
+							<tr>
+								<td colspan="4" style="border: 2px SOLID #089CB8;">Nom et prénom (s) :</td>
+							</tr>
+							<tr>
+								<td colspan="2" style="border: 2px SOLID #089CB8;">Matricule: </td>
+								<td colspan="2" style="border: 2px SOLID #089CB8;">Emploi: </td>
+							</tr>
+							<tr>
+								<td style="border: 2px SOLID #089CB8;">Catégorie: </td>
+								<td style="border: 2px SOLID #089CB8;">Echelle: </td>
+								<td style="border: 2px SOLID #089CB8;">Classe: </td>
+								<td style="border: 2px SOLID #089CB8;">Echellon: </td>
+							</tr>
+						</table>
+
+						<p style="font-weight:bold; ">2. Identification du supérieur hiérarchique immédiat</p>
+						<table class="table table-bordered table-sm">
+							<tr>
+								<td colspan="5" style="border: 2px SOLID #089CB8;">Nom et prénom (s) :</td>
+							</tr>
+							<tr>
+								<td colspan="2" style="border: 2px SOLID #089CB8;">Matricule: </td>
+								<td colspan="3" style="border: 2px SOLID #089CB8;">Fonction: </td>
+							</tr>
+							<tr>
+								<td style="border: 2px SOLID #089CB8;">Emploi: </td>
+								<td style="border: 2px SOLID #089CB8;">Catégorie: </td>
+								<td style="border: 2px SOLID #089CB8;">Echelle: </td>
+								<td style="border: 2px SOLID #089CB8;">Classe: </td>
+								<td style="border: 2px SOLID #089CB8;">Echellon: </td>
+							</tr>
+						</table>
+
+						<p style="font-weight:bold; ">3. Tableau d’évaluation à renseigner par le supérieur hiérarchique immédiat</p>
+						<table class="table table-bordered table-sm" style="border: 4px SOLID #089CB8;">
+							<tr>
+								<th style="border: 2px SOLID #089CB8;">N°d'ordre</th>
+								<th style="border: 2px SOLID #089CB8;">Critères d’évaluation</th>
+								<th style="border: 2px SOLID #089CB8;">Sous Critères</th>
+								<th style="border: 2px SOLID #089CB8;">Note</th>
+								<th style="border: 2px SOLID #089CB8;"></th>
+							</tr>
+							<t t-set="seq" t-value="0"/>
+							<t t-set="i" t-value="0"/>
+							<t t-set="crit_category" t-value="[]"/>
+							<t t-foreach="o.x_sous_criteres_ids" t-as="l">
+								<t t-set="crit_category" t-value="crit_category+[l.crit_seq]"/>
+							</t>
+							<t t-set="g_note" t-value="0"/>
+							<t t-set="g_note_sur" t-value="0"/>
+							<t t-foreach="set(crit_category)" t-as="category">
+								<t t-set="i" t-value="1"/>
+								<t t-set="c" t-value="0"/>
+								<t t-set="note" t-value="0"/>
+								<t t-set="note_sur" t-value="0"/>
+								<t t-set="c" t-value="0"/>
+								<t t-set="x_critere" t-value=""/>
+								<t  t-foreach="o.x_sous_criteres_ids" t-as="sc">
+									<t t-if="category==sc.crit_seq">
+										<t t-set="x_critere" t-value="sc.x_critere"/>
+										<t t-set="count" t-value="o.x_sous_criteres_ids.
+												search_count([('crit_seq', '=', category )])"/>
+										<t t-set="note" t-value="note + sc.x_note"/>
+										<t t-set="note_sur" t-value="note_sur + sc.born_sup"/>
+										<t t-set="g_note" t-value="g_note + sc.x_note"/>
+										<t t-set="g_note_sur" t-value="g_note_sur + sc.born_sup"/>
+										<tr>
+											<td t-if="i" t-attf-rowspan="{{count + 1}}" style="border: 2px SOLID #089CB8;">
+												<t t-esc="category_index + 1"/>
+											</td>
+											<td t-if="i" t-attf-rowspan="{{count}}" style="border: 2px SOLID #089CB8;">
+												<span t-field="sc.x_critere"/>
+											</td>
+											<td style="border: 2px SOLID #089CB8;">
+												<span t-field="sc.x_sous_critere" />
+											</td>
+											<td style="border: 2px SOLID #089CB8;">
+												<span t-field="sc.x_note" />
+											</td>
+											<td style="border: 2px SOLID #089CB8;">
+												/<span t-field="sc.born_sup" />
+											</td>
+										</tr>
+										<t t-set="i" t-value="0"/>
+									</t>
+								</t>
+								<tr>
+									<td colspan="2" style="border: 2px SOLID #089CB8;">
+										Total des notes du critère : <span t-esc="x_critere"/>
+									</td>
+									<td style="border: 2px SOLID #089CB8;">
+										<span style="color:red" t-esc="note" />
+									</td>
+									<td style="border: 2px SOLID #089CB8;">
+										<span t-esc="note_sur"/>
+									</td>
+								</tr>
+							</t>
+							<tr>
+								<td colspan="3">Note globale :</td>
+								<td><span style="color:red" t-esc="g_note" /></td>
+								<td><span t-esc="g_note_sur"/></td>
+							</tr>
+						</table>
+
+						<p style="font-weight:bold; ">4. Procès-verbal de l’entretien d’évaluation</p>
+						<p>
+							1°) Observations sur le niveau de performance de l’agent :<br/>
+							<span t-field="o.observation_sup_imm"/>
+						</p>
+						<p>
+							2°) Contraintes de réalisation ( éventuellement ):<br/>
+							<span t-field="o.contrainte_realisation"/>
+						</p>
+						<p>
+							2°) Points de divergence (s’il y a lieu) :<br/>
+							<span t-field="o.point_divergence"/>
+						</p>
+
+						<br/>
+						<p style="text-align:right">
+							Fait à ..................................., le......................2.........
+						</p>
+						<table class="table" style="border:0px" border="0">
+							<tr>
+								<td style="text-align:left; border: white;">
+									Signature de l’évalué
+								</td>
+								<td style="text-align:right; border: white;">
+									Signature du supérieur hiérarchique immédiat - évaluateur
+								</td>
+							</tr>
+						</table>
+						<p style="font-weight:bold; ">
+							7. Propositions d’amélioration ou de motivation de l’agent.<br/>
+							<span t-field="o.observation_amelioration"/>
+						</p>
+
+						<br/>
+						<p style="text-align:right">
+							Fait à ............., le............2.........
+						</p>
+						<br/>
+						<p style="text-align:right">
+							Signature du supérieur hiérarchique immédiat -évaluateur
+						</p>
+					</div>
+				</t>
+			 </t>
+		</t>
+	</template>
+
+	<report
+		id="report_evaluationns"
+		string="Imprimer"
+		model="hr_evaluation"
+		report_type="qweb-html"
+		file="gestion_carriere.temp_eval"
+		name="gestion_carriere.temp_eval"
+		groups = "base.group_user"
+		menu = "True"/>
+</odoo>

@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record model="ir.ui.view" id="view_hr_acte_auto_absence_tree">
+		<field name="name">view.hr_acte_auto_absence.tree</field>
+		<field name="model">hr_acte_auto_absence</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des types de congés">
+				<field name="name"/>
+                <field name="duree"/>
+                <field name="date_deb"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="view_hr_acte_auto_absence_form">
+		<field name="name">view.hr_acte_auto_absence.form</field>
+		<field name="model">hr_acte_auto_absence</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form>
+			<sheet>
+					<group>
+                        <group>
+                            <field name="name"/>
+                            <field name="duree"/>
+                            <field name="date_deb"/>
+							<field name="motif"/>
+                            <field name="ampliation_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+				<notebook>
+				    <page string="Texte">
+						<group>
+							<group>
+								<field name="texte" readonly="1" force_save="1" nolabel="1"/>
+							</group>
+						</group>
+				    </page>
+				</notebook>
+			</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_hr_acte_auto_absence">
+			<field name="name">Liste des autorisations d'absence</field>
+			<field name="res_model">hr_acte_auto_absence</field>
+			<field name="view_mode">tree,form</field>
+
+	</record>
+
+	<!--	acte cessation de service-->
+	<record model="ir.ui.view" id="view_hr_acte_certif_cess_service_tree">
+		<field name="name">view.hr_acte_certif_cess_service.tree</field>
+		<field name="model">hr_acte_certif_cess_service</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Liste des types de congés">
+				<field name="name"/>
+                <field name="employe_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="view_hr_acte_auto_absence_form">
+		<field name="name">view.hr_acte_certif_cess_service.form</field>
+		<field name="model">hr_acte_certif_cess_service</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form>
+			<sheet>
+					<group>
+                        <group>
+                            <field name="name" readonly="1" force_save="1"/>
+                            <field name="employe_id"/>
+							<field name="signataire_id" required="True"/>
+							<field name="ampliation_ids" widget="many2many_tags"/>
+                        </group>
+						<group>
+							<field name="nom"/>
+                            <field name="matricule"/>
+							<field name="fonction"/>
+							<field name="emploi"/>
+						</group>
+                    </group>
+					<group>
+						<field name="texte" nolabel="0"/>
+					</group>
+			</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_hr_acte_certif_cess_service">
+			<field name="name">Liste des certificats de cessation de service</field>
+			<field name="res_model">hr_acte_certif_cess_service</field>
+			<field name="view_mode">tree,form</field>
+
+	</record>
+
+
+	<!--	Type acte administratif -->
+	<record model="ir.ui.view" id="view_hr_actes_ad_type_tree">
+		<field name="name">view.hr_actes_ad_type.tree</field>
+		<field name="model">hr_actes_ad_type</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="code"/>
+				<field name="name"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="view_hr_actes_ad_type_form">
+		<field name="name">view.hr_actes_ad_type.form</field>
+		<field name="model">hr_actes_ad_type</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form>
+			<sheet>
+					<group>
+                        <group>
+                            <field name="code" style="width:50%" required="True"/>
+                            <field name="name"/>
+                        </group>
+						<group>
+						</group>
+                    </group>
+			</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_hr_actes_ad_type">
+			<field name="name">Type d'actes administratifs</field>
+			<field name="res_model">hr_actes_ad_type</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!--	modele actes-->
+	<record model="ir.ui.view" id="hr_actes_ad_modele_tree_view">
+		<field name="name">hr_actes_ad_modele</field>
+		<field name="model">hr_actes_ad_modele</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"></field>
+				<field name="sequence" widget="handle"></field>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="hr_actes_ad_modele_form_view">
+		<field name="name">hr_actes_ad_modele</field>
+		<field name="model">hr_actes_ad_modele</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="name"></field>
+					</group>
+					<notebook>
+						<page string="Entête">
+							<group>
+								<field name="entete" string="Entete"/>
+							</group>
+						</page>
+						<page string="Contenu">
+							<group>
+								<field name="contenu" string="Contenu"/>
+							</group>
+							<group string="Légende">
+
+							<table class="table">
+								<tr>
+									<td style="border: none">
+										<p>Nom et prénoms: <b>[NOM]</b> </p>
+										<p>Matricule: <b>[MATRICULE]</b> </p>
+										<p>Titre: <b>[TITRE]</b> </p>
+									</td>
+									<td style="border: none">
+										<p>Direction: <b>[DIRECTION]</b> </p>
+										<p>Emploi: <b>[EMPLOI]</b> </p>
+										<p>Fonction: <b>[FONCTION]</b> </p>
+									</td>
+									<td style="border: none">
+										<p>Catégorie: <b>[CATEGORIE]</b> </p>
+										<p>Echelle: <b>[ECHELLE]</b> </p>
+										<p>Echellon: <b>[ECHELON]</b> </p>
+									</td>
+								</tr>
+							</table>
+							</group>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"></field>
+					<field name="activity_ids" widget="mail_activity"></field>
+					<field name="message_ids" widget="mail_thread" options="{'post_refresh':'recipients'}"></field>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_hr_actes_ad_modele">
+			<field name="name">Modèle d'actes administratifs</field>
+			<field name="res_model">hr_actes_ad_modele</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- actes-->
+	<record model="ir.ui.view" id="hr_acte_administratif_view">
+		<field name="name">hr_acte_administratif</field>
+		<field name="model">hr_acte_administratif</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="acte_id"/>
+				<field name="employe_id"/>
+				<field name="date_ets"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="hr_acte_administratif_form_view">
+		<field name="name">hr_acte_administratif</field>
+		<field name="model">hr_acte_administratif</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+				    <field name="state" widget="statusbar"/>
+				</header>
+				<sheet>
+					<div name="title">
+<!--						<label for="request_date_from" string="Dates"/>-->
+						<div class="oe_title" name="title">
+							<h2>
+								<field name="acte_id" nolabel="1" required="True"/>
+							</h2>
+						</div>
+					</div>
+					<group>
+						<group>
+							<field name="employe_id"/>
+							<field name="matricule"/>
+						</group>
+						<group>
+							<field name="fonction"/>
+							<field name="emploi"/>
+						</group>
+					</group>
+					<group>
+						<group>
+							<field name="lieu"/>
+						</group>
+						<group>
+							<field name="signataire_id"/>
+						</group>
+					</group>
+					<notebook>
+					    <page string="Contenu">
+					        <group>
+					            <field name="contenu_acte"/>
+					        </group>
+					    </page>
+						<page string="Ampliation">
+							<field name="ampliation_ids">
+								<tree editable="bottom">
+									<field name="name"/>
+									<field name="nombre_ampliation"/>
+								</tree>
+							</field>
+					    </page>
+						<page string="Entete">
+					        <group>
+					            <field name="entete_acte"/>
+					        </group>
+					    </page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"></field>
+					<field name="activity_ids" widget="mail_activity"></field>
+					<field name="message_ids" widget="mail_thread" options="{'post_refresh':'recipients'}"></field>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_hr_acte_administratif">
+			<field name="name">Actes administratifs</field>
+			<field name="res_model">hr_acte_administratif</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+
+	<!--	Type decision administratif -->
+	<record model="ir.ui.view" id="view_hr_decision_ad_type_tree">
+		<field name="name">view.hr_decision_ad_type.tree</field>
+		<field name="model">hr_decision_ad_type</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="code"/>
+				<field name="name"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="view_hr_decision_ad_type_type_form">
+		<field name="name">view.hr_decision_ad_type.form</field>
+		<field name="model">hr_decision_ad_type</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form>
+			<sheet>
+					<group>
+                        <group>
+                            <field name="code" style="width:50%" required="True"/>
+                            <field name="name"/>
+                        </group>
+						<group>
+						</group>
+                    </group>
+			</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_hr_decision_ad_type">
+			<field name="name">Type de décisions administratives</field>
+			<field name="res_model">hr_decision_ad_type</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!--	modele decision-->
+	<record model="ir.ui.view" id="hr_decision_ad_modele_tree_view">
+		<field name="name">hr_decision_ad_modele</field>
+		<field name="model">hr_decision_ad_modele</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"></field>
+				<field name="sequence" widget="handle"></field>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="hr_decision_ad_modele_form_view">
+		<field name="name">hr_decision_ad_modele</field>
+		<field name="model">hr_decision_ad_modele</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<group>
+							<field name="name"/>
+						</group>
+					</group>
+					<notebook>
+						<page string="Décret">
+							<group>
+								<field name="decret" string="Décret"/>
+							</group>
+						</page>
+						<page string="Entête">
+							<group>
+								<field name="entete" string="Entête"/>
+							</group>
+						</page>
+						<page string="Article">
+							<group>
+								<field name="article1"/>
+								<field name="article2"/>
+								<field name="article3"/>
+								<field name="article4"/>
+								<field name="article5"/>
+								<field name="article6"/>
+								<field name="article7"/>
+								<field name="article8"/>
+							</group>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"></field>
+					<field name="activity_ids" widget="mail_activity"></field>
+					<field name="message_ids" widget="mail_thread" options="{'post_refresh':'recipients'}"></field>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_hr_decision_ad_modele">
+			<field name="name">Modèle de décisions administratives</field>
+			<field name="res_model">hr_decision_ad_modele</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- decision-->
+	<record model="ir.ui.view" id="hr_decision_administratif_view">
+		<field name="name">hr_decision_administratif</field>
+		<field name="model">hr_decision_administratif</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="decision_modele_id"/>
+				<field name="date_ets"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="hr_decision_administratif_form_view">
+		<field name="name">hr_decision_administratif</field>
+		<field name="model">hr_decision_administratif</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+				    <field name="state" widget="statusbar"/>
+				</header>
+				<sheet>
+					<div name="title">
+<!--						<label for="request_date_from" string="Dates"/>-->
+						<div class="oe_title" name="title">
+							<h2>
+								<field name="decision_modele_id" nolabel="1" required="True"/>
+							</h2>
+						</div>
+					</div>
+					<group>
+						<group>
+							<field name="lieu"/>
+						</group>
+						<group>
+							<field name="signataire_id"/>
+						</group>
+					</group>
+					<notebook>
+						<page string="Employés">
+							<field name="employe_ids">
+								<tree editable="bottom">
+									<field name="matricule" string="Matricule"/>
+									<field name="name"/>
+									<field name="x_categorie_id"/>
+									<field name="x_echelle_id"/>
+									<field name="x_echellon_id"/>
+									<field name="x_emploi_id"/>
+									<field name="x_fonction_id"/>
+								</tree>
+							</field>
+						</page>
+						<page string="Entête">
+					        <group>
+					            <field name="entete_decicion"/>
+					        </group>
+					    </page>
+						<page string="Décret">
+					        <group>
+					            <field name="decret_decicion"/>
+					        </group>
+					    </page>
+						<page string="Article">
+							<group>
+								<field name="article1"/>
+								<field name="article2"/>
+								<field name="article3"/>
+								<field name="article4"/>
+								<field name="article5"/>
+								<field name="article6"/>
+								<field name="article7"/>
+								<field name="article8"/>
+							</group>
+						</page>
+						<page string="Ampliation">
+							<field name="ampliation_ids">
+								<tree editable="bottom">
+									<field name="name"/>
+									<field name="nombre_ampliation"/>
+								</tree>
+							</field>
+					    </page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"></field>
+					<field name="activity_ids" widget="mail_activity"></field>
+					<field name="message_ids" widget="mail_thread" options="{'post_refresh':'recipients'}"></field>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_hr_decision_administratif">
+			<field name="name">Décisions administratives</field>
+			<field name="res_model">hr_decision_administratif</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+	
+</odoo>

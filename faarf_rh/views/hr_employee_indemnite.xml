@@ -1,0 +1,899 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Vue Paramètre indemnité astreinte tree-->
+	<record model="ir.ui.view" id="view_id_tree_astr">
+		<field name="name">view.hr_paramindemniteastr.tree</field>
+		<field name="model">hr_paramindemniteastr</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Parametrage Indemnité/Astreinte">
+		        <field name="x_categorie_c_id"/>
+		        <field name="x_zone_id"/>
+		        <field name="x_emploi_id"/>
+		        <field name="x_fonction_id"/>
+				<field name="x_taux"/>
+<!--		        <field name="x_taux"/>-->
+<!--		        <field name="company_id"/>-->
+			</tree>
+		</field>
+	 </record>
+
+	<record model="ir.ui.view" id="view_id_form_astr">
+		<field name="name">view.hr_paramindemniteastr.form</field>
+		<field name="model">hr_paramindemniteastr</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Parametrage Indemnité/Astreinte">
+			    <group col = "2">
+			            <group>
+<!--			            	<field name="x_type_indem_id" force_save = '1'/>-->
+			            	<field name="x_categorie_c_id" required="True"/>
+							<field name="x_zone_id" required="True"/>
+
+							<field name="x_emploi_id" required="True"/>
+							<field name="x_fonction_id" required="True"/>
+<!--			            	<field name="x_echelle_c_id"/>-->
+			            </group>
+					    <group>
+<!--					    	<field name="x_emploi_id"/>-->
+<!--					        <field name="x_zone_id"/>-->
+					        <field name="x_taux" required="True"/>
+					        <field name="company_id" invisible = '1'/>
+					    </group>
+			       </group>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_param_astr_indemnite">
+			<field name="name">Liste des Paramétrage Indemnité/Astreintes</field>
+			<field name="res_model">hr_paramindemniteastr</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Vue Paramètre indemnité responsabilité tree-->
+	<record model="ir.ui.view" id="view_id_tree_resp">
+		<field name="name">view.hr_paramindemniteresp.tree</field>
+		<field name="model">hr_paramindemniteresp</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Parametrage Indemnité/Responsabilité">
+<!--            	<field name="x_type_indem_id"/>-->
+		        <field name="x_fonction_id"/>
+<!--		        <field name="x_zone_id"/>-->
+		        <field name="x_taux"/>
+<!--		        <field name="company_id"/>-->
+			</tree>
+		</field>
+	 </record>
+
+	<record model="ir.ui.view" id="view_id_form_resp">
+		<field name="name">view.hr_paramindemniteresp.form</field>
+		<field name="model">hr_paramindemniteresp</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<form string="Parametrage Indemnité/Responsabilité">
+			   <group col = "2">
+		            <group>
+<!--		            	<field name="x_type_indem_id" force_save = '1'/>-->
+				       <field name="x_fonction_id" required="True"/>
+						<field name="x_taux" required="True"/>
+		            </group>
+				    <group>
+<!--				        <field name="x_zone_id"/>-->
+<!--				        <field name="x_taux"/>-->
+				        <field name="company_id" invisible = '1'/>
+				    </group>
+		        </group>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_param_resp_indemnite">
+			<field name="name">Liste des Paramétrages Indemnité/Responsabilité</field>
+			<field name="res_model">hr_paramindemniteresp</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Vue Paramètre logement indemnité tree-->
+	<record model="ir.ui.view" id="view_id_tree_type_logement">
+		<field name="name">view.hr_paramindemnitelogement.tree</field>
+		<field name="model">hr_paramindemnitelogement</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Parametrage Indemnité/Logement">
+            	<field name="x_categorie_c_id"/>
+<!--				<field name="x_emploi_id"/>-->
+				<field name="x_taux"/>
+			</tree>
+		</field>
+	 </record>
+
+	<record model="ir.ui.view" id="view_id_form_type_logement">
+		<field name="name">view.hr_paramindemnitelogement.form</field>
+		<field name="model">hr_paramindemnitelogement</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+				<form string="Parametrage Indemnité/Logement">
+				   <group col = "2">
+			            <group>
+<!--			            	<field name="x_type_indem_id" force_save = '1'/>-->
+			            	<field name="x_categorie_c_id" required="True"/>
+<!--							<field name="x_emploi_id" required="True"/>-->
+					        <field name="x_taux" required="True"/>
+<!--			            	<field name="x_echelle_c_id"/>-->
+			            </group>
+					    <group>
+<!--					    	<field name="x_emploi_id"/>-->
+<!--					        <field name="x_zone_id"/>-->
+<!--					        <field name="x_taux"/>-->
+<!--					        <field name="company_id" invisible = '1'/>-->
+					    </group>
+			       </group>
+				</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_param_logement_indemnite">
+			<field name="name">Liste des Paramétrage Indemnité/Logement</field>
+			<field name="res_model">hr_paramindemnitelogement</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Vue Paramètre technicité indemnité tree-->
+	<record model="ir.ui.view" id="view_id_tree_type_technicite">
+		<field name="name">view.hr_paramindemnitetechnicite.tree</field>
+		<field name="model">hr_paramindemnitetechnicite</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Parametrage Indemnité/Technicité">
+<!--            	<field name="x_type_indem_id"/>-->
+<!--            	<field name="x_emploi_id"/>-->
+            	<field name="x_categorie_c_id"/>
+				<field name="x_zone_id"/>
+				<field name="x_emploi_id"/>
+<!--            	<field name="x_echelle_c_id"/>-->
+<!--            	<field name="x_zone_id"/>-->
+		        <field name="x_taux"/>
+<!--		        <field name="company_id"/>-->
+			</tree>
+		</field>
+	 </record>
+
+	<record model="ir.ui.view" id="view_id_form_type_technicites">
+		<field name="name">view.hr_paramindemnitetechnicite.form</field>
+		<field name="model">hr_paramindemnitetechnicite</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+				<form string="Parametrage Indemnité/Technicité">
+				    <group col = "2">
+			            <group>
+<!--			            	<field name="x_type_indem_id" force_save = '1'/>-->
+			            	<field name="x_categorie_c_id" required="True"/>
+					        <field name="x_zone_id" required="True"/>
+							<field name="x_emploi_id" required="True"/>
+							<field name="x_taux" required="True"/>
+<!--			            	<field name="x_echelle_c_id"/>-->
+			            </group>
+
+					    <group>
+<!--					    	<field name="x_emploi_id"/>-->
+<!--					        <field name="x_zone_id"/>-->
+<!--					        <field name="x_taux"/>-->
+					        <field name="company_id" invisible = '1'/>
+					    </group>
+			       </group>
+				</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_param_technicite_indemnite">
+			<field name="name">Liste des Paramétrage Indemnité/Technicité</field>
+			<field name="res_model">hr_paramindemnitetechnicite</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Vue Paramètre spécifique indemnité GRH tree-->
+	<record model="ir.ui.view" id="view_id_tree_specifiques">
+		<field name="name">view.hr_paramindemnitespecifique.tree</field>
+		<field name="model">hr_paramindemnitespecifique</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Parametrage Indemnité/Spécifique">
+<!--            	<field name="x_type_indem_id"/>-->
+            	<field name="x_emploi_id"/>
+<!--            	<field name="x_categorie_c_id"/>-->
+<!--            	<field name="x_echelle_c_id"/>-->
+<!--		        <field name="x_zone_id"/>-->
+		        <field name="x_taux"/>
+<!--		        <field name="company_id"/>-->
+			</tree>
+		</field>
+	 </record>
+
+	<record model="ir.ui.view" id="view_id_form_type_specifique">
+		<field name="name">view.hr_paramindemnitespecifique.form</field>
+		<field name="model">hr_paramindemnitespecifique</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+				<form string="Parametrage Indemnité/Spécifique">
+				    <group col = "2">
+			            <group>
+<!--			            	<field name="x_type_indem_id" force_save = '1'/>-->
+<!--			            	<field name="x_categorie_c_id"/>-->
+<!--			            	<field name="x_echelle_c_id"/>-->
+							<field name="x_emploi_id" required="True"/>
+					        <field name="x_taux" required="True"/>
+			            </group>
+
+					    <group>
+<!--					    	<field name="x_emploi_id"/>-->
+<!--					        <field name="x_zone_id"/>-->
+<!--					        <field name="x_taux"/>-->
+					        <field name="company_id" invisible = '1'/>
+					    </group>
+			       </group>
+				</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_param_specifique_indemnite_grh">
+			<field name="name">Liste des Paramétrage Indemnité/Spécifique GRH</field>
+			<field name="res_model">hr_paramindemnitespecifique</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Vue Paramètre spécifique indemnité IT tree-->
+	<record model="ir.ui.view" id="view_id_tree_specifiques_it">
+		<field name="name">view.hr_paramindemnitespecifique_it.tree</field>
+		<field name="model">hr_paramindemnitespecifique_it</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Parametrage Indemnité/Spécifique IT">
+<!--            	<field name="x_type_indem_id"/>-->
+            	<field name="x_emploi_id"/>
+<!--            	<field name="x_categorie_c_id"/>-->
+<!--            	<field name="x_echelle_c_id"/>-->
+<!--		        <field name="x_zone_id"/>-->
+		        <field name="x_taux"/>
+<!--		        <field name="company_id"/>-->
+			</tree>
+		</field>
+	 </record>
+
+	<record model="ir.ui.view" id="view_id_form_type_specifiqueçit">
+		<field name="name">view.hr_paramindemnitespecifique_it.form</field>
+		<field name="model">hr_paramindemnitespecifique_it</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+				<form string="Parametrage Indemnité/Spécifique IT">
+				    <group col = "2">
+			            <group>
+			            	<field name="x_emploi_id" required="True"/>
+					        <field name="x_taux" required="True"/>
+			            </group>
+
+					    <group>
+<!--					    	<field name="x_emploi_id"/>-->
+<!--					        <field name="x_zone_id"/>-->
+<!--					        <field name="x_taux"/>-->
+					        <field name="company_id" invisible = '1'/>
+					    </group>
+			       </group>
+				</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_param_specifique_indemnite_it">
+			<field name="name">Liste des Paramétrage Indemnité/Spécifique IT</field>
+			<field name="res_model">hr_paramindemnitespecifique_it</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Vue Paramètre spécifique indemnité IFC tree-->
+	<record model="ir.ui.view" id="view_id_tree_specifiques_ifc">
+		<field name="name">view.hr_paramindemnitespecifique_ifc.tree</field>
+		<field name="model">hr_paramindemnitespecifique_ifc</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Parametrage Indemnité/Spécifique ICF">
+            	<field name="x_type_indem_id"/>
+            	<field name="x_fonction_id"/>
+            	<field name="x_categorie_c_id"/>
+		        <field name="x_taux"/>
+		        <field name="company_id"/>
+			</tree>
+		</field>
+	 </record>
+
+	<record model="ir.ui.view" id="view_id_form_type_specifiqueçifc">
+		<field name="name">view.hr_paramindemnitespecifique_ifc.form</field>
+		<field name="model">hr_paramindemnitespecifique_ifc</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+				<form string="Parametrage Indemnité/Spécifique ICF">
+				    <group col = "2">
+			            <group>
+			            	<field name="x_type_indem_id" force_save = '1'/>
+			            	<field name="x_categorie_c_id"/>
+			            </group>
+
+					    <group>
+					    	<field name="x_fonction_id"/>
+					        <field name="x_taux"/>
+					        <field name="company_id" invisible = '1'/>
+					    </group>
+			       </group>
+				</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_param_specifique_indemnite_ifc">
+			<field name="name">Liste des Paramétrage Indemnité/Spécifique ICF</field>
+			<field name="res_model">hr_paramindemnitespecifique_ifc</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Vue Paramètre spécifique indemnité IRP tree-->
+	<record model="ir.ui.view" id="view_id_tree_specifiques_irp">
+		<field name="name">view.hr_paramindemnitespecifique_irp.tree</field>
+		<field name="model">hr_paramindemnitespecifique_irp</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Parametrage Indemnité/Spécifique IRP">
+<!--            	<field name="x_type_indem_id"/>-->
+            	<field name="x_emploi_id"/>
+<!--            	<field name="x_categorie_c_id"/>-->
+<!--            	<field name="x_echelle_c_id"/>-->
+<!--		        <field name="x_zone_id"/>-->
+		        <field name="x_taux"/>
+<!--		        <field name="company_id"/>-->
+			</tree>
+		</field>
+	 </record>
+
+	<record model="ir.actions.act_window" id="act_param_specifique_indemnite_irp">
+			<field name="name">Liste des Paramétrage Indemnité/Spécifique IRP</field>
+			<field name="res_model">hr_paramindemnitespecifique_irp</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Vue Paramètre spécifique indemnité ISH tree-->
+	<record model="ir.ui.view" id="view_id_tree_specifiques_ish">
+		<field name="name">view.hr_paramindemnitespecifique_ish.tree</field>
+		<field name="model">hr_paramindemnitespecifique_ish</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Parametrage Indemnité/Spécifique ISH">
+            	<field name="x_type_indem_id"/>
+            	<field name="x_emploi_id"/>
+            	<field name="x_categorie_c_id"/>
+            	<field name="x_echelle_c_id"/>
+		        <field name="x_zone_id"/>
+		        <field name="x_taux"/>
+		        <field name="company_id"/>
+			</tree>
+		</field>
+	 </record>
+
+	<record model="ir.ui.view" id="view_id_form_type_specifiqueçish">
+		<field name="name">view.hr_paramindemnitespecifique_ish.form</field>
+		<field name="model">hr_paramindemnitespecifique_ish</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+				<form string="Parametrage Indemnité/Spécifique ISH">
+				    <group col = "2">
+			            <group>
+			            	<field name="x_type_indem_id" force_save = '1'/>
+			            	<field name="x_categorie_c_id"/>
+			            	<field name="x_echelle_c_id"/>
+			            </group>
+
+					    <group>
+					    	<field name="x_emploi_id"/>
+					        <field name="x_zone_id"/>
+					        <field name="x_taux"/>
+					        <field name="company_id" invisible = '1'/>
+					    </group>
+			       </group>
+				</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_param_specifique_indemnite_ish">
+			<field name="name">Liste des Paramétrage Indemnité/Spécifique ISH</field>
+			<field name="res_model">hr_paramindemnitespecifique_ish</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+
+
+	<!-- Vue Paramètre spécifique transport tree-->
+	<record model="ir.ui.view" id="view_id_tree_transports">
+		<field name="name">view.hr_paramindemnitetransport.tree</field>
+		<field name="model">hr_paramindemnitetransport</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Parametrage Indemnité/Transport">
+            	<field name="x_type_indem_id"/>
+            	<field name="x_emploi_id"/>
+            	<field name="x_categorie_c_id"/>
+            	<field name="x_echelle_c_id"/>
+		        <field name="x_zone_id"/>
+		        <field name="x_taux"/>
+		        <field name="company_id"/>
+			</tree>
+		</field>
+	 </record>
+
+	<record model="ir.ui.view" id="view_id_form_type_transp">
+		<field name="name">view.hr_paramindemnitetransport.form</field>
+		<field name="model">hr_paramindemnitetransport</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+				<form string="Parametrage Indemnité/Transport">
+				    <group col = "2">
+			            <group>
+			            	<field name="x_type_indem_id" force_save = '1'/>
+			            	<field name="x_categorie_c_id"/>
+			            	<field name="x_echelle_c_id"/>
+			            </group>
+
+					    <group>
+					    	<field name="x_emploi_id"/>
+					        <field name="x_zone_id"/>
+					        <field name="x_taux"/>
+					        <field name="company_id" invisible = '1'/>
+					    </group>
+			       </group>
+				</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_param_transport_indemnite">
+			<field name="name">Liste des Paramétrage Indemnité/Transport</field>
+			<field name="res_model">hr_paramindemnitetransport</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+
+	<!-- Vue Paramètre spécifique informatique tree-->
+	<record model="ir.ui.view" id="view_id_tree_informatique">
+		<field name="name">view.hr_paramindemniteinformatique.tree</field>
+		<field name="model">hr_paramindemniteinformatique</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Parametrage Indemnité/Informatique">
+            	<field name="x_type_indem_id"/>
+            	<field name="x_emploi_id"/>
+            	<field name="x_categorie_c_id"/>
+            	<field name="x_echelle_c_id"/>
+		        <field name="x_zone_id"/>
+		        <field name="x_taux"/>
+		        <field name="company_id"/>
+			</tree>
+		</field>
+	 </record>
+
+	<record model="ir.ui.view" id="view_id_form_type_inform">
+		<field name="name">view.hr_paramindemniteinformatique.form</field>
+		<field name="model">hr_paramindemniteinformatique</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+				<form string="Parametrage Indemnité/Informatique">
+				    <group col = "2">
+			            <group>
+			            	<field name="x_type_indem_id" force_save = '1'/>
+			            	<field name="x_categorie_c_id"/>
+			            	<field name="x_echelle_c_id"/>
+			            </group>
+
+					    <group>
+					    	<field name="x_emploi_id"/>
+					        <field name="x_zone_id"/>
+					        <field name="x_taux"/>
+					        <field name="company_id" invisible = '1'/>
+					    </group>
+			       </group>
+				</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_param_informatique_indemnite">
+			<field name="name">Liste des Paramétrage Indemnité/Informatique</field>
+			<field name="res_model">hr_paramindemniteinformatique</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Vue Paramètre spécifique exploi reseau tree-->
+	<record model="ir.ui.view" id="view_id_tree_reseau">
+		<field name="name">view.hr_paramindemniteexploireseau.tree</field>
+		<field name="model">hr_paramindemniteexploireseau</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Parametrage Indemnité/Exploitation-Reseau">
+            	<field name="x_type_indem_id"/>
+            	<field name="x_emploi_id"/>
+            	<field name="x_categorie_c_id"/>
+            	<field name="x_echelle_c_id"/>
+		        <field name="x_zone_id"/>
+		        <field name="x_taux"/>
+		        <field name="company_id"/>
+			</tree>
+		</field>
+	 </record>
+
+	<record model="ir.ui.view" id="view_id_form_type_reseau">
+		<field name="name">view.hr_paramindemniteexploireseau.form</field>
+		<field name="model">hr_paramindemniteexploireseau</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+				<form string="Parametrage Indemnité/Exploitation-Reseau">
+				   <group col = "2">
+			            <group>
+			            	<field name="x_type_indem_id" force_save = '1'/>
+			            	<field name="x_categorie_c_id"/>
+			            	<field name="x_echelle_c_id"/>
+			            </group>
+
+					    <group>
+					    	<field name="x_emploi_id"/>
+					        <field name="x_zone_id"/>
+					        <field name="x_taux"/>
+					        <field name="company_id" invisible = '1'/>
+					    </group>
+			       </group>
+				</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_param_exploi_indemnite">
+			<field name="name">Liste des Paramétrage Indemnité/Exploitation-Réseau</field>
+			<field name="res_model">hr_paramindemniteexploireseau</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Vue Paramètre spécifique resp. financière tree-->
+	<record model="ir.ui.view" id="view_id_tree_financiere">
+		<field name="name">view.hr_paramindemniterespfinanciere.tree</field>
+		<field name="model">hr_paramindemniterespfinanciere</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Parametrage Indemnité/Resp.Financière">
+<!--            	<field name="x_type_indem_id"/>-->
+<!--            	<field name="x_emploi_id"/>-->
+            	<field name="x_categorie_c_id"/>
+<!--            	<field name="x_echelle_c_id"/>-->
+<!--		        <field name="x_zone_id"/>-->
+		        <field name="x_taux"/>
+<!--		        <field name="company_id"/>-->
+			</tree>
+		</field>
+	 </record>
+
+	<record model="ir.ui.view" id="view_id_form_type_financieres">
+		<field name="name">view.hr_paramindemniterespfinanciere.form</field>
+		<field name="model">hr_paramindemniterespfinanciere</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+				<form string="Parametrage Indemnité/Resp.Financière">
+				    <group col = "2">
+			            <group>
+<!--			            	<field name="x_type_indem_id" force_save = '1'/>-->
+			            	<field name="x_categorie_c_id" required="True"/>
+							 <field name="x_taux" required="True"/>
+<!--			            	<field name="x_echelle_c_id"/>-->
+			            </group>
+
+					    <group>
+<!--					    	<field name="x_emploi_id"/>-->
+<!--					        <field name="x_zone_id"/>-->
+<!--					        <field name="x_taux"/>-->
+<!--					        <field name="company_id" invisible = '1'/>-->
+					    </group>
+			       </group>
+				</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_param_financiere_indemnite">
+			<field name="name">Liste des Paramétrage Indemnité/Resp.Financière</field>
+			<field name="res_model">hr_paramindemniterespfinanciere</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+
+		<!-- Vue Paramètre indem de garde tree-->
+	<record model="ir.ui.view" id="view_id_tree_garde">
+		<field name="name">view.hr_paramindemnitegarde.tree</field>
+		<field name="model">hr_paramindemnitegarde</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Parametrage Indemnité/Garde">
+            	<field name="x_type_indem_id"/>
+            	<field name="x_emploi_id"/>
+            	<field name="x_categorie_c_id"/>
+            	<field name="x_echelle_c_id"/>
+		        <field name="x_zone_id"/>
+		        <field name="x_taux"/>
+		        <field name="company_id"/>
+			</tree>
+		</field>
+	 </record>
+
+	<record model="ir.ui.view" id="view_id_form_type_gardess">
+		<field name="name">view.hr_paramindemnitegarde.form</field>
+		<field name="model">hr_paramindemnitegarde</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+				<form string="Parametrage Indemnité/Garde">
+				    <group col = "2">
+			            <group>
+			            	<field name="x_type_indem_id" force_save = '1'/>
+			            	<field name="x_categorie_c_id"/>
+			            	<field name="x_echelle_c_id"/>
+			            </group>
+
+					    <group>
+					    	<field name="x_emploi_id"/>
+					        <field name="x_zone_id"/>
+					        <field name="x_taux"/>
+					        <field name="company_id" invisible = '1'/>
+					    </group>
+			       </group>
+				</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_param_garde">
+			<field name="name">Liste des Paramétrage Indemnité/Garde</field>
+			<field name="res_model">hr_paramindemnitegarde</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Vue Paramètre indem de risque de contagion tree-->
+	<record model="ir.ui.view" id="view_id_tree_rc">
+		<field name="name">view.hr_paramindemniterisquecontagion.tree</field>
+		<field name="model">hr_paramindemniterisquecontagion</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Parametrage Indemnité/Risque de Contagion">
+            	<field name="x_type_indem_id"/>
+            	<field name="x_emploi_id"/>
+            	<field name="x_categorie_c_id"/>
+            	<field name="x_echelle_c_id"/>
+		        <field name="x_zone_id"/>
+		        <field name="x_taux"/>
+		        <field name="company_id"/>
+			</tree>
+		</field>
+	 </record>
+
+	<record model="ir.ui.view" id="view_id_form_type_garde">
+		<field name="name">view.hr_paramindemniterisquecontagion.form</field>
+		<field name="model">hr_paramindemniterisquecontagion</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+				<form string="Parametrage Indemnité/Risque de Contagion">
+				   <group col = "2">
+			            <group>
+			            	<field name="x_type_indem_id" force_save = '1'/>
+			            	<field name="x_categorie_c_id"/>
+			            	<field name="x_echelle_c_id"/>
+			            </group>
+
+					    <group>
+					    	<field name="x_emploi_id"/>
+					        <field name="x_zone_id"/>
+					        <field name="x_taux"/>
+					        <field name="company_id" invisible = '1'/>
+					    </group>
+			       </group>
+				</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_param_contagion">
+			<field name="name">Liste des Paramétrage Indemnité/Risque Contagion</field>
+			<field name="res_model">hr_paramindemniterisquecontagion</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Vue Paramètre indemnité de sujétion form-->
+	<record model="ir.ui.view" id="view_id_tree_suj">
+		<field name="name">view.hr_paramindemnitesujetion.tree</field>
+		<field name="model">hr_paramindemnitesujetion</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Parametrage Indemnité/Sujétion Géographique">
+            	<field name="x_type_indem_id"/>
+            	<field name="x_emploi_id"/>
+            	<field name="x_categorie_c_id"/>
+            	<field name="x_echelle_c_id"/>
+		        <field name="x_zone_id"/>
+		        <field name="x_taux"/>
+		        <field name="company_id"/>
+			</tree>
+		</field>
+	 </record>
+
+	<record model="ir.ui.view" id="view_id_form_type_suj">
+		<field name="name">view.hr_paramindemnitesujetion.form</field>
+		<field name="model">hr_paramindemnitesujetion</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+				<form string="Parametrage Indemnité/Sujétion Géographique">
+				   <group col = "2">
+			            <group>
+			            	<field name="x_type_indem_id" force_save = '1'/>
+			            	<field name="x_categorie_c_id"/>
+			            	<field name="x_echelle_c_id"/>
+			            </group>
+
+					    <group>
+					    	<field name="x_emploi_id"/>
+					        <field name="x_zone_id"/>
+					        <field name="x_taux"/>
+					        <field name="company_id" invisible = '1'/>
+					    </group>
+			       </group>
+				</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_param_sujetion">
+			<field name="name">Liste des Paramétrage Indemnité/Sujétion Géographique</field>
+			<field name="res_model">hr_paramindemnitesujetion</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Vue Paramètre indem de formation spécialisée tree-->
+	<record model="ir.ui.view" id="view_id_tree_fs">
+		<field name="name">view.hr_paramindemniteformation.tree</field>
+		<field name="model">hr_paramindemniteformation</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Parametrage Indemnité/Formation Spécialisée">
+            	<field name="x_type_indem_id"/>
+            	<field name="x_emploi_id"/>
+            	<field name="x_categorie_c_id"/>
+            	<field name="x_echelle_c_id"/>
+		        <field name="x_zone_id"/>
+		        <field name="x_taux"/>
+		        <field name="company_id"/>
+			</tree>
+		</field>
+	 </record>
+
+	<record model="ir.ui.view" id="view_id_form_type_fsc">
+		<field name="name">view.hr_paramindemniteformation.form</field>
+		<field name="model">hr_paramindemniteformation</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+				<form string="Parametrage Indemnité/Formation Spécialisée">
+				    <group col = "2">
+			            <group>
+			            	<field name="x_type_indem_id" force_save = '1'/>
+			            	<field name="x_categorie_c_id"/>
+			            	<field name="x_echelle_c_id"/>
+			            </group>
+
+					    <group>
+					    	<field name="x_emploi_id"/>
+					        <field name="x_zone_id"/>
+					        <field name="x_taux"/>
+					        <field name="company_id" invisible = '1'/>
+					    </group>
+			       </group>
+				</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_param_speciale">
+			<field name="name">Liste des Paramétrage Indemnité/Formation Spécialisée</field>
+			<field name="res_model">hr_paramindemniteformation</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Vue Paramètre indem de caisse tree-->
+	<record model="ir.ui.view" id="view_id_tree_caisse">
+		<field name="name">view.hr_paramindemnitecaisse.tree</field>
+		<field name="model">hr_paramindemnitecaisse</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Parametrage Indemnité/Caisse">
+<!--            	<field name="x_type_indem_id"/>-->
+            	<field name="x_fonction_id"/>
+<!--            	<field name="x_categorie_c_id"/>-->
+<!--            	<field name="x_echelle_c_id"/>-->
+<!--		        <field name="x_zone_id"/>-->
+		        <field name="x_taux"/>
+<!--		        <field name="company_id"/>-->
+			</tree>
+		</field>
+	 </record>
+
+	<record model="ir.ui.view" id="view_id_form_type_caiss">
+		<field name="name">view.hr_paramindemnitecaisse.form</field>
+		<field name="model">hr_paramindemnitecaisse</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+				<form string="Parametrage Indemnité/Caisse">
+				    <group col = "2">
+			            <group>
+<!--			            	<field name="x_type_indem_id" force_save = '1'/>-->
+<!--			            	<field name="x_categorie_c_id"/>-->
+<!--			            	<field name="x_echelle_c_id"/>-->
+							<field name="x_fonction_id"/>
+<!--					        <field name="x_zone_id"/>-->
+					        <field name="x_taux"/>
+			            </group>
+
+					    <group>
+<!--					    	<field name="x_fonction_id"/>-->
+<!--					        <field name="x_zone_id"/>-->
+<!--					        <field name="x_taux"/>-->
+<!--					        <field name="company_id" invisible = '1'/>-->
+					    </group>
+			       </group>
+				</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_param_caisse">
+			<field name="name">Liste des Paramétrage Indemnité/Caisse</field>
+			<field name="res_model">hr_paramindemnitecaisse</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+
+	<!-- Action Paramètre Indemnité vestimentaire-->
+	<record model="ir.ui.view" id="view_id_tree_vest">
+		<field name="name">view.hr_paramindemnitevest.tree</field>
+		<field name="model">hr_paramindemnitevest</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+			<tree string="Parametrage Indemnité/Vestimentaire">
+            	<field name="x_type_indem_id"/>
+            	<field name="x_emploi_id"/>
+            	<field name="x_categorie_c_id"/>
+            	<field name="x_echelle_c_id"/>
+		        <field name="x_zone_id"/>
+		        <field name="x_taux"/>
+		        <field name="company_id"/>
+			</tree>
+		</field>
+	 </record>
+
+	<record model="ir.ui.view" id="view_id_form_type_vest">
+		<field name="name">view.hr_paramindemnitevest.form</field>
+		<field name="model">hr_paramindemnitevest</field>
+		<field name="priority" eval="16"/>
+		<field name="arch" type="xml">
+				<form string="Parametrage Indemnité/Vestimentaire">
+				    <group col = "2">
+			            <group>
+			            	<field name="x_type_indem_id" force_save = '1'/>
+			            	<field name="x_categorie_c_id"/>
+			            	<field name="x_echelle_c_id"/>
+			            </group>
+
+					    <group>
+					    	<field name="x_emploi_id"/>
+					        <field name="x_zone_id"/>
+					        <field name="x_taux"/>
+					        <field name="company_id" invisible = '1'/>
+					    </group>
+			       </group>
+				</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="act_param_vst">
+			<field name="name">Liste des Paramétrage Indemnité/Vestimentaire</field>
+			<field name="res_model">hr_paramindemnitevest</field>
+			<field name="view_mode">tree,form</field>
+	</record>
+
+
+</odoo>

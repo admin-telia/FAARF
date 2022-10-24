@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Vue des credits remboursement-->
+    <record id="view_credit_credit_remboursement_tree" model="ir.ui.view">
+            <field name="name">credit_credit_remboursement.tree</field>
+            <field name="model">credit_credit_remboursement</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client">
+                    <field name="credit_id"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_credit_credit_remboursement_form" model="ir.ui.view">
+        <field name="name">view.credit_credit_remboursement.form</field>
+        <field name="model">credit_credit_remboursement</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header >
+<!--                    <button name="payer" type="object" string="Payer"-->
+<!--                            class="oe_highlight" icon="fa-check"-->
+<!--                            style="background-color: #28a745; border-color: #28a745;"/>-->
+                </header>
+                <sheet>
+                    <group style="text-align: center; text-decoration:underline">
+                        <h1>Remboursement de prêts</h1>
+                    </group>
+                    <group col="3">
+                        <group>
+                            <field name="credit_id" force_save="1" string="N° dossier"
+                                   domain="[('state','=','DC')]"
+                                   options="{'no_create':True, 'no_quick_create':True,'no_create_edit':True,'no_open':True,}"
+                                    required="True"/>
+                            <field name="cliente"/>
+                            <field name="montant_total" readonly="1" force_save="1"  string="Mont. accordé"/>
+                            <field name="datep" string="jours de retards" readonly="1" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="nbr_echeance" readonly="1" force_save="1" string="Nomb. échéances rest."/>
+                            <field name="montant_t_paye" readonly="1" force_save="1" string="Mont. remboursé"/>
+                            <field name="solde" readonly="1" force_save="1" string="Mont. restant" />
+                            <field name="penalite" readonly="1" force_save="1" style="color:red"/>
+                        </group>
+                        <group>
+                            <field name="montant_t_a_payer" readonly="1" force_save="1"/>
+                            <field name="montant_a_payer" force_save="1" required="True"/>
+
+                            <button name="payer" type="object" string="Valider le paiement"
+                            class="oe_highlight" icon="fa-check-square-o"
+                            confirm="Êtes-vous sûr d'exécuter cette action ?"
+                            style="background-color: #28a745; border-color: #28a745;"/>
+                        </group>
+                    </group>
+                    <group invisible="1">
+                        <group>
+                            <field name="credit_id" force_save="1"
+                                   domain="[('state','=','DC')]"
+
+                                   options="{'no_create':True, 'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="montant_total" readonly="1" force_save="1" />
+                            <field name="solde" readonly="1" force_save="1"/>
+                            <field name="date" force_save="1"/>
+                            <field name="datep" readonly="1" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="montant_p_paye" readonly="1" force_save="1"/>
+                            <field name="interet_paye" readonly="1" force_save="1"/>
+                            <field name="garantie_paye" readonly="1" force_save="1"/>
+                            <field name="montant_t_paye" readonly="1" force_save="1"/>
+                            <field name="montant_t_a_payer" readonly="1" force_save="1"/>
+                            <field name="montant_a_payer" force_save="1"/>
+                        </group>
+                    </group>
+                    <group invisible="1">
+                        <group>
+                            <field name="penalite" readonly="1" force_save="1"/>
+                            <field name="montant_arriere" readonly="1" force_save="1" invisible="1"/>
+                            <field name="date_arriere" readonly="1" force_save="1" invisible="1"/>
+                            <field name="interet_arriere" readonly="1" force_save="1"/>
+                            <field name="montant_p_arriere" readonly="1" force_save="1"/>
+                            <field name="garantie_arriere" readonly="1" force_save="1"/>
+                            <field name="interet" readonly="1" force_save="1"/>
+                            <field name="montant" readonly="1" force_save="1"/>
+                            <field name="garantie" readonly="1" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="penalite_p" readonly="1" nolabel="0" force_save="1"/>
+                            <field name="interet_arriere_p" readonly="1" nolabel="0" force_save="1"/>
+                            <field name="montant_p_arriere_p" readonly="1" nolabel="0" force_save="1"/>
+                            <field name="garantie_arriere_p" readonly="1" force_save="1"/>
+                            <field name="interet_p" readonly="1" nolabel="0" force_save="1"/>
+                            <field name="montant_p" readonly="1" nolabel="0" force_save="1"/>
+                            <field name="garantie_p" readonly="1" force_save="1"/>
+                            <field name="interet_anticipe" readonly="1" force_save="1"/>
+                            <field name="montant_anticipe" readonly="1" force_save="1"/>
+                            <field name="garantie_anticipe" readonly="1" force_save="1"/>
+                        </group>
+                    </group>
+                    <br/><br/>
+                    <div class="alert alert-info text-center o_form_header"
+                          role="alert"
+                        attrs="{'invisible':[('is_affiche','=',False)]}">
+                      <a class="close" data-dismiss="alert" href="#">x</a>
+                      <div>
+                        <strong>Le paiement a été bien bien effectué</strong>
+                      </div>
+                      <div>
+                          Merci !!!!
+                          <field name="is_affiche" invisible="0"/>
+                      </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_credit_credit_remboursement" model="ir.actions.act_window">
+        <field name="name">Remboursement de crédit</field>
+        <field name="res_model">credit_credit_remboursement</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <!--Vue des credits remboursement line-->
+    
+    <record id="view_credit_credit_remboursement_tree" model="ir.ui.view">
+            <field name="name">credit_credit_remboursement_line.tree</field>
+            <field name="model">credit_credit_remboursement_line</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client">
+                    <field name="credit_id"/>
+                    <field name="transaction"/>
+                    <field name="montant_p"/>
+                    <field name="interet_p"/>
+                    <field name="penalite_p"/>
+                </tree>
+            </field>
+        </record>
+    
+    <record id="action_credit_credit_remboursement_line" model="ir.actions.act_window">
+        <field name="name">Remboursement de crédit trans</field>
+        <field name="res_model">credit_credit_remboursement_line</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

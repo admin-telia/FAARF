@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Convention -->
+	<template id="credit_credit_pv">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.basic_layout">
+					<style>
+
+					</style>
+					<div t-if="o.state == 'A'">
+						<div>
+							<h4>Procès-Verbal du comité de crédit</h4>
+							<p>
+								Le <span t-field="o.date"/> s'est tenu le comité N° <span t-field="o.name"/>,
+								dont l'objectif était d'analyser les dossiers de crédits.
+
+								Apres une verification du quorom, le comité a debuté ses activités à <span t-field="o.date"/>
+								<br/><br/>
+								Par conséquent, le tableau ci-après résume la situation des dossiers annalysés au cours du présent comité de crédit.
+  							</p>
+							<table class="table table-bordered">
+								<tr>
+									<td colspan="2">Dossiers Analysés</td>
+									<td colspan="2">Dossiers Accordés</td>
+									<td colspan="2">Dossiers Ajournés</td>
+									<td colspan="2">Dossiers Refusés</td>
+								</tr>
+								<tr>
+									<td>Nombre</td>
+									<td>Montant</td>
+									<td>Nombre</td>
+									<td>Montant</td>
+									<td>Nombre</td>
+									<td>Montant</td>
+									<td>Nombre</td>
+									<td>Montant</td>
+								</tr>
+								<tr>
+									<td><span t-field="o.credit_count"/></td>
+									<td></td>
+									<td><span t-field="o.credit_accorde"/></td>
+									<td></td>
+									<td><span t-field="o.credit_ajourne"/></td>
+									<td></td>
+									<td><span t-field="o.credit_refuse"/></td>
+									<td></td>
+								</tr>
+							</table>
+							<p>
+								Ci-joint la liste de présence des membres ayant siégé au présent comité de crédit:
+							</p>
+							<table class="table table-bordered">
+								<tr>
+									<td>Noms et Prénoms</td>
+									<td>Signature</td>
+								</tr>
+								<tr t-foreach="o.membre_ids" t-as="l">
+									<td><span t-field="l.user_id.name"/></td>
+									<td></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</t>
+			 </t>
+		</t>
+	</template>
+	<report
+		id="report_credit_credit_pv"
+		string="Procès verbal"
+		model="credit_credit_pv"
+		report_type="qweb-html"
+		file="faarf_credit.credit_credit_pv"
+		name="faarf_credit.credit_credit_pv"
+		groups = "base.group_user"
+		menu = "True"/>
+</odoo>

@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="faarf_type_ppm_view_form">
+        <field name="name">faarf.type.ppm.view.form</field>
+        <field name="model">faarf.type.ppm</field>
+        <field name="arch" type="xml">
+            <form string="Type de ppm">
+                <sheet>
+                   <div class="oe_button_box" name="button_box">
+                    <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                     <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                    </button>
+                </div>
+                <group>
+                    <field name = "name" style = "width:10%"/>
+                    <field name = "libelle" style = "width:50%"/>
+                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="faarf_type_ppm_view_tree">
+        <field name="name">faarf.type.ppm.view.tree</field>
+        <field name="model">faarf.type.ppm</field>
+        <field name="arch" type="xml">
+            <tree string="Type de ppm">
+                <field name = "name"/>
+                <field name = "libelle"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="act_type_ppm" model="ir.actions.act_window">
+        <field name="name">Liste des types de PPM</field>
+        <field name="res_model">faarf.type.ppm</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="faarf_ppm_mode_view_form">
+        <field name="name">faarf.ppm.mode.view.form</field>
+        <field name="model">faarf.ppm.mode</field>
+        <field name="arch" type="xml">
+            <form string="Mode de passation">
+                <sheet>
+                   <div class="oe_button_box" name="button_box">
+                    <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                     <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                    </button>
+                </div>
+                <group>
+                    <field name = "name" style = "width:10%"/>
+                    <field name = "libelle" style = "width:50%"/>
+                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="faarf_ppm_mode_view_tree">
+        <field name="name">faarf.ppm.mode.view.tree</field>
+        <field name="model">faarf.ppm.mode</field>
+        <field name="arch" type="xml">
+            <tree string="Mode de passation">
+                <field name = "name"/>
+                <field name = "libelle"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="act_mode_pass" model="ir.actions.act_window">
+        <field name="name">Liste des modes de passation des marchés</field>
+        <field name="res_model">faarf.ppm.mode</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="faarf_ppm_prestation_view_form">
+        <field name="name">faarf.ppm.prestation.view.form</field>
+        <field name="model">faarf.ppm.prestation</field>
+        <field name="arch" type="xml">
+            <form string="procedure de passation">
+                <sheet>
+                   <div class="oe_button_box" name="button_box">
+                    <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                     <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                    </button>
+                </div>
+                <group>
+                    <field name = "name" style = "width:50%"/>
+                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="faarf_ppm_prestation_view_tree">
+        <field name="name">faarf.ppm.prestation.view.tree</field>
+        <field name="model">faarf.ppm.prestation</field>
+        <field name="arch" type="xml">
+            <tree string="Mode de passation">
+                <field name = "name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="act_prestation" model="ir.actions.act_window">
+        <field name="name">Liste des types de prestations</field>
+        <field name="res_model">faarf.ppm.prestation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="faarf_ppm_param_mode_view_form">
+        <field name="name">faarf.ppm.param.mode.view.form</field>
+        <field name="model">faarf.ppm.param.mode</field>
+        <field name="arch" type="xml">
+            <form string="Mode de passation">
+                <sheet>
+                <group>
+                    <field name = "mode_id" style = "width:50%"/>
+                    <field name = "mnt_min" style = "width:35%"/>
+                    <field name = "mnt_max" style = "width:35%"/>
+                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="faarf_ppm_param_mode_view_tree">
+        <field name="name">faarf.ppm.param.mode.view.tree</field>
+        <field name="model">faarf.ppm.param.mode</field>
+        <field name="arch" type="xml">
+            <tree string="Mode de passation">
+                <field name = "mode_id"/>
+                <field name = "mnt_min"/>
+                <field name="mnt_max"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="act_param_mode" model="ir.actions.act_window">
+        <field name="name">Paramétrage des modes de passation des marchés</field>
+        <field name="res_model">faarf.ppm.param.mode</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!--Vue form Liste des bilan formations-->
+    <record id="view_faarf_ppm_form" model="ir.ui.view">
+        <field name="name">faarf.ppm.form</field>
+        <field name="model">faarf.ppm</field>
+        <field name="arch" type="xml">
+            <form string="Liste des ppm">
+                <header>
+                    <button class="oe_highlight" name="valider_avt_projet" type="object" string="Valider l'avant projet du PPM"
+                    attrs="{'invisible' : [('state', 'not in', ['draft'])]}"/>
+                    <button class="oe_highlight" name="valider" type="object" string="Valider le projet du PPM"
+                    attrs="{'invisible' : [('state', 'not in', ['AP'])]}"/>
+                    <button class="oe_highlight" name="approuver" type="object" string="Approuver le PPM"
+                    attrs="{'invisible' : [('state', 'not in', ['P'])]}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                    <group col="2">
+                        <group>
+                            <field name="dte" style="width:50%;"/>
+                        </group>
+                        <group>
+                            <field name="type_ppm" style="width:50%;"/>
+                            <field name="ref" style="width:50%;"/>
+                        </group>
+                    </group>
+                        <field name="x_exercice_id" invisible="1"/>
+                        <field name="company_id" invisible="1"/>
+                    <field name="ppm_ids">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="source_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="cd_titre_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="cd_section_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"
+                            domain = "[('cd_titre_id.id', '=', cd_titre_id)]"/>
+                            <field name="cd_chapitre_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"
+                            domain = "[('cd_section_id.id', '=', cd_section_id)]"/>
+                            <field name="cd_article_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"
+                            domain = "[('cd_chapitre_id.id', '=', cd_chapitre_id)]"/>
+                            <field name="cd_paragraphe_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"
+                            domain = "[('cd_article_id.id', '=', cd_article_id)]" />
+                            <field name="cd_rubrique_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"
+                            domain = "[('cd_paragraphe_id.id', '=', cd_paragraphe_id)]"/>
+                            <field name="montant_estime"/>
+                            <field name="montant_dep_eng" readonly="1"/>
+                            <field name="disponible" force_save="1"/>
+                            <field name="nature"/>
+                            <field name="mode_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="periode_lancement"/>
+                            <field name="periode_remise"/>
+                            <field name="temps_eval"/>
+                            <field name="dte_demarre"/>
+                            <field name="delai_execution" style="width:35%" force_save="1"/>
+                            <field name="state" invisible="1"/>
+                        </tree>
+                    </field>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="faarf_ppm_view_tree">
+        <field name="name">faarf.ppm.tree</field>
+        <field name="model">faarf.ppm</field>
+        <field name="arch" type="xml">
+            <tree string="Mode de passation">
+                <field name = "dte"/>
+                <field name = "type_ppm"/>
+                <field name = "ref"/>
+                <field name = "company_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_ppm" model="ir.actions.act_window">
+        <field name="name">Liste des plans de passation des marchés</field>
+        <field name="res_model">faarf.ppm</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+    <!--Vue form Liste des bilan formations-->
+    <record id="view_faarf_marche_ppm_form" model="ir.ui.view">
+        <field name="name">faarf.ppm.marche.form</field>
+        <field name="model">faarf.ppm.marche</field>
+        <field name="arch" type="xml">
+            <form string="Liste des marchés">
+                <header>
+                    <button class="oe_highlight" name="valider" type="object" string="Lancer le marché"
+                    attrs="{'invisible' : [('state', 'in', ['L'])]}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group col="2">
+                        <group>
+                            <field name="dte" invisible="1"/>
+                            <field name="reference" force_save="1"/>
+                            <field name="name" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="source_id" force_save="1"/>
+                            <field name="nature"/>
+                            <field name="type_prestation"/>
+                        </group>
+                        <group>
+                            <field name="periode_lancement"/>
+                            <field name="periode_remise"/>
+                            <field name="dte_demarre"/>
+                            <field name="delai_execution"/>
+                            <field name="mode_id"/>
+                            <field name="montant_estime"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="faarf_ppm_marche_view_tree">
+        <field name="name">faarf.ppm.marche.tree</field>
+        <field name="model">faarf.ppm.marche</field>
+        <field name="arch" type="xml">
+            <tree string="Liste des marchés">
+                <field name = "dte"/>
+                <field name = "name"/>
+                <field name = "source_id"/>
+                <field name = "nature"/>
+                <field name = "mode_id"/>
+                <field name = "montant_estime"/>
+                <field name = "state"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_ppm_marche" model="ir.actions.act_window">
+        <field name="name">Liste des marchés lancés</field>
+        <field name="res_model">faarf.ppm.marche</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+<!--Vue form Liste des soumissionnaires-->
+    <record id="view_faarf_soumissionnaire_ppm_form" model="ir.ui.view">
+        <field name="name">faarf.ppm.soumissionnaire.form</field>
+        <field name="model">faarf.ppm.soumissionnaire</field>
+        <field name="arch" type="xml">
+            <form string="Liste des soumissionnaires">
+                <header>
+                    <button class="oe_highlight" name="valider" type="object" string="Valider"
+                    attrs="{'invisible' : [('state', 'in', ['V'])]}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group col="2">
+                        <group>
+                            <field name="name" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="source_id" force_save="1"/>
+                            <field name="nature"/>
+                            <field name="mode_id"/>
+                        </group>
+                        <group>
+                            <field name="dte_recep"/>
+                            <field name="numero"/>
+                            <field name="fournisseur_id"/>
+                            <field name="telephone"/>
+                            <field name="ifu"/>
+                            <field name="x_exercice_id" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="faarf_ppm_soumissionnaire_view_tree">
+        <field name="name">faarf.ppm.soumissionnaire.tree</field>
+        <field name="model">faarf.ppm.soumissionnaire</field>
+        <field name="arch" type="xml">
+            <tree string="Liste des marchés">
+                <field name = "numero"/>
+                <field name = "fournisseur_id"/>
+                <field name = "telephone"/>
+                <field name="ifu"/>
+                <field name = "name"/>
+                <field name = "source_id"/>
+                <field name = "nature"/>
+                <field name = "mode_id"/>
+                <field name = "state"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_ppm_soumissionnaire" model="ir.actions.act_window">
+        <field name="name">Liste des soumissionnaires</field>
+        <field name="res_model">faarf.ppm.soumissionnaire</field>
+        <field name= "context">{'group_by' : ['name']}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!--Vue form Liste des soumissionnaires-->
+    <record id="view_faarf_soumissionnaire_retenue_ppm_form" model="ir.ui.view">
+        <field name="name">faarf.ppm.soumissionnaire.retenue.form</field>
+        <field name="model">faarf.ppm.soumissionnaire.retenue</field>
+        <field name="arch" type="xml">
+            <form string="Liste des soumissionnaires retenus">
+                <header>
+                    <button class="oe_highlight" name="afficher" type="object" string="Afficher la liste"
+                    attrs="{'invisible' : [('state', 'in', ['V'])]}"/>
+                    <button class="oe_highlight" name="valider" type="object" string="Valider"
+                    attrs="{'invisible' : [('state', 'in', ['V'])]}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group col="2">
+                        <group>
+                            <field name="name" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="source_id" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="nature"/>
+                            <field name="mode_id"/>
+                        </group>
+                    </group>
+                    <field name="retenu_ids">
+                        <tree editable="bottom">
+                            <field name="fournisseur_id"/>
+                            <field name="telephone"/>
+                            <field name="ifu"/>
+                            <field name="marche" invisible="1"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="faarf_ppm_soumissionnaire_retenue_view_tree">
+        <field name="name">faarf.ppm.soumissionnaire.retenue.tree</field>
+        <field name="model">faarf.ppm.soumissionnaire.retenue</field>
+        <field name="arch" type="xml">
+            <tree string="Liste des retenue">
+                <field name = "name"/>
+                <field name = "source_id"/>
+                <field name = "nature"/>
+                <field name = "mode_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_ppm_soumissionnaire_ret" model="ir.actions.act_window">
+        <field name="name">Résutlat des soumissionnaires</field>
+        <field name="res_model">faarf.ppm.soumissionnaire.retenue</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!--Vue form Liste des soumissionnaires-->
+    <record id="view_faarf_marche_soumissionnaire_ppm_form" model="ir.ui.view">
+        <field name="name">faarf.ppm.marche.soumissionnaire.retenue.form</field>
+        <field name="model">faarf.ppm.marche.soumissionnaire.retenue</field>
+        <field name="arch" type="xml">
+            <form string="Liste des soumissionnaires">
+                <header>
+                    <button class="oe_highlight" name="valider" type="object" string="Valider"
+                    attrs="{'invisible' : [('state', 'in', ['V'])]}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group col="2">
+                        <group>
+                            <field name="name" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="source_id" force_save="1"/>
+                            <field name="nature"/>
+                        </group>
+                        <group>
+                            <field name="soumissionnaire_id"  domain="[('state', '=', 'R'),('marche.id', '=', name)]"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="telephone" force_save="1"/>
+                            <field name="ifu" force_save="1"/>
+                            <field name="montant" force_save="1"/>
+                            <field name="mode_id"/>
+                            <field name="reference"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="faarf_ppm_marche_soumissionnaire_view_tree">
+        <field name="name">faarf.ppm.marche.soumissionnaire.tree</field>
+        <field name="model">faarf.ppm.marche.soumissionnaire.retenue</field>
+        <field name="arch" type="xml">
+            <tree string="Liste des marchés">
+                <field name = "name"/>
+                <field name = "source_id"/>
+                <field name = "nature"/>
+                <field name = "mode_id"/>
+                <field name = "soumissionnaire_id"/>
+                <field name = "telephone"/>
+                <field name="ifu"/>
+                <field name = "state"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_attr_marche" model="ir.actions.act_window">
+        <field name="name">Attribution des marchés</field>
+        <field name="res_model">faarf.ppm.marche.soumissionnaire.retenue</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!--Vue form Liste des soumissionnaires-->
+    <record id="view_faarf_ppm_appro_ord_form" model="ir.ui.view">
+        <field name="name">faarf.ppm.appro.ord.form</field>
+        <field name="model">faarf.ppm.appro.ord</field>
+        <field name="arch" type="xml">
+            <form string="Liste des soumissionnaires">
+                <header>
+                    <button class="oe_highlight" name="valider" type="object" string="Approuver"
+                    attrs="{'invisible' : [('state', 'in', ['V'])]}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group col="2">
+                        <group>
+                            <field name="name" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="source_id" force_save="1"/>
+                            <field name="nature"/>
+                        </group>
+                        <group>
+                            <field name="soumissionnaire_id" force_save="1"/>
+                            <field name="telephone" force_save="1"/>
+                            <field name="ifu" force_save="1"/>
+                            <field name="mode_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="faarf_ppm_appro_ord_view_tree">
+        <field name="name">faarf.ppm.appro.ord.tree</field>
+        <field name="model">faarf.ppm.appro.ord</field>
+        <field name="arch" type="xml">
+            <tree string="Liste des marchés">
+                <field name = "name"/>
+                <field name = "source_id"/>
+                <field name = "nature"/>
+                <field name = "mode_id"/>
+                <field name = "soumissionnaire_id"/>
+                <field name = "telephone"/>
+                <field name="ifu"/>
+                <field name = "state"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_appro_ord" model="ir.actions.act_window">
+        <field name="name">Approbation Ordonnateur</field>
+        <field name="res_model">faarf.ppm.appro.ord</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!--Vue form Liste des contrats-->
+    <record id="view_faarf_ppm_contrat_form" model="ir.ui.view">
+        <field name="name">faarf.ppm.contrat.form</field>
+        <field name="model">faarf.ppm.contrat</field>
+        <field name="arch" type="xml">
+            <form string="Liste des soumissionnaires">
+                <header>
+                    <button class="oe_highlight" name="valider" type="object" string="Valider"
+                    attrs="{'invisible' : [('state', 'in', ['V'])]}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group><field name="name" nolabel="1" style="width:75%" placeholder="Choisir un marché..."
+                               options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/></group>
+                        <group><field name="objet" nolabel="1" style="width:75%"/></group>
+                    </group>
+                    <group col="2">
+                        <group>
+                            <field name="numero"/>
+                            <field name="source_id" force_save="1"/>
+                            <field name="nature"/>
+                            <field name="montant"/>
+                        </group>
+                        <group>
+                            <field name="soumissionnaire_id" force_save="1"/>
+                            <field name="telephone" force_save="1"/>
+                            <field name="ifu" force_save="1"/>
+                            <field name="mode_id"/>
+                        </group>
+                        <field name="company_id" invisible="1"/>
+                        <field name="x_exercice_id" invisible="1"/>
+                        <field name="dte_appro" invisible="1"/>
+                        <field name="dte_notification" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="faarf_ppm_contrat_view_tree">
+        <field name="name">faarf.ppm.contrat.tree</field>
+        <field name="model">faarf.ppm.contrat</field>
+        <field name="arch" type="xml">
+            <tree string="Liste des marchés">
+                <field name = "numero"/>
+                <field name = "name"/>
+                <field name = "source_id"/>
+                <field name = "nature"/>
+                <field name = "mode_id"/>
+                <field name = "soumissionnaire_id"/>
+                <field name = "telephone"/>
+                <field name="ifu"/>
+                <field name = "state"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_contrat" model="ir.actions.act_window">
+        <field name="name">Liste des contrats</field>
+        <field name="res_model">faarf.ppm.contrat</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+
+    <menuitem id="type_donne" name ="TYPES DE DONNEES PPM" sequence="18" parent="menu_cadre"/>
+
+        <menuitem id="menu_mode_pass" parent="type_donne" sequence="1" name="Saisie/MàJ Mode de passation de marché"
+        action="act_mode_pass"/>
+
+        <menuitem id="menu_source" parent="type_donne" sequence="1" name="Saisie/MàJ Source de financement"
+        action="faarf_immo.action_source"/>
+
+    <menuitem id="menu_proc" parent="type_donne" sequence="3" name="Saisie/MàJ Type de PPM"
+        action="act_type_ppm"/>
+
+    <menuitem id="menu_prest" parent="type_donne" sequence="4" name="Saisie/MàJ Type de prestation"
+        action="act_prestation"/>
+
+    <menuitem id="menu_parametres_ppm" parent="menu_parametres" sequence="4" name="PARAMETRE PPM "/>
+    <menuitem id="menu_par_mode" parent="menu_parametres_ppm" sequence="1" name="Paramétrage des modes"
+        action="act_param_mode"/>
+
+    <menuitem id="menu_march_contr" parent="main_menu" sequence="5" name="Marchés et Contrats"/>
+
+        <menuitem id="menu_lancer_ppm" parent="menu_march_contr" sequence="1" name="Lancer un marché"
+        action="action_ppm_marche"/>
+
+    <menuitem id="menu_soum" parent="menu_march_contr" sequence="2" name="Saisie/MàJ Soumissionnaire"
+        action="action_ppm_soumissionnaire"/>
+
+     <menuitem id="menu_soum_ret" parent="menu_march_contr" sequence="3" name="Résultat Soumissionnaire"
+        action="action_ppm_soumissionnaire_ret"/>
+
+    <menuitem id="menu_march_attr" parent="menu_march_contr" sequence="4" name="Attribution du marché"
+        action="action_attr_marche"/>
+
+    <menuitem id="menu_ctr_marc" parent="menu_march_contr" sequence="5" name="Contrat du marché"
+        action="action_contrat"/>
+
+    <menuitem id="menu_appro_ord" parent="menu_march_contr" sequence="6" name="Approbation Ordonnateur"
+        action="action_appro_ord"/>
+</odoo>

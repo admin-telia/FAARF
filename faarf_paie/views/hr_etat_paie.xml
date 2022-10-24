@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vue Etat nominatif element salaire -->
+    <record model="ir.ui.view" id="hr_etat_elt_sal_form">
+        <field name="name">view.etat_elt_sal.form</field>
+        <field name="model">hr_etat_elt_salaire</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <form string="Report/Avoir">
+                <header>
+
+                </header>
+                <sheet>
+                        <group>
+                            <field name="name" placeholder = "Bordereaux de ..." force_save="1"/>
+                        </group>
+                        <group col = '2'>
+                            <group>
+                                <field name="x_elt_sal_id"  options="{'no_create':True}"/>
+                                <field name="x_type_employe_id" options="{'no_create':True}"/>
+                                <field name="x_date_debut"
+                                       style="width:50%"/>
+                                <field name="x_date_fin"
+                                       style="width:50%"/>
+                            </group>
+                            <group>
+                                <field name="financiers_id"/>
+                                <field name="drhs_id" />
+                                <field name="date_op" invisible = "0" force_save = '1'/>
+                            </group>
+                            <group>
+                                <field name="periode" force_save="1"/>
+                            </group>
+                        </group>
+                        <group><field name="x_mnts" invisible = "0" force_save="1" readonly="1"/></group>
+                        <group><field name="x_mnt_en_lettre" invisible = "0" force_save="1" readonly="1"/></group>
+
+                        <field name = 'x_line_ids' force_save="1" readonly="1" required="True" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_etat_elt_sal_tree">
+        <field name="name">view.hr_etat_elt_sal.tree</field>
+        <field name="model">hr_etat_elt_salaire</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Report/Avoir">
+                <field name="name"/>
+                <field name="x_type_employe_id"/>
+                <field name="x_elt_sal_id"/>
+                <field name="x_date_debut"/>
+                <field name="x_date_fin"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="act_hr_etat_elt_sal">
+		<field name="name">Etats élément de salaire </field>
+		<field name="res_model">hr_etat_elt_salaire</field>
+		<field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_etat_elt_sal_line_tree">
+        <field name="name">hr_etat_elt_salaire_line.tree</field>
+        <field name="model">hr_etat_elt_salaire_line</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Report/Avoir" editable="bottom">
+                <field name="x_element_id" invisible = '1'/>
+                <field name="numero"/>
+                <field name="name"/>
+                <field name="x_matricule"/>
+                <field name="x_matricule_c"/>
+                <field name="x_mnt" sum = 'Total Avoirs'/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vue livre de paie des employés form -->
+    <record model="ir.ui.view" id="view_id_livres_form">
+        <field name="name">view.livrepaie.form</field>
+        <field name="model">hr_livrepaie</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <form string="Livre De Paie">
+                <header>
+                        <button string="Rechercher" name="action_rech" type="object" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology":"archive"}'/>
+                        </button>
+                    </div>
+                    <label for="type_emp" class="oe_edit_only"/>
+                    <h1>
+                        <field name="type_emp" options="{'no_create':True}"/>
+                    </h1>
+                    <group col="4">
+                        <label for="x_date_debut" string="Période"/>
+                         <div>
+                               <field name="x_date_debut" class="oe_inline"/> - <field name="x_date_fin" class="oe_inline"/>
+                         </div>
+                         <field name="date_op"/>
+                    </group>
+                    <group><field name="company_id" invisible = '1'/></group>
+                    <separator string="Liste Des Employés"/>
+                    <field name="x_line_ids"/>
+                    <group><field name="x_mnts" invisible = "1"/></group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_id_livre_tree">
+        <field name="name">view.hr_livrepaie.tree</field>
+        <field name="model">hr_livrepaie</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Livre de Paie des employés">
+                <field name="type_emp"/>
+                <field name="company_id"/>
+                <field name="current_user"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="act_livre_paie">
+            <field name="name">Liste Livre De Paie Des Employés</field>
+            <field name="res_model">hr_livrepaie</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_id_livre_lines_tree">
+        <field name="name">view.hr_livrepaie_line.Line</field>
+        <field name="model">hr_livrepaie_line</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Livre de Paie Line" editable="bottom">
+                <field name="numero"/>
+                <field name="mat"/>
+                <field name="mat_c"/>
+                <field name="nom"/>
+                <field name="num_cnss"/>
+                <field name="categorie"/>
+                <field name="echelle"/>
+                <field name="echelon"/>
+                <field name="emploi"/>
+                <field name="salaire_base"/>
+                <field name ="avance_sal"/>
+                <field name="resp"/>
+                <field name="astr"/>
+                <field name="loge"/>
+                <field name="tech"/>
+                <field name="spec"/>
+                <field name="spec_it"/>
+                <field name="spec_ifc"/>
+                <field name="autre_mnt"/>
+                <field name="transp"/>
+                <field name="inf"/>
+                <field name="reseau"/>
+                <field name="financ"/>
+
+                <field name="x_indem_garde"/>
+                <field name="x_indem_risque"/>
+                <field name="x_indem_suj"/>
+                <field name="x_indem_form"/>
+                <field name="x_indem_caisse"/>
+                <field name="x_indem_veste"/>
+
+                <field name="alloc_f"/>
+                <field name="renum_t"/>
+                <field name="sal_brut"/>
+                <field name="nbre_charge"/>
+                <field name="mnt_agent_carfo"/>
+                <field name="mnt_patronal_carfo"/>
+                <field name="mnt_agent_cnss"/>
+                <field name="mnt_patronal_cnss"/>
+                <field name="base_imp"/>
+                <field name="iuts"/>
+                <field name="x_indem_prime_rendement"/>
+                 <!--<field name="net"/> -->
+                <field name="net" sum = 'Net Total à payer'/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vue report mode de paiement form -->
+    <record model="ir.ui.view" id="view_id_report_mode_paiement_form">
+        <field name="name">view.hr_reportmode.form</field>
+        <field name="model">hr_reportmode</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <form string="Report/Mode de paiement">
+                <header>
+                        <button string="Afficher" name="remplissage" type="object"  class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <group>
+                            <group>
+                                <field name="x_mode_paiements" style="width:50%"/>
+                                <field name="x_date_debut" style="width:50%"/>
+                                <field name="x_date_fin" style="width:50%"/>
+                            </group>
+                            <group>
+                                <field name="x_type_employe_id"/>
+                                <field name="financiers_id"/>
+                                <field name="drhs_id"/>
+                                <field name="periode" invisible = "0"/>
+                            </group>
+                    </group>
+                    <group>
+                        <field name="x_mnts" invisible = "0" force_save="1" readonly="1"/>
+                        <field name="x_mnt_en_lettre" invisible = "0" force_save="1" readonly="1"/>
+                    </group>
+                    <group><field name="date_op" invisible = "0" force_save = '1'/></group>
+                    <group><field name="company_id" invisible = "1" force_save = '1'/></group>
+                     <group>
+                      <field name = 'x_line_ids' readonly="1" force_save="1"/>
+                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_id_report_mode_paiement_tree">
+        <field name="name">view.hr_reportmode.tree</field>
+        <field name="model">hr_reportmode</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Report/Mode de paiement">
+                <field name="x_mode_paiements"/>
+                <field name="x_date_debut"/>
+                <field name="x_date_fin"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="hr_report_mode_paiement_action">
+            <field name="name">Liste des Etats par mode de paiement</field>
+            <field name="res_model">hr_reportmode</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_id_report_mode_paiement">
+        <field name="name">view.hr_reportmode_line.Line</field>
+        <field name="model">hr_reportmode_line</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Report/Mode Paiement" editable="bottom">
+                <field name="x_report_id" invisible = '1'/>
+                <field name="x_matricule"/>
+                <field name="name"/>
+                <field name="numb"/>
+                <field name="x_emploi"/>
+                <field name="x_fonction"/>
+                <field name="x_sal_net" sum = 'Net Total à payer'/>
+                <field name="x_type_struct"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vue report banque form -->
+    <record model="ir.ui.view" id="view_id_report_banq_form">
+        <field name="name">view.reportbanque.form</field>
+        <field name="model">hr_reportbanque</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <form string="Report/Banque">
+                <header>
+                        <button string="Afficher" name="remplissages" type="object"  class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="x_banq_id" style="width:100%"/>
+                            <field name="x_date_debut" style="width:50%"/>
+                            <field name="x_date_fin" style="width:50%"/>
+
+                        </group>
+                        <group>
+                            <field name="financiers_id"/>
+                            <field name="drhs_id"/>
+                            <field name="periode" force_save="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="x_mnts" invisible = "0" force_save="1" readonly="1"/>
+                        <field name="x_mnt_en_lettre" invisible = "0" force_save="1" readonly="1"/>
+                    </group>
+                    <group><field name="date_op" invisible = "1" force_save = '1'/></group>
+                     <group>
+                          <field name = 'x_line_ids'/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_id_report_banq_tree">
+        <field name="name">view.reportbanque.tree</field>
+        <field name="model">hr_reportbanque</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Report/Banque">
+                <field name="x_banq_id"/>
+                <field name="x_date_debut"/>
+                <field name="x_date_fin"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="hr_report_banq_act">
+		<field name="name">Liste des Etats par Banque</field>
+		<field name="res_model">hr_reportbanque</field>
+		<field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_id_report_banq">
+        <field name="name">view.reportbanque.Line</field>
+        <field name="model">hr_reportbanque_line</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Report/Banque" editable="bottom">
+                <field name="x_report_id" invisible = '1'/>
+                <field name="numero"/>
+                <field name="x_matricule"/>
+                <field name="name"/>
+                <field name="numb"/>
+                <field name="x_emploi"/>
+                <field name="x_fonction"/>
+                <field name="x_sal_net" sum = 'Net Total à payer'/>
+            </tree>
+        </field>
+    </record>
+</odoo>

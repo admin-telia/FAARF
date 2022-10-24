@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Vue des projet/programme reception-->
+    <record id="view_credit_projet_recep_tree" model="ir.ui.view">
+            <field name="name">credit_credit.tree</field>
+            <field name="model">credit_credit</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client" decoration-bf="state=='G'" decoration-warning="state=='S'"
+                      decoration-it="state=='CR'" decoration-danger="state=='CC'"
+                      decoration-info="state=='DG'" decoration-muted="state=='CCA'"
+                      decoration-primary="state=='DAJ'" decoration-success="state=='DA'" >
+                    <field name="name" decoration-bf="state=='CR'"/>
+                    <field name="cliente_id"/>
+                    <field name="type_client"/>
+                    <field name="date_demande"/>
+                    <field name="region_id"/>
+                    <field name="province_id"/>
+                    <field name="departement_id"/>
+                    <field name="village_id"/>
+                    <field name="gestionnaire_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_credit_projet_recep_form" model="ir.ui.view">
+        <field name="name">view.credit_credit.form</field>
+        <field name="model">credit_credit</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+                    <button class="oe_highlight" name="set_env_notation" type="object" icon="fa-check"
+                            confirm="Êtes-vous sûr d'exécuter cette action ?"
+                            string="Receptionner" states="N"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group name="num_name">
+                            <field name="date_demande" string="Date réception" readonly="1" force_save="1"/>
+                            <field name="charge_clientele_id" invisible="1"/>
+                            <field name="current_user_x_zone_ids" invisible="1"/>
+                            <field name="cliente_id"
+                                   attrs="{'readonly':[('state','!=','N')]}"
+                                   options="{'no_quick_create':False,'no_create_edit':False,}"
+                                   domain="[('state', '=', 'A' )]"/>
+                            <field name="type_client_code" invisible="1"/>
+                            <field name="type_client" readonly="1" force_save="1" />
+<!--                            <field name="cycle_credit" readonly="1" force_save="1"/>-->
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+<!--                            <field name="localisation"  placeholder="Autres informations" attrs="{'readonly':[('state','!=','N')]}"/>-->
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Localisation">
+                             <group>
+                                <group>
+                                    <field name="zone_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}" invisible="0" readonly="1" force_save="1"/>
+                                    <field name="region_id" domain="[('zone_id.id', '=', zone_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}" readonly="1" force_save="1"/>
+                                    <field name="province_id" domain="[('ref_region_id.id', '=', region_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}" readonly="1" force_save="1"/>
+                                    <field name="departement_id" domain="[('ref_province_id.id', '=', province_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}" readonly="1" force_save="1"/>
+                                    <field name="village_id" domain="[('commune_id.id', '=', departement_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}" readonly="1" force_save="1"/>
+                                    <field name="gestionnaire_id" readonly="1" force_save="1"/>
+                                    <field name="superviseur_id" readonly="1" force_save="1"/>
+                                </group>
+                                <group>
+                                    <field name="telephone"/>
+                                    <field name="telephone_est_pro"/>
+                                    <field name="proprietaire" attrs="{'invisible':[('telephone_est_pro','==', True)]}"/>
+                                    <field name="mail"/>
+                                    <field name="personne_a_contacte"/>
+                                    <field name="telephone_pers_a_contacte" />
+                                </group>
+                            </group>
+                        </page>
+                        <page name="Info" string="Informations sur le crédit">
+                            <group col="3">
+                                <group>
+                                    <field name="bailleur_id" required="True" attrs="{'readonlyz':[('state','!=','G')]}"
+                                           options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                                    <field name="produit_credit" required="True"  attrs="{'readonlyz':[('state','!=','G')]}"
+                                           domain="[('bailleur_id.id', '=', bailleur_id), ('type_produit', '=', 'PROJET')]"
+                                           options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+        <!--                            <field name="date_demande" readonly="1" />-->
+                                    <field name="meth_cal_interet" required="True" attrs="{'readonlyz':[('state','!=','G')]}"/>
+                                    <field name="duree_pret" force_save="1" attrs="{'readonlys':[('state','!=','G')]}"/>
+                                    <field name="periodicite" required="True" attrs="{'readonlys':[('state','!=','G')]}"/>
+                                    <field name="nbr_tranche" required="True" readonly="1" force_save="1"/>
+                                    <field name="montant_demande" required="True" attrs="{'readonlys':[('state','!=','G')]}"/>
+                                    <field name="secteur_activite" required="True"
+                                           options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"
+                                           attrs="{'readonlys':[('state','!=','G')]}"/>
+                                    <field name="but_credit" required="True" attrs="{'readonlys':[('state','!=','G')]}"/>
+        <!--                            <field name="montant_accorde" readonly="0" force_save="1"/>-->
+                                    <field name="is_antenne" force_save="1" invisible="1"/>
+        <!--                            <field name="periodicite" required="True"/>-->
+        <!--                            <field name="periodicites"/>-->
+        <!--                            <field name="nbr_tranche" required="True" />-->
+                                </group>
+                                <group>
+                                    <field name="taux_int_annuel" force_save="1" readonly="1"/>
+                                    <field name="montant_interet" readonly="1" force_save="1" />
+                                    <field name="taux_int_garantie" invisible="1" readonly="1" force_save="1"/>
+                                    <field name="montant_garantie" invisible="1" readonly="1" force_save="1"/>
+                                     <field name="taux_frais_dossier" readonly="1" force_save="1"/>
+                                    <field name="montant_frais_dossier" readonly="1" force_save="1" />
+                                    <field name="frais_assurance"/>
+                                    <field name="cap_der_chance" attrs="{'readonlys':[('state','!=','G')]}"/>
+                                    <field name="differe_paiement" attrs="{'readonlys':[('state','!=','G')]}"/>
+                                    <field name="commission" invisible="1" attrs="{'readonlys':[('state','!=','G')]}"/>
+                                </group>
+                                <group>
+                                    <field name="montant_accorde" readonly="1" force_save="1" style="float:left;width:75%;text-align:right;"/>
+                                    <field name="montant_interet" style="float:left;width:75%;text-align:right;"/>
+                                    <field name="montant_garantie" invisible="1" readonly="1" force_save="1" style="float:left;width:75%;text-align:right;"/>
+                                    <field name="total_rembourser" style="float:left;width:75%;text-align:right;"/>
+                                    <field name="is_garantie_decaiss" invisible="1"/>
+                                    <field name="is_garantie_deb" invisible="1"/>
+                                </group>
+                            </group>
+                            <group col="3">
+                                <group>
+
+                                </group>
+                            </group>
+                        </page>
+                        <page name="membres" string="Membres" attrs="{'invisible':[('type_client_code','=','IND')]}">
+                            <field name="membres_ids"
+                                context="{'default_credit_id': active_id}"/>
+                            <field name="id"/>
+                        </page>
+                        <page string="Comptes d'exploitations">
+                            <field name="compte_exploit_ids" mode="tree,form"
+                                   attrs="{'readonlys':[('state','!=','G')]}">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="date_ets"/>
+                                    <field name="ratio_rentabilite"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="TA simulé" invisible="0">
+                            <field name="credit_lignes_ids" readonly="1">
+                                <tree string="_tree">
+                                    <field name="date"/>
+                                    <field name="montant" sum="Total"/>
+                                    <field name="interet" sum="Total"/>
+                                    <field name="garantie" sum="Total"/>
+                                    <field name="total" sum="Total"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Avis" name="avis" invisible="1">
+                            <group>
+                                <field name="avis_gestionnaire" attrs="{'readonlys':[('state','!=','G')]}"
+                                       style="min-height: 10px;"/>
+                                <field name="avis_superviseur"  attrs="{'readonlys':[('state','!=','S')], 'invisible':[('state','!=','S')]}"
+                                        style="min-height: 10px;"/>
+                            </group>
+                        </page>
+                        <page string="Autres documents">
+                            <field name="document_ids" attrs="{'readonlys':[('state','!=','G')]}">
+                                <tree string="_tree" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="document" widget="binary"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Commentaires">
+                            <group>
+                                <field name="commentaires" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_credit_projet_recep_search" model="ir.ui.view">
+            <field name="name">credit_credit</field>
+            <field name="model">credit_credit</field>
+            <field name="arch" type="xml">
+                <search string="Search modules">
+                    <filter name="atraiter" domain="[('state','=','N')]" string="A traiter"/>
+                    <searchpanel>
+                        <field select="multi" expand="true" name="type_client" string="Type de clientes" enable_counters="1"/>
+                        <field name="zone_id" string="Zone" enable_counters="1"/>
+                        <field name="region_id" string="Regions" enable_counters="1"/>
+                        <field name="province_id" string="Provinces" enable_counters="1"/>
+                    </searchpanel>
+               </search>
+            </field>
+        </record>
+
+    <record id="action_credit_projet_recep" model="ir.actions.act_window">
+        <field name="name">Liste des dossiers</field>
+        <field name="res_model">credit_credit</field>
+        <field name="view_mode">search,tree,form</field>
+        <field name="domain">[('produit_credit.type_produit', '=', 'PROJET')]</field>
+<!--        <field name="domain">[('state', 'in', ('N', 'G', 'S', 'CR', 'CC', 'DG', 'CA') )]</field>-->
+        <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_credit_projet_recep_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_credit_projet_recep_form')})]"/>
+        <field name="search_view_id" ref="view_credit_projet_recep_search"/>
+    </record>
+
+    <!--Vue des projet/programme notation-->
+    <record id="view_credit_projet_not_tree" model="ir.ui.view">
+        <field name="name">credit_credit.tree</field>
+        <field name="model">credit_credit</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="faarf_credit.view_credit_projet_recep_tree"/>
+        <field name="arch" type="xml">
+             <xpath expr='//tree' position='attributes'>
+                <attribute name="create">false</attribute>
+             </xpath>
+        </field>
+    </record>
+
+    <record id="view_credit_projet_not_form" model="ir.ui.view">
+        <field name="name">credit_credit.tree</field>
+        <field name="model">credit_credit</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="faarf_credit.view_credit_projet_recep_form"/>
+        <field name="arch" type="xml">
+             <xpath expr='//form' position='attributes'>
+                <attribute name="create">false</attribute>
+            </xpath>
+            <xpath expr='//button[@name="set_env_notation"]' position='after'>
+                <button class="oe_highlight" name="set_env_choix_benef" type="object" icon="fa-check"
+                        confirm="Êtes-vous sûr d'exécuter cette action ?"
+                        string="Noter" states="RC"/>
+<!--                <button class="oe_highlight" name="set_renvoi_gest" type="object" icon="fa-check" string="Renvoyer"-->
+<!--                        style="color: #212529;background-color: #ffc107; border-color: #ffc107" states="S"/>-->
+            </xpath>
+            <xpath expr='//page[@name="avis"]' position='after'>
+                <page string="Notation">
+                    <button class="oe_highlight" name="action_rechercher" type="object" icon="fa-check"
+                        string="Afficher"/>
+                    <field name="note_notation"/>
+                    <group string="Critère fondamentaux">
+                        <field name="crit_fondamentaux_ids" nolabel="1">
+                            <tree editable="bottom" create="false">
+                                <field name="name" width="4" required="True"/>
+                                <field name="bareme" width="1" sum="Total"/>
+                                <field name="score" width="1" sum="Total"/>
+                                <field name="borne_inf" width="1" sum="Total" invisible="1"/>
+                                <field name="borne_sup" width="1" sum="Total" invisible="1"/>
+                                <field name="sequence" width="1" invisible="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Critère Complementaires">
+                         <field name="crit_complementaires_ids" nolabel="1">
+                            <tree editable="bottom" create="false">
+                                <field name="name" width="4" required="True"/>
+                                <field name="bareme" width="1" sum="Total"/>
+                                <field name="score" width="1" sum="Total"/>
+                                <field name="borne_inf" width="1" sum="Total" invisible="1"/>
+                                <field name="borne_sup" width="1" sum="Total" invisible="1"/>
+                                <field name="sequence" width="1" invisible="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+
+<!--            <xpath expr='//field[@name="avis_gestionnaire"]' position='after'>-->
+<!--                <field name=""/>-->
+<!--            </xpath>-->
+        </field>
+    </record>
+
+    <record id="view_credit_projet_not_search" model="ir.ui.view">
+            <field name="name">credit_credit</field>
+            <field name="model">credit_credit</field>
+            <field name="arch" type="xml">
+                <search string="Search modules">
+                    <filter name="atraiter" domain="[('state','=','RC')]" string="À traiter"/>
+                    <searchpanel>
+                        <field select="multi" expand="true" name="type_client" string="Type de clientes" enable_counters="1"/>
+                        <field name="zone_id" string="Zone" enable_counters="1"/>
+                        <field name="region_id" string="Regions" enable_counters="1"/>
+                        <field name="province_id" string="Provinces" enable_counters="1"/>
+                    </searchpanel>
+               </search>
+            </field>
+        </record>
+
+    <record id="action_credit_projet_not" model="ir.actions.act_window">
+        <field name="name">Liste des dossiers</field>
+        <field name="res_model">credit_credit</field>
+        <field name="domain">[('produit_credit.type_produit', '=', 'PROJET'),
+             ('state', 'in', ('RC','NOT', 'BEN') )]]</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_credit_projet_not_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_credit_projet_not_form')})]"/>
+        <field name="search_view_id" ref="view_credit_projet_not_search"/>
+        <field name="context">{
+                'search_default_atraiter': 1,
+            }
+        </field>
+        <field name="help" type="html">
+            <p>
+                Pas de nouvelle demande
+            </p>
+        </field>
+    </record>
+
+    <!--Vue  projet/programme choix benef-->
+    <record id="view_credit_projet_commite_form" model="ir.ui.view">
+        <field name="name">credit_credit.tree</field>
+        <field name="model">credit_credit</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="faarf_credit.view_credit_projet_not_form"/>
+        <field name="arch" type="xml">
+             <xpath expr='//form' position='attributes'>
+                <attribute name="create">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_credit_projet_comite_ch_benef_tree" model="ir.ui.view">
+        <field name="name">credit_projet_ch_benef</field>
+        <field name="model">credit_projet_ch_benef</field>
+        <field name="arch" type="xml">
+            <tree string="Type de client">
+                <field name="name"/>
+                <field name="zone_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_credit_projet_comite_ch_benef_form" model="ir.ui.view">
+        <field name="name">credit_projet_ch_benef</field>
+        <field name="model">credit_projet_ch_benef</field>
+        <field name="arch" type="xml">
+            <form string="Type de client" create='false'>
+                <header>
+                    <button class="oe_highlight" name="afficher" type="object" icon="fa-check" string="Afficher"/>
+                    <button class="oe_highlight" name="set_accorde_r" type="object" icon="fa-check" string="Accorder"
+                        confirm="Êtes-vous sûr d'exécuter cette action ?"
+                        style="background-color: #28a745; border-color: #28a745;"/>
+                </header>
+                <sheet>
+                    <group style="text-align: center; text-decoration:underline">
+                        <h1>Choix des bénéficiares</h1>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="bailleur_id" required="True"
+                               options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="produit_credit" required="True"
+                               domain="[('bailleur_id.id', '=', bailleur_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="current_user_x_zone_ids" invisible="1"/>
+<!--                            <field name="zone_id"-->
+<!--                                options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"-->
+<!--                               domain="[('id', 'in', current_user_x_zone_ids )]"/>-->
+<!--                            <field name="superviseur_id"-->
+<!--                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"-->
+<!--                                   domain="[('x_user_role_id.code', '=', 'ROLESUP'), ('x_zone_ids.id', '=', zone_id)]"/>-->
+                        </group>
+                        <group>
+                            <field name="nbr_benef"/>
+                            <field name="montant"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="crédits">
+                            <field name="credit_ids"
+                                   domain="[('id', '=', 0 )]"
+                                    context="{'form_view_ref':'faarf_credit.view_credit_projet_commite_form', 'default_cr':5}">
+                                <tree create="false" edit="false">
+                                    <field name="cliente_id"/>
+                                    <field name="type_client"/>
+                                    <field name="superviseur_id"/>
+                                    <field name="bailleur_id"/>
+                                    <field name="produit_credit"/>
+                                    <field name="num_demande"/>
+                                    <field name="date_demande"/>
+                                    <field name="secteur_activite"/>
+                                    <field name="cycle_credit"/>
+                                    <field name="montant_demande" sum="Total"/>
+                                    <field name="montant_accorde" sum="Total"/>
+                                    <field name="note_notation"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_credit_projet_comite_ch_benef" model="ir.actions.act_window">
+            <field name="name">Nombre de bénéficiare</field>
+            <field name="res_model">credit_projet_ch_benef</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+     <!--Vue  projet/programme choix benef-->
+    <record id="view_credit_projet_rabo_form" model="ir.ui.view">
+        <field name="name">credit_credit.tree</field>
+        <field name="model">credit_credit</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="faarf_credit.view_credit_projet_not_form"/>
+        <field name="arch" type="xml">
+             <xpath expr='//form' position='attributes'>
+                <attribute name="create">false</attribute>
+            </xpath>
+           <xpath expr='//group[@name="num_name"]' position='after'>
+                <group>
+                    <field name="montant_demande" readonly="1"/>
+                    <field name="montant_accorde"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_credit_projet_comite_rabo_tree" model="ir.ui.view">
+        <field name="name">credit_projet_rabo</field>
+        <field name="model">credit_projet_rabo</field>
+        <field name="arch" type="xml">
+            <tree string="Type de client">
+                <field name="name"/>
+                <field name="zone_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_credit_projet_comite_rabo_form" model="ir.ui.view">
+        <field name="name">credit_projet_rabo</field>
+        <field name="model">credit_projet_rabo</field>
+        <field name="arch" type="xml">
+            <form string="Type de client" create='false'>
+                <header>
+                    <button class="oe_highlight" name="afficher" type="object" icon="fa-check" string="Afficher"/>
+                    <button class="oe_highlight" name="set_accorde_r" type="object" icon="fa-check" string="Valider"
+                        confirm="Êtes-vous sûr d'exécuter cette action ?"
+                        style="background-color: #28a745; border-color: #28a745;"/>
+                </header>
+                <sheet>
+                    <group style="text-align: center; text-decoration:underline">
+                        <h1>Enveloppe</h1>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="bailleur_id" required="True"
+                               options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="produit_credit" required="True"
+                               domain="[('bailleur_id.id', '=', bailleur_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="current_user_x_zone_ids" invisible="1"/>
+<!--                            <field name="zone_id"-->
+<!--                                options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"-->
+<!--                               domain="[('id', 'in', current_user_x_zone_ids )]"/>-->
+<!--                            <field name="superviseur_id"-->
+<!--                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"-->
+<!--                                   domain="[('x_user_role_id.code', '=', 'ROLESUP'), ('x_zone_ids.id', '=', zone_id)]"/>-->
+                        </group>
+                        <group>
+                            <field name="nbr_benef"/>
+                            <field name="montant"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="crédits">
+                            <field name="credit_ids"
+                                   domain="[('id', '=', 0 )]"
+                                    context="{'form_view_ref':'faarf_credit.view_credit_projet_rabo_form', 'default_cr':5}">
+                                <tree create="false" edit="false">
+                                    <field name="cliente_id"/>
+                                    <field name="type_client"/>
+                                    <field name="superviseur_id"/>
+                                    <field name="bailleur_id"/>
+                                    <field name="produit_credit"/>
+                                    <field name="num_demande"/>
+                                    <field name="date_demande"/>
+                                    <field name="secteur_activite"/>
+                                    <field name="cycle_credit"/>
+                                    <field name="montant_demande" sum="Total"/>
+                                    <field name="montant_accorde" sum="Total"/>
+                                    <field name="note_notation"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_credit_projet_comite_rabo" model="ir.actions.act_window">
+            <field name="name">Nombre de bénéficiare</field>
+            <field name="res_model">credit_projet_rabo</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+</odoo>

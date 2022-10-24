@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="credit_remboursement_recu">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.basic_layout">
+					 <style>
+						.table th, .table td {
+							border: none;
+						}
+					</style>
+					<div class="page">
+						<div class="watermark"
+						 	style="position: absolute; opacity:0.1; font-size:3em; width:100%;
+						 			text-align:center; z-index:1000; margin-top:250px">
+							<img src="/faarf_credit/static/img/faarf_logo.png"
+								style="width: 23%;"/>
+						</div>
+						<table class="table">
+							<tr>
+								<td style="text-align:left">
+									<p style="font-size:11px; font-weight:bold">
+										MINISTERE DU GENRE, <br/>
+										DE LA FAMILLE ET DE L'ACTION <br/>
+										HUMANITAIRE <br/>
+										-------------------- <br/>
+										SECRETARIAT GENERAL <br/>
+										-------------------- <br/>
+										FONDS D'APPUI AUX ACTIVITES <br/>
+										REMUNERATRIVES DES FEMMES <br/>
+										(FAARF) <br/>
+									</p>
+								</td>
+								<td style="text-align:center">
+									<img src="/faarf_credit/static/img/faarf_logo.png"/>
+								</td>
+								<td style="text-align:center">
+									<p>
+										Burkina Faso <br/>
+										Unité - Progès - Justice
+									</p>
+								</td>
+							</tr>
+						</table>
+						<div style="border: 2px solid #916969; text-align:center">
+							<h4 style="color: #916969">
+								QUITTANCE N° <span t-field="o.annee"/>/<span t-field="o.transaction"/>
+								du <span t-field="o.date"/>
+							</h4>
+						</div>
+						<table class="table">
+							<tr>
+								<td style="line-height:1.5px">
+									<span style="font-weight:bold">Objet :</span>
+									Remboursement de prêt
+								</td>
+								<td style="line-height:1.5px">
+									<span style="font-weight:bold">Partie versante :</span>
+									<span t-field="o.credit_id.cliente_id.name"/>
+								</td>
+							</tr>
+							<tr>
+								<td style="line-height:1.5px">
+									<span style="font-weight:bold">Pénalité:</span>
+									<span t-field="o.penalite_p"/>
+								</td>
+								<td style="line-height:1.5px">
+									<span style="font-weight:bold">Type: </span>
+									<span t-field="o.credit_id.cliente_id.type_client"/>
+								</td>
+							</tr>
+							<tr>
+								<td style="line-height:1.5px">
+									<span style="font-weight:bold">Montant versé: </span>
+									<span t-field="o.mtn_lettre"/>
+									(<span t-field="o.montant_total"/>) FCFA
+								</td>
+								<td  style="line-height:1.5px">
+									<span style="font-weight:bold">Mode règlement:</span>
+									Espèce
+								</td>
+							</tr>
+						</table>
+						<br/>
+						<table class="table">
+							<tr>
+								<td style="border-right: 2px solid #916969; text-align:center; width:45%">
+									La caisse
+									<br/><br/><br/><br/><br/>
+								</td>
+								<td>
+
+								</td>
+							</tr>
+						</table>
+						<div style="text-align:center; font-size:10px; border-top: 2px solid #916969;">
+							Imprimée, le <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+							par <span t-esc="user.name"></span>
+						</div>
+						<br/><br/>
+
+
+<!--						<div style="text-align:center; font-weight:bold; font-size: large;-->
+<!--									background-color:#f3f3f3; border: 2px black solid">-->
+<!--							<span>-->
+<!--								Reçu-->
+<!--							</span><br/>-->
+<!--							<table class="table">-->
+<!--								<tr>-->
+<!--									<th>Client</th>-->
+<!--									<td><span t-field="o.credit_id.cliente_id.name"/></td>-->
+<!--								</tr>-->
+<!--								<tr>-->
+<!--									<th>Num crédit</th>-->
+<!--									<td><span t-field="o.credit_id.name"/></td>-->
+<!--								</tr>-->
+<!--								<tr>-->
+<!--									<th>Transaction</th>-->
+<!--									<td><span t-field="o.transaction"/></td>-->
+<!--								</tr>-->
+<!--								<tr>-->
+<!--									<th>Date</th>-->
+<!--									<td><span t-field="o.date"/></td>-->
+<!--								</tr>-->
+<!--								<tr>-->
+<!--									<th>Intérêt payé</th>-->
+<!--									<td><span t-field="o.interet_p"/></td>-->
+<!--								</tr>-->
+<!--								<tr>-->
+<!--									<th>Principal payé</th>-->
+<!--									<td><span t-field="o.montant_p"/></td>-->
+<!--								</tr>-->
+<!--								<tr>-->
+<!--									<th>Pénalité</th>-->
+<!--									<td><span t-field="o.penalite_p"/></td>-->
+<!--								</tr>-->
+<!--							</table>-->
+<!--						</div>-->
+					</div>
+				</t>
+			 </t>
+		</t>
+	</template>
+
+	<record id="paperformat_credit_remboursement_recu" model="report.paperformat">
+		 <field name="name">A4</field>
+		<field name="margin_top">0</field>
+	</record>
+
+	<report
+		id="report_credit_remboursement_recu"
+		string="Imprimer"
+		model="credit_credit_remboursement_line"
+		report_type="qweb-html"
+		file="faarf_credit.credit_remboursement_recu"
+		name="faarf_credit.credit_remboursement_recu"
+		paperformat="paperformat_credit_remboursement_recu"
+		groups = "base.group_user"
+		menu = "True"/>
+</odoo>

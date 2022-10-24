@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="temp_hr_employee_registre">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.basic_layout">
+					<style>
+
+					</style>
+					<div style="text-align: center; border: 1px black">
+						<h3>Registre Employés</h3>
+					</div>
+					<table class="table table-sm table-striped table-bordered">
+						<tr>
+							<th>N°</th>
+							<th>Nom</th>
+							<th>Mle</th>
+							<th>Direction</th>
+							<th>Type</th>
+							<th>Emploi</th>
+							<th>Fonction</th>
+							<th>Catégorie</th>
+							<th>Echelle</th>
+							<th>Echelon</th>
+						</tr>
+						<tr t-foreach="o.line_ids" t-as="l">
+							<td><span t-field="l.ordre"/></td>
+							<td><span t-field="l.name"/></td>
+							<td><span t-field="l.matricule_genere"/></td>
+							<td><span t-field="l.direction"/></td>
+							<td><span t-field="l.type"/></td>
+							<td><span t-field="l.fonction"/></td>
+							<td><span t-field="l.emploi"/></td>
+							<td><span t-field="l.categorie"/></td>
+							<td><span t-field="l.echelle"/></td>
+							<td><span t-field="l.echelon"/></td>
+						</tr>
+					</table>
+					<table class="table">
+						<tr>
+							<td style="text-align: right; font-size:11px;border: none">Imprimé le:</td>
+						</tr>
+						<tr>
+							<td style="text-align: right; font-size:11px;border: none">Imprimé par:</td>
+						</tr>
+					</table>
+				</t>
+			 </t>
+		</t>
+	</template>
+	<report
+		id="report_hr_employee_registre"
+		string="Registre"
+		model="hr_employee_registre"
+		report_type="qweb-html"
+		file="faarf_rh.temp_hr_employee_registre"
+		name="faarf_rh.temp_hr_employee_registre"
+		groups = "base.group_user"
+		menu = "True"/>
+</odoo>

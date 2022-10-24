@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <report 
+            id="report_fiche1"
+            string="Imprimer"
+            model="stock_fiche" 
+            report_type="qweb-pdf"
+            file="Gestion_Stocks.report_fiche1" 
+            name="Gestion_Stocks.report_fiche1"
+            groups = "base.group_user"
+            menu = "True"/>
+
+<template id="report_fiche1">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.external_layout">
+            <h2 style="text-align:center">ETAT FICHE STOCK</h2>
+                        <div class="row mt32 mb32">
+                        	<div class="col-2">
+	                            <strong>RECHERCHER PAR</strong>
+	                            <p t-field="o.x_recherche"/>
+                            </div>
+                           <div class="col-3">
+	                            <strong>Du:</strong>
+	                            <p t-esc="o.x_date_debut"/>
+                           </div>
+                        <div class="col-3">
+                            <strong>Au:</strong>
+                            <p t-esc="o.x_date_fin"/>
+                        </div>
+                        
+                        </div>
+                <table class = 'table table-sm'>
+			        		<thead style="background-color:#D2D2FF">
+			                      <tr style = "border: 2px SOLID #434146" >
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146"><strong><i>Date</i></strong></th>
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146"><strong><i></i>Code</strong></th>
+			                      	  <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146"><strong><i>Désignation</i></strong></th>
+			                      	  <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146"><strong><i>seuil</i></strong></th>
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146; width:60%"><strong><i>Etat</i></strong></th>
+			        
+			        				 <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146"><strong><i>Qté en stock</i></strong></th>
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146"><strong><i></i>Stock dispo</strong></th>
+			                      	  <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146"><strong><i>Qté traitée</i></strong></th>
+			                      	  <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146"><strong><i>De</i></strong></th>
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146; width:60%"><strong><i>Vers</i></strong></th>
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146; width:60%"><strong><i>Fournisseur</i></strong></th>
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146; width:60%"><strong><i>Observations</i></strong></th>
+			                      </tr>
+			                </thead>  
+			                <tbody>
+			                     <tr t-foreach="o.x_line_ids" t-as="line" style = "border: 2px SOLID #434146">
+			                        <td style = "border: 2px SOLID #434146"><span t-field="line.date_traitement"/></td> 
+			                        <td style = "border: 2px SOLID #434146"><span t-esc="line.code"/></td> 
+			                        <td style = "border: 2px SOLID #434146"><span t-field="line.designation"/></td> 
+			                        <td style = "border: 2px SOLID #434146"><span t-esc="line.seuil"/></td>                      
+			                        <td style = "border: 2px SOLID #434146;width:60%"><span t-esc="line.etat"/></td> 
+			                        
+			                        <td style = "border: 2px SOLID #434146"><span t-field="line.qte_en_stock"/></td> 
+			                        <td style = "border: 2px SOLID #434146"><span t-esc="line.qte_dispo"/></td> 
+			                        <td style = "border: 2px SOLID #434146"><span t-field="line.qte_traite"/></td> 
+			                        <td style = "border: 2px SOLID #434146"><span t-esc="line.de_service"/></td>                      
+			                        <td style = "border: 2px SOLID #434146;width:60%"><span t-esc="line.vers_service"/></td>                      
+			                        <td style = "border: 2px SOLID #434146;width:60%"><span t-esc="line.fournisseur.nm"/></td>                      
+			                        <td style = "border: 2px SOLID #434146;width:60%"><span t-esc="line.observation"/></td>                      
+			                    </tr>
+			                </tbody>
+			    </table> 
+			    
+	         </t>   
+         </t>
+    </t>
+</template>
+
+
+<report 
+	id="report_ficheinit"
+	string="Imprimer"
+	model="stock_fiche_entree" 
+	report_type="qweb-pdf"
+	file="Gestion_Stocks.report_ficheinit" 
+	name="Gestion_Stocks.report_ficheinit"
+	groups = "base.group_user"
+	menu = "True"/>
+
+<template id="report_ficheinit">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.external_layout">
+			<h2 style="text-align:center">ETAT FICHE INITIALE DE STOCK N° <span t-esc="o.name"/> Du <span t-esc="o.x_date"/></h2>
+                   
+				<table style="width:100%">
+					<thead style="background-color:#D2D2FF">
+						<tr style = "border: 2px SOLID #434146" >
+							<th style="border: 2px SOLID #434146"><strong><i>Article</i></strong></th>
+							<th style="border: 2px SOLID #434146"><strong><i></i>Unité</strong></th>
+							<th style="border: 2px SOLID #434146"><strong><i>Qté en stock</i></strong></th>
+						</tr>
+					</thead>  
+					<tbody>
+						<tr t-foreach="o.fiche_ids" t-as="line" style = "border: 1px SOLID #434146">
+							<td style = "border: 1px SOLID #434146;width:60%"><span t-field="line.name"/></td> 
+							<td style = "border: 1px SOLID #434146;width:20%"><span t-esc="line.unite_stock_id.name"/></td> 
+							<td style = "border: 1px SOLID #434146;width:20%; text-align:right"><span t-esc="line.qte_article_en_stock"/></td> 
+						</tr>
+					</tbody>
+				</table> 			    
+			</t>   
+        </t>
+    </t>
+</template>
+
+
+</odoo>

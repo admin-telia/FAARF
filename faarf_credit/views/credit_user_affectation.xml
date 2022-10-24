@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Vue Affectation-->
+    <record id="view_credit_user_affectation_tree" model="ir.ui.view">
+            <field name="name">credit_user_affectation.tree</field>
+            <field name="model">credit_user_affectation</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client" decoration-bf="state == 'A'" >
+                    <field name="utilisateur"/>
+                    <field name="x_user_role_id"/>
+                    <field name="date_affectation"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+    <record id="credit_user_affectation_form" model="ir.ui.view">
+        <field name="name">view.credit_user_affectation.form</field>
+        <field name="model">credit_user_affectation</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+                     <button class="oe_highlight" name="valider" type="object" icon="fa-check"
+                            confirm="Êtes-vous sûr d'exécuter cette action ?"
+                            string="Affecter"
+                            states="N"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="utilisateur"
+                                   options="{'no_create':True,'no_quick_create':True,'no_create_edit':True,'no_open':True,}"
+                                   attrs="{'readonly':[('state','=','A')]}"/>
+                            <field name="x_user_role_id"
+                                   options="{'no_create':True,'no_quick_create':True,'no_create_edit':True,'no_open':True,}"
+                                   attrs="{'readonly':[('state','=','A')]}"/>
+                            <field name="x_superviseur_id"
+                                   domain="[('id', '!=', utilisateur), ('x_user_role_id.code', '=', 'ROLESUP')]"
+                                   attrs="{'required':[('role_code','==','ROLEGEST')], 'invisible':[('role_code','!=','ROLEGEST')], 'readonly':[('state','=','A')]}"
+                                   options="{'no_create':True,'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+<!--                            <field name="cpte_gest"-->
+<!--                                   attrs="{'required':[('role_code','==','ROLEGEST')], 'invisible':[('role_code','!=','ROLEGEST')], 'readonly':[('state','=','A')]}"-->
+<!--                                   options="{'no_create':True, 'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>-->
+                            <field name="date_affectation" readonly="1" invisible="1"/>
+                            <field name="state" invisible="1"/>
+                            <field name="role_code" invisible="1"/>
+                        </group>
+                        <group>
+                           <field name="x_zone_ids" widget="many2many_tags"
+                                  attrs="{'readonly':[('state','=','A')]}"
+                                  required="True"
+                                  options="{'no_create':True,'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+							<field name="x_region_ids" widget="many2many_tags" domain="[('zone_id.id', 'in', x_zone_ids)]"
+                                   attrs="{'readonly':[('state','=','A')],
+                                           'required':[('role_code','=','ROLEGEST')],
+                                           'invisible':[('role_code','!=','ROLEGEST')]}"
+                                   options="{'no_create':True, 'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+							<field name="x_province_ids" widget="many2many_tags" domain="[('ref_region_id.id', 'in', x_region_ids)]"
+                                   attrs="{'readonly':[('state','=','A')],
+                                           'required':[('role_code','=','ROLEGEST')],
+                                           'invisible':[('role_code','!=','ROLEGEST')]}"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+							<field name="x_departement_ids" widget="many2many_tags" domain="[('ref_province_id.id', 'in', x_province_ids)]"
+                                   attrs="{'readonly':[('state','=','A')],
+                                           'required':[('role_code','=','ROLEGEST')],
+                                           'invisible':[('role_code','!=','ROLEGEST')]}"
+                                   options="{'no_create':True, 'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+							<field name="x_village_ids" widget="many2many_tags" domain="[('commune_id.id', 'in', x_departement_ids)]"
+                                   attrs="{'readonly':[('state','=','A')],
+                                           'required':[('role_code','=','ROLEGEST')],
+                                           'invisible':[('role_code','!=','ROLEGEST')]}"
+                                   options="{'no_create':True, 'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="affection_doc"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_credit_user_affectation" model="ir.actions.act_window">
+        <field name="name">Gestion des utilisateurs</field>
+        <field name="res_model">credit_user_affectation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--Vue User-->
+    <record id="view_res_users_affectation_tree" model="ir.ui.view">
+        <field name="name">res.users.tree</field>
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <tree string="Type de client" edit="false" create="false">
+                <field name="name"/>
+                <field name="x_user_role_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="credit_res_users_affectation_form" model="ir.ui.view">
+        <field name="name">view.res.users.form</field>
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="x_user_role_id" readonly="1"/>
+                            <field name="x_superviseur_id"
+                                   readonly="1"/>
+<!--                                   attrs="{'invisible':[('x_user_role_id.code','!=','ROLEGEST')]}"/>-->
+                            <field name="code_gestionnaire"
+                                   readonly="1"/>
+<!--                                   attrs="{'invisible':[('x_user_role_id.code','!=','ROLEGEST')]}"/>-->
+                        </group>
+                        <group>
+                           <field name="x_zone_ids" readonly="1" widget="many2many_tags"/>
+                            <field name="x_region_ids" readonly="1" widget="many2many_tags"/>
+                            <field name="x_province_ids" readonly="1" widget="many2many_tags"/>
+                            <field name="x_departement_ids" readonly="1" widget="many2many_tags"/>
+                            <field name="x_village_ids" readonly="1" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_credit_user" model="ir.actions.act_window">
+        <field name="name">Gestion des utilisateurs</field>
+        <field name="res_model">res.users</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('x_user_role_id.code', 'in', ('ROLEGEST', 'ROLESUP') )]</field>
+        <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_res_users_affectation_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('credit_res_users_affectation_form')})]"/>
+    </record>
+</odoo>

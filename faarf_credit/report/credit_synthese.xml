@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Fiche de credit -->
+	<template id="credit_synthese_fiche">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.basic_layout">
+					<style>
+						.table th, .table td {
+							padding: 0.1rem;
+						}
+						div{
+							font-family: garamond;
+							font-size: 11px;
+						}
+						.montant{
+							text-align: right
+						}
+						.border-top{
+							border-top: 1px #dee2e6 black;
+						}
+					</style>
+					<div style="text-align: center; border: 1px black">
+						<h3>Calendrier du Remboursement de Crédit</h3>
+					</div>
+					<br/><br/>
+					<table class="table table-sm">
+						<tr>
+							<th colspan="3" class="border-top">Nom du client: <span t-field="o.credit_id.cliente_id.name"/></th>
+						</tr>
+						<tr>
+							<th colspan="3" class="border-top">Adresse- Telephone</th>
+						</tr>
+						<tr>
+							<th colspan="3" class="border-top">But de crédit</th>
+						</tr>
+						<tr>
+							<th class="border-top">N° de crédit: </th>
+							<th class="border-top"></th>
+							<th class="border-top">Date de la demande: <span t-field="o.credit_id.date_demande"/></th>
+						</tr>
+						<tr>
+							<th class="border-top">Montant du crédit: <span t-field="o.credit_id.montant_accorde"/></th>
+							<th class="border-top">Période du crédit: <span t-field="o.credit_id.duree_pret"/> <span t-field="o.credit_id.periodicite"/></th>
+							<th class="border-top">Date du décaissement: <span t-field="o.credit_id.date_demande"/></th>
+						</tr>
+						<tr>
+							<th colspan="2" class="border-top"></th>
+							<th class="border-top">Taux d'intérêt effectif: <span t-field="o.credit_id.taux_int_annuel"/></th>
+						</tr>
+						<tr>
+							<th colspan="2" class="border-top">Fonds de crédit: <span t-field="o.credit_id.bailleur_id.name"/></th>
+							<th class="border-top"></th>
+						</tr>
+						<tr>
+							<th class="border-top">Produit du crédit: <span t-field="o.credit_id.produit_credit.name"/></th>
+							<th class="border-top">devise: FCFA</th>
+							<th class="border-top">Agent de crédit: <span t-field="o.credit_id.gestionnaire_id.name"/></th>
+						</tr>
+						<tr>
+							<th colspan="3" class="border-top"></th>
+
+						</tr>
+					</table>
+					<br/><br/>
+					<table class="table table-sm table-striped table-bordered">
+						<tr>
+							<th>Date</th>
+							<th>Transaction</th>
+							<th>Pièce comptable</th>
+							<th>Principal</th>
+							<th>Intérêt</th>
+							<th>FA</th>
+							<th>Pénalité</th>
+							<th>Solde Courant</th>
+							<th>Solde Principal</th>
+							<th>Solde Intérêt</th>
+							<th>Solde FA</th>
+							<th>Solde Total</th>
+						</tr>
+						<t t-set="principal" t-value="0"/>
+						<t t-set="interet" t-value="0"/>
+						<t t-set="fa" t-value="0"/>
+						<t t-set="total" t-value="0"/>
+						<tr t-foreach="o.line_ids" t-as="l">
+							<td><span t-field="l.date"/></td>
+							<td><span t-field="l.transaction"/></td>
+							<td><span t-field="l.piece_comptable"/></td>
+							<td class="montant"><span t-field="l.principal"/></td>
+							<td class="montant"><span t-field="l.interet"/></td>
+							<td class="montant"><span t-field="l.fa"/></td>
+							<td class="montant"><span t-field="l.penalite"/></td>
+							<td class="montant"><span t-field="l.solde_courant"/></td>
+							<td class="montant"><span t-field="l.solde_principal"/></td>
+							<td class="montant"><span t-field="l.solde_interet"/></td>
+							<td class="montant"><span t-field="l.solde_fa"/></td>
+							<td class="montant"><span t-field="l.solde_total"/></td>
+							<t t-set="principal" t-value="principal + 0"/>
+							<t t-set="interet" t-value="interet + 0"/>
+							<t t-set="fa" t-value="fa + 0"/>
+							<t t-set="total" t-value="fa + 0"/>
+						</tr>
+					</table>
+					<table class="table">
+						<tr>
+							<td style="text-align: right; font-size:11px;border: none">Imprimé le:</td>
+						</tr>
+						<tr>
+							<td style="text-align: right; font-size:11px;border: none">Imprimé par:</td>
+						</tr>
+					</table>
+				</t>
+			 </t>
+		</t>
+	</template>
+	<report
+		id="report_credit_synthese_fiche"
+		string="Fiche de crédit"
+		model="credit_synthese_fiche"
+		report_type="qweb-html"
+		file="faarf_credit.credit_synthese_fiche"
+		name="faarf_credit.credit_synthese_fiche"
+		groups = "base.group_user"
+		menu = "True"/>
+
+</odoo>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Vue des editions convention-->
+    <record id="view_credit_edition_convention_tree" model="ir.ui.view">
+            <field name="name">credit_edition_convention.tree</field>
+            <field name="model">credit_edition_convention</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client"
+                      decoration-danger="state=='AN'" decoration-success="state=='A'" >
+                    <field name="name" decoration-bf="state=='CR'"/>
+                    <field name="credit_id"/>
+                    <field name="gestionnaire_id"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_credit_edition_convention_form" model="ir.ui.view">
+        <field name="name">view.credit_edition_convention.form</field>
+        <field name="model">credit_edition_convention</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+                    <button class="oe_highlight" name="approuver" type="object" icon="fa-check-square-o" string="Valider"
+                            confirm="Êtes-vous sûr d'exécuter cette action ?"
+                            states="N"
+                            style="background-color: #28a745; border-color: #28a745;"/>
+                    <button class="oe_highlight" name="set_annuler" type="object" icon="fa-close" string="Annuler"
+                            confirm="Êtes-vous sûr d'exécuter cette action ?"
+                            states="A"
+                            style="background-color: #dc3545; border-color: #dc3545"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="credit_id" attrs="{'readonly':[('state','!=', 'N')]}"/>
+                        </group>
+                        <group>
+                            <field name="name" readonly="1" force_save="1"/>
+                            <field name="date" readonly="1" force_save="1"/>
+                        </group>
+                    </group>
+                     <group>
+                        <group>
+                            <field name="cliente_id"/>
+                            <field name="gestionnaire_id"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="province_id"/>
+                            <field name="departement_id"/>
+                        </group>
+                        <group>
+                            <field name="village_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="capital"/>
+                            <field name="taux_int"/>
+                            <field name="cliente_id"/>
+                            <field name="duree"/>
+                            <field name="type_echeance"/>
+                            <field name="total_rb"/>
+                            <field name="fa_taux"/>
+                            <field name="fa_mtn"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_credit_edition_convention" model="ir.actions.act_window">
+        <field name="name">Convention de Prêt</field>
+        <field name="res_model">credit_edition_convention</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--Vue des editions Fiche deblocage-->
+    <record id="view_credit_edition_fiche_deblocage_tree" model="ir.ui.view">
+            <field name="name">credit_edition_fiche_deblocage.tree</field>
+            <field name="model">credit_edition_fiche_deblocage</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client" decoration-bf="state=='G'" decoration-warning="state=='S'"
+                      decoration-it="state=='CR'" decoration-danger="state=='CC'"
+                      decoration-info="state=='DG'" decoration-muted="state=='CCA'"
+                      decoration-primary="state=='DAJ'" decoration-success="state=='DA'" >
+                    <field name="name" decoration-bf="state=='CR'"/>
+                    <field name="credit_id"/>
+                    <field name="gestionnaire_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_credit_edition_fiche_deblocage_form" model="ir.ui.view">
+        <field name="name">view.credit_edition_fiche_deblocage.form</field>
+        <field name="model">credit_edition_fiche_deblocage</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+<!--                    <button class="oe_highlight" name="set_trans_gest" type="object" icon="fa-check" string="Affecter" states="N"/>-->
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="credit_id"/>
+                        </group>
+                        <group>
+                            <field name="cliente_id"/>
+                            <field name="gestionnaire_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="province_id"/>
+                            <field name="departement_id"/>
+                        </group>
+                        <group>
+                            <field name="village_id"/>
+                            <field name="x_mnt_en_lettre"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_credit_edition_fiche_deblocage" model="ir.actions.act_window">
+        <field name="name">Fiche de déblocage</field>
+        <field name="res_model">credit_edition_fiche_deblocage</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

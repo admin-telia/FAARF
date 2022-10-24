@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+
+    <record id="faarf_immo_category" model="ir.module.category">
+        <field name="name">PROFILS IMMOBILSIATION</field>
+    </record>
+
+	<!--Ordonnateur matière-->
+	<record id="faarf_ordonnateur" model="res.groups">
+        <field name="name">Ordonnateur matière</field>
+        <field name="category_id" ref="faarf_immo_category"/>
+    </record>
+
+
+    <!--Comptable matière-->
+	<record id="faarf_comptable" model="res.groups">
+        <field name="name">Comptable matière</field>
+        <field name="category_id" ref="faarf_immo_category"/>
+    </record>
+
+
+    <!--Comptable matière-->
+	<record id="faarf_magasinier" model="res.groups">
+        <field name="name">Magasinier/Fichiste</field>
+        <field name="category_id" ref="faarf_immo_category"/>
+    </record>
+
+
+
+</odoo>

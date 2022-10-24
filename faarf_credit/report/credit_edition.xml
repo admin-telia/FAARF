@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Convention -->
+	<template id="credit_edition_convention">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.basic_layout">
+					<style>
+						.table th, .table td{
+							padding: 0.1rem;
+							border-top:none
+						}
+
+						div{
+							font-family: garamond;
+							font-size: 12px;
+						}
+						.montant{
+							text-align: right
+						}
+					</style>
+					<div t-if="o.state == 'A'">
+						<table class="table">
+							<tr>
+								<td style="text-align:left">
+									<p style="font-size:11px; font-weight:bold">
+										MINISTERE DU GENRE, <br/>
+										DE LA FAMILLE ET DE L'ACTION <br/>
+										HUMANITAIRE <br/>
+										-------------------- <br/>
+										SECRETARIAT GENERAL <br/>
+										-------------------- <br/>
+										FONDS D'APPUI AUX ACTIVITES <br/>
+										REMUNERATRIVES DES FEMMES <br/>
+										(FAARF) <br/>
+									</p>
+								</td>
+								<td style="text-align:center">
+<!--									<img src="/faarf_credit/static/img/faarf_logo.png"/>-->
+								</td>
+								<td style="text-align:center">
+									<p>
+										Burkina Faso <br/>
+										Unité - Progès - Justice
+									</p>
+								</td>
+							</tr>
+						</table>
+						<div style="text-align: center;">
+							<h4>CONVENTION DE PRET</h4>
+						</div>
+						<div style="text-align: center;">
+<!--							<p>Numéro de convention: <b><span t-field="o.name"/></b></p>-->
+							<p>Numéro de prêt: <b><span t-field="o.credit_id.name"/></b></p>
+							<p>Nom de l'animatrice: <b><span t-field="o.credit_id.gestionnaire_id.name"/></b></p>
+						</div>
+						<div>
+							<p>
+								Je soussignée <b> <span t-field="o.credit_id.cliente_id.name"/> </b>
+							</p>
+							<table class="table">
+								<tr>
+									<td>
+										Region: <b><span t-field="o.credit_id.region_id"/></b>
+									</td>
+									<td>
+										Commune/Département: <b><span t-field="o.credit_id.departement_id"/></b>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Province: <b><span t-field="o.credit_id.province_id"/></b>
+									</td>
+									<td>
+										Ville/Village: <b><span t-field="o.credit_id.village_id"/></b>
+									</td>
+								</tr>
+							</table>
+							<p>
+								Déclare approuver les clauses de la présente convention relative au prêt
+								qui m'a été accordé le <b><span t-field="o.credit_id.date_accord"/></b> par le Fond d'Appui aux Activités
+								Rémunératrices des Femmes (FAARF) pour <b><span t-field="o.credit_id.but_credit"/></b>
+							</p>
+							<p>
+								Je m'engage à réaliser ledit projet et à rembourser au FAARF la somme aux conditions suivantes :
+							</p>
+							<br/>
+							<table class="table" style="width: 30%">
+								<tr>
+									<td>Capital Prêté</td>
+									<th style="text-align: right">
+										<span t-field="o.credit_id.montant_accorde"/> FCFA
+									</th>
+								</tr>
+								<tr>
+									<td>Taux d'Intérêt</td>
+									<th style="text-align: right">
+										<span t-field="o.credit_id.taux_int_annuel"/> %
+									</th>
+								</tr>
+								<tr>
+									<td>Durée du prêt</td>
+									<th style="text-align: right">
+										<span t-field="o.credit_id.duree_pret"/> Mois
+									</th>
+								</tr>
+								<tr>
+									<td>Type d'échéance</td>
+									<th style="text-align: right">
+										<span t-field="o.credit_id.periodicite"/>
+									</th>
+								</tr>
+								<tr>
+									<td>Total à Rembourser</td>
+									<th style="text-align: right">
+										<span t-field="o.credit_id.total_rembourser"/> FCFA
+									</th>
+								</tr>
+								<tr>
+									<td>Garantie/Cotisation fonds de groupe</td>
+									<th style="text-align: right">
+										<span t-field="o.credit_id.taux_int_garantie"/> %
+									</th>
+								</tr>
+								<tr>
+									<td>Montant Garantie</td>
+									<th style="text-align: right">
+										<span t-field="o.credit_id.montant_garantie"/> FCFA
+									</th>
+								</tr>
+								<tr>
+									<td>Nombre d'Echéances Garantie</td>
+									<th style="text-align: right">
+										1
+									</th>
+								</tr>
+								<tr>
+									<td>Montant d'Echéances Garantie</td>
+									<th style="text-align: right">
+										<span t-field="o.credit_id.montant_garantie"/> FCFA
+									</th>
+								</tr>
+							</table>
+							<p style="text-align:right">Fait à Ouagadougou, le:  <b><span t-field="o.date"/></b></p>
+							<br/><br/>
+							<table class="table">
+								<tr>
+									<td>L'emprunteur</td>
+									<td style="text-align:right">Le Prêteur</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</t>
+			 </t>
+		</t>
+	</template>
+	<report
+		id="report_credit_edition_convention"
+		string="Convention de prêt"
+		model="credit_edition_convention"
+		report_type="qweb-html"
+		file="faarf_credit.credit_edition_convention"
+		name="faarf_credit.credit_edition_convention"
+		groups = "base.group_user"
+		menu = "True"/>
+
+	<!-- Fiche de deblocage -->
+	<template id="credit_edition_fiche_deblocage">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.basic_layout">
+					<style>
+						.table th, .table td {
+							padding: 0.1rem;
+							border-top: none;
+						}
+						div{
+							font-family: garamond;
+							font-size: 12px;
+						}
+						.montant{
+							text-align: right
+						}
+						.border-top{
+							border-top: 1px #dee2e6 black;
+						}
+					</style>
+					<table class="table">
+						<tr>
+							<td>
+								<p style="font-size:11px; font-weight:bold">
+									MINISTERE DU GENRE, <br/>
+									DE LA FAMILLE ET DE L'ACTION <br/>
+									HUMANITAIRE <br/>
+									-------------------- <br/>
+									SECRETARIAT GENERAL <br/>
+									-------------------- <br/>
+									FONDS D'APPUI AUX ACTIVITES <br/>
+									REMUNERATRIVES DES FEMMES <br/>
+									(FAARF) <br/>
+								</p>
+							</td>
+							<td>
+								<div style="border: 4px solid black; display:inline-block;  vertical-align:top">
+									<table class="table">
+										<tr>
+											<th>Montant débloqué:................... </th>
+											<th></th>
+										</tr>
+										<tr>
+											<th>Montant reversé:.................... </th>
+											<th></th>
+										</tr>
+										<tr>
+											<th>Réçu N°:....................... du...............</th>
+											<th></th>
+										</tr>
+									</table>
+								</div>
+							</td>
+						</tr>
+					</table>
+
+					<br/><br/>
+					<div style="text-align: center; border: 1px black">
+						<h4><b>FICHE DE DEBLOCAGE N°:___________ DATE DE DEBLOCAGE°: _______________</b></h4>
+					</div>
+					<br/><br/>
+					<table class="table">
+							<tr>
+								<th>Gestionnaire de crédit: </th>
+								<th>Payé par: </th>
+							</tr>
+							<tr>
+								<th>Province: </th>
+								<th>N°: </th>
+							</tr>
+							<tr>
+								<th>Departement: </th>
+								<th>Date: </th>
+							</tr>
+							<tr>
+								<th>Ville/village/Secteur: </th>
+								<th>Montant: </th>
+							</tr>
+							<tr>
+								<th>Client: </th>
+								<th>Banque: </th>
+							</tr>
+						</table>
+					<br/><br/>
+					<table class="table table-sm">
+						<tr>
+							<th>Code Prêt: <span t-field="o.credit_id.name"/></th>
+							<th>Montant du prêt: <span t-field="o.credit_id.montant_accorde"/> FCFA</th>
+							<th>Durée: <span t-field="o.credit_id.duree_pret"/> Mois</th>
+						</tr>
+					</table>
+					<br/><br/>
+					<table
+						   class="table table-sm table-striped table-bordered"
+							t-if="o.cliente_id.type_client.code in ('ASS', 'GROUP') ">
+						<tr>
+							<th>BUREAU: </th>
+							<th>N° CNIB: </th>
+							<th>SIGNATURE: </th>
+						</tr>
+						<tr>
+							<th style="text-align: center">
+								<br/><br/>
+								<span t-field="o.cliente_id.presidente_id.name"/>  <br/>
+								PRESIDENTE
+								<br/><br/>
+							</th>
+							<td style="text-align: center">
+								<br/><br/>
+								<span t-field="o.cliente_id.presidente_id.num_piece"/>
+								<br/><br/>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<th style="text-align: center">
+								<br/><br/>
+								<span t-field="o.cliente_id.secretaire_id.name"/>  <br/>
+								SECRETAIRE
+								<br/><br/>
+							</th>
+							<td style="text-align: center">
+								<br/><br/>
+								<span t-field="o.cliente_id.secretaire_id.num_piece"/>
+								<br/><br/>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<th style="text-align: center">
+								<br/><br/>
+								<span t-field="o.cliente_id.secretaire_id.name"/>  <br/>
+								TRESORIERE
+								<br/><br/>
+							</th>
+							<td style="text-align: center">
+								<br/><br/>
+								<span t-field="o.cliente_id.tresoriere_id.num_piece"/>
+								<br/><br/>
+							</td>
+							<td></td>
+						</tr>
+					</table>
+					<table t-if="o.cliente_id.type_client.code in ('IND') "
+						   class="table table-sm table-striped table-bordered">
+						<tr>
+							<th>BENEFICIAIRE: </th>
+							<th>N° CNIB: </th>
+							<th>SIGNATURE: </th>
+						</tr>
+						<tr>
+							<th style="text-align: center">
+								<br/><br/>
+								<span t-field="o.cliente_id.name"/>
+								<br/><br/>
+							</th>
+							<td style="text-align: center">
+								<br/><br/>
+								<span t-field="o.cliente_id.num_piece"/>
+								<br/><br/>
+							</td>
+							<td></td>
+						</tr>
+					</table>
+					<p><b>Arrêtée la présente fiche de déblocage à la somme de UN MILLION SIX CENT MILLE FCFA</b></p>
+					<p><b>Visa de la caisse / Animatrice</b></p>
+
+					<br/><br/><br/>
+					<table class="table">
+						<tr>
+							<th style="text-align:left">COMMITE INTERNE DE CREDIT</th>
+							<th style="text-align:right">DIRECTION DES FINANCES ET DE LA COMPTABILITE</th>
+						</tr>
+					</table>
+					<br/><br/><br/>
+				</t>
+			 </t>
+		</t>
+	</template>
+	<report
+		id="report_credit_edition_fiche_deblocage"
+		string="Fiche de déblocage"
+		model="credit_edition_fiche_deblocage"
+		report_type="qweb-html"
+		file="faarf_credit.credit_edition_fiche_deblocage"
+		name="faarf_credit.credit_edition_fiche_deblocage"
+		groups = "base.group_user"
+		menu = "True"/>
+</odoo>

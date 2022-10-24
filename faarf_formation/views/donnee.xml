@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+     <!--Vue tree des module-->
+        <record id="view_faarf_module_tree" model="ir.ui.view">
+            <field name="name">faarf.module.tree</field>
+            <field name="model">faarf.module</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des destinations">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Vue form des module-->
+        <record id="view_faarf_modules_form" model="ir.ui.view">
+            <field name="name">faarf.module.form</field>
+            <field name="model">faarf.module</field>
+            <field name="arch" type="xml">
+                <form string="Liste des modules">
+                <sheet>
+                     <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name" style="width:50%"/>
+                        <field name="description" style="width:50%"/>
+                    </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--action des modules-->
+        <record id="action_module" model="ir.actions.act_window">
+            <field name="name">Liste des modules</field>
+            <field name="res_model">faarf.module</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+     <!--Vue tree des module-->
+        <record id="view_faarf_module_tree" model="ir.ui.view">
+            <field name="name">faarf.element.budget.tree</field>
+            <field name="model">faarf.element.budget</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des destinations">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Vue form des module-->
+        <record id="view_faarf_module_form" model="ir.ui.view">
+            <field name="name">faarf.element.budget.form</field>
+            <field name="model">faarf.element.budget</field>
+            <field name="arch" type="xml">
+                <form string="Liste des modules">
+                <sheet>
+                     <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name" style="width:50%"/>
+                        <field name="description" style="width:50%"/>
+                    </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--action des modules-->
+        <record id="action_elem_budget" model="ir.actions.act_window">
+            <field name="name">Liste des éléments du budget</field>
+            <field name="res_model">faarf.element.budget</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- MenuItem Donnees de base -->
+            <menuitem id="menu_gestion_formation" name="Formation" sequence="5"/>
+
+    <menuitem id="donnee" name="Données de base" parent="menu_gestion_formation" sequence="2"/>
+    <menuitem id="menu_categorie" name="Saisie/Màj des modules de formation" parent="donnee" action="action_module" sequence="1"/>
+    <menuitem id="menu_elem_budg" name="Saisie/Màj des éléments du budget" parent="donnee" action="action_elem_budget" sequence="2"/>
+
+</odoo>

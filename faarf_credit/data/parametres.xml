@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!--Vue tree des types de client-->
+        <record id="view_credit_param_produit_tree" model="ir.ui.view">
+            <field name="name">credit_param_produit</field>
+            <field name="model">credit_param_produit</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client">
+                    <field name="name"/>
+                    <field name="bailleur_id"/>
+                </tree>
+            </field>
+        </record>
+    
+        <record id="view_credit_param_produit_form" model="ir.ui.view">
+            <field name="name">credit_param_produit</field>
+            <field name="model">credit_param_produit</field>
+            <field name="arch" type="xml">
+                <form string="Type de client">
+                <sheet>
+                     <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="bailleur_id"/>
+                        </group>
+                        <group>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Comité">
+                            <group>
+                                <group>
+                                    <field name="montant_max_antenne"/>
+                                    <field name="montant_max_com_credit"/>
+                                    <field name="montant_max_dg"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Crédits individuelle">
+                            <group col="3">
+                                <group colspan="1">
+                                    <field name="taux_int_annuel"/>
+                                    <field name="taux_int_annuel_psh"/>
+                                    <field name="taux_garantie"/>
+                                </group>
+                                <group colspan="1">
+                                    <field name="taux_frais_dossier"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Crédits Groupement solidaire">
+                            <group col="3">
+                                <group colspan="1">
+                                    <field name="taux_int_annuel_gs"/>
+                                    <field name="taux_garantie_gs"/>
+                                </group>
+                                <group colspan="1">
+                                    <field name="taux_frais_dossier_gs"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Crédits Groupement/Association">
+                            <group col="3">
+                                <group colspan="1">
+                                    <field name="taux_int_annuel_ass"/>
+                                    <field name="taux_garantie_ass"/>
+                                </group>
+                                <group colspan="1">
+                                    <field name="taux_frais_dossier_ass"/>
+                                </group>
+                            </group>
+                        </page>
+
+                                <page string="Comptes de déblocage">
+                                    <table class="table">
+                                        <tr>
+                                            <td style="border: none;"></td>
+                                            <th style="border: none;">Individuel</th>
+                                            <th style="border: none;">Grouprement solidaire</th>
+                                            <th style="border: none;">Groupe/Association</th>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: none;"><span>Comptes de membre</span></td>
+                                            <td style="border: none;"><field name="cpte_membr_ind" nolabel="1"/></td>
+                                            <td style="border: none;"><field name="cpte_membr_gs" nolabel="1"/></td>
+                                            <td style="border: none;"><field name="cpte_membr_ass" nolabel="1"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: none;"><span>Frais de dossier</span></td>
+                                            <td style="border: none;"><field name="cpte_frais" nolabel="1"/></td>
+                                            <td style="border: none;"></td>
+                                            <td style="border: none;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: none;">Capital</td>
+                                            <td style="border: none;"><field name="capital" nolabel="1"/></td>
+                                            <td style="border: none;"></td>
+                                            <td style="border: none;"></td>
+                                        </tr>
+                                    </table>
+                                </page>
+                                <page string="Comptes de remboursement">
+                                    <table class="table">
+                                        <tr>
+                                            <td style="border: none;"></td>
+                                            <th style="border: none;">Individuel</th>
+                                            <th style="border: none;">Groupe Solidaire</th>
+                                            <th style="border: none;">Groupe/Association</th>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: none;"><span>Comptes de membre</span></td>
+                                            <td style="border: none;"><field name="cpte_membr_ind" nolabel="1"/></td>
+                                            <td style="border: none;"><field name="cpte_membr_gs" nolabel="1"/></td>
+                                            <td style="border: none;"><field name="cpte_membr_ass" nolabel="1"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: none;"><span>Compte interêt</span></td>
+                                            <td style="border: none;"><field name="cpte_int_ind" nolabel="1"/></td>
+                                            <td style="border: none;"><field name="cpte_int_gs" nolabel="1"/></td>
+                                            <td style="border: none;"><field name="cpte_int_ass" nolabel="1"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: none;"><span>Compte de pénalité</span></td>
+                                            <td style="border: none;"><field name="cpte_penalite" nolabel="1"/></td>
+                                            <td style="border: none;"></td>
+                                            <td style="border: none;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: none;">Compte de Fonds d'autonomisation </td>
+                                            <td style="border: none;"><field name="cpte_fa" nolabel="1"/></td>
+                                            <td style="border: none;"></td>
+                                            <td style="border: none;"></td>
+                                        </tr>
+                                    </table>
+                                </page>
+                            </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+    
+        <record id="action_credit_param_produit" model="ir.actions.act_window">
+            <field name="name">type de produits</field>
+            <field name="res_model">credit_param_produit</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+</odoo>

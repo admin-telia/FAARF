@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <report 
+            id="report_centralisation"
+            string="Edition Fiche Centralisée"
+            model="central_besoinannuel" 
+            report_type="qweb-html"
+            file="Gestion_Stocks.report_centralisation" 
+            name="Gestion_Stocks.report_centralisation"
+            groups = "base.group_user"
+            menu = "True"/>
+
+<template id="report_centralisation">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.external_layout">
+            <h2>Fiche Besoin Centralisé</h2>
+                        <div class="row mt32 mb32">
+                        	<div class="col-3">
+	                            <strong>Année:</strong>
+	                            <p t-field="o.annee_en_cours"/>
+                            </div>
+                           <div class="col-3">
+	                            <strong>Date</strong>
+	                            <p t-esc="o.date_centralisation"/>
+                           </div>
+                        
+                        </div>
+                <table class = 'table table-sm'>
+			        		<thead style="background-color:#D2D2FF">
+			                      <tr style = "border: 2px SOLID #434146" >
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146"><strong><i>Articles</i></strong></th>
+   			                          <th style="padding: 4px 8px;  line-height: 1.42857143;"><strong><i>Quantitté</i></strong></th>
+			                          
+			                      </tr>
+			                </thead>  
+			                <tbody>
+			                     <tr t-foreach="o.x_line_ids" t-as="line" style = "border: 2px SOLID #434146">
+			                      
+			                        <td style = "border: 2px SOLID #434146"><span t-field="line.article"/></td> 
+			                        <td style = "border: 2px SOLID #434146"><span t-field="line.qte_demandee"/></td> 
+			                    </tr>
+			  
+			               
+			                </tbody>
+			        	
+			    </table> 
+			    
+
+            </t>
+         </t>
+    </t>
+</template>
+</odoo>

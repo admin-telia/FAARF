@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!--Vue tree cr-->
+        <record id="view_credit_credit_comite_regional_tree" model="ir.ui.view">
+            <field name="name">credit_credit_comite_regional</field>
+            <field name="model">credit_credit_comite_regional</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client">
+                    <field name="name"/>
+                    <field name="zone_id"/>
+                </tree>
+            </field>
+        </record>
+    
+        <record id="view_credit_credit_comite_regional_form" model="ir.ui.view">
+            <field name="name">credit_credit_comite_regional</field>
+            <field name="model">credit_credit_comite_regional</field>
+            <field name="arch" type="xml">
+                <form string="Type de client" create='false'>
+                    <header>
+                        <button class="oe_highlight" name="set_accorde_r" type="object" icon="fa-check-square-o" string="Accorder"
+                            confirm="Êtes-vous sûr d'exécuter cette action ?"
+                            style="background-color: #28a745; border-color: #28a745;"/>
+                        <button class="oe_highlight" name="set_ajourne_r" type="object" icon="fa-warning" string="Ajourner"
+                                confirm="Êtes-vous sûr d'exécuter cette action ?"
+                                style="background-color: #ffc107; border-color: #ffc107"/>
+                        <button class="oe_highlight" name="set_refuse_r" type="object" icon="fa-close" string="Refuser"
+                                confirm="Êtes-vous sûr d'exécuter cette action ?"
+                                style="background-color: #dc3545; border-color: #dc3545"/>
+                    </header>
+                    <sheet>
+                        <group style="text-align: center; text-decoration:underline">
+                            <h1>Comité régional</h1>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="bailleur_id" required="True"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+<!--                                <field name="produit_credit" required="False"-->
+<!--                                   domain="[('bailleur_id.id', '=', bailleur_id),  ('type_produit', '=', 'CREDIT')]"-->
+<!--                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>-->
+                                <field name="current_user_x_zone_ids" invisible="1"/>
+                                <field name="zone_id"
+                                    options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"
+                                   domain="[('id', 'in', current_user_x_zone_ids )]"/>
+                                <field name="superviseur_id"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"
+                                       domain="[('x_user_role_id.code', '=', 'ROLESUP'), ('x_zone_ids.id', '=', zone_id)]"/>
+                                <field name="note_inf"/>
+                                <field name="note_sup"/>
+                            </group>
+                            <group>
+                                <field name="commite_id"
+                                       options="{'no_create':True, 'no_quick_create':True,'no_create_edit':True,'no_open':True,}"
+                                       domain="[('state', '=', 'A')]"/>
+                                <field name="nbr_dossier"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="crédits">
+                                <button class="oe_highlight" name="afficher" type="object" icon="fa-eye" string="Afficher"/>
+                                <field name="credit_ids"
+                                       domain="[('id', '=', 0 )]"
+                                        context="{'form_view_ref':'faarf_credit.view_credit_credit_cr_form', 'default_cr':5}">
+                                    <tree create="false">
+                                        <field name="cliente_id"/>
+                                        <field name="type_client"/>
+                                        <field name="date_demande"/>
+                                        <field name="periode_deblocage"/>
+                                        <field name="gestionnaire_id"/>
+                                        <field name="montant_demande"/>
+                                        <field name="montant_superviseur" string="Montant superviseur"/>
+                                        <field name="secteur_activite"/>
+                                        <field name="duree_pret"/>
+                                        <field name="produit_credit"/>
+                                        <field name="periodicite"/>
+                                        <field name="note"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    
+        <record id="action_credit_credit_comite_regional" model="ir.actions.act_window">
+            <field name="name">Comité regional</field>
+            <field name="res_model">credit_credit_comite_regional</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+        <!--Vue tree cc-->
+        <record id="view_credit_credit_comite_central_tree" model="ir.ui.view">
+            <field name="name">credit_credit_comite_central</field>
+            <field name="model">credit_credit_comite_central</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_credit_credit_comite_central_form" model="ir.ui.view">
+            <field name="name">credit_credit_comite_central</field>
+            <field name="model">credit_credit_comite_central</field>
+            <field name="arch" type="xml">
+                <form string="Type de client">
+                    <header>
+                        <button class="oe_highlight" name="set_accorde_r" type="object" icon="fa-check-square-o" string="Accorder"
+                            confirm="Êtes-vous sûr d'exécuter cette action ?"
+                            style="background-color: #28a745; border-color: #28a745;"/>
+                        <button class="oe_highlight" name="set_ajourne_r" type="object" icon="fa-warning" string="Ajourner"
+                                confirm="Êtes-vous sûr d'exécuter cette action ?"
+                                style="background-color: #ffc107; border-color: #ffc107"/>
+                        <button class="oe_highlight" name="set_refuse_r" type="object" icon="fa-close" string="Refuser"
+                                confirm="Êtes-vous sûr d'exécuter cette action ?"
+                                style="background-color: #dc3545; border-color: #dc3545"/>
+                    </header>
+                    <sheet>
+                        <group style="text-align: center; text-decoration:underline">
+                            <h1>Comité Central</h1>
+                        </group>
+                        <group>
+                             <group>
+                                <field name="bailleur_id" required="True"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+<!--                                <field name="produit_credit" required="True"-->
+<!--                                   domain="[('bailleur_id.id', '=', bailleur_id),  ('type_produit', '=', 'CREDIT')]"-->
+<!--                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>-->
+                                <field name="current_user_x_zone_ids" invisible="1"/>
+                                <field name="zone_id"
+                                    options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"
+                                   domain="[('id', 'in', current_user_x_zone_ids )]"/>
+                                <field name="superviseur_id"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"
+                                       domain="[('x_user_role_id.code', '=', 'ROLESUP'), ('x_zone_ids.id', '=', zone_id)]"/>
+                                 <field name="note_inf"/>
+                                <field name="note_sup"/>
+                            </group>
+                            <group>
+                                <field name="commite_id"
+                                       options="{'no_create':True, 'no_quick_create':True,'no_create_edit':True,'no_open':True,}"
+                                       domain="[('state', '=', 'A')]"/>
+                                <field name="nbr_dossier"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="crédits">
+                                    <button class="oe_highlight" name="afficher" type="object" icon="fa-eye" string="Afficher"/>
+                                    <field name="credit_ids"
+                                           domain="[('id', '=', 0 )]"
+                                            context="{'form_view_ref':'faarf_credit.view_credit_credit_cc_form', 'default_cr':5}">
+                                        <tree create="false">
+                                            <field name="cliente_id"/>
+                                            <field name="type_client"/>
+                                            <field name="date_demande"/>
+                                            <field name="periode_deblocage"/>
+                                            <field name="gestionnaire_id"/>
+                                            <field name="montant_demande"/>
+                                            <field name="montant_superviseur" string="Montant superviseur"/>
+                                            <field name="secteur_activite"/>
+                                            <field name="duree_pret"/>
+                                            <field name="produit_credit"/>
+                                            <field name="periodicite"/>
+                                            <field name="note"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_credit_credit_comite_central" model="ir.actions.act_window">
+            <field name="name">Comité du crédit</field>
+            <field name="res_model">credit_credit_comite_central</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+        <!--Vue tree dg-->
+        <record id="view_credit_credit_comite_dg_tree" model="ir.ui.view">
+            <field name="name">credit_credit_comite_dg</field>
+            <field name="model">credit_credit_comite_dg</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_credit_credit_comite_dg_form" model="ir.ui.view">
+            <field name="name">credit_credit_comite_dg</field>
+            <field name="model">credit_credit_comite_dg</field>
+            <field name="arch" type="xml">
+                <form string="Type de client">
+                    <header>
+                        <button class="oe_highlight" name="set_accorde_r" type="object" icon="fa-check-square-o" string="Accorder"
+                            confirm="Êtes-vous sûr d'exécuter cette action ?"
+                            style="background-color: #28a745; border-color: #28a745;"/>
+                        <button class="oe_highlight" name="set_ajourne_r" type="object" icon="fa-warning" string="Ajourner"
+                                confirm="Êtes-vous sûr d'exécuter cette action ?"
+                                style="background-color: #ffc107; border-color: #ffc107"/>
+                        <button class="oe_highlight" name="set_refuse_r" type="object" icon="fa-close" string="Refuser"
+                                confirm="Êtes-vous sûr d'exécuter cette action ?"
+                                style="background-color: #dc3545; border-color: #dc3545"/>
+                    </header>
+                    <sheet>
+                         <group style="text-align: center; text-decoration:underline">
+                            <h1>ANALYSE DG</h1>
+                        </group>
+                        <group>
+                             <group>
+                                <field name="bailleur_id" required="True"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+<!--                                <field name="produit_credit" required="True"-->
+<!--                                   domain="[('bailleur_id.id', '=', bailleur_id),  ('type_produit', '=', 'CREDIT')]"-->
+<!--                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>-->
+                                <field name="current_user_x_zone_ids" invisible="1"/>
+                                <field name="zone_id"
+                                    options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"
+                                   domain="[('id', 'in', current_user_x_zone_ids )]"/>
+                                <field name="superviseur_id"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"
+                                       domain="[('x_user_role_id.code', '=', 'ROLESUP'), ('x_zone_ids.id', '=', zone_id)]"/>
+                                 <field name="note_inf"/>
+                                <field name="note_sup"/>
+                            </group>
+                            <group>
+                                <field name="nbr_dossier"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="crédits">
+                                    <button class="oe_highlight" name="afficher" type="object" icon="fa-eye" string="Afficher"/>
+                                    <field name="credit_ids"
+                                           domain="[('id', '=', 0 )]"
+                                            context="{'form_view_ref':'faarf_credit.view_credit_credit_dg_form', 'default_cr':5}">
+                                        <tree create="false">
+                                            <field name="cliente_id"/>
+                                            <field name="type_client"/>
+                                            <field name="date_demande"/>
+                                            <field name="gestionnaire_id"/>
+                                            <field name="montant_demande"/>
+                                            <field name="periode_deblocage"/>
+                                            <field name="montant_superviseur" string="Montant superviseur"/>
+                                            <field name="secteur_activite"/>
+                                            <field name="duree_pret"/>
+                                            <field name="produit_credit"/>
+                                            <field name="periodicite"/>
+                                            <field name="note"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                        </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_credit_credit_comite_dg" model="ir.actions.act_window">
+            <field name="name">Directrice Général</field>
+            <field name="res_model">credit_credit_comite_dg</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+        <!--Vue tree ca-->
+        <record id="view_credit_credit_comite_ca_tree" model="ir.ui.view">
+            <field name="name">credit_credit_comite_ca</field>
+            <field name="model">credit_credit_comite_ca</field>
+            <field name="arch" type="xml">
+                <tree string="Type de client">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_credit_credit_comite_ca_form" model="ir.ui.view">
+            <field name="name">credit_credit_comite_ca</field>
+            <field name="model">credit_credit_comite_ca</field>
+            <field name="arch" type="xml">
+                <form string="Type de client">
+                    <header>
+                        <button class="oe_highlight" name="set_accorde_r" type="object" icon="fa-check-square-o" string="Accorder"
+                            confirm="Êtes-vous sûr d'exécuter cette action ?"
+                            style="background-color: #28a745; border-color: #28a745;"/>
+                        <button class="oe_highlight" name="set_ajourne_r" type="object" icon="fa-warning" string="Ajourner"
+                                confirm="Êtes-vous sûr d'exécuter cette action ?"
+                                style="background-color: #ffc107; border-color: #ffc107"/>
+                        <button class="oe_highlight" name="set_refuse_r" type="object" icon="fa-close" string="Refuser"
+                                confirm="Êtes-vous sûr d'exécuter cette action ?"
+                                style="background-color: #dc3545; border-color: #dc3545"/>
+                    </header>
+                    <sheet>
+                    <group>
+                        <group>
+                            <field name="bailleur_id" required="True"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+<!--                            <field name="produit_credit" required="True"-->
+<!--                               domain="[('bailleur_id.id', '=', bailleur_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>-->
+                            <field name="zone_id"></field>
+                            <field name="superviseur_id"/>
+                            <field name="note_inf"/>
+                            <field name="note_sup"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <button class="oe_highlight" name="afficher" type="object" icon="fa-check" string="Afficher"/>
+                        <page string="crédits">
+                            <field name="credit_ids"
+                                   context="{'form_view_ref':'faarf_credit.view_credit_credit_ca_form', 'default_cr':5}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_credit_credit_comite_ca" model="ir.actions.act_window">
+            <field name="name">Comité conseil d'administration</field>
+            <field name="res_model">credit_credit_comite_ca</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+</odoo>

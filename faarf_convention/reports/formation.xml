@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="id_format_paysage" model="report.paperformat">
+	<field name="name">Format Paysage</field>
+	<field name="default" eval="True"/>
+	<field name="format">A4</field>
+	<field name="page_height">0</field>
+	<field name="page_width">0</field>
+	<field name="orientation">Landscape</field>
+	<field name="margin_top">40</field>
+	<field name="margin_bottom">28</field>
+	<field name="margin_left">7</field>
+	<field name="margin_right">7</field>
+	<field name="header_line" eval="False"/>
+	<field name="header_spacing">35</field>
+	<field name="dpi">90</field>
+</record>
+
+
+<report id = "report_prog"
+    string = "Programme prévisionnel de formation"
+    model = "faarf.prog.prev"
+    report_type = "qweb-html"
+    file = "faarf_formation.report_prog"
+    name = "faarf_formation.report_prog_view"
+    print_report_name="'%s' % (object.name)"
+    paperformat="id_format_paysage"
+    menu = "True"/>
+
+
+    <template id="report_prog_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style type="text/css">
+
+                        table {
+                            width:100%;
+                        }
+
+                        h3 {
+                            text-align : center;
+                            border : 1px solid;
+                            background-color: #dddddd;
+                            font-family : times new roman !important;
+                        }
+
+                        .marge {
+                            font-family : Times New  Roman !important;
+                            border : 1px solid black;
+                            text-indent : 10px;
+
+                            }
+
+                    </style>
+                    <h3><span t-field="o.name"/></h3><br/>
+                    <table>
+                        <thead>
+                            <th class="marge">N° Ordre</th>
+                            <th class="marge">Date début</th>
+                            <th class="marge">Date fin</th>
+                            <th class="marge">Module</th>
+                            <th class="marge">Nbre bénéficiaire</th>
+                            <th class="marge">Région</th>
+                            <th class="marge">Province</th>
+                            <th class="marge">Lieu</th>
+                            <th class="marge">Animatrices</th>
+                            <th class="marge">Provinces animatrices</th>
+                        </thead>
+
+                         <tbody>
+                            <tr t-foreach="o.line_ids" t-as="ligne">
+                                <td class="marge">
+                                    <!--<span t-field="ligne.date_begin"/>-->
+                                </td>
+                                <td class="marge">
+                                    <span t-field="ligne.date_begin"/>
+                                </td>
+                                <td class="marge">
+                                    <span t-field="ligne.date_end"/>
+                                </td>
+                                <td class="marge">
+                                    <span t-field="ligne.module_id"/>
+                                </td>
+                                <td class="marge">
+                                    <span t-field="ligne.nbre"/>
+                                </td>
+                                <td class="marge">
+                                    <span t-field="ligne.region_id"/>
+                                </td>
+                                <td class="marge">
+                                    <span t-field="ligne.province_id"/>
+                                </td>
+                                <td class="marge">
+                                    <span t-field="ligne.lieu"/>
+                                </td>
+                                <td class="marge">
+                                    <span t-field="ligne.animatrice_id"/>
+                                </td>
+                                <td class="marge">
+                                    <span t-field="ligne.province_agent_id"/>
+                                </td>
+                             </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+
+
+
+<report id = "report_progl"
+    string = "Programme prévisionnel de formation"
+    model = "faarf.prog.prev.line"
+    report_type = "qweb-html"
+    file = "faarf_formation.report_progl"
+    name = "faarf_formation.report_progl_view"
+    print_report_name="'%s' % (object.name)"
+    paperformat="id_format_paysage"
+    menu = "True"/>
+
+
+    <template id="report_progl_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style type="text/css">
+
+                        table {
+                            width:100%;
+                        }
+
+                        h3 {
+                            text-align : center;
+                            border : 1px solid;
+                            background-color: #dddddd;
+                            font-family : times new roman !important;
+                        }
+
+                        .marge {
+                            font-family : Times New  Roman !important;
+                            border : 1px solid black;
+                            text-indent : 10px;
+
+                            }
+
+                        .marge1 {
+                            font-family : Times New  Roman !important;
+                            border : 1px solid black;
+                            text-align : right;
+
+                            }
+                    </style>
+
+
+                    <h3>Projet de budget du <span t-esc="o.name_get()"/></h3><br/>
+                        <table>
+                            <td>
+                                <b>Dates :</b> <br/> Du <span t-field="o.date_begin"/> au <span t-field="o.date_end"/>
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+                                <b>Nbre de bénéficiaire :</b> <br/><span t-field="o.nbre"/>
+                            </td>
+                            <td>
+                                <b>Province :</b> <br/><span t-field="o.province_id"/>
+                            </td>
+                            <td>
+                                <b>Total :</b> <br/>
+                                <span t-esc="'{:,}'.format(int(o.montant)).replace(',', ' ')"/>
+                            </td>
+                        </table><br/>
+
+                    <table>
+                        <thead>
+                            <th class="marge">Libellé</th>
+                            <th class="marge">Prix unitaire</th>
+                            <th class="marge">Nombre</th>
+                            <th class="marge">Total</th>
+                        </thead>
+
+                         <tbody>
+                            <tr t-foreach="o.cout_ids" t-as="ligne">
+                                <td class="marge">
+                                    <span t-field="ligne.element_id"/>
+                                </td>
+                                <td class="marge1">
+                                    <span t-esc="'{:,}'.format(int(ligne.prix_unit)).replace(',', ' ')"/>
+                                </td>
+                                <td class="marge1">
+                                    <span t-esc="'{:,}'.format(int(ligne.nbre)).replace(',', ' ')"/>
+                                </td>
+                                <td class="marge1">
+                                    <span t-esc="'{:,}'.format(int(ligne.prix_total)).replace(',', ' ')"/>
+                                </td>
+                             </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+
+
+
+
+<report id = "report_etat"
+    string = "Formation et état des dépenses"
+    model = "faarf.formation"
+    report_type = "qweb-html"
+    file = "faarf_formation.report_etat"
+    name = "faarf_formation.report_etat_view"
+    print_report_name="'%s' % (object.name)"
+    paperformat="id_format_paysage"
+    menu = "True"/>
+
+
+    <template id="report_etat_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style type="text/css">
+
+                        table {
+                            width:100%;
+                        }
+
+                        h3 {
+                            text-align : center;
+                            border : 1px solid;
+                            background-color: #dddddd;
+                            font-family : times new roman !important;
+                        }
+
+                            h4 {
+                            text-align : center;
+                            text-decoration: underline;
+                            font-family : times new roman !important;
+                        }
+
+                        .marge {
+                            font-family : Times New  Roman !important;
+                            border : 1px solid black;
+                            text-indent : 10px;
+
+                            }
+
+                        .marge1 {
+                            font-family : Times New  Roman !important;
+                            border : 1px solid black;
+                            text-align : right;
+
+                            }
+
+                    </style>
+
+
+                    <h3>Projet de budget de la <span t-field="o.name"/></h3><br/>
+                        <table>
+                                <td>
+                                    <b>Dates probables : </b><span t-field="o.date_begin"/>-<span t-field="o.date_end"/><br/>
+                                    <b>Dates réelles : </b><span t-field="o.date_begin"/>-<span t-field="o.date_end"/>
+                                </td>
+                                <td>
+                                    <b>Module : </b><span t-field="o.module_id"/><br/>
+                                    <b>Nbre prévu : </b><span t-field="o.nbre"/><br/>
+                                    <b>Nbre réel : </b><span t-field="o.nbre_reel"/>
+                                </td>
+
+                                <td>
+                                    <b>Région : </b><span t-field="o.region_id"/><br/>
+                                    <b>Province : </b><span t-field="o.province_id"/><br/>
+                                    <b>Lieu : </b><span t-field="o.lieu"/>
+                                </td>
+
+                                <td>
+                                    <b>Mt prévu : </b><span t-esc="'{:,}'.format(int(o.tot_prev)).replace(',', ' ')"/><br/>
+                                    <b>Mt réel : </b><span t-esc="'{:,}'.format(int(o.tot_reel)).replace(',', ' ')"/><br/>
+                                    <b>Réliquat : </b><span t-esc="'{:,}'.format(int(o.tot_reliquat)).replace(',', ' ')"/>
+                                </td>
+                        </table>
+                        <br/>
+
+                    <h4>Etats des dépenses</h4>
+                    <table>
+                        <thead>
+                            <th class="marge">Libellé</th>
+                            <th class="marge1">Montant Prévisonnel</th>
+                            <th class="marge1">Montant Reçu</th>
+                            <th class="marge1">Montant Dépensé</th>
+                            <th class="marge1">Réliquat</th>
+                        </thead>
+
+                         <tbody>
+                            <tr t-foreach="o.line_ids" t-as="ligne">
+                                <td class="marge">
+                                    <span t-field="ligne.element_id"/>
+                                </td>
+                                <td class="marge1">
+                                    <span t-esc="'{:,}'.format(int(ligne.cout_prev)).replace(',', ' ')"/>
+                                </td>
+                                <td class="marge1">
+                                    <span t-esc="'{:,}'.format(int(ligne.mnt_recu)).replace(',', ' ')"/>
+                                </td>
+                                <td class="marge1">
+                                    <span t-esc="'{:,}'.format(int(ligne.mnt_dep)).replace(',', ' ')"/>
+                                </td>
+                                <td class="marge1">
+                                    <span t-esc="'{:,}'.format(int(ligne.reliquat)).replace(',', ' ')"/>
+                                </td>
+                             </tr>
+                             <tr class="marge">
+                               <td colspan="1"><b>Totaux</b></td>
+                                <td class="marge1"><span t-esc="'{:,}'.format(int(sum([i.cout_prev for i in o.line_ids]))).replace(',', ' ')"/></td>
+                                <td class="marge1"><span t-esc="'{:,}'.format(int(sum([i.mnt_recu for i in o.line_ids]))).replace(',', ' ')"/></td>
+                                <td class="marge1"><span t-esc="'{:,}'.format(int(sum([i.mnt_dep for i in o.line_ids]))).replace(',', ' ')"/></td>
+                                <td class="marge1"><span t-esc="'{:,}'.format(int(sum([i.reliquat for i in o.line_ids]))).replace(',', ' ')"/></td>
+                             </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+
+
+
+<report id = "report_bil"
+    string = "Bilan des formations"
+    model = "faarf.bilan.formation"
+    report_type = "qweb-html"
+    file = "faarf_formation.report_bil"
+    name = "faarf_formation.report_bil_view"
+    print_report_name="'%s' % (object.name)"
+    paperformat="id_format_paysage"
+    menu = "True"/>
+
+
+    <template id="report_bil_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style type="text/css">
+
+                        table {
+                            width:100%;
+                        }
+
+                        h3 {
+                            text-align : center;
+                            border : 1px solid;
+                            background-color: #dddddd;
+                            font-family : times new roman !important;
+                        }
+
+                        .marge {
+                            font-family : Times New  Roman !important;
+                            border : 1px solid black;
+                            text-indent : 10px;
+
+                            }
+
+                        .marge1 {
+                            font-family : Times New  Roman !important;
+                            border : 1px solid black;
+                            text-align : right;
+
+                            }
+
+                    </style>
+                    <h3><span t-esc="o.name_get()"/></h3><br/>
+                    <table>
+                        <thead>
+                            <th class="marge">N° Ordre</th>
+                            <th class="marge">Date début</th>
+                            <th class="marge">Date fin</th>
+                            <th class="marge">Module</th>
+                            <th class="marge">Région</th>
+                            <th class="marge">Province</th>
+                            <th class="marge">Lieu</th>
+                            <th class="marge1">Nbre bénéficiaire</th>
+                            <th class="marge1">Coût prévisionnel</th>
+                            <th class="marge1">Coût réel</th>
+                            <th class="marge1">Réliquat</th>
+                        </thead>
+
+                         <tbody>
+                            <tr t-foreach="o.bilan_ids" t-as="ligne">
+                                <td class="marge">
+                                    <!--<span t-field="ligne.date_begin"/>-->
+                                </td>
+                                <td class="marge">
+                                    <span t-field="ligne.date_begin_reel"/>
+                                </td>
+                                <td class="marge">
+                                    <span t-field="ligne.date_end_reel"/>
+                                </td>
+                                <td class="marge">
+                                    <span t-field="ligne.module_id"/>
+                                </td>
+                                <td class="marge">
+                                    <span t-field="ligne.region_id"/>
+                                </td>
+                                <td class="marge">
+                                    <span t-field="ligne.province_id"/>
+                                </td>
+                                <td class="marge">
+                                    <span t-field="ligne.lieu"/>
+                                </td>
+                                <td class="marge1">
+                                    <span t-field="ligne.nbre_reel"/>
+                                </td>
+                                <td class="marge1">
+                                    <span t-esc="'{:,}'.format(int(ligne.tot_prev)).replace(',', ' ')"/>
+                                </td>
+                                <td class="marge1">
+                                    <span t-esc="'{:,}'.format(int(ligne.tot_reel)).replace(',', ' ')"/>
+                                </td>
+                                <td class="marge1">
+                                    <span t-esc="'{:,}'.format(int(ligne.tot_reliquat)).replace(',', ' ')"/>
+                                </td>
+                             </tr>
+                             <tr class="marge">
+                               <td colspan="7"><b>Totaux</b></td>
+                                <td class="marge1"><span t-esc="'{:,}'.format(int(sum([i.nbre_reel for i in o.bilan_ids]))).replace(',', ' ')"/></td>
+                                <td class="marge1"><span t-esc="'{:,}'.format(int(sum([i.tot_prev for i in o.bilan_ids]))).replace(',', ' ')"/></td>
+                                <td class="marge1"><span t-esc="'{:,}'.format(int(sum([i.tot_reel for i in o.bilan_ids]))).replace(',', ' ')"/></td>
+                                <td class="marge1"><span t-esc="'{:,}'.format(int(sum([i.tot_reliquat for i in o.bilan_ids]))).replace(',', ' ')"/></td>
+                             </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+
+
+
+    <report id = "report_bord"
+    string = "Tableau de bord des formations"
+    model = "faarf.tableau.bord"
+    report_type = "qweb-html"
+    file = "faarf_formation.report_bord"
+    name = "faarf_formation.report_bord_view"
+    paperformat="id_format_paysage"
+    menu = "True"/>
+
+
+    <template id="report_bord_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style type="text/css">
+
+                        table {
+                            width:100%;
+                        }
+
+                        h3 {
+                            text-align : center;
+                            border : 1px solid;
+                            background-color: #dddddd;
+                            font-family : times new roman !important;
+                        }
+
+                        .marge {
+                            font-family : Times New  Roman !important;
+                            border : 1px solid black;
+                            }
+
+                        .marge1 {
+                            font-family : Times New  Roman !important;
+                            border : 1px solid black;
+                            text-align : right;
+                            width : 10%
+                            }
+
+                        .marge2 {
+                            font-family : Times New  Roman !important;
+                            border : 1px solid black;
+                            text-align : right;
+                            width : 8%
+                            }
+
+                    </style>
+                    <h3><span t-esc="o.name_get()"/></h3><br/>
+                    <table style="width:100%">
+                        <thead>
+                            <th class="marge">Superviseur</th>
+                            <th class="marge">Gestionnaire</th>
+                            <th class="marge">Région</th>
+                            <th class="marge">Province</th>
+                            <th class="marge">Lieu</th>
+                            <th class="marge2">Nbre de sessions prévues</th>
+                            <th class="marge2">Nbre de sessions réalisées</th>
+                            <th class="marge2">Nbre de sessions à réaliser</th>
+                            <th class="marge2">Nbre de femmes à former</th>
+                            <th class="marge2">Nbre de femmes formées</th>
+                            <th class="marge2">Nbre de femmes restant à former</th>
+                            <th class="marge1">Coût prévisionnel</th>
+                            <th class="marge1">Coût réel</th>
+                        </thead>
+
+                         <tbody>
+                            <tr t-foreach="o.tab_ids" t-as="ligne">
+                                <td class="marge">
+                                    <span t-field="ligne.superviseur_id"/>
+                                </td>
+                                <td class="marge">
+                                    <span t-field="ligne.gestionnaire_id"/>
+                                </td>
+                                <td class="marge">
+                                    <span t-field="ligne.region_id"/>
+                                </td>
+                                <td class="marge">
+                                    <span t-field="ligne.province_id"/>
+                                </td>
+                                <td class="marge">
+                                    <span t-field="ligne.lieu"/>
+                                </td>
+                                <td class="marge2">
+                                    <span t-field="ligne.nbre_session"/>
+                                </td>
+                                <td class="marge2">
+                                    <span t-field="ligne.nbre_session_reel"/>
+                                </td>
+                                <td class="marge2">
+                                    <span t-field="ligne.nbre_session_nonreel"/>
+                                </td>
+                                <td class="marge2">
+                                    <span t-field="ligne.nbre"/>
+                                </td>
+                                <td class="marge2">
+                                    <span t-field="ligne.nbre_reel"/>
+                                </td>
+                                <td class="marge2">
+                                    <span t-field="ligne.reste_nbre"/>
+                                </td>
+                                <td class="marge1">
+                                    <span t-esc="'{:,}'.format(int(ligne.tot_prev)).replace(',', ' ')"/>
+                                </td>
+                                <td class="marge1">
+                                    <span t-esc="'{:,}'.format(int(ligne.tot_reel)).replace(',', ' ')"/>
+                                </td>
+                             </tr>
+                             <tr class="marge">
+                               <td colspan="5"><b>Totaux</b></td>
+                                <td class="marge2"><span t-esc="'{:,}'.format(int(sum([i.nbre_session for i in o.tab_ids]))).replace(',', ' ')"/></td>
+                                <td class="marge2"><span t-esc="'{:,}'.format(int(sum([i.nbre_session_reel for i in o.tab_ids]))).replace(',', ' ')"/></td>
+                                <td class="marge2"><span t-esc="'{:,}'.format(int(sum([i.nbre_session_nonreel for i in o.tab_ids]))).replace(',', ' ')"/></td>
+                                <td class="marge2"><span t-esc="'{:,}'.format(int(sum([i.nbre for i in o.tab_ids]))).replace(',', ' ')"/></td>
+                                <td class="marge2"><span t-esc="'{:,}'.format(int(sum([i.nbre_reel for i in o.tab_ids]))).replace(',', ' ')"/></td>
+                                <td class="marge2"><span t-esc="'{:,}'.format(int(sum([i.reste_nbre for i in o.tab_ids]))).replace(',', ' ')"/></td>
+                                <td class="marge1"><span t-esc="'{:,}'.format(int(sum([i.tot_prev for i in o.tab_ids]))).replace(',', ' ')"/></td>
+                                <td class="marge1"><span t-esc="'{:,}'.format(int(sum([i.tot_reel for i in o.tab_ids]))).replace(',', ' ')"/></td>
+
+                             </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+
+
+
+
+</odoo>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!--Vue tree des module-->
+        <record id="view_faarf_historisation_tree" model="ir.ui.view">
+            <field name="name">faarf.type.historisation.tree</field>
+            <field name="model">faarf.type.historisation</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des types de historisations">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Vue form des module-->
+        <record id="view_faarf_type_historisations_form" model="ir.ui.view">
+            <field name="name">faarf.type.partenaire.form</field>
+            <field name="model">faarf.type.partenaire</field>
+            <field name="arch" type="xml">
+                <form string="Liste des modules">
+                <sheet>
+                     <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name" style="width:50%"/>
+                        <field name="description" style="width:50%"/>
+                    </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--action des modules-->
+        <record id="action_type_historisation" model="ir.actions.act_window">
+            <field name="name">Liste des types d'échanges</field>
+            <field name="res_model">faarf.type.historisation</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+     <!--Vue tree des module-->
+        <record id="view_faarf_module_tree" model="ir.ui.view">
+            <field name="name">faarf.type.partenaire.tree</field>
+            <field name="model">faarf.type.partenaire</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des types de partenaires">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Vue form des module-->
+        <record id="view_faarf_type_form" model="ir.ui.view">
+            <field name="name">faarf.type.partenaire.form</field>
+            <field name="model">faarf.type.partenaire</field>
+            <field name="arch" type="xml">
+                <form string="Liste des modules">
+                <sheet>
+                     <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name" style="width:50%"/>
+                        <field name="description" style="width:50%"/>
+                    </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--action des modules-->
+        <record id="action_type_partenaire" model="ir.actions.act_window">
+            <field name="name">Liste des types de partenaires</field>
+            <field name="res_model">faarf.type.partenaire</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+     <!--Vue tree des module-->
+        <record id="view_faarf_partenaire_tree" model="ir.ui.view">
+            <field name="name">faarf.partenaire.tree</field>
+            <field name="model">faarf.partenaire</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des destinations">
+                    <field name="type_partenaire"/>
+                    <field name="name"/>
+                    <field name="domaine_id"/>
+                    <field name="mail"/>
+                    <field name="telephone"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Vue form des module-->
+        <record id="view_faarf_partenaire_form" model="ir.ui.view">
+            <field name="name">faarf.partenaire.form</field>
+            <field name="model">faarf.partenaire</field>
+            <field name="arch" type="xml">
+                <form string="Liste des modules">
+                <sheet>
+                     <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group col="2">
+                        <group>
+                            <field name="name"/>
+                            <field name="type_partenaire"/>
+                            <field name="domaine_id"/>
+                        </group>
+                        <group>
+                            <field name="adresse"/>
+                            <field name="mail"/>
+                            <field name="telephone"/>
+                        </group>
+                    </group>
+                    <field name="description" placeholder="Autres informations"/>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--action des partenaires-->
+        <record id="action_partenaire" model="ir.actions.act_window">
+            <field name="name">Liste des partenaires</field>
+            <field name="res_model">faarf.partenaire</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- MenuItem Donnees de base -->
+            <menuitem id="menu_gestion_conv_part" name="Plaidoyer" sequence="5"/>
+
+    <menuitem id="donnee" name="Gestion des partenaires" parent="menu_gestion_conv_part" sequence="2"/>
+    <menuitem id="menu_type_part" name="Saisie/Màj des types des partenaires" parent="donnee" action="action_type_partenaire" sequence="1"/>
+    <menuitem id="menu_partenaire" name="Saisie/Màj d'un partenaire" parent="donnee" action="action_partenaire" sequence="2"/>
+    <menuitem id="menu_type_hist" name="Saisie/Màj d'un type d'échange" parent="donnee" action="action_type_historisation" sequence="3"/>
+
+</odoo>

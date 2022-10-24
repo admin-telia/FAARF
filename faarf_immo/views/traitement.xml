@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_faarf_stock_immo_tree" model="ir.ui.view">
+            <field name="name">faarf.stock.immo.tree</field>
+            <field name="model">faarf.stock.immo</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des biens" create="false">
+                    <field name="code"/>
+                    <field name="matiere_id"/>
+                    <field name="codification"/>
+                </tree>
+            </field>
+        </record>
+
+
+<!--Vue tree des liste des ordres d'entrées-->
+    <record id="view_faarf_ordre_entree_tree" model="ir.ui.view">
+        <field name="name">faarf.ordre.entree.tree</field>
+        <field name="model">faarf.ordre.entree</field>
+        <field name="arch" type="xml">
+            <tree string="Liste des ordres d'entrées" decoration-success="state == 'V'" decoration-info="state == 'P'" decoration-danger="state == 'A'">
+                <field name="dte"/>
+                <field name="name"/>
+                <field name="ref"/>
+                <field name="mode_id"/>
+                <field name="magasin_id"/>
+                <field name="source_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--Vue form Liste des ordres d'entrées-->
+    <record id="view_faarf_ordre_entree_form" model="ir.ui.view">
+        <field name="name">faarf.ordre.entree.form</field>
+        <field name="model">faarf.ordre.entree</field>
+        <field name="arch" type="xml">
+            <form string="Liste des ordres d'entrée">
+                <header>
+                    <button class="oe_highlight" name="valider" type="object" icon="fa-check" groups="faarf_immo.faarf_comptable"
+                            string="Valider et envoyer" attrs="{'invisible':[('state','in',['P', 'V'])]}"/>
+                    <button class="oe_highlight" name="valider_dfc" type="object" icon="fa-check" string="Valider"
+                            attrs="{'invisible':[('state','in',['draft', 'V'])]}" groups="faarf_immo.faarf_ordonnateur"
+                            style="background-color: #28a745; border-color: #28a745;"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+            <sheet>
+                <group col="2">
+                    <group>
+                        <field name="name" style="background-color:red;"/>
+                        <field name="dte"/>
+                        <field name="ref"/>
+                        <field name="magasin_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                    </group>
+                    <group>
+                        <field name="mode_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                        <field name="source_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                        <field name="fournisseur_id"/>
+                        <field name="piece_id"/>
+                    </group>
+                </group>
+                <group invisible="1">
+                    <field name="ordre_matiere"/>
+                    <field name="compte_matiere"/>
+                    <field name="company_id"/>
+                    <field name="x_exercice_id" force_save="1"/>
+                </group>
+                    <field name="line_ids">
+                        <tree editable="bottom">
+                            <field name="num_ordre" invisible="0"/>
+                            <field name="code" force_save="1"/>
+                            <field name="matiere_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="unite_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                            <field name="qte"/>
+                            <field name="valeur_unitaire"/>
+                            <field name="valeur_totale" force_save="1" sum="Total"/>
+                            <field name="fournisseur_id" invisible="1"/>
+                            <field name="source_id" invisible="1"/>
+                            <field name="mode_id" invisible="1"/>
+                            <field name="piece_id" invisible="1"/>
+                            <field name="type_immo" invisible="1"/>
+                            <field name="dte" invisible="1"/>
+                            <field name="observation"/>
+                        </tree>
+                    </field>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--action de création ordre entrée-->
+    <record id="action_faarf_ordre_entree" model="ir.actions.act_window">
+        <field name="name">Liste des ordres d'entrée</field>
+        <field name="res_model">faarf.ordre.entree</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!--Vue tree des liste des fiche immo-->
+    <record id="view_faarf_fiche_immo_tree" model="ir.ui.view">
+        <field name="name">faarf.fiche.immo.tree</field>
+        <field name="model">faarf.fiche.immo</field>
+        <field name="arch" type="xml">
+            <tree string="Liste des fiche d'immo">
+                <field name="dte_service"/>
+                <field name="numero"/>
+                <field name="matiere_id"/>
+                <field name="prix_acquisition"/>
+                <field name="direction_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--Vue form Liste des fiches immo-->
+    <record id="view_faarf_fiche_immo_form" model="ir.ui.view">
+        <field name="name">faarf.fiche.immo.form</field>
+        <field name="model">faarf.fiche.immo</field>
+        <field name="arch" type="xml">
+            <form string="Liste des fiches immo">
+                <header>
+                    <button class="oe_highlight" name="valider" type="object" icon="fa-check" string="Lancer le plan d'amortissement"
+                            attrs="{'invisible':[('state','in',['V'])]}" style="background-color: #28a745; border-color: #28a745;"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+            <sheet>
+                <group col="3">
+                    <group>
+                        <field name="dte_acquisition" force_save="1"/>
+                        <field name="dte_service" force_save="1"/>
+                        <field name="numero" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                        <field name="matiere_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}" force_save="1"/>
+                    </group>
+                    <group>
+                        <field name="type_immo" force_save="1"/>
+                        <field name="source_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}" force_save="1"/>
+                        <field name="marque_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}" force_save="1"/>
+                        <field name="fournisseur_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}" force_save="1"/>
+                    </group>
+                    <group>
+                        <field name="prix_acquisition" force_save="1"/>
+                        <field name="type_amort" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}"/>
+                        <field name="dte_sortie" force_save="1"/>
+                        <field name="direction_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open':True,}" force_save="1"/>
+                    </group>
+                </group>
+                    <field name="tableau_ids">
+                        <tree editable="bottom">
+                            <field name="dte_amort"/>
+                            <field name="amort_annuel"/>
+                            <field name="amort_cumul"/>
+                        </tree>
+                    </field>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--action de création fiche d'immo-->
+    <record id="action_faarf_fiche_immo" model="ir.actions.act_window">
+        <field name="name">Liste des fiches d'immobilsiation</field>
+        <field name="res_model">faarf.fiche.immo</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!--Vue tree des liste des registre immo-->
+    <record id="view_faarf_registre_tree" model="ir.ui.view">
+        <field name="name">faarf.registre.tree</field>
+        <field name="model">faarf.registre</field>
+        <field name="arch" type="xml">
+            <tree string="Liste des fiche d'immo">
+                <field name="dte_acquisition"/>
+                <field name="dte_service"/>
+                <field name="numero"/>
+                <field name="direction_id"/>
+                <field name="service_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--Vue form Liste des registre immo-->
+    <record id="view_faarf_registre_form" model="ir.ui.view">
+        <field name="name">faarf.registre.form</field>
+        <field name="model">faarf.registre</field>
+        <field name="arch" type="xml">
+            <form string="Liste des fiches immo">
+            <sheet>
+                <group col="3">
+                    <group>
+                        <field name="dte_acquisition"/>
+                        <field name="dte_service"/>
+                        <field name="numero"/>
+                        <field name="matiere_id"/>
+                    </group>
+                    <group>
+                        <field name="type_immo"/>
+                        <field name="source_id"/>
+                        <field name="marque_id"/>
+                        <field name="fournisseur_id"/>
+                    </group>
+                    <group>
+                        <field name="prix_acquisition"/>
+                        <field name="dte_sortie"/>
+                        <field name="direction_id"/>
+                        <field name="service_id"/>
+                    </group>
+                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--action de création registre-->
+    <record id="action_faarf_registre" model="ir.actions.act_window">
+        <field name="name">Liste des registre de biens</field>
+        <field name="res_model">faarf.registre</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+    <record id="view_faarf_codification_form" model="ir.ui.view">
+        <field name="name">faarf.codification.form</field>
+        <field name="model">faarf.codification</field>
+        <field name="arch" type="xml">
+            <form string="Liste des codifications">
+            <sheet>
+                <group>
+                    <field name="name"/>
+                    <field name="direction_id"/>
+                    <field name="id_matiere"/>
+                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!--Vue tree des liste des biens codifiés-->
+    <record id="view_faarf_codification_tree" model="ir.ui.view">
+        <field name="name">faarf.codification.tree</field>
+        <field name="model">faarf.codification</field>
+        <field name="arch" type="xml">
+            <tree string="Liste des biens codifiés" create="false">
+                <field name="name"/>
+                <field name="direction_id"/>
+                <field name="id_matiere"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!--action de codification-->
+    <record id="action_faarf_codification" model="ir.actions.act_window">
+        <field name="name">Liste des matières codifiées</field>
+        <field name="res_model">faarf.codification</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+
+    <menuitem id="menu_gest_immo" name="Gestion des immobilisations" parent="menu_immo" sequence="3"/>
+
+    <menuitem id="menu_oem" name="Ordre d'entrée des matières" parent="menu_gest_immo" action="action_faarf_ordre_entree" sequence="1"/>
+        <menuitem id="menu_code_immo" name="Liste des immobilisations codifiées" parent="menu_gest_immo" action="action_faarf_codification" sequence="2"/>
+        <!--<menuitem id="menu_reg_bien" name="Registre des biens" parent="menu_gest_immo" action="action_faarf_registre" sequence="3"/>-->
+        <menuitem id="menu_fiche_immo" name="Plan d'amortissement" parent="menu_gest_immo" action="action_faarf_fiche_immo" sequence="4"/>
+
+</odoo>

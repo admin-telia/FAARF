@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <report 
+            id="report_decrets"
+            string="Décision"
+            model="hr_decision_conge" 
+            report_type="qweb-pdf"
+            file="Gestion_Conges.report_decrets" 
+            name="Gestion_Conges.report_decret_view"
+            groups = "base.group_user"
+            menu = "True"/>
+
+<template id="report_decret_view">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.external_layout">
+            		<h4><p style="text-align:center;">Décision n° <span t-field="o.x_exercice_id.no_ex"/>- <span t-field="o.name"/> <span t-field="o.x_decision"/></p></h4>
+		            <h5><p style="text-align:center;"><span t-field="o.x_titre"/></p></h5>
+		            <p style="widht:100%"><span t-field="o.observation"/></p><br></br>
+		            
+		            <table class = 'table table-sm'>
+			        		<thead style="background-color:#D2D2FF">
+			                      <tr style = "border: 2px SOLID #434146" >
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146;widht:60%"><strong><i>Employé</i></strong></th>
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146;widht:40%"><strong><i>Matricule</i></strong></th>
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146;widht:40%"><strong><i>Emploi</i></strong></th>
+			                      	  <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146;widht:60%"><strong><i>Service</i></strong></th>
+			                      	  <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146;widht:40%"><strong><i>Date Début</i></strong></th>
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146;widht:40%"><strong><i>Date Fin</i></strong></th>
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146;widht:40%"><strong><i>Date Effet</i></strong></th>
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146;widht:80%"><strong><i>Lieux de jouissance</i></strong></th>
+			                          
+			                    </tr>
+			                </thead>  
+			                <tbody>
+			                     <tr t-foreach="o.x_line_ids" t-as="line" style = "border: 2px SOLID #434146">
+			                        <td style = "border: 2px SOLID #434146;widht:60%"><span t-field="line.x_employee_id"/></td> 
+			                        <td style = "border: 2px SOLID #434146;widht:40%"><span t-esc="line.mat_ctrct"/></td> 
+			                        <td style = "border: 2px SOLID #434146;widht:40%"><span t-esc="line.x_emploi_id.name"/></td> 
+			                        <td style = "border: 2px SOLID #434146;widht:60%"><span t-field="line.x_service_id"/></td> 
+			                        <td style = "border: 2px SOLID #434146;widht:40%"><span t-esc="line.x_date_debut"/></td>                      
+			                        <td style = "border: 2px SOLID #434146;widht:40%"><span t-esc="line.x_date_fin"/></td> 
+			                        <td style = "border: 2px SOLID #434146;widht:40%"><span t-esc="line.x_date_effet_conge"/></td>                      
+			                        <td style = "border: 2px SOLID #434146;;widht:80%"><span t-esc="line.lieu_jouissance"/></td>                      
+			                      </tr>
+			                </tbody>
+			    </table>
+			    
+			    <p style="text-align:right; widht:100%">Fait à <span t-field="o.company_id.ref_localite_id.name"/> , le <span t-field="o.date_enreg"/></p><br/><br/>
+			    
+			    <tfoot>
+	            		<div class="row mt32 mb32">
+	            			<div class="col-2">
+	                            <span t-field="o.x_titre_id.name"/>
+	                            <br/>
+	                            <br/>
+	                            <br/>
+	                            <br/>
+	                            <p t-field="o.x_employee_id.name"/>
+                            </div>
+                        	
+                        </div>
+	            </tfoot>  
+			</t> 
+             </t>
+    </t>
+</template>
+</odoo>

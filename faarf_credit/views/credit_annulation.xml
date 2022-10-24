@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_credit_annulation_acc_tree" model="ir.ui.view">
+        <field name="name">credit_annulation_acc.tree</field>
+        <field name="model">credit_annulation_acc</field>
+        <field name="arch" type="xml">
+            <tree string="Type de client"
+                  decoration-bf="state == 'A' "
+                  decoration-success="state == 'A'" >
+                <field name="motif"/>
+                <field name="date_annul"/>
+                <field name="state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="credit_annulation_acc_form" model="ir.ui.view">
+        <field name="name">view.credit_annulation_acc.form</field>
+        <field name="model">credit_annulation_acc</field>
+        <field name="arch" type="xml">
+            <form string="Information client">
+                <header>
+                    <button class="oe_highlight" name="set_annuler"
+                            confirm="Êtes-vous sûr d'exécuter cette action ?"
+                            style="background-color: #dc3545; border-color: #dc3545"
+                            type="object" icon="fa-close" string="Annuler"
+                            states="B"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="motif"  attrs="{'readonly':[('state','=','A')]}"/>
+                        <field name="date_annul" readonly="1" force_save="1"/>
+                    </group>
+                    <group>
+                        <field name="credit_ids"
+                               nolabel="1"
+                                attrs="{'readonly':[('state','=','A')]}"
+                               domain="[
+                                   ('state','=', 'DA')]" required="True">
+                            <field name="date_annul" readonly="1" force_save="1"/>
+                            <tree create="false">
+                                <field name="name"/>
+                                <field name="cliente_id"/>
+                                <field name="type_client"/>
+                                <field name="telephone"/>
+                                <field name="montant_accorde"/>
+                                <field name="gestionnaire_id"/>
+                            </tree>
+                            <form>
+                                <field name="name"/>
+                            </form>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_credit_annulation_acc" model="ir.actions.act_window">
+        <field name="name">Annuler crédits accordés</field>
+        <field name="res_model">credit_annulation_acc</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

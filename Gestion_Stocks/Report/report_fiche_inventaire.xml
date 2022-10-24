@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <report 
+            id="report_fiche"
+            string="Edition Fiche Inventaire/Sans qté"
+            model="stock_ficheinventaire" 
+            report_type="qweb-html"
+            file="Gestion_Stocks.report_fiche" 
+            name="Gestion_Stocks.report_fiche"
+            groups = "base.group_user"
+            menu = "True"/>
+
+<template id="report_fiche">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.external_layout">
+            <h2>Fiche Inventaire</h2>
+                        <div class="row mt32 mb32">
+                        	<div class="col-3">
+	                            <strong>Magasin:</strong>
+	                            <p t-field="o.x_magasin_id"/>
+                            </div>
+                           <div class="col-3">
+	                            <strong>Date</strong>
+	                            <p t-esc="o.date_fiche_invs"/>
+                           </div>
+                        
+                        </div>
+                <table class = 'table table-sm'>
+			        		<thead style="background-color:#D2D2FF">
+			                      <tr style = "border: 2px SOLID #434146" >
+			                          <th style="padding: 4px 8px;  line-height: 1.42857143; border: 2px SOLID #434146"><strong><i>Articles</i></strong></th>
+   			                          <th style="padding: 4px 8px;  line-height: 1.42857143;"><strong><i>Quantitté physique</i></strong></th>
+			                          
+			                      </tr>
+			                </thead>  
+			                <tbody>
+			                     <tr t-foreach="o.x_line_ids" t-as="line" style = "border: 2px SOLID #434146">
+			                      
+			                        <td style = "border: 2px SOLID #434146"><span t-field="line.x_article_id"/></td> 
+			                        <td></td>                    
+			                    </tr>
+			  
+			               
+			                </tbody>
+			        	
+			    </table> 
+			    
+
+            </t>
+         </t>
+    </t>
+</template>
+
+
+
+<report 
+	id="report_fiche_entre"
+	string="Edition Fiche Entrée en Stock"
+	model="stock_livraisonfourniture" 
+	report_type="qweb-html"
+	file="Gestion_Stocks.report_fiche_entre" 
+	name="Gestion_Stocks.report_fiche_entre"
+	groups = "base.group_user"
+	menu = "True"/>
+
+<template id="report_fiche_entre">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.external_layout">
+            <h2 style='text-align:center'>Entrée en stock</h2>
+                        <div style='float:right'>						
+							<div>
+	                            <span>Livraison N° : <span t-esc="o.name"/></span>	                            
+                            </div>							
+							<div>
+	                            <span>N° Bon de commande : <span t-esc="o.numcmde"/></span>	                            
+                            </div>							
+                        	<div>
+	                            <span>Magasin: <span t-field="o.magasin_id"/></span>	                            
+                            </div>
+						</div>
+						
+						<div style='float:left'>						
+                            <div>
+	                            <span>Date : <span t-esc="o.date_livraison"/></span>	                            
+                            </div>					   
+						    <div>
+	                            <span>N° Ordre : <span t-esc="o.numordre"/></span>	                            
+                            </div>					   
+						    <div>
+	                            <span>Fournisseur : <span t-esc="o.fournisseur_id.nm"/></span>	                            
+                            </div>
+                        </div><br/><br/><br/><br/>
+						<table style='width:100%'>
+			        		<thead style="background-color:#D2D2FF">
+			                    <tr style = "border: 2px SOLID #434146" >
+									<th style="border: 2px"><strong><i>Articles</i></strong></th>
+									<th style="border: 2px"><strong><i>Quantité</i></strong></th>
+									<th style="border: 2px"><strong><i>Quantité actuelle</i></strong></th>
+									<th style="border: 2px"><strong><i>Prix Unitaire</i></strong></th>
+									<th style="border: 2px"><strong><i>Montant</i></strong></th>			                          
+			                    </tr>
+			                </thead>  
+			                <tbody>
+			                     <tr t-foreach="o.x_line_ids" t-as="line" style = "border: 2px SOLID #434146">			                      
+			                        <td style = "border: 1px; line-height: 1.42857143;"><span t-field="line.x_article_id.name"/></td>
+									<td style = "border: 1px; line-height: 1.42857143;"><span t-field="line.qte_livre"/></td>
+									<td style = "border: 1px; line-height: 1.42857143;"><span t-field="line.qte_actuelle"/></td>
+									<td style = "border: 1px; line-height: 1.42857143; text-align:right;"><span t-esc="'{:,}'.format(int(line.prix_unitaire_article)).replace(',', ' ')"/> </td>
+									<td style = "border: 1px; line-height: 1.42857143; text-align:right;"><span t-esc="'{:,}'.format(int(line.montant_total_article)).replace(',', ' ')"/> </td>									
+			                        <td></td>                    
+			                    </tr>       
+			                </tbody>			        	
+						</table> 
+					</t>
+				</t>
+			</t>
+	</template>
+
+
+
+
+
+</odoo>

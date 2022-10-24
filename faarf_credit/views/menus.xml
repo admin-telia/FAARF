@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="main_menu" name ="Crédit"
+              sequence="-1"
+              web_icon="faarf_credit,static/description/icon.png"/>
+
+        <menuitem id="main_menu_don" name ="Données de base" sequence="10" parent="main_menu" groups="faarf_credit.group_administrateur"/>
+            <menuitem id="menu_don_credit_type_client" name ="Saisie/Màj Types de client" sequence="9" parent="main_menu_don" action="action_credit_type_client"/>
+<!--            <menuitem id="menu_don_secteur_act" name ="Saisie/Maj Secteurs d'activités" sequence="10" parent="main_menu_don" action="action_credit_type_client"/>-->
+            <menuitem id="menu_don_act" name ="Saisie/Màj Domaines d'Activités" sequence="20" parent="main_menu_don" action="action_credit_activite"/>
+<!--            <menuitem id="menu_don_obj_empr" name ="Saisie/Maj Objet de l'emprunt" sequence="30" parent="main_menu_don" action="action_credit_objet_emprunt"/>-->
+            <menuitem id="menu_don_bailleur" name ="Saisie/Màj Sources de financements" sequence="40" parent="main_menu_don" action="action_credit_bailleur"/>
+            <menuitem id="menu_don_titre" name ="Saisie/Màj Titres membres" sequence="50" parent="main_menu_don" action="action_credit_client_titre_membre"/>
+
+        <menuitem id="main_menu_param" name ="Paramètres" sequence="15" parent="main_menu" groups="faarf_credit.group_administrateur"/>
+            <menuitem id="main_menu_param_produit" name ="Paramétrage des Produits de crédits" sequence="10" parent="main_menu_param" action="action_credit_param_produit"/>
+            <menuitem id="main_menu_param_produit_proj" name ="Paramétrage des Produits de crédits Proj/Prog" sequence="11" parent="main_menu_param" action="action_credit_param_proj_produit"/>
+            <menuitem id="main_menu_param_zone" name ="Paramétrage des Zones" sequence="20" parent="main_menu_param" action="Referentiel_Global.act_zone_credit"/>
+            <menuitem id="main_menu_param_assureur" name ="Paramétrage des Assureurs" sequence="25" parent="main_menu_param" action="action_credit_param_assureur_produit"/>
+            <menuitem id="main_menu_param_user_affec" name ="Gestion des profils" sequence="30" parent="main_menu_param" action="action_credit_user_affectation"/>
+            <menuitem id="main_menu_param_user" name ="Liste des utilisateurs" sequence="40" parent="main_menu_param" action="action_credit_user"/>
+
+
+        <menuitem id="main_menu_clients" name ="Clientèle" sequence="18" parent="main_menu" groups="faarf_credit.group_service_client"/>
+            <menuitem id="main_menu_clients_client" name ="Saisie/Màj Clients" sequence="10" parent="main_menu_clients" action="action_credit_clients"/>
+<!--            <menuitem id="main_menu_clients_groupe" name ="Saisie MAJ/Groupement" sequence="20" parent="main_menu_clients" action="action_credit_groupe"/>-->
+            <menuitem id="main_menu_clients_dmde_rv" name ="Saisie/Màj Demande de rendez-vous" sequence="30" parent="main_menu_clients" action="action_credit_credit_rv"/>
+<!--            <menuitem id="main_menu_clients_m_dmde_rv" name ="Mes demandes de rendez-vous" sequence="30" parent="main_menu_clients" action="action_credit_m_dmde_rendez_vous"/>-->
+<!--            <menuitem id="main_menu_credit_procedure_pdeloc" name ="Programmation déblocage" sequence="35" parent="main_menu_clients" action="action_credit_prog_deblocage"/>-->
+            <menuitem id="main_menu_clients_prog_deb" name ="Programme de déblocage" sequence="40" parent="main_menu_clients" action="action_credit_prog_d_deblocage"/>
+
+        <menuitem id="main_menu_credit" name ="Crédit" sequence="20" parent="main_menu" groups="faarf_credit.group_credit"/>
+            <menuitem id="main_menu_credit_procedure" name ="Procédure de crédit" sequence="10" parent="main_menu_credit" groups="faarf_credit.group_credit"/>
+                <menuitem id="main_menu_credit_procedure_demande" name ="Traitement Gestionnaire" sequence="20" parent="main_menu_credit_procedure" action="action_credit_credit_demande" groups="faarf_credit.group_agent_credit"/>
+                <menuitem id="main_menu_credit_procedure_rs" name ="Traitement Superviseur" sequence="30" parent="main_menu_credit_procedure" action="action_credit_credit_rs" groups="faarf_credit.group_superviseur"/>
+<!--                <menuitem id="main_menu_credit_procedure_rcr" name ="Réception/Traitement Comité régional" sequence="40" parent="main_menu_credit_procedure" action="action_credit_credit_cr"/>-->
+                <menuitem id="main_menu_credit_procedure_rcr" name ="Analyse Comité Régional" sequence="40" parent="main_menu_credit_procedure" action="action_credit_credit_comite_regional" groups="faarf_credit.group_com_reg"/>
+                <menuitem id="main_menu_credit_procedure_rcc" name ="Analyse Comité Central" sequence="50" parent="main_menu_credit_procedure" action="action_credit_credit_comite_central" groups="faarf_credit.group_administrateur"/>
+                <menuitem id="main_menu_credit_procedure_rdg" name ="Analyse DG" sequence="60" parent="main_menu_credit_procedure" action="action_credit_credit_comite_dg" groups="faarf_credit.group_administrateur"/>
+                <menuitem id="main_menu_credit_procedure_rcca" name ="Analyse Comité CA" sequence="70" parent="main_menu_credit_procedure" action="action_credit_credit_comite_ca" groups="faarf_credit.group_administrateur"/>
+                <menuitem id="main_menu_credit_procedure_pdeloc" name ="Programme d'émission de chèque" sequence="80" parent="main_menu_credit_procedure" action="action_credit_prog_deblocage"/>
+                <menuitem id="main_menu_credit_procedure_pdsup" name ="Validation prog d'émission de chèque" sequence="85" parent="main_menu_credit_procedure" action="action_credit_prog_sup_deblocage"/>
+            <menuitem id="main_menu_credit_mod_lib" name ="Modification libre" sequence="11" parent="main_menu_credit" action="action_credit_credit_mod_lib" groups="faarf_credit.group_administrateur"/>
+            <menuitem id="main_menu_credit_procedure_pv" name ="Comité de crédit" sequence="12" parent="main_menu_credit" action="action_credit_credit_pv" groups="faarf_credit.group_administrateur"/>
+            <menuitem id="main_menu_credit_trans_port" name ="Transfert de portefeuille" sequence="13" parent="main_menu_credit" action="action_credit_credit_mod_lib" groups="faarf_credit.group_administrateur"/>
+        <menuitem id="main_menu_credit_edition" name ="Visu/Edition" sequence="20" parent="main_menu_credit" groups="faarf_credit.group_administrateur"/>
+                <menuitem id="main_menu_credit_edition_convention" name ="Conventions de Prêt" sequence="20" parent="main_menu_credit_edition" action="action_credit_edition_convention"/>
+                <menuitem id="main_menu_credit_edi_fich_debloc" name ="Fiche de déblocage" sequence="30" parent="main_menu_credit_edition" action="action_credit_edition_fiche_deblocage"/>
+
+            <menuitem id="main_menu_credit_annulation" name ="Annulation de crédit" sequence="30" parent="main_menu_credit" groups="faarf_credit.group_administrateur"/>
+                <menuitem id="main_menu_credit_annulation_cr_acc" name ="Annuler crédit accordé" sequence="20" parent="main_menu_credit_annulation" action="action_credit_annulation_acc"/>
+                <menuitem id="main_menu_credit_annulation_cre_deb" name ="Reversement" sequence="30" parent="main_menu_credit_annulation" action="action_credit_credit_rs"/>
+            <menuitem id="main_menu_credit_remboursement" name ="Remboursement de crédit" sequence="40" parent="main_menu_credit" groups="faarf_credit.group_administrateur"/>
+                <menuitem id="main_menu_credit_remboursementa" name ="Remboursement de crédit" sequence="10" parent="main_menu_credit_remboursement" action="action_credit_credit_remboursement"/>
+                <menuitem id="main_menu_credit_remboursementt" name ="Transaction" sequence="20" parent="main_menu_credit_remboursement" action="action_credit_credit_remboursement_line"/>
+                <menuitem id="main_menu_credit_trans_fa" name ="Trans garantie" sequence="30" parent="main_menu_credit_remboursement" action="action_credit_client_garantie"/>
+
+        <menuitem id="main_menu_proj" name ="Projets/programmes" sequence="24" parent="main_menu" groups="faarf_credit.group_administrateur"/>
+            <menuitem id="main_menu_proj_procedure" name ="Procédure de Projets/programmes" sequence="10" parent="main_menu_proj"/>
+                <menuitem id="main_menu_proj_procedure_recp" name ="Réception dossiers" sequence="20" parent="main_menu_proj_procedure" action="action_credit_projet_recep"/>
+                <menuitem id="main_menu_proj_procedure_not" name ="Analyse et Notation" sequence="30" parent="main_menu_proj_procedure" action="action_credit_projet_not"/>
+                <menuitem id="main_menu_proj_procedure_choix" name ="Choix des bénéficiaires" sequence="40" parent="main_menu_proj_procedure" action="action_credit_projet_comite_ch_benef"/>
+                <menuitem id="main_menu_proj_procedure_rabo" name ="Ajustement" sequence="50" parent="main_menu_proj_procedure" action="action_credit_projet_comite_rabo"/>
+
+
+        <menuitem id="main_menu_garantie" name ="Gestion FA" sequence="25" parent="main_menu" groups="faarf_credit.group_administrateur"/>
+            <menuitem id="main_menu_garantie_or" name ="Ordre de restitution" sequence="1" parent="main_menu_garantie" action="action_credit_garantie"/>
+            <menuitem id="main_menu_garantie_prg" name ="Programme de restitution" sequence="1" parent="main_menu_garantie" action="action_credit_prog_rest_fa"/>
+
+        <menuitem id="main_menu_recouvr" name ="Recouvrement" sequence="26" parent="main_menu" groups="faarf_credit.group_administrateur"/>
+            <menuitem id="main_menu_recouvr_port_ris" name ="Portefeuille à risque" sequence="1" parent="main_menu_recouvr" action="action_credit_credit_port_risque"/>
+
+        <menuitem id="main_menu_synthese" name ="Synthèse" sequence="30" parent="main_menu" groups="faarf_credit.group_administrateur"/>
+            <menuitem id="main_menu_synthese_fiche" name ="Fiche de crédit" sequence="5" parent="main_menu_synthese" action="action_credit_synthese_fiche"/>
+            <menuitem id="main_menu_synthese_demande" name ="Demandes reçues" sequence="10" parent="main_menu_synthese" action="action_credit_synthese_demande"/>
+            <menuitem id="main_menu_synthese_demande_gest" name ="Demandes par gestionnaires de crédits" sequence="20" parent="main_menu_synthese" action="action_credit_synthese_demande_gest"/>
+            <menuitem id="main_menu_synthese_region" name ="Demandes par zone région" sequence="30" parent="main_menu_synthese" action="action_credit_synthese_demande_region"/>
+            <menuitem id="main_menu_porte_risque" name ="Portefeuille à risque" sequence="40" parent="main_menu_synthese" action="action_credit_synthese_porte_risque"/>
+
+
+<!--        <menuitem id="main_menu_credit" name ="Crédit" sequence="20" parent="main_menu"/>-->
+<!--            <menuitem id="main_menu_credit_procedure" name ="Procédure de crédit" sequence="10" parent="main_menu_credit"/>-->
+<!--                <menuitem id="main_menu_credit_procedure_demande" name ="Réception/Traitement gestionnaire" sequence="20" parent="main_menu_credit_procedure" action="action_credit_credit_demande"/>-->
+</odoo>

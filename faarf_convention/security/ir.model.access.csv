@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_faarf_partenaire,faarf.partenaire,model_faarf_partenaire,base.group_user,1,1,1,1
+access_faarf_type_partenaire,faarf.type.partenaire,model_faarf_type_partenaire,base.group_user,1,1,1,1
+access_faarf_type_historisation,faarf.type.historisation,model_faarf_type_historisation,base.group_user,1,1,1,1
+access_faarf_historisation,faarf.historisation,model_faarf_historisation,base.group_user,1,1,1,1
+access_faarf_demande_partenariat,faarf.demande.partenariat,model_faarf_demande_partenariat,base.group_user,1,1,1,1
+access_faarf_demande_partenariat_line,faarf.demande.partenariat.line,model_faarf_demande_partenariat_line,base.group_user,1,1,1,1
+access_faarf_convention,faarf.convention,model_faarf_convention,base.group_user,1,1,1,1
+access_faarf_convention_line,faarf.convention.line,model_faarf_convention_line,base.group_user,1,1,1,1
