@@ -1,2 +1,2 @@
 # FAARF
-Dépot légal des sources pour FAARF
+Dépot légal des sources pour FAARF.
